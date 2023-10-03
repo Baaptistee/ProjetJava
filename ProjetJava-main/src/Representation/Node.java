@@ -5,16 +5,19 @@ import javax.swing.* ;
 import java.awt.*;
 
 public class Node {
-
-	private String description ; // la description du Node 
+	
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
+	private static Node lastCheckPoint;
+	private static JFrame fenetre = new JFrame("Notre super jeu"); // fenetre de jeu qui sera utilisée tout le jeu par tous les nodes
+	private static JMenuBar barreMenu = new JMenuBar() ; // barre de menu en argument static 
+	
+	private String description ; // la description du Node 
 	private int idNode ; // l'attribut ID du Node 
 	private String nom ; // le nom ou titre du Node 
 	private Node nextNode ; // le Node qui viendra après 
 	private Node formerNode ; // le Node précédent (pour pouvoir ensuite l'afficher)
 	private boolean checkPoint = false ;
-	private static Node lastCheckPoint;
-	private static JFrame fenetre = new JFrame("Notre super jeu"); // fenetre de jeu qui sera utilisée tout le jeu par tous les nodes
+
 
 	
 	// le constructeur :
@@ -128,6 +131,10 @@ public class Node {
 	public static Node getLastCheckPoint() {
 		return lastCheckPoint ;
 	}
+	
+	public static JMenuBar getBarreMenu() {
+		return barreMenu ;
+	}
 	// une méthode qui retourne le prochain Node tout en changeant l'argument formerNode de celle-ci
 	public Node goNext() {
 		
@@ -135,6 +142,26 @@ public class Node {
 		return this.getNextNode() ; 
 	}
 
+	//paramétrage de la barre de menu 
+	public static void configMenu() { 
+		
+		JMenu inventaire = new JMenu("Inventaire") ;
+		JMenu histoire = new JMenu ("Histoire") ;
+		
+		JMenuItem precedent = new JMenuItem("Voir précédent") ;
+		JMenuItem resumeH = new JMenuItem("Résumé de l'histoire") ;
+		
+		histoire.add(precedent) ;
+		histoire.add(resumeH) ;
+		
+		getBarreMenu().add(histoire) ;
+		getBarreMenu().add(inventaire) ;
+		
+		getW().setJMenuBar(getBarreMenu());
+
+	
+		
+	}
 	
 	//paramétrage de la fenêtre de jeu (méthode appelée une seule fois au début du jeu) 
 	public static void gameWindow() {
@@ -142,14 +169,16 @@ public class Node {
         getW().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; //sortir correctement de la fenetre
         getW().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
 		getW().setVisible(true); // rendre la fenetre visible
+		configMenu() ;
 
 	}
-		
-
+	
+	
 	// La fonction utilisée pour afficher les noeuds 
 	// A revoir : créer un bouton suivant permettant d'aller au noeud suivant et un bouton précédent permettant de revoir la description et le titre du noeud précédent 
 	public void display() {
 		getW().getContentPane().removeAll(); // on clean le frame 
+
 		getW().revalidate(); // on actualise l'affichage
 		getW().repaint();
 		getW().setLayout(new GridBagLayout());
@@ -246,8 +275,8 @@ public class Node {
 		test.display();
 
 
-	}
+	}*/
 	
-	*/
+	
 	
 }

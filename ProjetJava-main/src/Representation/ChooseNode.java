@@ -47,6 +47,10 @@ public class ChooseNode extends Node {
 	@Override 
 	public void display() {
 		
+		if (this.getCheckPoint()) {
+			setLastCheckpoint(this) ; 
+		}
+		
 		getW().getContentPane().removeAll() ; // on clean le frame 
 		getW().revalidate(); // on actualise l'affichage
 		getW().repaint();
@@ -107,6 +111,7 @@ public class ChooseNode extends Node {
         timer.start();
 		
 	}
+	
 	
 	 public static void main(String[] args) {
  		Node test = new Node("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ", true) ; // balise html a revoir            		
