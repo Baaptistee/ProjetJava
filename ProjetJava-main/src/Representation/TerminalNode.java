@@ -82,13 +82,13 @@ public class TerminalNode extends Node {
         timer.start();
 	}
 	
-	
+	/*
                 public static void main(String[] args) {
             		Node test = new Node("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ", true) ; // balise html a revoir            		
                 	TerminalNode gameOver = new TerminalNode("rip" , "<html> Tu viens de mourir grosse merde, veux tu reprendre au check point ou rage quit ?") ;
             		test.setNextNode(gameOver) ;
             		gameWindow() ;
             		test.display() ;
-                }
+                }*/
 	
 }

@@ -82,29 +82,25 @@ public class ChooseNode extends Node {
                     constraints.gridy = -1;
                     constraints.gridx = 0;
 
-                    for (int i=0 ; i< getOptions().length ; i++) {
-                    	 constraints.gridx++ ;
-                         JButton btn1 = new JButton(getOptions()[i].getNom()); // création button
-                         getW().add(btn1,constraints); // ajout du bouton a la fenetre
-                         btn1.addActionListener(new ActionListener() {
-                             @Override
-                             public void actionPerformed(ActionEvent e) {
-                                 // Code à exécuter lorsque le bouton est cliqué
-                             	getOptions()[constraints.gridx].display() ; 
-                             }
-                         });
-                         
-                         
-                    	
-                    }
-                    
+                   
                  
+                    
+                    for (int i = 0; i < getOptions().length; i++) {
+                        final int currentIndex = i; // On récupère l'index actuel en final pour pouvoir l'utiliser ensuite dans l'action listener 
+                        constraints.gridx++;
+                        JButton btn1 = new JButton(getOptions()[i].getNom()); // création button
+                        getW().add(btn1, constraints); // ajout du bouton a la fenetre
+                        btn1.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                // Code à exécuter lorsque le bouton est cliqué
+                                getOptions()[currentIndex].display();
+                            }
+                        });
+                    }
+
                     getW().revalidate() ;
                     
-                    
-                 
-                    
-  
                 }
             }
         });
