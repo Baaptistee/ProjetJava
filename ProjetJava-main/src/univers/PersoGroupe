@@ -1,0 +1,89 @@
+public class PersoGroupe {
+    private int pointDeVie;
+    private int piece;
+    private int force;
+    private int intelligence;
+    private int charisme;
+    private int dexterite;
+    private int niveau;
+    private int expérience;
+
+
+    public PersoGroupe(int pointDeVie, int piece, int force, int intelligence, int charisme, int dexterite, int niveau, int expérience) {
+        this.pointDeVie = pointDeVie;
+        this.piece = piece;
+        this.force = force;
+        this.intelligence = intelligence;
+        this.charisme = charisme;
+        this.dexterite = dexterite;
+        this.niveau = niveau;
+        this.expérience = expérience;
+    }
+
+
+    public int getPointDeVie() {
+        return this.pointDeVie;
+    }
+
+    public void setPointDeVie(int pointDeVie) {
+        this.pointDeVie = pointDeVie;
+    }
+
+    public int getPiece() {
+        return this.piece;
+    }
+
+    public void setPiece(int piece) {
+        this.piece = piece;
+    }
+
+    public int getForce() {
+        return this.force;
+    }
+
+    public void setForce(int force) {
+        this.force = force;
+    }
+
+    public int getIntelligence() {
+        return this.intelligence;
+    }
+
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public int getCharisme() {
+        return this.charisme;
+    }
+
+    public void setCharisme(int charisme) {
+        this.charisme = charisme;
+    }
+
+    public int getDexterite() {
+        return this.dexterite;
+    }
+
+    public void setDexterite(int dexterite) {
+        this.dexterite = dexterite;
+    }
+
+    public int getNiveau() {
+        return this.niveau;
+    }
+
+    public void setNiveau(int niveau) {
+        this.niveau = niveau;
+    }
+
+    public int getExpérience() {
+        return this.expérience;
+    }
+
+    public void setExpérience(int expérience) {
+        this.expérience = expérience;
+    }
+    
+
+}
