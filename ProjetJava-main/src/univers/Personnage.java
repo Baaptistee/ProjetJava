@@ -1,24 +1,41 @@
 package univers;
+import java.awt.Image;
 
-public class Personnage {
-	
-	private String nom ;
-	private String description ;
-	
-	public Personnage(String nom, String description) {
-		this.nom = nom ;
-		this.description = description ;
-	}
-	
-	public String getNom() {
-		return nom ;
-	}
-	
-	public String getDescription() {
-		return description ; 
-	}
-	
-	public void setDescription(String newDescription) {
-		this.description = newDescription ;
-	}
+public class Personnage{
+    private String name;
+    private String description;
+    private Image img;
+
+    public Personnage(Image img,String name, String description){
+        this.name=name;
+        this.description=description;
+        this.img=img;
+
+    }
+
+    //Getters Setters
+
+    public String getName(){
+        return name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+    public Image getImage(){
+        return img;
+    }
+
+    public void setName(String name){
+        this.name=name;
+    }
+
+    public void setDescription(String description){
+        this.description=description;
+    }
+
+    public void setImage(Image img){
+        this.img=img;
+    }
+
 }
