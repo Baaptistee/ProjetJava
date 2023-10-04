@@ -1,4 +1,4 @@
-public class PersoGroupe {
+public class PersoGroupe extends Personnage {
     private int pointDeVie;
     private int piece;
     private int force;
