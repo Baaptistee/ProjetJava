@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.* ;
 import java.awt.*;
 
-public class Node {
+public class Node extends JFrame {
 	
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
 	private static Node lastCheckPoint;
@@ -143,7 +143,7 @@ public class Node {
 	}
 
 	//paramétrage de la barre de menu 
-	public static void configMenu() { 
+	public static void configMenu() {
 		
 		JMenu inventaire = new JMenu("Inventaire") ;
 		JMenu histoire = new JMenu ("Histoire") ;
@@ -157,39 +157,39 @@ public class Node {
 		getBarreMenu().add(histoire) ;
 		getBarreMenu().add(inventaire) ;
 		
+		
 		getW().setJMenuBar(getBarreMenu());
 
-	
+		
 		
 	}
-	
-	//paramétrage de la fenêtre de jeu (méthode appelée une seule fois au début du jeu) 
-	public static void gameWindow() {
-        getW().setSize(1000, 1000); //taille fenetre
-        getW().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; //sortir correctement de la fenetre
-        getW().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
-		getW().setVisible(true); // rendre la fenetre visible
-		configMenu() ;
 
+      public void ActionButton(JButton btn1){
+        btn1.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Code à exécuter lorsque le bouton est cliqué
+                        	goNext() ;
+                        	nextNode.display() ; 
+                        }
+                    });
+    }
+	
+	public void CreatNextButton(GridBagConstraints constraints){
+		JButton suivant = new JButton("Suivant"); // création button
+                    constraints.gridx = 0;
+                    constraints.gridy = 1;
+                    getW().add(suivant,constraints); // ajout du bouton a la fenetre
+					constraints.gridx = 1;
+                    constraints.gridy = 1;
+                    getW().revalidate() ;
+					ActionButton(suivant);
 	}
-	
-	
-	// La fonction utilisée pour afficher les noeuds 
-	// A revoir : créer un bouton suivant permettant d'aller au noeud suivant et un bouton précédent permettant de revoir la description et le titre du noeud précédent 
-	public void display() {
-		getW().getContentPane().removeAll(); // on clean le frame 
 
-		getW().revalidate(); // on actualise l'affichage
-		getW().repaint();
-		getW().setLayout(new GridBagLayout());
+
+    public void misEnPage(){
+		
         GridBagConstraints constraints = new GridBagConstraints(); // Utilisation d'un gestionnaire de mise en page FlowLayout
-
-        if (this.getCheckPoint()) { // on vérifie si le Node est un checkpoint ou pas et si c'est le cas on update le checkPoint 
-        	
-        	setLastCheckpoint(this) ;
-  
-        }
-        
         JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -216,24 +216,6 @@ public class Node {
                     
                 } else {
                     ((Timer) e.getSource()).stop(); // Arrête le timer après l'affichage de tous les textes
-                    
-                    JButton btn1 = new JButton("Suivant"); // création button
-                    constraints.gridx = 0;
-                    constraints.gridy = 1;
-                    getW().add(btn1,constraints); // ajout du bouton a la fenetre
-                    getW().revalidate() ;
-                    btn1.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            // Code à exécuter lorsque le bouton est cliqué
-                        	goNext() ;
-                        	nextNode.display() ; 
-                        }
-                    });
-                   
-                    
-
-
                     /*Timer timer2 = new Timer(20, new ActionListener() {
                         boolean a=true;
                         int b=0;
@@ -252,8 +234,7 @@ public class Node {
                     }); 
                     
                     Faire clignoter le curseur en attendant la réponse du joueur. A REVOIR */
-
-
+					CreatNextButton(constraints);
                 }
                 
             }
@@ -261,21 +242,49 @@ public class Node {
         
         
         timer.start();
-        
-		
+    }
+
+	
+	//paramétrage de la fenêtre de jeu (méthode appelée une seule fois au début du jeu) 
+	public static void gameWindow() {
+        getW().setSize(1000, 1000); //taille fenetre
+        getW().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; //sortir correctement de la fenetre
+        getW().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
+		getW().setVisible(true); // rendre la fenetre visible
+		configMenu() ;
+
+	}
+
+
+	// La fonction utilisée pour afficher les noeuds 
+	// A revoir : créer un bouton suivant permettant d'aller au noeud suivant et un bouton précédent permettant de revoir la description et le titre du noeud précédent 
+	public void display() {
+		getW().getContentPane().removeAll(); // on clean le frame 
+
+		getW().revalidate(); // on actualise l'affichage
+		getW().repaint();
+		getW().setLayout(new GridBagLayout());
+		if (this.getCheckPoint()) { // on vérifie si le Node est un checkpoint ou pas et si c'est le cas on update le checkPoint 
+        	
+        	setLastCheckpoint(this) ;
+  
+        }
+		misEnPage();
+	
 	}
 	
-	/*
+	
 	// la méthode main qui sert à tester 
 	public static void main(String[] args) {
 		gameWindow() ;
 		Node test = new Node("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ") ; // balise html a revoir
 		Node test2 = new Node("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
 		test.setNextNode(test2) ;
+
 		test.display();
 
 
-	}*/
+	}
 	
 	
 	
