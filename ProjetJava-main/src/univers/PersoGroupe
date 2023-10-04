@@ -1,4 +1,4 @@
-
+package univers;
 import java.awt.Image;
 
 public class PersoGroupe extends Personnage {
