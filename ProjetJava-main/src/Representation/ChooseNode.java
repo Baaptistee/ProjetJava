@@ -1,6 +1,6 @@
 package Representation;
 import javax.swing.* ; // importation des librairies necessaires
-
+import java.util.ArrayList;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -8,40 +8,28 @@ import java.awt.event.ActionListener;
 
 public class ChooseNode extends Node {
 	
-	private Node[] options; // un tableau comportant les differentes options possible du choix 
+	private  ArrayList <Node> options; // un tableau comportant les differentes options possible du choix 
 
 	// le constructeur de la classe 
-	public ChooseNode(String nom, String description, Node[] options){
+	public ChooseNode(String nom, String description, ArrayList <Node> options){
 		super(nom, description) ; // appel au constructeur de la classe mère
 		this.options = options ; 
 		
 	}
 	//le getter pour options
-	public Node[] getOptions() {
+	public ArrayList <Node> getOptions() {
 		return options ;
 	}
 
 	// une method pour ajouter 1 option 
 	public void addOption(Node optionSupp) {
-		options[options.length] = optionSupp ;
+		getOptions().add(optionSupp);
 	}
 
 	// une method pour supprimer une option 
-	// j'ai pas trouvé de truc permettant de retirer l'element d'un tableau sans faire une boucle un peu reloue et j'ai eu la flemme
-	// mais à terme il faudra peut-être en faire une ou alors transformer ce tableau en ArrayList (ce qu'il fait qu'une méthode remove existe)
-	// donc si tu te sens de faire la boucle pour la supprimer proprement et pas avoir juste "null" en vrai je suis chaud mdrr
 	public void suppOption(Node suppOption) {
-		int i = 0 ;
-		while (i<options.length) {
-			
-			if (suppOption == options[i]) {
-				options[i] = null ;
-				i = options.length ;
-			}
-			i++	;
-		
-		}
-		
+		int index=getOptions().indexOf(suppOption);
+		options.remove(index);
 	}
 	
 	@Override 
@@ -86,19 +74,16 @@ public class ChooseNode extends Node {
                     constraints.gridy = -1;
                     constraints.gridx = 0;
 
-                   
-                 
-                    
-                    for (int i = 0; i < getOptions().length; i++) {
+                    for (int i = 0; i < getOptions().size(); i++) {
                         final int currentIndex = i; // On récupère l'index actuel en final pour pouvoir l'utiliser ensuite dans l'action listener 
                         constraints.gridx++;
-                        JButton btn1 = new JButton(getOptions()[i].getNom()); // création button
+                        JButton btn1 = new JButton(getOptions().get(i).getNom()); // création button
                         getW().add(btn1, constraints); // ajout du bouton a la fenetre
                         btn1.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 // Code à exécuter lorsque le bouton est cliqué
-                                getOptions()[currentIndex].display();
+                                getOptions().get(currentIndex).display();
                             }
                         });
                     }
@@ -120,9 +105,11 @@ public class ChooseNode extends Node {
  		test2.setNextNode(gameOver) ;
  		test.setNextNode(test2) ;
  		gameWindow() ;
- 		Node[] option = {test, test2, gameOver} ;
- 		
- 		ChooseNode testChoix = new ChooseNode("test", "<html> tu dois choisir entre les choix suivants : ", option) ;
+ 		ArrayList <Node> options= new ArrayList<>();
+		options.add(test);
+		options.add(test2);
+		options.add(gameOver);
+ 		ChooseNode testChoix = new ChooseNode("test", "<html> tu dois choisir entre les choix suivants : ", options) ;
  		testChoix.display() ;
      }
 }
