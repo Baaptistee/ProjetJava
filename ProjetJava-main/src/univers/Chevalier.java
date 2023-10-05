@@ -22,6 +22,31 @@ public class Chevalier extends PersoGroupe{
 	        return panel;
 	    
 	}
+	    
+	public static void main(String[] args) {
+		
+	
+
+		        JFrame frame = new JFrame("Exemple de JLayeredPane");
+		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        frame.setSize(400, 400);
+
+		        JLayeredPane layeredPane = new JLayeredPane();
+		        frame.add(layeredPane);
+
+		        JButton button1 = new JButton("Bouton 1");
+		        button1.setBounds(50, 50, 100, 30); // Position et taille du bouton 1
+		        layeredPane.add(button1, JLayeredPane.DEFAULT_LAYER); // Ajout du bouton 1 à la couche par défaut
+
+		        JButton button2 = new JButton("Bouton 2");
+		        button2.setBounds(100, 100, 100, 30); // Position et taille du bouton 2
+		        layeredPane.add(button2, JLayeredPane.PALETTE_LAYER); // Ajout du bouton 2 à une couche supérieure
+
+		        frame.setVisible(true);
+		    }
+		
+
+	
 
 	}
 

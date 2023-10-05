@@ -3,7 +3,6 @@ package Interface;
 import Representation.* ;
 
 import java.awt.*;
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.* ;
@@ -13,6 +12,7 @@ public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame();
 	private static JMenuBar barreMenu = new JMenuBar() ;
+	// private static JLayeredPane panelAffichage = new JLayeredPane() ; 
 
 
 	
@@ -21,8 +21,6 @@ public class InterfaceJeu {
 		configFenetre();
 	}
 	
-	
-
 
 
 public static JFrame getFenetre() {
@@ -38,6 +36,10 @@ public static void setFenetre(JFrame fenetre) {
 public static JMenuBar getBarreMenu() {
 	return barreMenu;
 }
+/*
+public static JLayeredPane getPane() {
+	return panelAffichage ;
+}*/
 
 
 public static void setBarreMenu(JMenuBar barreMenu) {
@@ -50,8 +52,23 @@ public static void cleanFenetre() {
 	getFenetre().repaint();
 }
 
+public static void cleanPane() {
+	//getPane().removeAll() ;
+	getFenetre().revalidate() ;
+	getFenetre().repaint();
+}
+
+/*
+public static void cleanLayer(int layer) {
+	Component[] components = getPane().getComponentsInLayer(layer);
+	for (Component component : components) {
+	    //getPane().remove(component);
+	}
+}*/
+
 
 public static void configMenu() {
+	//méthode paramétrant le menu
 	
 	JMenu inventaire = new JMenu("Inventaire") ;
 	JMenu histoire = new JMenu ("Histoire") ;
@@ -72,23 +89,46 @@ public static void configMenu() {
 
 }
 
-public static void configFenetre() {
 
+
+public static void configFenetre() {
+//Méthode qui paramètre la fenêtre
 getFenetre().setSize(1000, 1000); //taille fenetre
 getFenetre().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; //sortir correctement de la fenetre
 getFenetre().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
 getFenetre().setLayout(new BorderLayout());
 configMenu() ;
+//getPane().setLayout(new BorderLayout());
+//getPane().setBounds(0,0,1000, 1000) ;
+//getFenetre().add(getPane()) ;
 getFenetre().setVisible(true); // rendre la fenetre visible
 
 }
 
 
-public static void popUp(String description) {
-	JLayeredPane popUP = new JLayeredPane() ;
-	JLabel label = new JLabel("", JLabel.CENTER) ;
-	GridBagConstraints constraints = new GridBagConstraints(); // Utilisation d'un gestionnaire de mise en page FlowLayout
-	popUP.add(label) ;
+public void popUp(String description) {
+	
+	//JOptionPane affichage = new JOptionPane() ;
+	//affichage.showMessageDialog(getFenetre(), description) ;
+	JLayeredPane panel = new JLayeredPane() ; 
+	panel.setBounds(200, 200, 200, 200);
+    JLabel label = new JLabel("", JLabel.CENTER) ;
+    label.setOpaque(true);
+    label.setBackground(Color.lightGray);
+    label.setSize(200, 200);
+    
+    JPanel test = new JPanel(new BorderLayout()) ;
+    test.setBounds(300, 300, 400, 400);
+    test.setOpaque(true);
+    test.setVisible(true);
+    
+    test.add(label, BorderLayout.CENTER) ;
+    
+	panel.add(test, BorderLayout.CENTER, JLayeredPane.PALETTE_LAYER) ;
+	
+	getFenetre().add(panel, BorderLayout.CENTER) ;
+	getFenetre().revalidate() ;
+	getFenetre().repaint(); 
 	
 	char[] texts = description.toCharArray(); // transformation de la chaine descrition en tableau de char
     Timer timer = new Timer(20, new ActionListener() { // timer apparition d'un char composant le tableau ci-dessus toutes les 20milisec
@@ -111,7 +151,7 @@ public static void popUp(String description) {
             ((Timer) e.getSource()).stop(); // Arrête le timer après l'affichage de tous les textes
             
             
-			CreateCloseButton(constraints, popUP);
+			CreateCloseButton(panel);
         }
         
     }
@@ -119,20 +159,19 @@ public static void popUp(String description) {
 
 
 timer.start();
-	
 }
 
 
 
-public static void CreateCloseButton(GridBagConstraints constraints, JLayeredPane pane) {
+public static void CreateCloseButton(JLayeredPane pane) {
 	JButton fermer = new JButton("Fermer"); // création button
-    constraints.gridx = 0;
-    constraints.gridy = 1;
-    getFenetre().add(fermer,constraints); // ajout du bouton a la fenetre
-	constraints.gridx = 1;
-    constraints.gridy = 1;
+    //constraints.gridx = 0;
+    //constraints.gridy = 1;
+    pane.add(fermer,BorderLayout.SOUTH); // ajout du bouton a la fenetre
+	//constraints.gridx = 1;
+    //constraints.gridy = 1;
     getFenetre().revalidate() ;
-	boutonClosePane(fermer, pane);
+	boutonClosePane(fermer, pane) ;
 	
 }
 
@@ -146,6 +185,8 @@ public static void boutonClosePane(JButton btn, JLayeredPane pane) {
 	btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//cleanLayer(layer) ;
+				retirer(btn) ;
 				retirer(pane) ;
 			}
 			});
@@ -154,14 +195,16 @@ public static void boutonClosePane(JButton btn, JLayeredPane pane) {
 
 public void afficherNodeBase(Node node) {
 	
-	cleanFenetre() ;
-	//getFenetre().getContentPane().removeAll();
-	//GridBagConstraints constraints = new GridBagConstraints(); // Utilisation d'un gestionnaire de mise en page FlowLayout
-    JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node
-    //constraints.gridx = 0;
-    //constraints.gridy = 0;
+	JLayeredPane pane = new JLayeredPane() ;
+	
+	//cleanPane() ;
+	JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node    
+    pane.add(label, BorderLayout.CENTER, JLayeredPane.DEFAULT_LAYER); //ajout du label a la fenetre
+    label.setOpaque(true);
+    label.setBackground(Color.blue);
     
-    getFenetre().add(label, BorderLayout.CENTER); //ajout du label a la fenetre
+    getFenetre().add(label) ;
+    
     getFenetre().revalidate();
     getFenetre().repaint();
 
@@ -187,7 +230,7 @@ public void afficherNodeBase(Node node) {
             ((Timer) e.getSource()).stop(); // Arrête le timer après l'affichage de tous les textes
             
             
-			CreatNextButton(BorderLayout.SOUTH, node);
+			CreatNextButton(pane, BorderLayout.SOUTH, node);
         }
         
     }
@@ -201,10 +244,10 @@ timer.start();
 
 }
 
-public void CreatNextButton(String tqt, Node node){
+public void CreatNextButton(JLayeredPane pane, String tqt, Node node){
 	JButton suivant = new JButton("Suivant"); // création button
-                getFenetre().add(suivant, tqt); // ajout du bouton a la fenetre
-                getFenetre().revalidate() ;
+                pane.add(suivant, tqt, JLayeredPane.DEFAULT_LAYER); // ajout du bouton a la fenetre
+                pane.revalidate() ;
 				boutonGoNext(suivant, node);
 }
 public void boutonGoNext(JButton btn1, Node node){
