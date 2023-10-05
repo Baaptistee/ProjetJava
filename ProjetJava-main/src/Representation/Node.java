@@ -3,13 +3,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.* ;
 import java.awt.*;
+import Interface.* ;
 
 public class Node extends JFrame {
 	
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
 	private static Node lastCheckPoint;
-	private static JFrame fenetre = new JFrame("Notre super jeu"); // fenetre de jeu qui sera utilisée tout le jeu par tous les nodes
-	private static JMenuBar barreMenu = new JMenuBar() ; // barre de menu en argument static 
+	private static InterfaceJeu interfac = new InterfaceJeu() ; 
 	
 	private String description ; // la description du Node 
 	private int idNode ; // l'attribut ID du Node 
@@ -116,11 +116,6 @@ public class Node extends JFrame {
 		this.checkPoint = true ;
 	}
 	
-	// un getter pour la fenêtre de jeu 
-	public static JFrame getW() {
-		return fenetre ;
-	}
-	
 	// getter et setter pour le dernier checkpoint 
 	
 	public static void setLastCheckpoint(Node x) {
@@ -132,9 +127,10 @@ public class Node extends JFrame {
 		return lastCheckPoint ;
 	}
 	
-	public static JMenuBar getBarreMenu() {
-		return barreMenu ;
+	public static InterfaceJeu getInterface() {
+		return interfac ;
 	}
+	
 	// une méthode qui retourne le prochain Node tout en changeant l'argument formerNode de celle-ci
 	public Node goNext() {
 		
@@ -142,148 +138,33 @@ public class Node extends JFrame {
 		return this.getNextNode() ; 
 	}
 
-	//paramétrage de la barre de menu 
-	public static void configMenu() {
-		
-		JMenu inventaire = new JMenu("Inventaire") ;
-		JMenu histoire = new JMenu ("Histoire") ;
-		
-		JMenuItem precedent = new JMenuItem("Voir précédent") ;
-		JMenuItem resumeH = new JMenuItem("Résumé de l'histoire") ;
-		
-		histoire.add(precedent) ;
-		histoire.add(resumeH) ;
-		
-		getBarreMenu().add(histoire) ;
-		getBarreMenu().add(inventaire) ;
-		
-		
-		getW().setJMenuBar(getBarreMenu());
 
-		
-		
-	}
+   
 
-      public void ActionButton(JButton btn1){
-        btn1.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            // Code à exécuter lorsque le bouton est cliqué
-                        	goNext() ;
-                        	nextNode.display() ; 
-                        }
-                    });
-    }
-	
-	public void CreatNextButton(GridBagConstraints constraints){
-		JButton suivant = new JButton("Suivant"); // création button
-                    constraints.gridx = 0;
-                    constraints.gridy = 1;
-                    getW().add(suivant,constraints); // ajout du bouton a la fenetre
-					constraints.gridx = 1;
-                    constraints.gridy = 1;
-                    getW().revalidate() ;
-					ActionButton(suivant);
-	}
-
-
-    public void misEnPage(){
-		
-        GridBagConstraints constraints = new GridBagConstraints(); // Utilisation d'un gestionnaire de mise en page FlowLayout
-        JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        getW().add(label, constraints); //ajout du label a la fenetre
-
-
-        
-        char[] texts = getDescription().toCharArray(); // transformation de la chaine descrition en tableau de char
-        Timer timer = new Timer(20, new ActionListener() { // timer apparition d'un char composant le tableau ci-dessus toutes les 20milisec
-            int index = 0; // index pour recuperer chaque char par l'intermediaire du tableau
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (index < texts.length) { //Parcours de la chaine Descrition caractère par caractère grace au tableau texts
-                    char nextChar = getDescription().charAt(index); // recuperation dans la chaine de caractere du caractere associé a l'index
-                    if(nextChar =='/'){ //creation d'une condition de passage a la ligne : utilisation de balise web (retour chariot ne marchant pas) MAIS A REVOIR 
-                        label.setText(label.getText() + "<br>");
-                        index++;
-                    }
-                    else{
-                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
-                        index++; //on passe au caractere suivant de la chaine de description
-                    }
-                    
-                } else {
-                    ((Timer) e.getSource()).stop(); // Arrête le timer après l'affichage de tous les textes
-                    /*Timer timer2 = new Timer(20, new ActionListener() {
-                        boolean a=true;
-                        int b=0;
-                        public void actionPerformed(ActionEvent e) {
-                            while(b==0){
-                                if(a==true){
-                                label.setText(label.getText()+"|");
-                                a=false;
-                            }
-                            else{
-                                 label.setText(label.getText());
-                                 a=true;
-                            }
-                            }                         
-                        }
-                    }); 
-                    
-                    Faire clignoter le curseur en attendant la réponse du joueur. A REVOIR */
-					CreatNextButton(constraints);
-                }
-                
-            }
-        });
-        
-        
-        timer.start();
-    }
-
-	
-	//paramétrage de la fenêtre de jeu (méthode appelée une seule fois au début du jeu) 
-	public static void gameWindow() {
-        getW().setSize(1000, 1000); //taille fenetre
-        getW().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; //sortir correctement de la fenetre
-        getW().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
-		getW().setVisible(true); // rendre la fenetre visible
-		configMenu() ;
-
-	}
+   
 
 
 	// La fonction utilisée pour afficher les noeuds 
 	// A revoir : créer un bouton suivant permettant d'aller au noeud suivant et un bouton précédent permettant de revoir la description et le titre du noeud précédent 
 	public void display() {
-		getW().getContentPane().removeAll(); // on clean le frame 
-
-		getW().revalidate(); // on actualise l'affichage
-		getW().repaint();
-		getW().setLayout(new GridBagLayout());
 		if (this.getCheckPoint()) { // on vérifie si le Node est un checkpoint ou pas et si c'est le cas on update le checkPoint 
         	
         	setLastCheckpoint(this) ;
-  
         }
-		misEnPage();
-	
+		
+		getInterface().afficherNodeBase(this) ;
 	}
 	
 	
 	// la méthode main qui sert à tester 
 	public static void main(String[] args) {
-		gameWindow() ;
+		
 		Node test = new Node("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ") ; // balise html a revoir
 		Node test2 = new Node("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
 		test.setNextNode(test2) ;
-
-		test.display();
-
-
+			    
+	    test.display() ;
+		
 	}
 	
 	

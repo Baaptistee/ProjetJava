@@ -5,13 +5,23 @@ public class Personnage{
     private String name;
     private String description;
     private Image img;
-
-    public Personnage(Image img,String name, String description){
+    private static int totalPerso = 0 ;
+    private int persoId ;
+    
+    public Personnage(String name, String description) {
+    	totalPerso++ ;
+    	this.persoId = totalPerso ; 
+    	this.name=name;
+        this.description=description;
+    }
+    
+    /*
+    public Personnage(Image img, String name, String description){
         this.name=name;
         this.description=description;
         this.img=img;
-
     }
+    */
 
     //Getters Setters
 

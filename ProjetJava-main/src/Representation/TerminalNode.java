@@ -14,7 +14,7 @@ public class TerminalNode extends Node {
 		
 	}
 		
-	
+	/*
 	@Override 
 	public void display() {
 		
@@ -91,4 +91,4 @@ public class TerminalNode extends Node {
             		test.display() ;
                 }*/
 	
-}
+} 

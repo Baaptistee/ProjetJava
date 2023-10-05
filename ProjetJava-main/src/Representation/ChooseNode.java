@@ -16,6 +16,8 @@ public class ChooseNode extends Node {
 		this.options = options ; 
 		
 	}
+	
+	/*
 	//le getter pour options
 	public ArrayList <Node> getOptions() {
 		return options ;
@@ -112,5 +114,6 @@ public class ChooseNode extends Node {
  		ChooseNode testChoix = new ChooseNode("test", "<html> tu dois choisir entre les choix suivants : ", options) ;
  		testChoix.display() ;
      }
+     */
 }
 
