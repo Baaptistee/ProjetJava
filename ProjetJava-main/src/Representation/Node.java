@@ -152,7 +152,7 @@ public class Node extends JFrame {
         	setLastCheckpoint(this) ;
         }
 		
-		getInterface().afficherNodeBase(this) ;
+		getInterface().afficherInnerNode(this) ;
 	}
 	
 	
@@ -165,7 +165,7 @@ public class Node extends JFrame {
 		test.setNextNode(test2) ;
 			    
 	    test.display() ;	    
-	    getInterface().popUp("test test test test on va voir si ça marche lol") ;
+	    //getInterface().popUp("test test test test on va voir si ça marche lol") ;
 		
 	}
 	

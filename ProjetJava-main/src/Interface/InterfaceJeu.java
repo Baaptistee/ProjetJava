@@ -12,7 +12,7 @@ public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame();
 	private static JMenuBar barreMenu = new JMenuBar() ;
-	// private static JLayeredPane panelAffichage = new JLayeredPane() ; 
+	private static JLayeredPane panelAffichage = new JLayeredPane() ; 
 
 
 	
@@ -36,10 +36,10 @@ public static void setFenetre(JFrame fenetre) {
 public static JMenuBar getBarreMenu() {
 	return barreMenu;
 }
-/*
+
 public static JLayeredPane getPane() {
 	return panelAffichage ;
-}*/
+}
 
 
 public static void setBarreMenu(JMenuBar barreMenu) {
@@ -53,18 +53,18 @@ public static void cleanFenetre() {
 }
 
 public static void cleanPane() {
-	//getPane().removeAll() ;
+	getPane().removeAll() ;
 	getFenetre().revalidate() ;
 	getFenetre().repaint();
 }
 
-/*
+
 public static void cleanLayer(int layer) {
 	Component[] components = getPane().getComponentsInLayer(layer);
 	for (Component component : components) {
 	    //getPane().remove(component);
 	}
-}*/
+}
 
 
 public static void configMenu() {
@@ -108,10 +108,14 @@ getFenetre().setVisible(true); // rendre la fenetre visible
 
 public void popUp(String description) {
 	
+	// Pour afficher une boite de dialog
 	//JOptionPane affichage = new JOptionPane() ;
 	//affichage.showMessageDialog(getFenetre(), description) ;
-	JLayeredPane panel = new JLayeredPane() ; 
+	/*JLayeredPane panel = new JLayeredPane() ; 
 	panel.setBounds(200, 200, 200, 200);
+	*/
+	
+	
     JLabel label = new JLabel("", JLabel.CENTER) ;
     label.setOpaque(true);
     label.setBackground(Color.lightGray);
@@ -124,9 +128,9 @@ public void popUp(String description) {
     
     test.add(label, BorderLayout.CENTER) ;
     
-	panel.add(test, BorderLayout.CENTER, JLayeredPane.PALETTE_LAYER) ;
+	getPane().add(test, BorderLayout.CENTER, Integer.valueOf(10)) ;
 	
-	getFenetre().add(panel, BorderLayout.CENTER) ;
+	getFenetre().add(getPane(), BorderLayout.CENTER) ;
 	getFenetre().revalidate() ;
 	getFenetre().repaint(); 
 	
@@ -151,7 +155,7 @@ public void popUp(String description) {
             ((Timer) e.getSource()).stop(); // Arrête le timer après l'affichage de tous les textes
             
             
-			CreateCloseButton(panel);
+			//CreateCloseButton(getPane());
         }
         
     }
@@ -192,18 +196,18 @@ public static void boutonClosePane(JButton btn, JLayeredPane pane) {
 			});
 }
 
-
-public void afficherNodeBase(Node node) {
+// La fonction qui servira à afficher les InnerNode
+public void afficherInnerNode(Node node) {
 	
-	JLayeredPane pane = new JLayeredPane() ;
+	//JLayeredPane pane = new JLayeredPane() ;
 	
 	//cleanPane() ;
 	JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node    
-    pane.add(label, BorderLayout.CENTER, JLayeredPane.DEFAULT_LAYER); //ajout du label a la fenetre
+    //pane.add(label, BorderLayout.CENTER, JLayeredPane.DEFAULT_LAYER); //ajout du label a la fenetre
     label.setOpaque(true);
     label.setBackground(Color.blue);
     
-    getFenetre().add(label) ;
+    getPane().add(label, BorderLayout.CENTER) ;
     
     getFenetre().revalidate();
     getFenetre().repaint();
@@ -230,7 +234,7 @@ public void afficherNodeBase(Node node) {
             ((Timer) e.getSource()).stop(); // Arrête le timer après l'affichage de tous les textes
             
             
-			CreatNextButton(pane, BorderLayout.SOUTH, node);
+			CreatNextButton(getPane(), BorderLayout.SOUTH, node);
         }
         
     }
