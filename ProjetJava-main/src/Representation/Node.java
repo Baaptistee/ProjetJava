@@ -138,24 +138,59 @@ public class Node extends JFrame {
 		return this.getNextNode() ; 
 	}
 
-
-   
-
-   
-
-
-	// La fonction utilisée pour afficher les noeuds 
-	// A revoir : créer un bouton suivant permettant d'aller au noeud suivant et un bouton précédent permettant de revoir la description et le titre du noeud précédent 
-	public void display() {
+	public void isCheckPoint() {
 		if (this.getCheckPoint()) { // on vérifie si le Node est un checkpoint ou pas et si c'est le cas on update le checkPoint 
         	
         	setLastCheckpoint(this) ;
         }
 		
+	}
+   
+	// La fonction utilisée pour afficher les noeuds 
+	// A revoir : créer un bouton suivant permettant d'aller au noeud suivant et un bouton précédent permettant de revoir la description et le titre du noeud précédent 
+	public void display() {
+		
+		
+		this.isCheckPoint() ;
+		
 		getInterface().afficherNodeBase(this) ;
 	}
 	
+	/*
+	public static ArrayList<Node> creerNodes(String[][] infosNodes) {
+        ArrayList<Node> nodes = new ArrayList<>();
+
+        for (String[] info : infosNodes) {
+            if (info.length == 2) {
+                String nom = info[0];
+                String description = info[1];
+                nodes.add(new Node(nom, description));
+            }
+        }
+
+        return nodes;
+    }
+
 	
+	public static void instanceNode(){
+		String[][] infosNodes = {
+            {"Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... "},
+            {"Node next", "<html> vous devez prouver votre innocence et vous battre pour vous"},
+            {"gbhnj", "vghswdfgyhuihygtfrdeftyghujib"},
+            {"gbhhnj", "vghswdfgyhuihygtfedrtfgyhujikokjihuygcfghjknrdeftyghujib"}
+        };
+
+        ArrayList<Node> nodes = creerNodes(infosNodes);
+		
+		int i =0 ;
+		while( i <nodes.size()){
+		nodes.get(0).display();
+		nodes.get(i).setNextNode(nodes.get(i+1));
+		i++;
+		}
+	}
+	
+	*/
 	// la méthode main qui sert à tester 
 	public static void main(String[] args) {
 		

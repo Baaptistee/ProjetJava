@@ -44,6 +44,7 @@ public static void setBarreMenu(JMenuBar barreMenu) {
 	InterfaceJeu.barreMenu = barreMenu;
 }
 
+
 public static void cleanFenetre() {
 	getFenetre().getContentPane().removeAll();
 	getFenetre().revalidate() ;
@@ -83,7 +84,7 @@ getFenetre().setVisible(true); // rendre la fenetre visible
 
 }
 
-
+/*
 public static void popUp(String description) {
 	JLayeredPane popUP = new JLayeredPane() ;
 	JLabel label = new JLabel("", JLabel.CENTER) ;
@@ -124,6 +125,7 @@ timer.start();
 
 
 
+
 public static void CreateCloseButton(GridBagConstraints constraints, JLayeredPane pane) {
 	JButton fermer = new JButton("Fermer"); // création button
     constraints.gridx = 0;
@@ -151,16 +153,14 @@ public static void boutonClosePane(JButton btn, JLayeredPane pane) {
 			});
 }
 
+*/
+
+
 
 public void afficherNodeBase(Node node) {
 	
 	cleanFenetre() ;
-	//getFenetre().getContentPane().removeAll();
-	//GridBagConstraints constraints = new GridBagConstraints(); // Utilisation d'un gestionnaire de mise en page FlowLayout
-    JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node
-    //constraints.gridx = 0;
-    //constraints.gridy = 0;
-    
+    JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node 
     getFenetre().add(label, BorderLayout.CENTER); //ajout du label a la fenetre
     getFenetre().revalidate();
     getFenetre().repaint();
@@ -194,12 +194,11 @@ public void afficherNodeBase(Node node) {
 });
 
 
-timer.start();
-
-
-    
+timer.start(); 
 
 }
+
+
 
 public void CreatNextButton(String tqt, Node node){
 	JButton suivant = new JButton("Suivant"); // création button
