@@ -1,11 +1,11 @@
 package Interface;
-
 import Representation.* ;
-
+import Representation.ChooseNode;
 import java.awt.*;
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+
 import javax.swing.* ;
 
 
@@ -20,11 +20,6 @@ public class InterfaceJeu {
 		
 		configFenetre();
 	}
-	
-	
-
-
-
 public static JFrame getFenetre() {
 	return fenetre;
 }
@@ -185,9 +180,15 @@ public void afficherNodeBase(Node node) {
             
         } else {
             ((Timer) e.getSource()).stop(); // Arrête le timer après l'affichage de tous les textes
-            
-            
-			CreatNextButton(BorderLayout.SOUTH, node);
+
+            if (node.getClass()== ChooseNode.class){ //Si le node en question est un chooseNode: affichage boutons choix
+                ChooseNodeButton(node);
+            }
+            if(node.getClass()== InnerNode.class){ // Si le node est un innerNode affichage boutonSuivant
+                InnerNodeButton(BorderLayout.SOUTH, node);
+            }
+            //ChooseNodeButton();
+			//
         }
         
     }
@@ -198,14 +199,78 @@ timer.start();
 
 }
 
+/*public void ChooseNextButton(ArrayList options){
+     for (int i = 0; i < getOptions().size(); i++) {
+            final int currentIndex = i; // On récupère l'index actuel en final pour pouvoir l'utiliser ensuite dans l'action listener 
+            constraints.gridx++;
+            JButton btn1 = new JButton(getOptions().get(i).getNom()); // création button
+            getW().add(btn1, constraints); // ajout du bouton a la fenetre
+            btn1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Code à exécuter lorsque le bouton est cliqué
+                    getOptions().get(currentIndex).display();
+                }
+            });
+        }
+}*/
+
+public void ChooseNodeButton(Node node){
+    ChooseNode chooseNode;
+    chooseNode=(ChooseNode)node;
+    getFenetre().setLayout(new BoxLayout(getFenetre().getContentPane(), BoxLayout.Y_AXIS)); // Utilisation d'un BoxLayout vertical
+    for (int i = 0; i < chooseNode.getOptions().size(); i++) {
+        final int currentIndex = i;
+        JButton btn1 = new JButton(chooseNode.getOptions().get(i).getNom());
+        btn1.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrer les boutons horizontalement
+        getFenetre().add(Box.createRigidArea(new Dimension(0, 10))); // Espace vertical entre les boutons (10 pixels)
+        getFenetre().add(btn1);
+        
+        btn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooseNode.getOptions().get(currentIndex).display();
+            }
+        });
+        getFenetre().revalidate();
+    }
+}
 
 
-public void CreatNextButton(String tqt, Node node){
-	JButton suivant = new JButton("Suivant"); // création button
+public void InnerNodeButton(String tqt, Node node){
+     if(node.getClass()== InnerNode.class){
+       JButton suivant = new JButton("Suivant"); // création button
                 getFenetre().add(suivant, tqt); // ajout du bouton a la fenetre
                 getFenetre().revalidate() ;
 				boutonGoNext(suivant, node);
+    }
+
+
+    /*else{
+        getFenetre().setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints(); // Utilisation d'un gestionnaire de mise en page FlowLayout
+        constraints.gridy = -1;
+        constraints.gridx = 0;
+        for (int i = 0; i < getOptions().size(); i++) {
+            final int currentIndex = i; // On récupère l'index actuel en final pour pouvoir l'utiliser ensuite dans l'action listener 
+            constraints.gridx++;
+            JButton btn1 = new JButton(getOptions().get(i).getNom()); // création button
+            getFenetre().add(btn1, constraints); // ajout du bouton a la fenetre
+            btn1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Code à exécuter lorsque le bouton est cliqué
+                    getOptions().get(currentIndex).display();
+                }
+            });
+        }
+    }*/
+    /*elseif(node.getClass()==FightNode.class){
+
+    }*/
 }
+
+
 public void boutonGoNext(JButton btn1, Node node){
     btn1.addActionListener(new ActionListener() {
                     @Override
@@ -216,6 +281,6 @@ public void boutonGoNext(JButton btn1, Node node){
                     }
                 });
 }
-
-
 }
+
+

@@ -1,28 +1,21 @@
 package Representation;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.* ;
-import java.awt.*;
 import Interface.* ;
 
-public class Node extends JFrame {
+public abstract class Node extends JFrame {
 	
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
 	private static Node lastCheckPoint;
 	private static InterfaceJeu interfac = new InterfaceJeu() ; 
-	
 	private String description ; // la description du Node 
 	private int idNode ; // l'attribut ID du Node 
 	private String nom ; // le nom ou titre du Node 
 	private Node nextNode ; // le Node qui viendra après 
 	private Node formerNode ; // le Node précédent (pour pouvoir ensuite l'afficher)
 	private boolean checkPoint = false ;
-
-
 	
 	// le constructeur :
 	public Node(String nom, String description) {
-		
 		this.idNode = totalNode++ ; // comme on a une incrémentation à chaque création de nouveau Node on est sur d'avoir un ID différent à chaque fois
 		this.description = description ;
 		this.nom = nom ;
@@ -192,15 +185,6 @@ public class Node extends JFrame {
 	
 	*/
 	// la méthode main qui sert à tester 
-	public static void main(String[] args) {
-		
-		Node test = new Node("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ") ; // balise html a revoir
-		Node test2 = new Node("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
-		test.setNextNode(test2) ;
-			    
-	    test.display() ;
-		
-	}
 	
 	
 	
