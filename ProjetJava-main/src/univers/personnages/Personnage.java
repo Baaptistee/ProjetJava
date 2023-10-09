@@ -1,4 +1,4 @@
-package univers;
+package univers.personnages;
 import java.awt.Image;
 
 public class Personnage{
