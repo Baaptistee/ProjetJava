@@ -8,7 +8,8 @@ public class PersonnageCombattant extends Personnage{
 	private int lifePoints ;
 	private int maxLifePoints ;
 	private boolean alive ;
-	private int endurance ; 
+	private int endurance ;
+	
 	
 	
 	public PersonnageCombattant(String nom, String description, int dexterite, int force, int intelligence, int endurance, int maxLifePoints) {

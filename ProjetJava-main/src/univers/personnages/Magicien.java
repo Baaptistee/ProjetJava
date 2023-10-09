@@ -28,6 +28,9 @@ public class Magicien extends PersoGroupe {
 		
 		String d = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getStrength() + "/Intelligence : " + b + " -> " + this.getIntelligence() + "/Dexterite :" + c + " -> " + this.getDexterity() ;
 		
+		if (this.getLevel()==2) {
+			
+		}
 		return d ;
 	}
 	

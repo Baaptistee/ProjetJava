@@ -1,6 +1,7 @@
 package univers.personnages;
 
 import java.util.Random;
+import univers.competences.*;
 
 public class Soigneur extends PersoGroupe{
 	
@@ -18,14 +19,19 @@ public class Soigneur extends PersoGroupe{
 	}
 	public String gainNiveau() {
 		Random random = new Random() ;
-		int a = this.getStrength(), b = this.getIntelligence(), c = this.getDexterity() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity() ;
 		// le gain de statistique se fait aléatoirement 
-		setStrength(getStrength() + random.nextInt(3)) ;
-		setIntelligence(getIntelligence() + random.nextInt(1)) ;
-		setDexterity(getDexterity() + random.nextInt(2)) ;
+		setStrength(getBaseStrength() + random.nextInt(3)) ;
+		setIntelligence(getBaseIntelligence() + random.nextInt(1)) ;
+		setDexterity(getBaseDexterity() + random.nextInt(2)) ;
 		
-		String d = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getStrength() + "/Intelligence : " + b + " -> " + this.getIntelligence() + "/Dexterite :" + c + " -> " + this.getDexterity() ;
+		String d = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite :" + c + " -> " + this.getBaseDexterity() ;
 		
+		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
+		if (this.getLevel() == 2) {
+			this.getCompetences().add(SoinRapide.getSoinRapide()) ;
+			d += "/Il apprend la compétence active : Coup Soigneur !" ;
+		}
 		return d ;
 	}
 	

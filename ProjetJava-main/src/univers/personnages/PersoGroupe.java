@@ -1,12 +1,14 @@
 package univers.personnages;
 
 import java.util.Random;
-
+import univers.competences.*;
 import univers.armes.*;
+import java.util.* ;
 
 public abstract class PersoGroupe extends PersonnageCombattant {
 	private int experience ;
-	private Weapon weapon ; 
+	private Weapon weapon ;
+	private ArrayList<Competences> competences ;
 	
 	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int maxLifePoints) {
 		super(nom, description, dexterite, strengh, intelligence, endurance, maxLifePoints) ;
@@ -33,6 +35,16 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	}
 
 	
+	public ArrayList<Competences> getCompetences() {
+		return competences;
+	}
+
+
+	public void setCompetences(ArrayList<Competences> competences) {
+		this.competences = competences;
+	}
+
+
 	// les getters qui intègrent le bonus procuré par l'arme 
 	@Override 
 	public int getIntelligence() {
@@ -43,6 +55,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 		}
 	}
 	
+	// les getter pour les statistiques comprenant les bonus 
 	@Override 
 	public int getStrength() {
 		if (weapon != null) {
@@ -69,7 +82,19 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 			return super.getIntelligence() ;
 		}
 	}
-		
+	
+	// des getter pour les statistiques de base 
+	public int getBaseStrength() {
+		return super.getStrength() ;
+	}
+	
+	public int getBaseIntelligence() {
+		return super.getIntelligence() ;
+	}
+	
+	public int getBaseDexterity() {
+		return super.getDexterity() ;
+	}
 	
 	// des méthodes pour réaliser des tests de force, d'agilité et de dextérité (pour des actions en combat ou 
 	public boolean testStrengh(int valeurTest) {
