@@ -1,10 +1,7 @@
 package Representation;
 import javax.swing.* ; // importation des librairies necessaires
 import java.util.ArrayList;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 
 public class ChooseNode extends Node {
 	
@@ -68,7 +65,7 @@ public class ChooseNode extends Node {
 	*/
 	 public static void main(String[] args) {
  		InnerNode test = new InnerNode("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ", true) ; // balise html a revoir            		
-     	TerminalNode gameOver = new TerminalNode("rip" , "<html> Tu viens de mourir grosse merde, veux tu reprendre au check point ou rage quit ?") ;
+     	TerminalNode gameOver = new TerminalNode("Game Over" , "<html> Tu viens de mourir grosse merde, veux tu reprendre au check point ou rage quit ?") ;
 		InnerNode test2 = new InnerNode("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
  		test2.setNextNode(gameOver) ;
  		test.setNextNode(test2) ;

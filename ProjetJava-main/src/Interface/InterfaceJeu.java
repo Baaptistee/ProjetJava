@@ -1,12 +1,13 @@
 package Interface;
 import Representation.* ;
-import Representation.ChooseNode;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 import javax.swing.* ;
+import javax.swing.border.MatteBorder;
 
 
 public class InterfaceJeu {
@@ -55,9 +56,11 @@ public static void configMenu() {
 	
 	JMenuItem precedent = new JMenuItem("Voir précédent") ;
 	JMenuItem resumeH = new JMenuItem("Résumé de l'histoire") ;
+   JMenuItem stats = new JMenuItem("Statistiques") ;
 	
 	histoire.add(precedent) ;
 	histoire.add(resumeH) ;
+    statut.add(stats);
 	
 	getBarreMenu().add(histoire) ;
 	getBarreMenu().add(inventaire) ;
@@ -73,9 +76,10 @@ public static void configFenetre() {
 getFenetre().setSize(1000, 1000); //taille fenetre
 getFenetre().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; //sortir correctement de la fenetre
 getFenetre().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
-getFenetre().setLayout(new BorderLayout());
 configMenu() ;
 getFenetre().setVisible(true); // rendre la fenetre visible
+
+
 
 }
 
@@ -153,10 +157,15 @@ public static void boutonClosePane(JButton btn, JLayeredPane pane) {
 
 
 public void afficherNodeBase(Node node) {
-	
+	fenetre.getContentPane().setLayout(null);
 	cleanFenetre() ;
+    JPanel p= new JPanel();
+    p.setBounds(60, 110, 600, 100);
+    fenetre.getContentPane().add(p);
     JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node 
-    getFenetre().add(label, BorderLayout.CENTER); //ajout du label a la fenetre
+    p.add(label); //ajout du label a la fenetre
+    p.setBackground(Color.CYAN); 
+    label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
     getFenetre().revalidate();
     getFenetre().repaint();
 
@@ -172,6 +181,7 @@ public void afficherNodeBase(Node node) {
             if(nextChar =='/'){ //creation d'une condition de passage a la ligne : utilisation de balise web (retour chariot ne marchant pas) MAIS A REVOIR 
                 label.setText(label.getText() + "<br>");
                 index++;
+                
             }
             else{
                 label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
@@ -185,7 +195,7 @@ public void afficherNodeBase(Node node) {
                 ChooseNodeButton(node);
             }
             if(node.getClass()== InnerNode.class){ // Si le node est un innerNode affichage boutonSuivant
-                InnerNodeButton(BorderLayout.SOUTH, node);
+                InnerNodeButton(node);
             }
             //ChooseNodeButton();
 			//
@@ -218,18 +228,58 @@ timer.start();
 public void ChooseNodeButton(Node node){
     ChooseNode chooseNode;
     chooseNode=(ChooseNode)node;
-    getFenetre().setLayout(new BoxLayout(getFenetre().getContentPane(), BoxLayout.Y_AXIS)); // Utilisation d'un BoxLayout vertical
+    JPanel j= new JPanel();
+     j.setBounds(661, 109, 194, 323);
+     fenetre.getContentPane().add(j);
+	 j.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
+     j.setBackground(Color.RED); 
+    
     for (int i = 0; i < chooseNode.getOptions().size(); i++) {
         final int currentIndex = i;
         JButton btn1 = new JButton(chooseNode.getOptions().get(i).getNom());
-        btn1.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrer les boutons horizontalement
-        getFenetre().add(Box.createRigidArea(new Dimension(0, 10))); // Espace vertical entre les boutons (10 pixels)
-        getFenetre().add(btn1);
-        
+        btn1.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+        btn1.setBackground(new Color(240, 240,240));
+		btn1.setForeground(new Color(128, 64, 0));
+        j.add(btn1);
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chooseNode.getOptions().get(currentIndex).display();
+                //chooseNode.getOptions().get(currentIndex).display();
+                JPanel panel_3 = new JPanel();
+		        panel_3.setBounds(56, 212, 552, 344);
+		        fenetre.getContentPane().add(panel_3);
+		        panel_3.setLayout(null);
+		
+                
+		
+		        JLayeredPane layeredPane_1 = new JLayeredPane();
+		        layeredPane_1.setBounds(89, 34, 320, 239);
+		        layeredPane_1.setForeground(new Color(0, 255, 64));
+		        layeredPane_1.setBorder(new MatteBorder(4, 3, 1, 6, (Color) new Color(0, 0, 0)));
+                layeredPane_1.setBackground(Color.BLUE);
+                j.setOpaque(false);
+		        panel_3.add(layeredPane_1);
+		        layeredPane_1.setLayout(null);
+		
+		        JPanel panel_5 = new JPanel();
+		        panel_5.setBounds(89, 36, 117, 168);
+		        layeredPane_1.add(panel_5,JLayeredPane.DEFAULT_LAYER);
+		        panel_5.setLayout(null);
+		
+		        JLabel lblNewLabel_1 = new JLabel("bienvenidos");
+		        lblNewLabel_1.setBounds(10, 30, 73, 14);
+		        panel_5.add(lblNewLabel_1);
+		
+		        JButton btnNewButton_4 = new JButton("ok");
+		        btnNewButton_4.setBounds(10, 110, 89, 23);
+		        panel_5.add(btnNewButton_4);
+                btnNewButton_4.addActionListener(new ActionListener() {
+                    @Override
+                public void actionPerformed(ActionEvent e) {
+                layeredPane_1.setVisible(false);
+
+                }
+                });
             }
         });
         getFenetre().revalidate();
@@ -237,10 +287,18 @@ public void ChooseNodeButton(Node node){
 }
 
 
-public void InnerNodeButton(String tqt, Node node){
+public void InnerNodeButton(Node node){
+    JPanel k = new JPanel();
+		k.setBounds(711, 494, 144, 62);
+        
+		fenetre.getContentPane().add(k);
+        k.setBackground(Color.yellow);
      if(node.getClass()== InnerNode.class){
        JButton suivant = new JButton("Suivant"); // création button
-                getFenetre().add(suivant, tqt); // ajout du bouton a la fenetre
+                suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+                 suivant.setBackground(new Color(240, 240,240));
+		        suivant.setForeground(new Color(128, 64, 0));
+                k.add(suivant);
                 getFenetre().revalidate() ;
 				boutonGoNext(suivant, node);
     }
@@ -281,6 +339,7 @@ public void boutonGoNext(JButton btn1, Node node){
                     }
                 });
 }
+
 }
 
 
