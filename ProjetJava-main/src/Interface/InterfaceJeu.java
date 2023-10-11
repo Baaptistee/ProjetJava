@@ -245,38 +245,38 @@ public void ChooseNodeButton(Node node){
             @Override
             public void actionPerformed(ActionEvent e) {
                 //chooseNode.getOptions().get(currentIndex).display();
-                JPanel panel_3 = new JPanel();
-		        panel_3.setBounds(56, 212, 552, 344);
-		        fenetre.getContentPane().add(panel_3);
-		        panel_3.setLayout(null);
+                JPanel z = new JPanel();
+		        z.setBounds(56, 212, 552, 344);
+		        fenetre.getContentPane().add(z);
+		        z.setLayout(null);
 		
                 
 		
-		        JLayeredPane layeredPane_1 = new JLayeredPane();
-		        layeredPane_1.setBounds(89, 34, 320, 239);
-		        layeredPane_1.setForeground(new Color(0, 255, 64));
-		        layeredPane_1.setBorder(new MatteBorder(4, 3, 1, 6, (Color) new Color(0, 0, 0)));
-                layeredPane_1.setBackground(Color.BLUE);
+		        JLayeredPane layeredPane = new JLayeredPane();
+		        layeredPane.setBounds(89, 34, 320, 239);
+		        layeredPane.setForeground(new Color(0, 255, 64));
+		        layeredPane.setBorder(new MatteBorder(4, 3, 1, 6, (Color) new Color(0, 0, 0)));
+                layeredPane.setBackground(Color.BLUE);
                 j.setOpaque(false);
-		        panel_3.add(layeredPane_1);
-		        layeredPane_1.setLayout(null);
+		        z.add(layeredPane);
+		        layeredPane.setLayout(null);
 		
 		        JPanel panel_5 = new JPanel();
 		        panel_5.setBounds(89, 36, 117, 168);
-		        layeredPane_1.add(panel_5,JLayeredPane.DEFAULT_LAYER);
+		        layeredPane.add(panel_5,JLayeredPane.DEFAULT_LAYER);
 		        panel_5.setLayout(null);
 		
 		        JLabel lblNewLabel_1 = new JLabel("bienvenidos");
 		        lblNewLabel_1.setBounds(10, 30, 73, 14);
 		        panel_5.add(lblNewLabel_1);
 		
-		        JButton btnNewButton_4 = new JButton("ok");
-		        btnNewButton_4.setBounds(10, 110, 89, 23);
-		        panel_5.add(btnNewButton_4);
-                btnNewButton_4.addActionListener(new ActionListener() {
+		        JButton ok = new JButton("ok");
+		        ok.setBounds(10, 110, 89, 23);
+		        panel_5.add(ok);
+                ok.addActionListener(new ActionListener() {
                     @Override
                 public void actionPerformed(ActionEvent e) {
-                layeredPane_1.setVisible(false);
+                layeredPane.setVisible(false);
 
                 }
                 });
