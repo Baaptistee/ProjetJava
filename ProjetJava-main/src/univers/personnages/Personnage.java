@@ -39,6 +39,10 @@ public class Personnage{
     public void setName(String name){
         this.name=name;
     }
+    
+    public int getPersoId() {
+    	return this.persoId ;
+    }
 
     public void setDescription(String description){
         this.description=description;

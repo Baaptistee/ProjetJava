@@ -2,6 +2,7 @@ package univers.personnages;
 
 import java.util.Random;
 import univers.competences.*;
+import univers.Eleme;
 import univers.armes.*;
 import java.util.* ;
 
@@ -9,10 +10,15 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	private int experience ;
 	private Weapon weapon ;
 	private ArrayList<Competences> competences ;
+	private ArrayList<PersonnageCombattant> groupe ;
+	private ArrayList<WeaponType> armePossible ;
 	
-	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int maxLifePoints) {
-		super(nom, description, dexterite, strengh, intelligence, endurance, maxLifePoints) ;
+	
+	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<Competences> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible) {
+		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, faiblesses, resistances) ;
 		this.experience = 0 ;
+		this.armePossible = armePossible ;
+		this.competences = competences ;
 	}
 	
 	
@@ -96,6 +102,26 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 		return super.getDexterity() ;
 	}
 	
+	public ArrayList<PersonnageCombattant> getGroupe() {
+		return groupe;
+	}
+
+
+	public void setGroupe(ArrayList<PersonnageCombattant> groupe) {
+		this.groupe = groupe;
+	}
+
+
+	public ArrayList<WeaponType> getArmePossible() {
+		return armePossible;
+	}
+
+
+	public void setArmePossible(ArrayList<WeaponType> armePossible) {
+		this.armePossible = armePossible;
+	}
+
+
 	// des méthodes pour réaliser des tests de force, d'agilité et de dextérité (pour des actions en combat ou 
 	public boolean testStrengh(int valeurTest) {
 		Random random = new Random() ;

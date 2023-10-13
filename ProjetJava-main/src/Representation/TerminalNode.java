@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class TerminalNode extends Node {
 	
-
+	
 	
 	public TerminalNode(String nom, String description) {
 		
