@@ -46,6 +46,7 @@ public static void setBarreMenu(JMenuBar barreMenu) {
 	InterfaceJeu.barreMenu = barreMenu;
 }
 
+
 public static void cleanFenetre() {
 	getFenetre().getContentPane().removeAll();
 	getFenetre().revalidate() ;
@@ -103,37 +104,7 @@ configMenu() ;
 //getFenetre().add(getPane()) ;
 getFenetre().setVisible(true); // rendre la fenetre visible
 
-}
-
-
-public void popUp(String description) {
-	
-	// Pour afficher une boite de dialog
-	//JOptionPane affichage = new JOptionPane() ;
-	//affichage.showMessageDialog(getFenetre(), description) ;
-	/*JLayeredPane panel = new JLayeredPane() ; 
-	panel.setBounds(200, 200, 200, 200);
-	*/
-	
-	
-    JLabel label = new JLabel("", JLabel.CENTER) ;
-    label.setOpaque(true);
-    label.setBackground(Color.lightGray);
-    label.setSize(200, 200);
-    
-    JPanel test = new JPanel(new BorderLayout()) ;
-    test.setBounds(300, 300, 400, 400);
-    test.setOpaque(true);
-    test.setVisible(true);
-    
-    test.add(label, BorderLayout.CENTER) ;
-    
-	getPane().add(test, BorderLayout.CENTER, Integer.valueOf(10)) ;
-	
-	getFenetre().add(getPane(), BorderLayout.CENTER) ;
-	getFenetre().revalidate() ;
-	getFenetre().repaint(); 
-	
+}	
 	char[] texts = description.toCharArray(); // transformation de la chaine descrition en tableau de char
     Timer timer = new Timer(20, new ActionListener() { // timer apparition d'un char composant le tableau ci-dessus toutes les 20milisec
     int index = 0 ; // index pour recuperer chaque char par l'intermediaire du tableau
@@ -167,7 +138,6 @@ timer.start();
 
 
 
-public static void CreateCloseButton(JLayeredPane pane) {
 	JButton fermer = new JButton("Fermer"); // création button
     //constraints.gridx = 0;
     //constraints.gridy = 1;
@@ -195,20 +165,6 @@ public static void boutonClosePane(JButton btn, JLayeredPane pane) {
 			}
 			});
 }
-
-// La fonction qui servira à afficher les InnerNode
-public void afficherInnerNode(Node node) {
-	
-	//JLayeredPane pane = new JLayeredPane() ;
-	
-	//cleanPane() ;
-	JLabel label = new JLabel("", JLabel.CENTER);// affichage description Node    
-    //pane.add(label, BorderLayout.CENTER, JLayeredPane.DEFAULT_LAYER); //ajout du label a la fenetre
-    label.setOpaque(true);
-    label.setBackground(Color.blue);
-    
-    getPane().add(label, BorderLayout.CENTER) ;
-    
     getFenetre().revalidate();
     getFenetre().repaint();
 
@@ -241,12 +197,11 @@ public void afficherInnerNode(Node node) {
 });
 
 
-timer.start();
-
-
-    
+timer.start(); 
 
 }
+
+
 
 public void CreatNextButton(JLayeredPane pane, String tqt, Node node){
 	JButton suivant = new JButton("Suivant"); // création button
