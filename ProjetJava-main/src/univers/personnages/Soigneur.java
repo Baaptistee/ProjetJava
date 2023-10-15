@@ -6,23 +6,47 @@ import java.util.Random;
 import univers.Eleme;
 import univers.armes.WeaponType;
 import univers.competences.*;
-
+/** a character of the group, the healer 
+ * I created just this one to do some tests but there will be more later 
+ */
 public class Soigneur extends PersoGroupe{
-	
+	/** the class is a singleton so we have the instance of the class 
+	 * 
+	 */
 	private static Soigneur instance ;
-	
+	/** the constructor is in private because it's a singleton
+	 * 
+	 * @param nom
+	 * @param description
+	 * @param dexterite
+	 * @param strengh
+	 * @param intelligence
+	 * @param endurance
+	 * @param speed
+	 * @param maxMana
+	 * @param maxLifePoints
+	 * @param competences
+	 * @param faiblesses
+	 * @param resistances
+	 * @param armePossible
+	 */
 	private Soigneur  (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<Competences> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances, armePossible) ;
 	}
 	
-	/*
+	/** a getter for the instance soigneur 
+	 * 
+	 * @return
+	 */
 	public static Soigneur getSoigneur() {
 		if (instance == null) {
-			instance = new Soigneur("Nom du Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40) ;
+			//instance = new Soigneur("Nom du Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40) ;
 		}
 		return instance ;
-	}*/
-	
+	}
+	/** a function for when the character  gains a level
+	 * 
+	 */
 	public String gainNiveau() {
 		Random random = new Random() ;
 		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity() ;

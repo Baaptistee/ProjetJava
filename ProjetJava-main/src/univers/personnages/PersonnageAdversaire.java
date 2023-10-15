@@ -4,6 +4,7 @@ import univers.Eleme;
 //import java.util.ArrayList;
 //import univers.armes.*;
 import univers.competences.Competences;
+import univers.competences.CompetencesActives;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,23 +13,23 @@ import java.util.Random;
 
 public class PersonnageAdversaire extends PersonnageCombattant {
 	
-	private Competences[] competences ; // un tableau avec les compétences utilisables par le personnage ainsi que la probabilité que celui-ci l'utilise 
+	private CompetencesActives[] competences ; // un tableau avec les compétences utilisables par le personnage ainsi que la probabilité que celui-ci l'utilise 
 	private int[] probaCompetences ;
 	private ArrayList<PersonnageCombattant> groupe ;
 	private static ArrayList<PersoGroupe> groupeJoueur ;
 	
-	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, Competences[] competences, int[] probaCompetences) {
+	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, CompetencesActives[] competences, int[] probaCompetences) {
 		
 		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
 		this.competences = competences ;
 		this.probaCompetences = probaCompetences ;
 	}
 
-	public Competences[] getCompetences() {
+	public CompetencesActives[] getCompetences() {
 		return competences;
 	}
 
-	public void setCompetences(Competences[] competences) {
+	public void setCompetences(CompetencesActives[] competences) {
 		this.competences = competences;
 	}
 	
@@ -59,44 +60,51 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		PersonnageAdversaire.groupeJoueur = groupeJoueur;
 	}
 
-	public Competences selectionAttaque() {
+	public CompetencesActives selectionAttaque() {
 		Random random = new Random() ;
 		int total = 0 ;
 		boolean pokemon = true ;
-		Competences o = this.getCompetences()[0] ;
-		for (int i = 0 ; i < this.getProbaCompetences().length ; i++){
-			total += this.getProbaCompetences()[i] ;
-		}
-		
-		int a = random.nextInt(total-1) + 1 ;
-		
-		total = 0 ;
-		int i = 0 ;
-		while ((pokemon == true)&(i < this.getProbaCompetences().length)){
-			total += this.getProbaCompetences()[i] ;
-			if (total >= a) {
-				pokemon = false ;
-				o = this.getCompetences()[i] ;
+		CompetencesActives o = this.getCompetences()[0] ;
+		boolean manaCost = false ;
+		boolean noUselessHeal = false ;
+		while ((manaCost==false)||(noUselessHeal==false)){
+			manaCost = false ;
+			noUselessHeal = false ;
+			for (int i = 0 ; i < this.getProbaCompetences().length ; i++){
+				total += this.getProbaCompetences()[i] ;
 			}
-			i++ ;
-		}
-		// on vérifie que si c'est une compétence de soin, il y a bien des personnages alliés à soigner 
-		if (o.getClass().getName()=="univers.competences.CompetencesSoin") {
-			boolean test = false ;
-			for (int k = 0 ; k < this.getGroupe().size() ; k++){
-				if (this.getGroupe().get(k).getLifePoints()<this.getGroupe().get(k).getMaxLifePoints()){
-					test = true ;
+
+			int a = random.nextInt(total-1) + 1 ;
+		
+			total = 0 ;
+			int i = 0 ;
+			while ((pokemon == true)&(i < this.getProbaCompetences().length)){
+				total += this.getProbaCompetences()[i] ;
+				if (total >= a) {
+					pokemon = false ;
+					o = this.getCompetences()[i] ;
 				}
+				i++ ;
 			}
-			if (test == false) {
-				o = selectionAttaque() ;
+		// on vérifie que le personnage a assez de mana pour lancer la compétence 
+			if (this.getMana()>o.getCoutMana()) {
+				manaCost = true ;
+			}
+		
+			// on vérifie que si c'est une compétence de soin, il y a bien des personnages alliés à soigner 
+			if (o.getClass().getName()=="univers.competences.CompetencesSoin") {
+				for (int k = 0 ; k < this.getGroupe().size() ; k++){
+					if (this.getGroupe().get(k).getLifePoints()<this.getGroupe().get(k).getMaxLifePoints()){
+						noUselessHeal = true ;
+					}
+				}
 			}
 		}
 		return o ;
 	}
 
 	// une fonction pour la sélection aléatoire de la cible 
-	public PersonnageCombattant selectionCible(Competences competence) {
+	public PersonnageCombattant selectionCible(CompetencesActives competence) {
 		PersonnageCombattant d = getGroupeJoueur().get(0) ;
 		Random random = new Random() ;
 
