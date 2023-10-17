@@ -7,6 +7,7 @@ public abstract class Node extends JFrame {
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
 	private static Node lastCheckPoint;
 	private static InterfaceJeu interfac = new InterfaceJeu() ; 
+
 	private String description ; // la description du Node 
 	private int idNode ; // l'attribut ID du Node 
 	private String nom ; // le nom ou titre du Node 
@@ -136,7 +137,6 @@ public abstract class Node extends JFrame {
         	
         	setLastCheckpoint(this) ;
         }
-		
 	}
    
 	// La fonction utilisée pour afficher les noeuds 
@@ -147,6 +147,7 @@ public abstract class Node extends JFrame {
 		this.isCheckPoint() ;
 		
 		getInterface().afficherNodeBase(this) ;
+
 	}
 	
 	/*
@@ -185,6 +186,18 @@ public abstract class Node extends JFrame {
 	
 	*/
 	// la méthode main qui sert à tester 
+	/*
+  public static void main(String[] args) {
+		
+		
+		Node test = new Node("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ") ; // balise html a revoir
+		Node test2 = new Node("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
+		test.setNextNode(test2) ;
+			    
+	    test.display() ;	    
+	    //getInterface().popUp("test test test test on va voir si ça marche lol") ;
+		
+	}*/
 	
 	
 	
