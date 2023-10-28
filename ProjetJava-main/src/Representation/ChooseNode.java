@@ -75,16 +75,20 @@ public class ChooseNode extends Node {
 		TerminalNode gameOver = new TerminalNode("Game Over" , "<html> Tu viens de mourir grosse merde, veux tu reprendre au check point ou rage quit ?") ;
 		
 		InnerNode test2 = new InnerNode("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
+
+		FightNode test3 = new FightNode("Combat", "C'est la guerre");
  		
 		// Configuring next nodes
 		test2.setNextNode(gameOver) ;
 		test.setNextNode(test2) ;
+		test3.setNextNode(test3);
  		
 		// Creating a list of options
 		ArrayList <Node> options= new ArrayList<>();
 		options.add(test);
 		options.add(test2);
 		options.add(gameOver);
+		options.add(test3);
  		
 		// Creating a choice node
 		ChooseNode testChoix = new ChooseNode("test", "<html> tu dois choisir entre les choix suivants : ", options) ;
