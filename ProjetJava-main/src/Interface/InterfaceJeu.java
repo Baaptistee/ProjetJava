@@ -4,13 +4,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.* ;
+import javax.swing.border.BevelBorder;
 
 
 public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame();
 	private static JMenuBar barreMenu = new JMenuBar() ;
-	private static JLayeredPane panelAffichage = new JLayeredPane() ; 
 
 
 	
@@ -18,7 +18,7 @@ public class InterfaceJeu {
 		
 		configFenetre();
 	}
-  
+
     public static JFrame getFenetre() {
 	    return fenetre;
     }
@@ -36,14 +36,12 @@ public class InterfaceJeu {
     public static void setBarreMenu(JMenuBar barreMenu) {
 	    InterfaceJeu.barreMenu = barreMenu;
     }
-  
+
+
     public static void cleanFenetre() {
 	    getFenetre().getContentPane().removeAll();
 	    getFenetre().revalidate() ;
 	    getFenetre().repaint();
-    }
-    public static JLayeredPane getPane() {
-  	  return panelAffichage ;
     }
 
     public static void menu(JButton chooseButton){
@@ -96,20 +94,9 @@ public class InterfaceJeu {
         getFenetre().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
         configMenu() ;
         getFenetre().setVisible(true); // rendre la fenetre visible
-      
-    public static void cleanPane() {
-	    getPane().removeAll() ;
-	    getFenetre().revalidate() ;
-	    getFenetre().repaint();
+
+    
     }
-
-
-public static void cleanLayer(int layer) {
-	Component[] components = getPane().getComponentsInLayer(layer);
-	for (Component component : components) {
-	    //getPane().remove(component);
-	}
-}
 
     public void afficherNodeBase(Node node) {
        JLayeredPane layeredPane = new JLayeredPane();
@@ -133,9 +120,11 @@ public static void cleanLayer(int layer) {
         label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
         getFenetre().revalidate();
         getFenetre().repaint();
-        JButton btn = new JButton("TEST POPUP");
-        panelText.add(btn);
-        menu(btn);
+       // JButton btn = new JButton("TEST POPUP");
+        //panelText.add(btn);
+       // menu(btn);
+
+
 	
         char[] texts = node.getDescription().toCharArray(); // transformation de la chaine descrition en tableau de char
         Timer timer = new Timer(20, new ActionListener() { // timer apparition d'un char composant le tableau ci-dessus toutes les 20milisec
@@ -164,6 +153,9 @@ public static void cleanLayer(int layer) {
                 if(node.getClass()== InnerNode.class){ // Si le node est un innerNode affichage boutonSuivant
                     InnerNodeButton(node);
                 }
+                if(node.getClass()== FightNode.class){
+                    FightNodeButton(node);
+                }
             
             }
         
@@ -171,20 +163,7 @@ public static void cleanLayer(int layer) {
     });
 
 
-
-
     timer.start(); 
-      
-	JButton fermer = new JButton("Fermer"); // création button
-    //constraints.gridx = 0;
-    //constraints.gridy = 1;
-    pane.add(fermer,BorderLayout.SOUTH); // ajout du bouton a la fenetre
-	//constraints.gridx = 1;
-    //constraints.gridy = 1;
-    getFenetre().revalidate() ;
-	boutonClosePane(fermer, pane) ;
-	
-}
 
 }
 //Fonction creation de bouton chooseNode
@@ -215,32 +194,7 @@ public static void cleanLayer(int layer) {
                 }
             });
             
-    getFenetre().revalidate();
-    getFenetre().repaint();
-
-	
-    char[] texts = node.getDescription().toCharArray(); // transformation de la chaine descrition en tableau de char
-    Timer timer = new Timer(20, new ActionListener() { // timer apparition d'un char composant le tableau ci-dessus toutes les 20milisec
-    int index = 0; // index pour recuperer chaque char par l'intermediaire du tableau
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (index < texts.length) { //Parcours de la chaine Descrition caractère par caractère grace au tableau texts
-            char nextChar = node.getDescription().charAt(index); // recuperation dans la chaine de caractere du caractere associé a l'index
-            if(nextChar =='/'){ //creation d'une condition de passage a la ligne : utilisation de balise web (retour chariot ne marchant pas) MAIS A REVOIR 
-                label.setText(label.getText() + "<br>");
-                index++;
-            }
-            else{
-                label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
-                index++; //on passe au caractere suivant de la chaine de description
-            }
-            
-        } else {
-            ((Timer) e.getSource()).stop(); // Arrête le timer après l'affichage de tous les textes
-            
-            
-			CreatNextButton(getPane(), BorderLayout.SOUTH, node);
+        getFenetre().revalidate();
         }
     }
 
@@ -249,7 +203,7 @@ public static void cleanLayer(int layer) {
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, 1000, 1000);
         JPanel panelInner = new JPanel();
-         getFenetre().add(layeredPane);
+        getFenetre().add(layeredPane);
 		panelInner.setBounds(711, 494, 144, 62);
         
 		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
@@ -265,6 +219,47 @@ public static void cleanLayer(int layer) {
         }
     }   
 
+    public void FightNodeButton(Node node){
+         JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, 1000, 1000);
+        
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBounds(700, 200, 150, 300);
+        layeredPane.add(mainPanel, JLayeredPane.POPUP_LAYER);
+        mainPanel.setLayout(new FlowLayout());
+
+        ButtonGroup buttonGroup = new ButtonGroup();
+
+        for (int i = 1; i <= 5; i++) {
+            JRadioButton radioButton = new JRadioButton("Option " + i);
+            buttonGroup.add(radioButton);
+            mainPanel.add(radioButton);
+        }
+
+        JButton validateButton = new JButton("Valider");
+        mainPanel.add(validateButton);
+        getFenetre().add(mainPanel);
+        getFenetre().setVisible(true);
+        /*validateButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedOption = "Aucune option sélectionnée";
+                if (radioButton1.isSelected()) {
+                    selectedOption = "Option 1 sélectionnée";
+                } else if (radioButton2.isSelected()) {
+                    selectedOption = "Option 2 sélectionnée";
+                } else if (radioButton3.isSelected()) {
+                    selectedOption = "Option 3 sélectionnée";
+                }
+                JOptionPane.showMessageDialog(getFenetre(), selectedOption);
+            }
+        });*/
+
+        // Ajouter les composants au conteneur
+    
+
+       
+
+    }
 
 
     public void boutonGoNext(JButton btn1, Node node){
@@ -277,6 +272,9 @@ public static void cleanLayer(int layer) {
                         }
             });
     }
+
+
+}
 /*JPanel z = new JPanel();
 		        z.setBounds(56, 212, 552, 344);
 		        fenetre.getContentPane().add(z);
@@ -309,4 +307,3 @@ public static void cleanLayer(int layer) {
 
                 }
                 });*/
-
