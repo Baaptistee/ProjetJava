@@ -10,10 +10,12 @@ import java.awt.event.ActionListener;
 import javax.swing.* ;
 
 
+
 public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the game interface.
 	private static JMenuBar barreMenu = new JMenuBar() ;//Reference to the menu bar of the game interface.
+    private static JLayeredPane layeredPane =new JLayeredPane();
 
 
 	 /**
@@ -72,7 +74,7 @@ public class InterfaceJeu {
 
      
 public static void menu(JButton chooseButton){
-     JLayeredPane layeredPane = new JLayeredPane();
+     
         layeredPane.setBounds(0, 0, 1000, 1000);
         JPanel panel = new JPanel();
         panel.setBounds(50, 50, 300, 200);
@@ -139,19 +141,27 @@ public static void menu(JButton chooseButton){
 
     
  public void afficherNodeBase(Node node) {
-       JLayeredPane layeredPane = new JLayeredPane();
+
         layeredPane.setBounds(0, 0, 1000, 1000);
         //JPanel backgroundPanel = new JPanel(); // Panneau de fond pour couvrir la page entière
         //backgroundPanel.setBounds(0, 0, 1000,1000);
         //backgroundPanel.setBackground(Color.DARK_GRAY); // Couleur de fond
         //layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
-        
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
         
 
 	    fenetre.getContentPane().setLayout(null);
 	    cleanFenetre() ;
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
-        panelText.setBounds(60, 110, 600, 100);
+        if (node.getClass()== ChooseNode.class){ 
+            panelText.setBounds(60, 110, 600, 100);
+        }
+        if (node.getClass()==  InnerNode.class){ 
+            panelText.setBounds(80, 110, 800, 300);
+        }
+        
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
         JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
@@ -327,6 +337,15 @@ public static void menu(JButton chooseButton){
                 JOptionPane.showMessageDialog(getFenetre(), selectedOption);
             }
         });*/
+    }
+
+    public void CloseFame(Button btn){
+         btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    getFenetre().dispose();
+                }
+            });
     }
 
     /**
