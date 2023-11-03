@@ -367,35 +367,4 @@ public static void menu(JButton chooseButton){
 
 
 }
-/*JPanel z = new JPanel();
-		        z.setBounds(56, 212, 552, 344);
-		        fenetre.getContentPane().add(z);
-		        z.setLayout(null);
-		        JLayeredPane layeredPane = new JLayeredPane();
-		        layeredPane.setBounds(89, 34, 320, 239);
-		        layeredPane.setForeground(new Color(0, 255, 64));
-		        layeredPane.setBorder(new MatteBorder(4, 3, 1, 6, (Color) new Color(0, 0, 0)));
-                layeredPane.setBackground(Color.BLUE);
-                j.setOpaque(false);
-		        z.add(layeredPane);
-		        layeredPane.setLayout(null);
-		
-		        JPanel panel_5 = new JPanel();
-		        panel_5.setBounds(89, 36, 117, 168);
-		        layeredPane.add(panel_5,JLayeredPane.DEFAULT_LAYER);
-		        panel_5.setLayout(null);
-		
-		        JLabel lblNewLabel_1 = new JLabel("bienvenidos");
-		        lblNewLabel_1.setBounds(10, 30, 73, 14);
-		        panel_5.add(lblNewLabel_1);
-		
-		        JButton ok = new JButton("ok");
-		        ok.setBounds(10, 110, 89, 23);
-		        panel_5.add(ok);
-                ok.addActionListener(new ActionListener() {
-                    @Override
-                public void actionPerformed(ActionEvent e) {
-                layeredPane.setVisible(false);
 
-                }
-                });*/
