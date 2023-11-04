@@ -1,8 +1,4 @@
 package Representation;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.* ;
-import java.awt.*;
 
 public class TerminalNode extends Node {
 	
@@ -12,6 +8,12 @@ public class TerminalNode extends Node {
 		
 		super(nom, description) ;
 		
+	}
+
+	@Override
+	public Node goNext() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 	/*

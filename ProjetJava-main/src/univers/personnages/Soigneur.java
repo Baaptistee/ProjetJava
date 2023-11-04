@@ -59,8 +59,9 @@ public class Soigneur extends PersoGroupe{
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
 		if (this.getLevel() == 2) {
-			//this.getCompetences().add(SoinRapide.getSoinRapide()) ;
-			d += "/Il apprend la compétence active : Coup Soigneur !" ;
+			CompetenceSoin soinRapide = new CompetenceSoin("Soin Rapide", "Un soin mineur peu coûteux en mana", 2, 3, false) ;
+			this.getCompetences().add(soinRapide) ;
+			d += "/Il apprend la compétence active : Soin Rapide !" ;
 		}
 		return d ;
 	}

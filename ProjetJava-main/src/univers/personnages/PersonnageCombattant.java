@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
+import univers.Statistiques;
 import univers.competences.Competences;
 /** an abstract class to represent all of our fighting characters (allies or ennemies)
  * 
@@ -62,7 +63,8 @@ public abstract class PersonnageCombattant extends Personnage{
 	 */
 	private ArrayList<Eleme> resistances ;
 
-	
+	private static ArrayList<PersonnageCombattant> groupeJoueur ;
+
 	
 	/** the constructor for the class 
 	 * 
@@ -276,10 +278,66 @@ public abstract class PersonnageCombattant extends Personnage{
 	public void setFaiblesse(ArrayList<Eleme> faiblesse) {
 		this.faiblesses = faiblesse;
 	}
+	
+	public static ArrayList<PersonnageCombattant> getGroupeJoueur() {
+		return groupeJoueur;
+	}
+
+	public static void setGroupeJoueur(ArrayList<PersonnageCombattant> groupeJoueur) {
+		PersonnageCombattant.groupeJoueur = groupeJoueur;
+	}
+	
+	/** 
+	 * a method to test a character's statistic
+	 * @param valeurTest value to modulate the difficulty of the test
+	 * @param stat the stat being tested 
+	 * @return weather the character succeeded or not 
+	 */
+	
+	public boolean testStat(int valeurTest, Statistiques stat){
+		Random random = new Random() ;
+		switch(stat) {
+		case STRENGTH:
+			if (valeurTest <= this.getStrength() + random.nextInt(19) + 1) {
+				return true ;
+			} else {
+				return false ;
+			}
+		case DEXTERITY:
+			if (valeurTest <= this.getDexterity() + random.nextInt(19) + 1) {
+				return true ;
+			} else {
+				return false ;
+			}
+		case INTELLIGENCE:
+			if (valeurTest <= this.getIntelligence() + random.nextInt(19) + 1) {
+				return true ;
+			} else {
+				return false ;
+			}
+		case SPEED:
+			if (valeurTest <= this.getSpeed() + random.nextInt(19) + 1) {
+				return true ;
+			} else {
+				return false ;
+			}
+		case ENDURANCE:
+			if (valeurTest <= this.getEndurance() + random.nextInt(19) + 1) {
+				return true ;
+			} else {
+				return false ;
+			}
+		default:
+			return false ;
+		}
+	}
+	
+	
 	/** a function meant to check if the character is alive or no
 	 * 
 	 * @return
 	 */
+	
 	// une fonction qui vérifie que le personnage est toujours en vie 
 	public boolean enVie() {
 		if (this.getLifePoints() <= 0) {
@@ -340,10 +398,5 @@ public abstract class PersonnageCombattant extends Personnage{
 	 * @return
 	 */
 	public abstract ArrayList<PersonnageCombattant> getGroupe() ; 
-	/** a setter for the group 
-	 * 
-	 * @param groupe
-	 */
-	public abstract void setGroupe(ArrayList<PersonnageCombattant> groupe) ;
 
 }

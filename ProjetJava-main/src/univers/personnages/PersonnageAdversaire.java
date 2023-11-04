@@ -16,7 +16,6 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	private CompetencesActives[] competences ; // un tableau avec les compétences utilisables par le personnage ainsi que la probabilité que celui-ci l'utilise 
 	private int[] probaCompetences ;
 	private ArrayList<PersonnageCombattant> groupe ;
-	private static ArrayList<PersoGroupe> groupeJoueur ;
 	
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, CompetencesActives[] competences, int[] probaCompetences) {
 		
@@ -52,13 +51,6 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		this.groupe = groupe;
 	}
 
-	public static ArrayList<PersoGroupe> getGroupeJoueur() {
-		return groupeJoueur;
-	}
-
-	public static void setGroupeJoueur(ArrayList<PersoGroupe> groupeJoueur) {
-		PersonnageAdversaire.groupeJoueur = groupeJoueur;
-	}
 
 	public CompetencesActives selectionAttaque() {
 		Random random = new Random() ;

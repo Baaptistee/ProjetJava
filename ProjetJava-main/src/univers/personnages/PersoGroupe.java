@@ -1,6 +1,6 @@
 package univers.personnages;
 
-import java.util.Random;
+//import java.util.Random;
 import univers.competences.*;
 import univers.Eleme;
 import univers.armes.*;
@@ -21,10 +21,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * 
 	 */
 	private ArrayList<Competences> competences ;
-	/** the group of the character 
-	 * 
-	 */
-	private ArrayList<PersonnageCombattant> groupe ;
+	
 	/** an arrayList with the type of weapons the character can carry
 	 * 
 	 */
@@ -89,7 +86,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * @return
 	 */
 	public ArrayList<Competences> getCompetences() {
-		return competences;
+		return this.competences;
 	}
 
 	/** a setter for the competences 
@@ -146,6 +143,25 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 			return super.getIntelligence() ;
 		}
 	}
+	
+	/**
+	 * a getter for the speed with the bonus 
+	 */
+	@Override
+	public int getSpeed() {
+		if (weapon != null) {
+			return (this.getWeapon().getBonusSpeed() + super.getIntelligence()) ;
+		} else {
+			return super.getIntelligence() ;
+		}
+	}
+	/**
+	 * a getter for base speed
+	 * @return
+	 */
+	public int getBaseSpeed() {
+		return super.getSpeed() ;
+	}
 	/** a getter for base Strength
 	 * 
 	 * @return
@@ -168,19 +184,21 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	public int getBaseDexterity() {
 		return super.getDexterity() ;
 	}
+	
+	/** a getter for base Endurance 
+	 * 
+	 */
+	
+	public int getBaseEndurance() {
+		return super.getEndurance() ;
+	}
 	/** a getter for the group
 	 * 
 	 */
 	public ArrayList<PersonnageCombattant> getGroupe() {
-		return groupe;
+		return PersonnageCombattant.getGroupeJoueur();
 	}
 
-	/** a setter for the group
-	 * 
-	 */
-	public void setGroupe(ArrayList<PersonnageCombattant> groupe) {
-		this.groupe = groupe;
-	}
 
 	/** a getter for the possible weapons
 	 * 
@@ -198,48 +216,6 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 		this.armePossible = armePossible;
 	}
 
-	/** a methode to do Strength test
-	 * 
-	 * @param valeurTest
-	 * @return
-	 */
-	// des méthodes pour réaliser des tests de force, d'agilité et de dextérité (pour des actions en combat ou 
-	public boolean testStrengh(int valeurTest) {
-		Random random = new Random() ;
-		if (valeurTest <= this.getStrength() + random.nextInt(19) + 1) {
-			return true ;
-		} else {
-			return false ;
-		}
-	}
-	/** a methd to do a intelligence test
-	 * 
-	 * @param valeurTest
-	 * @return
-	 */
-	public boolean testIntelligence(int valeurTest) {
-		Random random = new Random() ;
-		if (valeurTest <= this.getIntelligence() + random.nextInt(19) + 1) {
-			return true ;
-		} else {
-			return false ;
-		}
-	}
-	/** a method to do a dexterity test
-	 * 
-	 * @param valeurTest
-	 * @return
-	 */
-	public boolean testDexterity(int valeurTest) {
-		Random random = new Random() ;
-		if (valeurTest <= this.getDexterity() + random.nextInt(19) + 1) {
-			return true ;
-		} else {
-			return false ;
-		}
-	}
-	
-	
 	
 	/** a method to make our characters gain xp
 	 * 
@@ -251,12 +227,14 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 		experience += xp ; 
 		// si il y a assez d'expérience 
 		if (this.getExperience() >= this.getLevel()*10 + 90) {
-			//On appelle la fonction gain de niveau 
-			this.gainNiveau() ;
 			// on réinitialise l'expérience enlevant celle qui a servi au gain de niveau 
 			this.setExperience(getExperience() - (getLevel()*10 + 90)) ;
+			//On appelle la fonction gain de niveau 
+			this.gainNiveau() ;
+			
 		}
 	}
+	
 	/** a abstract method to make our character win levels
 	 * 
 	 * @return
