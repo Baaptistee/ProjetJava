@@ -6,6 +6,7 @@ import java.util.Random;
 import univers.Eleme;
 import univers.Statistiques;
 import univers.competences.Competences;
+import univers.personnages.personnagesGroupe.*;
 /** an abstract class to represent all of our fighting characters (allies or ennemies)
  * 
  */
@@ -280,6 +281,12 @@ public abstract class PersonnageCombattant extends Personnage{
 	}
 	
 	public static ArrayList<PersonnageCombattant> getGroupeJoueur() {
+		if (groupeJoueur==null) {
+			groupeJoueur.add(Soigneur.getSoigneur()) ;
+			groupeJoueur.add(Mage.getMage()) ;
+			groupeJoueur.add(Chevalier.getChevalier()) ;
+			groupeJoueur.add(Voleur.getVoleur()) ;
+		}
 		return groupeJoueur;
 	}
 

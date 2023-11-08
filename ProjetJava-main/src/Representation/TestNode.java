@@ -71,8 +71,7 @@ public class TestNode extends Node{
 				totalReussite++ ;
 			}
 		}
-		
-		// Voir avec interface de jeu mais quelque chose pour afficher la description 
+			// Voir avec interface de jeu mais quelque chose pour afficher la description 
 		
 		if (totalReussite >= this.getNombreReussiteNecessaire()) {
 			this.getSuccessNode().display(); 

@@ -10,48 +10,86 @@ import java.util.ArrayList;
 import java.util.Random;
 //import univers.personnages.*;
 
-
+/** 
+ * une classe utilisée pour les personnages adverses dans les fight node
+ * 
+ */
 public class PersonnageAdversaire extends PersonnageCombattant {
-	
+	/**
+	 * les competences du personnages
+	 */
 	private CompetencesActives[] competences ; // un tableau avec les compétences utilisables par le personnage ainsi que la probabilité que celui-ci l'utilise 
+	/** 
+	 * la proba associée à chacune de ces compétences 
+	 */
 	private int[] probaCompetences ;
+	/**
+	 * le groupe de ce personnage combattant
+	 */
 	private ArrayList<PersonnageCombattant> groupe ;
 	
+	/**
+	 * le constructeur de la classe
+	 * @param nom
+	 * @param description
+	 * @param dexterite
+	 * @param force
+	 * @param intelligence
+	 * @param endurance
+	 * @param speed
+	 * @param maxLifePoints
+	 * @param maxMana
+	 * @param faiblesses
+	 * @param resistances
+	 * @param competences
+	 * @param probaCompetences
+	 */
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, CompetencesActives[] competences, int[] probaCompetences) {
 		
 		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
 		this.competences = competences ;
 		this.probaCompetences = probaCompetences ;
 	}
-
+	/**
+	 * un getter pour les compétences 
+	 * @return
+	 */
 	public CompetencesActives[] getCompetences() {
 		return competences;
 	}
-
+	/**
+	 * un setter pour les compétences 
+	 * @param competences
+	 */
 	public void setCompetences(CompetencesActives[] competences) {
 		this.competences = competences;
 	}
 	
-
+	/**
+	 * un getter pour la proba des compétences
+	 * @return
+	 */
 	public int[] getProbaCompetences() {
 		return probaCompetences;
 	}
-
-	public void setProbaCompetences(int[] probaCompetences) {
-		this.probaCompetences = probaCompetences;
-	}
-	
-	
-	// une fonction pour la sélection "aléatoire" de l'attaque 
+	/** 
+	 * un getter pour le groupe
+	 */
 	public ArrayList<PersonnageCombattant> getGroupe() {
 		return groupe;
 	}
-
+	/**
+	 * un setter pour le groupe 
+	 * @param groupe
+	 */
 	public void setGroupe(ArrayList<PersonnageCombattant> groupe) {
 		this.groupe = groupe;
 	}
 
-
+	/**
+	 * une fonction pour sélectionner de manière "aléatoire" une compétence
+	 * @return
+	 */
 	public CompetencesActives selectionAttaque() {
 		Random random = new Random() ;
 		int total = 0 ;
@@ -95,6 +133,11 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		return o ;
 	}
 
+	/** 
+	 * une fonction pour sélectionner la cible de cette attaque 
+	 * @param competence
+	 * @return
+	 */
 	// une fonction pour la sélection aléatoire de la cible 
 	public PersonnageCombattant selectionCible(CompetencesActives competence) {
 		PersonnageCombattant d = getGroupeJoueur().get(0) ;
