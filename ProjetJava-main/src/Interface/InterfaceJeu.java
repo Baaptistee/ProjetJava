@@ -54,13 +54,21 @@ public class InterfaceJeu {
     public static JMenuBar getBarreMenu() {
 	    return barreMenu;
     }
-
+    
      /**
      * Set the menu bar of the game interface.
      * @param barreMenu The menu bar to set.
      */
     public static void setBarreMenu(JMenuBar barreMenu) {
 	    InterfaceJeu.barreMenu = barreMenu;
+    }
+
+    public static JLayeredPane getLayeredPane(){
+        return layeredPane;
+    }
+
+    public static void setLayeredPane(JLayeredPane layeredPane){
+        InterfaceJeu.layeredPane=layeredPane;
     }
 
      /**
@@ -74,22 +82,22 @@ public class InterfaceJeu {
     }
 
      
-public static void menu(JButton chooseButton){
+public static void POPUP(JButton chooseButton){
      
-        layeredPane.setBounds(0, 0, 1000, 1000);
-        JPanel panel = new JPanel();
-        panel.setBounds(50, 50, 300, 200);
-        panel.setBackground(Color.white);
-        panel.setVisible(false);
-        layeredPane.add(panel, JLayeredPane.DRAG_LAYER);
+        configPanel();
+        JPanel panelPopUp = new JPanel();
+        panelPopUp.setBounds(50, 50, 300, 200);
+        panelPopUp.setBackground(Color.white);
+        panelPopUp.setVisible(false);
+        layeredPane.add(panelPopUp, JLayeredPane.DRAG_LAYER);
         getFenetre().add(layeredPane);
         chooseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (panel.isVisible()) {
-                    panel.setVisible(false);
+                if (panelPopUp.isVisible()) {
+                    panelPopUp.setVisible(false);
                 } else {
-                    panel.setVisible(true);
+                    panelPopUp.setVisible(true);
                 }
             }
         });
@@ -117,7 +125,6 @@ public static void menu(JButton chooseButton){
         getBarreMenu().add(statut);
         getFenetre().setJMenuBar(getBarreMenu());
        
-        
     }
 
      /**
@@ -147,28 +154,23 @@ public static void menu(JButton chooseButton){
  public void afficherNodeBase(Node node) {
 
         configPanel();
-        //JPanel backgroundPanel = new JPanel(); // Panneau de fond pour couvrir la page entière
-        //backgroundPanel.setBounds(0, 0, 1000,1000);
-        //backgroundPanel.setBackground(Color.DARK_GRAY); // Couleur de fond
-        //layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
         
-    
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
-        if (node.getClass()== ChooseNode.class){ 
+        if (node instanceof ChooseNode){ 
             panelText.setBounds(60, 110, 600, 100);
         }
-        if (node.getClass()==  InnerNode.class){ 
+        if (node instanceof InnerNode){ 
             panelText.setBounds(80, 110, 800, 300);
         }
-        if (node.getClass()==  TerminalNode.class){ 
+        if (node instanceof ChanceNode){ 
             panelText.setBounds(80, 110, 800, 300);
         }
-         if (node.getClass()== FightNode.class){ 
+         if (node instanceof FightNode){ 
             panelText.setBounds(60, 110, 600, 100);
         }
         
@@ -182,7 +184,7 @@ public static void menu(JButton chooseButton){
         getFenetre().repaint();
         JButton btn = new JButton("TEST POPUP");
         panelText.add(btn);
-        menu(btn);
+        POPUP(btn);
 
 
 	
@@ -335,7 +337,7 @@ public static void menu(JButton chooseButton){
     
     
 
-    public void CloseFame(){
+    public void CloseFrame(){
         Timer timer = new Timer(5000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -355,7 +357,7 @@ public static void menu(JButton chooseButton){
         panelTerminal.setBounds(711, 494, 144, 62);
         layeredPane.add(panelTerminal, JLayeredPane.POPUP_LAYER);
         panelTerminal.setBackground(Color.YELLOW);
-         CloseFame();
+        this.CloseFrame();
     }
 
     /**

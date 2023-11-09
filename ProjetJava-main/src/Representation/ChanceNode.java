@@ -34,6 +34,18 @@ public class ChanceNode extends Node{
 		return nodePossible ;
 	}
 
+    public void setNodePossible(ArrayList <Node> nodePossible){
+        this.nodePossible=nodePossible;
+    }
+
+    public ArrayList <Integer> getProbability(){
+        return probability;
+    }
+
+    public void setProbability(ArrayList <Integer> probability){
+        this.probability=probability;
+    }
+
     /**
      * Select a node based on a random outcome.
      *
@@ -43,12 +55,12 @@ public class ChanceNode extends Node{
             Random random = new Random();
             int randomNum = random.nextInt(10); 
 
-            if (randomNum <=  probability.get(0)) {
+            if (randomNum <=  this.getProbability().get(0)) {
                 
-                return getNodePossible().get(0); 
+                return this.getNodePossible().get(0); 
             } else {
               
-                return getNodePossible().get(1);
+                return this.getNodePossible().get(1);
             }
         }
 

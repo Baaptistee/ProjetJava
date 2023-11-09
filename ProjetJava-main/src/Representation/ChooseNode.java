@@ -34,13 +34,17 @@ public class ChooseNode extends Node {
 		return options ;
 	}
 
+	public void setOptions(ArrayList <Node> options){
+		this.options=options;
+	}
+
 	 /**
      * Add an option to the list of available options.
      * @param additionalOption The option to add.
      */
 
 	public void addOption(Node optionSupp) {
-		getOptions().add(optionSupp);
+		this.getOptions().add(optionSupp);
 	}
 
 	/**
@@ -49,8 +53,8 @@ public class ChooseNode extends Node {
      */
 
 	public void suppOption(Node suppOption) {
-		int index=getOptions().indexOf(suppOption);
-		options.remove(index);
+		int index= this.getOptions().indexOf(suppOption);
+		this.getOptions().remove(index);
 	}
 	
 	 /**
@@ -61,12 +65,7 @@ public class ChooseNode extends Node {
 	public void display() {
 		super.display();
 
-    }
-
-	/**
-     * Main method for testing the ChooseNode class.
-     */
-	
+	}
     
 }
 
