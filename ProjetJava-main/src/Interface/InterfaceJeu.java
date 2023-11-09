@@ -15,7 +15,7 @@ public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the game interface.
 	private static JMenuBar barreMenu = new JMenuBar() ;//Reference to the menu bar of the game interface.
-    private static JLayeredPane layeredPane =new JLayeredPane();
+    private static JLayeredPane layeredPane = new JLayeredPane();
 
 
 	 /**
@@ -359,7 +359,7 @@ public static void menu(JButton chooseButton){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                    	    node.goNext().display(); // Code to execute when the button is clicked
+                    	   // node.goNext().display(); // Code to execute when the button is clicked
                     	
                         }
             });

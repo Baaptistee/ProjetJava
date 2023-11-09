@@ -97,12 +97,6 @@ public class ChooseNode extends Node {
 		testChoix.display() ;
      }
 
-
-	@Override
-	public Node goNext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
     
 }
 

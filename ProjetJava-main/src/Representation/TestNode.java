@@ -66,22 +66,18 @@ public class TestNode extends Node{
 	
 	public void diplay() {
 		int totalReussite = 0 ;
-		for (int i = 0 ; i <= PersonnageCombattant.getGroupeJoueur().size() ; i++ ) {
-			if (PersonnageCombattant.getGroupeJoueur().get(i).testStat(this.getDifficulteTest(), this.getStatATester())) {
+		for (int i = 0 ; i <= Game.getGroupeJoueur().size() ; i++ ) {
+			if (Game.getGroupeJoueur().get(i).testStat(this.getDifficulteTest(), this.getStatATester())) {
 				totalReussite++ ;
 			}
 		}
 			// Voir avec interface de jeu mais quelque chose pour afficher la description 
 		
 		if (totalReussite >= this.getNombreReussiteNecessaire()) {
-			this.getSuccessNode().display(); 
+			this.goNext(this.getSuccessNode()) ;
 		} else {
-			this.getFailureNode().display();
+			this.goNext(this.getFailureNode()) ;
 		}
 	}
-
-	@Override
-	public Node goNext() {
-		return null;
-	}
+	
 }

@@ -279,16 +279,6 @@ public abstract class PersonnageCombattant extends Personnage{
 	public void setFaiblesse(ArrayList<Eleme> faiblesse) {
 		this.faiblesses = faiblesse;
 	}
-	
-	public static ArrayList<PersonnageCombattant> getGroupeJoueur() {
-		if (groupeJoueur==null) {
-			groupeJoueur.add(Soigneur.getSoigneur()) ;
-			groupeJoueur.add(Mage.getMage()) ;
-			groupeJoueur.add(Chevalier.getChevalier()) ;
-			groupeJoueur.add(Voleur.getVoleur()) ;
-		}
-		return groupeJoueur;
-	}
 
 	public static void setGroupeJoueur(ArrayList<PersonnageCombattant> groupeJoueur) {
 		PersonnageCombattant.groupeJoueur = groupeJoueur;

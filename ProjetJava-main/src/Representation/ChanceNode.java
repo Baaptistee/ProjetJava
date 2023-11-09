@@ -38,12 +38,4 @@ public class ChanceNode extends Node{
             }
         }
 
-
-
-		@Override
-		public Node goNext() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
 }

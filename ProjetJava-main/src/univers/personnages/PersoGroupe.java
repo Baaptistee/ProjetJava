@@ -5,6 +5,8 @@ import univers.competences.*;
 import univers.Eleme;
 import univers.armes.*;
 import java.util.* ;
+
+import Representation.Game;
 /** a class for the personnage of our group
  * 
  */
@@ -196,7 +198,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * 
 	 */
 	public ArrayList<PersonnageCombattant> getGroupe() {
-		return PersonnageCombattant.getGroupeJoueur();
+		return Game.getGroupeJoueur();
 	}
 
 

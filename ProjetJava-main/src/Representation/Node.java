@@ -195,16 +195,16 @@ public abstract class Node extends JFrame {
 	}
 	
 	public void display() {
-		
-			
-			
 			this.isCheckPoint() ;
-			
 			getInterface().afficherNodeBase(this) ;
-
 	}
 	
-	public abstract Node goNext() ;
+	public void goNext(Node nextNode) {
+		nextNode.setFormerNode(this);
+		nextNode.display();
+	}
+	
+	
 	
 	/*
 	public static ArrayList<Node> creerNodes(String[][] infosNodes) {

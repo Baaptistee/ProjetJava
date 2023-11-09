@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Random;
 //import univers.personnages.*;
 
+import Representation.Game;
+
 /** 
  * une classe utilisée pour les personnages adverses dans les fight node
  * 
@@ -140,7 +142,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 */
 	// une fonction pour la sélection aléatoire de la cible 
 	public PersonnageCombattant selectionCible(CompetencesActives competence) {
-		PersonnageCombattant d = getGroupeJoueur().get(0) ;
+		PersonnageCombattant d = Game.getGroupeJoueur().get(0) ;
 		Random random = new Random() ;
 
 		// on ne se soucie pas des compétences ciblant des groupes ici, peu importe leur cible, elles affecteront le groupe ciblé 
@@ -157,8 +159,8 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 			}
 		} else {
 			
-			int u = random.nextInt(getGroupeJoueur().size()) ;
-			d = getGroupeJoueur().get(u) ;
+			int u = random.nextInt(Game.getGroupeJoueur().size()) ;
+			d = Game.getGroupeJoueur().get(u) ;
 		}
 		return d ;
 	}

@@ -9,13 +9,7 @@ public class TerminalNode extends Node {
 		super(nom, description) ;
 		
 	}
-
-	@Override
-	public Node goNext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-		
+	
 	/*
 	@Override 
 	public void display() {
