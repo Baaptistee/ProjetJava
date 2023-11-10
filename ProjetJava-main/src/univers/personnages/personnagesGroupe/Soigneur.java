@@ -1,11 +1,13 @@
-package univers.personnages;
+package univers.personnages.personnagesGroupe;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
+import univers.armes.Weapon;
 import univers.armes.WeaponType;
 import univers.competences.*;
+import univers.personnages.PersoGroupe;
 /** a character of the group, the healer 
  * I created just this one to do some tests but there will be more later 
  */
@@ -40,7 +42,11 @@ public class Soigneur extends PersoGroupe{
 	 */
 	public static Soigneur getSoigneur() {
 		if (instance == null) {
-			//instance = new Soigneur("Nom du Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40) ;
+			ArrayList<Competences> competence = new ArrayList<Competences>() ;
+			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
+			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
+			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
+			instance = new Soigneur("Nom du Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
 		}
 		return instance ;
 	}
@@ -49,20 +55,23 @@ public class Soigneur extends PersoGroupe{
 	 */
 	public String gainNiveau() {
 		Random random = new Random() ;
-		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
 		setIntelligence(getBaseIntelligence() + 1 + random.nextInt(3)) ;
 		setDexterity(getBaseDexterity() + 1 + random.nextInt(1)) ;
+		setSpeed(getBaseSpeed() + 1 + random.nextInt(1)) ; 
+		setEndurance(getBaseEndurance() + 1 + random.nextInt(1)) ;
 		
-		String d = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite :" + c + " -> " + this.getBaseDexterity() ;
+		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance();
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
 		if (this.getLevel() == 2) {
-			//this.getCompetences().add(SoinRapide.getSoinRapide()) ;
-			d += "/Il apprend la compétence active : Coup Soigneur !" ;
+			CompetenceSoin soinRapide = new CompetenceSoin("Soin Rapide", "Un soin mineur peu coûteux en mana", 2, 3, false) ;
+			this.getCompetences().add(soinRapide) ;
+			t += "/Il apprend la compétence active : Soin Rapide !" ;
 		}
-		return d ;
+		return t ;
 	}
 	
 	

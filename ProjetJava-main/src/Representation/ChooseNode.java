@@ -56,16 +56,6 @@ public class ChooseNode extends Node {
 		int index= this.getOptions().indexOf(suppOption);
 		this.getOptions().remove(index);
 	}
-	
-	 /**
-     * Overrides the display method to display the information of the choice node.
-     */
-    
-	@Override 
-	public void display() {
-		super.display();
-
-	}
     
 }
 

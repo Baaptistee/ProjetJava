@@ -4,8 +4,8 @@ import java.util.Random;
 
 
 public class ChanceNode extends Node{
-
-    private  ArrayList <Node> nodePossible;
+    
+  private  ArrayList <Node> nodePossible;
     private  ArrayList <Integer> probability;
 
 
@@ -63,5 +63,6 @@ public class ChanceNode extends Node{
                 return this.getNodePossible().get(1);
             }
         }
-
+  
 }
+

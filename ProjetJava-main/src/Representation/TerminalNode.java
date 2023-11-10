@@ -6,6 +6,5 @@ public class TerminalNode extends Node {
 		
 		super(nom, description) ;
 		
-	}	
-	
+	}
 } 

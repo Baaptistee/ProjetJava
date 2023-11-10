@@ -16,7 +16,8 @@ public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the game interface.
 	private static JMenuBar barreMenu = new JMenuBar() ;//Reference to the menu bar of the game interface.
-    private static JLayeredPane layeredPane =new JLayeredPane();
+
+  private static JLayeredPane layeredPane =new JLayeredPane();
 
 
 	 /**
@@ -82,6 +83,7 @@ public class InterfaceJeu {
     }
 
      
+
 public static void POPUP(JButton chooseButton){
      
         configPanel();
@@ -152,7 +154,6 @@ public static void POPUP(JButton chooseButton){
 
     
  public void afficherNodeBase(Node node) {
-
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -161,6 +162,7 @@ public static void POPUP(JButton chooseButton){
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
+
         if (node instanceof ChooseNode){ 
             panelText.setBounds(60, 110, 600, 100);
         }
@@ -360,6 +362,15 @@ public static void POPUP(JButton chooseButton){
         this.CloseFrame();
     }
 
+    public void CloseFame(Button btn){
+         btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    getFenetre().dispose();
+                }
+            });
+    }
+
     /**
     * Configures a "Next" button to display the next node when clicked.
     *
@@ -371,7 +382,7 @@ public static void POPUP(JButton chooseButton){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                    	    node.goNext().display(); // Code to execute when the button is clicked
+                    	   node.goNext().display(); // Code to execute when the button is clicked
                     	
                         }
             });
@@ -379,4 +390,3 @@ public static void POPUP(JButton chooseButton){
 
 
 }
-
