@@ -28,7 +28,7 @@ public class Main {
 		option.add(test1);
 		
 		// instance of first chooseNode (Begenning)
-		Node Beginning = new ChooseNode("Découverte", "<html>Bienvenue dans \"Qui a tué le roi ?\"./ Êtes vous prêts à lancer une nouvelle partie dans ce jeux où vous êtes le heros ?",option);
+		Node Beginning = new ChooseNode("Découverte", "<html>Bienvenue dans \"Qui a tué le roi ?\"./ Êtes vous prêts à lancer une nouvelle partie dans ce jeu où vous êtes le heros ?",option);
 		Beginning.display();
 
 		
