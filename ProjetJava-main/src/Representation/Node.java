@@ -1,34 +1,41 @@
 package Representation;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.* ;
-import java.awt.*;
+
+import Event.Event;
 import Interface.* ;
 
-public class Node extends JFrame {
+public abstract class Node extends Object implements Event {
 	
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
 	private static Node lastCheckPoint;
-	private static InterfaceJeu interfac = new InterfaceJeu() ;
-	
-	private String description ; // la description du Node 
-	private int idNode ; // l'attribut ID du Node 
-	private String nom ; // le nom ou titre du Node 
-	private Node nextNode ; // le Node qui viendra après 
-	private Node formerNode ; // le Node précédent (pour pouvoir ensuite l'afficher)
+	private static InterfaceJeu interfac = new InterfaceJeu() ; 
+
+	private String description ; // The description of the Node
+	private int idNode ; // The unique ID of the Node
+	private String nom ; //The name of the Node
+	private Node nextNode ; // The Node that follows 
+	private Node formerNode ; // The previous Node (for backward navigation)
 	private boolean checkPoint = false ;
-
-
 	
-	// le constructeur :
+	 /**
+     * Constructor for the Node.
+     * @param name The name of the Node.
+     * @param description The description of the Node.
+     */
+
 	public Node(String nom, String description) {
-		
-		this.idNode = totalNode++ ; // comme on a une incrémentation à chaque création de nouveau Node on est sur d'avoir un ID différent à chaque fois
+		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
 		this.description = description ;
 		this.nom = nom ;
 	}
 	
-	//mise en place d'un attribut check point avec un constructeur spécifique 
+	/**
+     * Constructor for the Node with an optional checkpoint.
+     * @param name The name of the Node.
+     * @param description The description of the Node.
+     * @param isCheckpoint Indicates whether the Node is a checkpoint.
+     */
+
 	public Node(String nom, String description, boolean checkPoint) {
 		
 		this.idNode = totalNode++ ;
@@ -37,7 +44,13 @@ public class Node extends JFrame {
 		this.checkPoint = checkPoint ; 
 	}
 	
-	// constructeurs avec le nextNode déjà défini
+	/**
+     * Constructor for the Node with the nextNode already defined.
+     * @param name The name or title of the Node.
+     * @param description The description of the Node.
+     * @param isCheckpoint Indicates whether the Node is a checkpoint.
+     * @param nextNode The next Node in the sequence.
+     */
 	
 	public Node (String nom, String description, boolean checkPoint, Node nextNode) {
 		this.idNode = totalNode++ ;
@@ -55,143 +68,197 @@ public class Node extends JFrame {
 		
 	}
 
-	// le setter et getter pour description
+	/**
+     * Set the description of the Node.
+     * @param newDescription The new description to set.
+     */
+
 	public void setDescription(String newDescription) {
 		
 		this.description = newDescription ;
 		
 	}
 
+	 /**
+     * Get the description of the Node.
+     * @return The description of the Node.
+     */
+
 	public String getDescription() {
 		
 		return this.description ;
 	}
 
-	// le setter et getter pour nom
+	/**
+     * Set the name of the Node.
+     * @param newNom The new name to set.
+     */
 
 	public void setNom(String newNom) {
 		
 		this.nom = newNom ; 
 	}
 	
-	
+	  /**
+     * Get the name of the Node.
+     * @return The name or title of the Node.
+     */ 
+
 	public String getNom() {
 		
 		return this.nom ;
 	}
-	// le getter pour ID
+
+
+	/**
+     * Get the unique identifier (ID) of the Node.
+     * @return The ID of the Node.
+     */
+
 	public int getID() {
 		
 		return this.idNode;
 	}
-	// les setter et getter pour Former Node
+
+	 /**
+     * Get the former Node, which is the Node that precedes this one.
+     * @return The former Node.
+     */
+
 	public Node getFormerNode() {
 		
 		return this.formerNode ;
 		}
 	
+	 /**
+     * Set the former Node, which is the Node that precedes this one.
+     * @param formerNode The former Node to set.
+     */
+
 	public void setFormerNode (Node formerNode) {
 		this.formerNode = formerNode ;
 	}
-	// le setter et getter pour nextNode
+
+	/**
+     * Get the next Node, which is the Node that follows this one.
+     * @return The next Node.
+     */
+
 	public Node getNextNode() {
 		return this.nextNode ;
 		
 	}
 	
+	
+    /**
+     * Set the next Node, which is the Node that follows this one.
+     * @param nextNode The next Node to set.
+     */
+
 	public void setNextNode(Node nextNode) {
 		this.nextNode = nextNode ; 
 		
 	}
-	// les getter et setter 
+
+	/**
+     * Get the checkpoint status of the Node.
+     * @return `true` if the Node is a checkpoint, `false` otherwise.
+     */
+
 	public boolean getCheckPoint() {
 		return this.checkPoint ;
 	}
 	
+	 /**
+     * Set the checkpoint status of the Node.
+     * @param x `true` to mark the Node as a checkpoint, `false` otherwise.
+     */
+
 	public void setCheckPoint(boolean x) {
 		this.checkPoint = x ;
 	}
 	
+	/**
+     * Mark the Node as a checkpoint.
+     */
+
 	public void checkPointTrue() {
 		this.checkPoint = true ;
 	}
-	
-	// getter et setter pour le dernier checkpoint 
+
+	/**
+     * Set the last checkpoint Node.
+     * @param x The last checkpoint Node to set.
+     */
+
+	@Override
+	public String toString() {
+		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
+	}
+
+	@Override
+	public boolean equals(Object node) {
+		return super.equals(node);
+	}
 	
 	public static void setLastCheckpoint(Node x) {
 		
 		lastCheckPoint = x ;
 	}
-	
+
+	/**
+     * Get the last checkpoint Node.
+     * @return The last checkpoint Node.
+     */
+
 	public static Node getLastCheckPoint() {
 		return lastCheckPoint ;
 	}
 	
+	/**
+     * Get the game interface instance.
+     * @return The game interface.
+     */
+
 	public static InterfaceJeu getInterface() {
 		return interfac ;
 	}
 	
-	// une méthode qui retourne le prochain Node tout en changeant l'argument formerNode de celle-ci
+	/**
+     * Move to the next Node while updating the formerNode reference.
+     * @return The next Node in the sequence.
+     */
+
 	public Node goNext() {
 		
 		nextNode.setFormerNode(this) ;
 		return this.getNextNode() ; 
 	}
 
+	 /**
+     * Check if the Node is a checkpoint and update the last checkpoint if needed.
+     */
+
 	public void isCheckPoint() {
-		if (this.getCheckPoint()) { // on vérifie si le Node est un checkpoint ou pas et si c'est le cas on update le checkPoint 
-        	
+		if (this.getCheckPoint()) { 
         	setLastCheckpoint(this) ;
         }
 	}
-	
-	/*
-	public static ArrayList<Node> creerNodes(String[][] infosNodes) {
-        ArrayList<Node> nodes = new ArrayList<>();
+   
+	/**
+     * Display the Node in the user interface.
+     */
 
-        for (String[] info : infosNodes) {
-            if (info.length == 2) {
-                String nom = info[0];
-                String description = info[1];
-                nodes.add(new Node(nom, description));
-            }
-        }
-
-        return nodes;
-    }
-
-	
-	public static void instanceNode(){
-		String[][] infosNodes = {
-            {"Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... "},
-            {"Node next", "<html> vous devez prouver votre innocence et vous battre pour vous"},
-            {"gbhnj", "vghswdfgyhuihygtfrdeftyghujib"},
-            {"gbhhnj", "vghswdfgyhuihygtfedrtfgyhujikokjihuygcfghjknrdeftyghujib"}
-        };
-
-        ArrayList<Node> nodes = creerNodes(infosNodes);
+	public void display() {
 		
-		int i =0 ;
-		while( i <nodes.size()){
-		nodes.get(0).display();
-		nodes.get(i).setNextNode(nodes.get(i+1));
-		i++;
-		}
+		this.isCheckPoint() ;
+		getInterface().afficherNodeBase(this) ;
+
 	}
+
 	
-	*/
-	// la méthode main qui sert à tester 
-	public static void main(String[] args) {
-		
-		
-		Node test = new Node("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ") ; // balise html a revoir
-		Node test2 = new Node("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
-		test.setNextNode(test2) ;
-			    
-	    test.display() ;	    
-	    //getInterface().popUp("test test test test on va voir si ça marche lol") ;
-		
-	}
+	
+	
 	
 	
 	
