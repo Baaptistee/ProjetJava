@@ -23,7 +23,22 @@ public class ChooseNode extends InnerNode {
 		super(nom, description, options) ; // Call to the superclass constructor
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Choose Node:"+ super.toString();
+	}
+
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 	
 	@Override 
 	public void display() {

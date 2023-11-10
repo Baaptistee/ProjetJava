@@ -1,5 +1,6 @@
 package Representation;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import univers.Statistiques;
 import univers.personnages.*;
@@ -60,6 +61,28 @@ public class TestNode extends InnerNode{
 			return this.getOptions().get(1) ;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "TestNode"+super.toString();
+	}
+
+	 @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        TestNode testNode = (TestNode) obj;
+        return super.equals(obj) &&
+               Objects.equals(this.getStatATester(), testNode.getStatATester()) &&
+               Objects.equals(this.getDifficulteTest(),testNode.getDifficulteTest())&&
+               Objects.equals(this.getNombreReussiteNecessaire(),testNode.getNombreReussiteNecessaire());
+    }
+
 	
 	@Override
 	public void goNext() {

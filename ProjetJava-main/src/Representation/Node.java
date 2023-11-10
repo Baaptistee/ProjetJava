@@ -1,4 +1,6 @@
 package Representation;
+import java.util.Objects;
+
 import javax.swing.* ;
 
 import Event.Event;
@@ -153,15 +155,6 @@ public abstract class Node extends Object implements Event {
      * @param x The last checkpoint Node to set.
      */
 
-	@Override
-	public String toString() {
-		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
-	}
-
-	@Override
-	public boolean equals(Object node) {
-		return super.equals(node);
-	}
 	
 	public static void setLastCheckpoint(Node x) {
 		
@@ -201,6 +194,28 @@ public abstract class Node extends Object implements Event {
         	setLastCheckpoint(this) ;
         }
 	}
+	
+	@Override
+	public String toString() {
+		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
+	}
+
+	@Override
+public boolean equals(Object obj) {
+    if (this == obj) {
+        return true;
+    } else if (obj == null || getClass() != obj.getClass()) {
+        return false;
+    } else {
+        Node node = (Node) obj;
+        return Objects.equals(this.getDescription(), node.getDescription()) &&
+                Objects.equals(this.getNom(), node.getNom()) &&
+                Objects.equals(this.getID(), node.getID()) &&
+                Objects.equals(this.getFormerNode(), node.getFormerNode()) &&
+                Objects.equals(this.getCheckPoint(), node.getCheckPoint());
+    }
+}
+
    
 	/**
      * Display the Node in the user interface.
