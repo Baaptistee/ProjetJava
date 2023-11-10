@@ -1,24 +1,20 @@
 package Representation;
+import java.util.ArrayList;
+
 import univers.Statistiques;
 import univers.personnages.*;
 
 
-public class TestNode extends Node{
+public class TestNode extends InnerNode{
 	
-	private Node successNode ;
-	private Node failureNode ;
 	private Statistiques statATester ;
 	private int difficulteTest ;
 	private int nombreReussiteNecessaire ;
 	
-	public TestNode(String nom, String description, boolean checkPoint) {
-		super(nom, description, checkPoint);
-	}
+	
 
-	public TestNode(String nom, String description, boolean checkPoint, Node successNode, Node failureNode, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
-		super(nom, description, checkPoint) ;
-		this.successNode = successNode ;
-		this.failureNode = failureNode ;
+	public TestNode(String nom, String description, boolean checkPoint, ArrayList<Node> options, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
+		super(nom, description, checkPoint, options) ;
 		this.difficulteTest = difficulteTest ;
 		this.statATester = statATester ;
 		this.nombreReussiteNecessaire = nombreReussiteNecessaire ;
@@ -47,22 +43,6 @@ public class TestNode extends Node{
 	public void setDifficulteTest(int difficulteTest) {
 		this.difficulteTest = difficulteTest;
 	}
-
-	public Node getSuccessNode() {
-		return successNode;
-	}
-
-	public void setSuccessNode(Node successNode) {
-		this.successNode = successNode;
-	}
-
-	public Node getFailureNode() {
-		return failureNode;
-	}
-
-	public void setFailureNode(Node failureNode) {
-		this.failureNode = failureNode;
-	}
 	
 	public Node select() {
 		int totalReussite = 0 ;
@@ -74,9 +54,10 @@ public class TestNode extends Node{
 			// Voir avec interface de jeu mais quelque chose pour afficher la description 
 		
 		if (totalReussite >= this.getNombreReussiteNecessaire()) {
-			return this.getSuccessNode() ;
+			// par convention, on aura le Node de succès en première position et le Node d'échec en seconde position 
+			return this.getOptions().get(0) ;
 		} else {
-			return this.getFailureNode() ;
+			return this.getOptions().get(1) ;
 		}
 	}
 	

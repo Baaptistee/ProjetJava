@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import univers.Collectibles;
 import univers.personnages.* ;
 
-public class FightNode extends Node {
+public class FightNode extends InnerNode {
 	
 	private ArrayList<PersonnageCombattant> opponents ; //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
-	private Node GameOverNode ;
-	private Node SuccessNode ;
 	private int xp ;
 	private ArrayList<Collectibles> butin ;
 
@@ -25,8 +23,8 @@ public class FightNode extends Node {
      * @param description The description of the fight node.
      */
 
-	public FightNode(String nom, String description) {
-				super(nom, description) ;
+	public FightNode(String nom, String description, ArrayList<Node> options) {
+				super(nom, description, options) ;
 	}
 	
 	public ArrayList<PersonnageCombattant> getOpponents() {
@@ -36,23 +34,6 @@ public class FightNode extends Node {
 	public void setOpponents(ArrayList<PersonnageCombattant> opponents) {
 		this.opponents = opponents;
 	}
-
-	public Node getGameOverNode() {
-		return GameOverNode;
-	}
-
-	public void setGameOverNode(Node gameOverNode) {
-		GameOverNode = gameOverNode;
-	}
-
-	public Node getSuccessNode() {
-		return SuccessNode;
-	}
-
-	public void setSuccessNode(Node successNode) {
-		SuccessNode = successNode;
-	}
-
 	public int getXp() {
 		return xp;
 	}

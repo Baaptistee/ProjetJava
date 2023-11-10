@@ -164,8 +164,8 @@ public static void POPUP(JButton chooseButton){
         if (node instanceof ChooseNode){ 
             panelText.setBounds(60, 110, 600, 100);
         }
-        if (node instanceof InnerNode || node instanceof ChanceNode ||node instanceof TestNode){ 
-            panelText.setBounds(80, 110, 800, 300);
+        if (node instanceof TextNode || node instanceof ChanceNode ||node instanceof TestNode){ 
+            panelText.setBounds(80, 110, 850, 300);
         }
          if (node instanceof TerminalNode){ 
             panelText.setBounds(80, 110, 800, 300);
@@ -211,7 +211,7 @@ public static void POPUP(JButton chooseButton){
                 if ( node instanceof ChooseNode){ 
                     ChooseNodeButton(node);
                 }
-                if(node instanceof InnerNode){ 
+                if(node instanceof TextNode || node instanceof ChanceNode || node instanceof TestNode ){ 
                     InnerNodeButton(node);
                 }
                 if(node instanceof FightNode){

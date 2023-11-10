@@ -8,7 +8,7 @@ public class Main {
      public static void main(String[] args) {
 
 		// instance of InnerNode 
-		Node test = new InnerNode("Oui !", "<html> L'histoire se déroule dans un royaume médiéval,/ où le prince héritier, un homme bien-aimé du peuple,/ est soudainement suspecté d'avoir assassiné le roi, son propre père,/ afin de s'emparer de la couronne./Malgré son innocence, les preuves semblent accablantes, et il est contraint de fuir pour échapper à la pendaison....", true) ; // balise html a revoir            		
+		Node test = new TextNode("Oui !", "<html> L'histoire se déroule dans un royaume médiéval,/ où le prince héritier, un homme bien-aimé du peuple,/ est soudainement suspecté d'avoir assassiné le roi, son propre père,/ afin de s'emparer de la couronne./Malgré son innocence, les preuves semblent accablantes, et il est contraint de fuir pour échapper à la pendaison....", true) ; // balise html a revoir            		
 		Node test1 = new TerminalNode("Pas encore ", "<html> A la prochaine alors") ; // balise html a revoir            		
 		
 		
@@ -26,7 +26,7 @@ public class Main {
 		option.add(test1);
 		
 		// instance of first chooseNode (Begenning)
-		Node Beginning = new ChooseNode("Decouverte", "<html>Bienvenu dans qui a tué le roi./ etes vous pret a lancer une nouvelle partie dans ce jeux ou vous etes le hero?",option);
+		Node Beginning = new ChooseNode("Decouverte", "<html>Bienvenue dans qui a tué le roi./ etes vous pret a lancer une nouvelle partie dans ce jeux ou vous etes le hero?",option);
 		Beginning.display();
 
 		
@@ -53,8 +53,8 @@ public class Main {
 		probability.add(1);
 
 		//instance of Chance node
-		ChanceNode test7 = new ChanceNode("Chance Node", "",randomNode, probability);   
-		test.setNextNode(test7.select());
+		ChanceNode test7 = new ChanceNode("Chance Node", "Le prochain node est déterminé de manière aléatoire !! Retenez votre souffle ....",randomNode, probability);   
+		test.setNextNode(test7);
         // Lier le TerminalNode "Final" à la fin de test1
 		test1.setNextNode(Final);        
 	

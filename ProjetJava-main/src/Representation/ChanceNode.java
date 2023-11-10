@@ -3,9 +3,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class ChanceNode extends Node{
+public class ChanceNode extends InnerNode{
 
-    private  ArrayList <Node> nodePossible;
     private  ArrayList <Integer> probability;
 
 
@@ -18,24 +17,10 @@ public class ChanceNode extends Node{
      * @param probability the probability of each possible node
      */ 
 
-    public ChanceNode(String nom, String description, ArrayList <Node> nodePossible, ArrayList <Integer> probability){
-        super(nom, description);
-        this.nodePossible=nodePossible;
+    public ChanceNode(String nom, String description, ArrayList <Node> options, ArrayList <Integer> probability){
+        super(nom, description, options);
+        
         this.probability=probability;
-    }
-
-    /**
-     * Get the possible nodes that can be selected based on chance.
-     *
-     * @return A list of possible nodes.
-     */
-
-    public ArrayList <Node> getNodePossible() {
-		return nodePossible ;
-	}
-
-    public void setNodePossible(ArrayList <Node> nodePossible){
-        this.nodePossible=nodePossible;
     }
 
     public ArrayList <Integer> getProbability(){
@@ -57,10 +42,10 @@ public class ChanceNode extends Node{
 
             if (randomNum <=  this.getProbability().get(0)) {
                 
-                return this.getNodePossible().get(0); 
+                return this.getOptions().get(0); 
             } else {
               
-                return this.getNodePossible().get(1);
+                return this.getOptions().get(1);
             }
         }
         public void goNext() {
