@@ -6,18 +6,17 @@
 package Representation;
 
 import java.util.ArrayList;
-
 import univers.Collectibles;
 import univers.personnages.* ;
 
 public class FightNode extends Node {
 	
 	private ArrayList<PersonnageCombattant> opponents ; //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
+
 	private Node GameOverNode ;
 	private Node SuccessNode ;
 	private int xp ;
 	private ArrayList<Collectibles> butin ;
-
 
     /**
      * Constructor for the FightNode class.
@@ -28,7 +27,7 @@ public class FightNode extends Node {
 	public FightNode(String nom, String description) {
 				super(nom, description) ;
 	}
-	
+
 	public ArrayList<PersonnageCombattant> getOpponents() {
 		return opponents;
 	}
@@ -77,5 +76,5 @@ public class FightNode extends Node {
 		
 		
 	}
-	
+
 }

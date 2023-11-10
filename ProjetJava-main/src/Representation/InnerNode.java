@@ -44,8 +44,7 @@ public class InnerNode extends Node {
     public InnerNode(String nom, String description, boolean checkPoint) {
 
         super(nom,description,checkPoint);
-    }
-    
+    }    
     /** 
      * get the next node
      * @return the next node 
@@ -68,30 +67,13 @@ public class InnerNode extends Node {
      * Move to the next Node while updating the formerNode reference.
      * @return The next Node in the sequence.
      */
-
-    public Node goNext() {
-		
-		nextNode.setFormerNode(this) ;
-		return this.getNextNode() ; 
-    }
-    
+   
 	/**
      * Main method for testing the InnerNode class.
      */
 	
-    public static void main(String[] args) {
-		
-		// Create two InnerNode instances for testing
-		InnerNode test = new InnerNode("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ") ; // balise html a revoir
-		InnerNode test2 = new InnerNode("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
-		
-		// Set a next node for 'test'
-		test.setNextNode(test2) ;
-		
-		// Display the information of 'test'
-	    test.display() ;
-		
-		
-	}
-	
+  @Override 
+  public display() {
+    
+	this.goNext(this.getNextNode()) ;
 }

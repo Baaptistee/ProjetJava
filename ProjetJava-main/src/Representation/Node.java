@@ -1,8 +1,10 @@
 package Representation;
 import javax.swing.* ;
+
+import Event.Event;
 import Interface.* ;
 
-public abstract class Node extends JFrame {
+public abstract class Node extends Object implements Event {
 	
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
 	private static Node lastCheckPoint;
@@ -158,6 +160,16 @@ public abstract class Node extends JFrame {
      * Set the last checkpoint Node.
      * @param x The last checkpoint Node to set.
      */
+
+	@Override
+	public String toString() {
+		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
+	}
+
+	@Override
+	public boolean equals(Object node) {
+		return super.equals(node);
+	}
 	
 	public static void setLastCheckpoint(Node x) {
 		
@@ -189,7 +201,6 @@ public abstract class Node extends JFrame {
 
 	public void isCheckPoint() {
 		if (this.getCheckPoint()) { 
-        	
         	setLastCheckpoint(this) ;
         }
 	}
@@ -199,62 +210,6 @@ public abstract class Node extends JFrame {
 			getInterface().afficherNodeBase(this) ;
 	}
 	
-	public void goNext(Node nextNode) {
-		nextNode.setFormerNode(this);
-		nextNode.display();
-	}
-	
-	
-	
-	/*
-	public static ArrayList<Node> creerNodes(String[][] infosNodes) {
-        ArrayList<Node> nodes = new ArrayList<>();
+	public abstract void goNext() ;
 
-        for (String[] info : infosNodes) {
-            if (info.length == 2) {
-                String nom = info[0];
-                String description = info[1];
-                nodes.add(new Node(nom, description));
-            }
-        }
-
-        return nodes;
-    }
-
-	
-	public static void instanceNode(){
-		String[][] infosNodes = {
-            {"Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... "},
-            {"Node next", "<html> vous devez prouver votre innocence et vous battre pour vous"},
-            {"gbhnj", "vghswdfgyhuihygtfrdeftyghujib"},
-            {"gbhhnj", "vghswdfgyhuihygtfedrtfgyhujikokjihuygcfghjknrdeftyghujib"}
-        };
-
-        ArrayList<Node> nodes = creerNodes(infosNodes);
-		
-		int i =0 ;
-		while( i <nodes.size()){
-		nodes.get(0).display();
-		nodes.get(i).setNextNode(nodes.get(i+1));
-		i++;
-		}
-	}
-	
-	*/
-	// la méthode main qui sert à tester 
-	/*
-  public static void main(String[] args) {
-		
-		
-		Node test = new Node("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ") ; // balise html a revoir
-		Node test2 = new Node("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
-		test.setNextNode(test2) ;
-			    
-	    test.display() ;	    
-	    //getInterface().popUp("test test test test on va voir si ça marche lol") ;
-		
-	}*/
-	
-	
-	
 }

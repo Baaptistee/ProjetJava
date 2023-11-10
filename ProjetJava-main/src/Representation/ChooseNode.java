@@ -12,7 +12,6 @@ public class ChooseNode extends Node {
 	
 	private  ArrayList <Node> options; // An array containing the different available options for the choice
 
-
 	/**
      * Constructor for the ChooseNode class.
      * @param name The name of the choice node.
@@ -35,13 +34,17 @@ public class ChooseNode extends Node {
 		return options ;
 	}
 
+	public void setOptions(ArrayList <Node> options){
+		this.options=options;
+	}
+
 	 /**
      * Add an option to the list of available options.
      * @param additionalOption The option to add.
      */
 
 	public void addOption(Node optionSupp) {
-		getOptions().add(optionSupp);
+		this.getOptions().add(optionSupp);
 	}
 
 	/**
@@ -50,53 +53,9 @@ public class ChooseNode extends Node {
      */
 
 	public void suppOption(Node suppOption) {
-		int index=getOptions().indexOf(suppOption);
-		options.remove(index);
+		int index= this.getOptions().indexOf(suppOption);
+		this.getOptions().remove(index);
 	}
-	
-	 /**
-     * Overrides the display method to display the information of the choice node.
-     */
-    
-	@Override 
-	public void display() {
-		super.display() ;
-
-    }
-
-
-	/**
-     * Main method for testing the ChooseNode class.
-     */
-	 public static void main(String[] args) {
-		// Creating some nodes for options
- 		InnerNode test = new InnerNode("Node test", "<html> vous êtes un jeune prince/ BLABLABLA Vous avez assassiné le roi etc... ", true) ; // balise html a revoir            		
-     	
-		TerminalNode gameOver = new TerminalNode("Game Over" , "<html> Tu viens de mourir grosse merde, veux tu reprendre au check point ou rage quit ?") ;
-		
-		InnerNode test2 = new InnerNode("Node next", "<html> vous devez prouver votre innocence et vous battre pour vous") ;
-
-		FightNode test3 = new FightNode("Combat", "C'est la guerre");
- 		
-		// Configuring next nodes
-		test2.setNextNode(gameOver) ;
-		test.setNextNode(test2) ;
-		// test3.setNextNode(test3);
- 		
-		// Creating a list of options
-		ArrayList <Node> options= new ArrayList<>();
-		options.add(test);
-		options.add(test2);
-		options.add(gameOver);
-		options.add(test3);
- 		
-		// Creating a choice node
-		ChooseNode testChoix = new ChooseNode("test", "<html> tu dois choisir entre les choix suivants : ", options) ;
- 		
-		// Displaying the choice node
-		testChoix.display() ;
-     }
-
     
 }
 

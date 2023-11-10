@@ -4,38 +4,65 @@ import java.util.Random;
 
 
 public class ChanceNode extends Node{
+    
+  private  ArrayList <Node> nodePossible;
+    private  ArrayList <Integer> probability;
 
-    private static ArrayList <Node> nodePossible;
-    private static int [] proba= {6,3};
-    //private static ArrayList<Integer> proba ;
 
-    public ChanceNode(String nom, String description){
+    /**
+     * Constructs a ChanceNode with a name and description.
+     *
+     * @param nom         The name of the ChanceNode.
+     * @param description The description of the ChanceNode.
+     * @param nodePossible the entire of node possible
+     * @param probability the probability of each possible node
+     */ 
+
+    public ChanceNode(String nom, String description, ArrayList <Node> nodePossible, ArrayList <Integer> probability){
         super(nom, description);
-        if (nodePossible == null) {
-            nodePossible = new ArrayList<>();
-            nodePossible.add(new ChooseNode("Interrogatoire", "Vous etes suspecté de complicité avec le prince. Repondez a cet interrogatoire de maniere a enlever tout soupcon ...", nodePossible));
-            nodePossible.add(new InnerNode("Detente a la caserne", "Vous tombé sur une caserne et decidez de faire une pause pour décompresser"));
-            // Ajoutez d'autres nœuds à la liste ici
-        }
+        this.nodePossible=nodePossible;
+        this.probability=probability;
     }
 
-    
+    /**
+     * Get the possible nodes that can be selected based on chance.
+     *
+     * @return A list of possible nodes.
+     */
 
     public ArrayList <Node> getNodePossible() {
 		return nodePossible ;
 	}
 
+    public void setNodePossible(ArrayList <Node> nodePossible){
+        this.nodePossible=nodePossible;
+    }
+
+    public ArrayList <Integer> getProbability(){
+        return probability;
+    }
+
+    public void setProbability(ArrayList <Integer> probability){
+        this.probability=probability;
+    }
+
+    /**
+     * Select a node based on a random outcome.
+     *
+     * @return The selected node.
+     */
         public Node select() {
             Random random = new Random();
-            int randomNum = random.nextInt(10); // Utilisez 9 car c'est la somme des probabilités (6 + 3)
+            int randomNum = random.nextInt(10); 
 
-            if (randomNum <=  proba[0]) {
-                // Si le nombre aléatoire est inférieur à la première probabilité, sélectionnez le premier type de nœud
-                return getNodePossible().get(0); // Par exemple, le premier nœud de la liste
+            if (randomNum <=  this.getProbability().get(0)) {
+                
+                return this.getNodePossible().get(0); 
             } else {
-                // Sinon, sélectionnez le deuxième type de nœud
-                return getNodePossible().get(1); // Par exemple, le deuxième nœud de la liste
+              
+                return this.getNodePossible().get(1);
             }
         }
-
+  
 }
+

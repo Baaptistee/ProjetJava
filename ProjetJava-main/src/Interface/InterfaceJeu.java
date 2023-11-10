@@ -7,6 +7,7 @@ import Representation.* ;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.* ;
 
 
@@ -15,7 +16,8 @@ public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the game interface.
 	private static JMenuBar barreMenu = new JMenuBar() ;//Reference to the menu bar of the game interface.
-    private static JLayeredPane layeredPane = new JLayeredPane();
+
+  private static JLayeredPane layeredPane =new JLayeredPane();
 
 
 	 /**
@@ -53,13 +55,21 @@ public class InterfaceJeu {
     public static JMenuBar getBarreMenu() {
 	    return barreMenu;
     }
-
+    
      /**
      * Set the menu bar of the game interface.
      * @param barreMenu The menu bar to set.
      */
     public static void setBarreMenu(JMenuBar barreMenu) {
 	    InterfaceJeu.barreMenu = barreMenu;
+    }
+
+    public static JLayeredPane getLayeredPane(){
+        return layeredPane;
+    }
+
+    public static void setLayeredPane(JLayeredPane layeredPane){
+        InterfaceJeu.layeredPane=layeredPane;
     }
 
      /**
@@ -73,22 +83,23 @@ public class InterfaceJeu {
     }
 
      
-public static void menu(JButton chooseButton){
+
+public static void POPUP(JButton chooseButton){
      
-        layeredPane.setBounds(0, 0, 1000, 1000);
-        JPanel panel = new JPanel();
-        panel.setBounds(50, 50, 300, 200);
-        panel.setBackground(Color.BLUE);
-        panel.setVisible(false);
-        layeredPane.add(panel, JLayeredPane.DRAG_LAYER);
+        configPanel();
+        JPanel panelPopUp = new JPanel();
+        panelPopUp.setBounds(50, 50, 300, 200);
+        panelPopUp.setBackground(Color.white);
+        panelPopUp.setVisible(false);
+        layeredPane.add(panelPopUp, JLayeredPane.DRAG_LAYER);
         getFenetre().add(layeredPane);
         chooseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (panel.isVisible()) {
-                    panel.setVisible(false);
+                if (panelPopUp.isVisible()) {
+                    panelPopUp.setVisible(false);
                 } else {
-                    panel.setVisible(true);
+                    panelPopUp.setVisible(true);
                 }
             }
         });
@@ -116,7 +127,6 @@ public static void menu(JButton chooseButton){
         getBarreMenu().add(statut);
         getFenetre().setJMenuBar(getBarreMenu());
        
-        
     }
 
      /**
@@ -133,6 +143,9 @@ public static void menu(JButton chooseButton){
 
     
     }
+    public static void configPanel(){
+        layeredPane.setBounds(0, 0, 1000, 1000);
+    }
 
     /**
      * Displays a base node in the game interface.
@@ -141,25 +154,26 @@ public static void menu(JButton chooseButton){
 
     
  public void afficherNodeBase(Node node) {
-
-        layeredPane.setBounds(0, 0, 1000, 1000);
-        //JPanel backgroundPanel = new JPanel(); // Panneau de fond pour couvrir la page entière
-        //backgroundPanel.setBounds(0, 0, 1000,1000);
-        //backgroundPanel.setBackground(Color.DARK_GRAY); // Couleur de fond
-        //layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
+        configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
         
-
-	    fenetre.getContentPane().setLayout(null);
+	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
-        if (node.getClass()== ChooseNode.class){ 
+
+        if (node instanceof ChooseNode){ 
             panelText.setBounds(60, 110, 600, 100);
         }
-        if (node.getClass()==  InnerNode.class){ 
+        if (node instanceof InnerNode){ 
             panelText.setBounds(80, 110, 800, 300);
+        }
+        if (node instanceof ChanceNode){ 
+            panelText.setBounds(80, 110, 800, 300);
+        }
+         if (node instanceof FightNode){ 
+            panelText.setBounds(60, 110, 600, 100);
         }
         
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
@@ -172,7 +186,7 @@ public static void menu(JButton chooseButton){
         getFenetre().repaint();
         JButton btn = new JButton("TEST POPUP");
         panelText.add(btn);
-        menu(btn);
+        POPUP(btn);
 
 
 	
@@ -199,14 +213,17 @@ public static void menu(JButton chooseButton){
                 ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
 
                 // Determine the type of the node and handle accordingly
-                if (node.getClass()== ChooseNode.class){ 
+                if ( node instanceof ChooseNode){ 
                     ChooseNodeButton(node);
                 }
-                if(node.getClass()== InnerNode.class){ 
+                if(node instanceof InnerNode){ 
                     InnerNodeButton(node);
                 }
-                if(node.getClass()== FightNode.class){
+                if(node instanceof FightNode){
                     FightNodeButton(node);
+                }
+                if(node instanceof TerminalNode){
+                    TerminalNodeButton(node);
                 }
             
             }
@@ -225,15 +242,12 @@ public static void menu(JButton chooseButton){
     */
 
     public void ChooseNodeButton(Node node){
-
-        JLayeredPane layeredPane = new JLayeredPane();// Create a layered pane to organize components
-        layeredPane.setBounds(0, 0, 1000, 1000);
-        getFenetre().add(layeredPane);
-
+        configPanel();
         ChooseNode chooseNode;// Cast the node to a ChooseNode
         chooseNode=(ChooseNode)node;
 
         JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
+        getFenetre().add(layeredPane);
         panelChoose.setBounds(661, 109, 194, 323);
         layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
 	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
@@ -268,11 +282,8 @@ public static void menu(JButton chooseButton){
     */
 
     public void InnerNodeButton(Node node){
-
-        // Create a layered pane to organize components
-        JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0, 0, 1000, 1000);
-
+        configPanel();
+      
         // Create a panel for the "Next" button
         JPanel panelInner = new JPanel();
         getFenetre().add(layeredPane);
@@ -301,8 +312,7 @@ public static void menu(JButton chooseButton){
 
     public void FightNodeButton(Node node){
 
-        JLayeredPane layeredPane = new JLayeredPane(); // Create a layered pane to organize components
-        layeredPane.setBounds(0, 0, 1000, 1000);
+        configPanel();
         
         JPanel panelFight = new JPanel(); // Create the main panel to contain the options and validate button
         panelFight.setBounds(700, 200, 150, 300);
@@ -317,26 +327,39 @@ public static void menu(JButton chooseButton){
             buttonGroup.add(radioButton);
             panelFight.add(radioButton);
         }
-
-
         JButton validateButton = new JButton("Valider");// Create and add a button to validate the selected option
 
         panelFight.add(validateButton);
         getFenetre().add(panelFight);
         getFenetre().setVisible(true);
-        /*validateButton.addActionListener(new ActionListener() {
+        
+    }
+
+   
+    
+    
+
+    public void CloseFrame(){
+        Timer timer = new Timer(5000, new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedOption = "Aucune option sélectionnée";
-                if (radioButton1.isSelected()) {
-                   
-                } else if (radioButton2.isSelected()) {
-                    
-                } else if (radioButton3.isSelected()) {
-                    
-                }
-                JOptionPane.showMessageDialog(getFenetre(), selectedOption);
+                getFenetre().dispose(); // Fermer la fenêtre
             }
-        });*/
+        });
+        
+        timer.setRepeats(false); // Pour ne déclencher l'événement qu'une seule fois
+        timer.start(); // Démarrer le timer
+    
+    }
+
+     public void TerminalNodeButton(Node node) {
+        configPanel();
+        JPanel panelTerminal = new JPanel();
+        getFenetre().add(layeredPane);
+        panelTerminal.setBounds(711, 494, 144, 62);
+        layeredPane.add(panelTerminal, JLayeredPane.POPUP_LAYER);
+        panelTerminal.setBackground(Color.YELLOW);
+        this.CloseFrame();
     }
 
     public void CloseFame(Button btn){
@@ -359,7 +382,7 @@ public static void menu(JButton chooseButton){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                    	   // node.goNext().display(); // Code to execute when the button is clicked
+                    	   node.goNext().display(); // Code to execute when the button is clicked
                     	
                         }
             });
@@ -367,35 +390,3 @@ public static void menu(JButton chooseButton){
 
 
 }
-/*JPanel z = new JPanel();
-		        z.setBounds(56, 212, 552, 344);
-		        fenetre.getContentPane().add(z);
-		        z.setLayout(null);
-		        JLayeredPane layeredPane = new JLayeredPane();
-		        layeredPane.setBounds(89, 34, 320, 239);
-		        layeredPane.setForeground(new Color(0, 255, 64));
-		        layeredPane.setBorder(new MatteBorder(4, 3, 1, 6, (Color) new Color(0, 0, 0)));
-                layeredPane.setBackground(Color.BLUE);
-                j.setOpaque(false);
-		        z.add(layeredPane);
-		        layeredPane.setLayout(null);
-		
-		        JPanel panel_5 = new JPanel();
-		        panel_5.setBounds(89, 36, 117, 168);
-		        layeredPane.add(panel_5,JLayeredPane.DEFAULT_LAYER);
-		        panel_5.setLayout(null);
-		
-		        JLabel lblNewLabel_1 = new JLabel("bienvenidos");
-		        lblNewLabel_1.setBounds(10, 30, 73, 14);
-		        panel_5.add(lblNewLabel_1);
-		
-		        JButton ok = new JButton("ok");
-		        ok.setBounds(10, 110, 89, 23);
-		        panel_5.add(ok);
-                ok.addActionListener(new ActionListener() {
-                    @Override
-                public void actionPerformed(ActionEvent e) {
-                layeredPane.setVisible(false);
-
-                }
-                });*/
