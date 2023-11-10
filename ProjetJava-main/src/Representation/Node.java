@@ -226,14 +226,9 @@ public abstract class Node extends Object implements Event {
 	
 	/**
      * Move to the next Node while updating the formerNode reference.
-     * @return The next Node in the sequence.
      */
 
-	public Node goNext() {
-		
-		nextNode.setFormerNode(this) ;
-		return this.getNextNode() ; 
-	}
+	public abstract void goNext() ;
 
 	 /**
      * Check if the Node is a checkpoint and update the last checkpoint if needed.

@@ -63,5 +63,9 @@ public class ChanceNode extends Node{
                 return this.getNodePossible().get(1);
             }
         }
-
+        public void goNext() {
+            Node a = this.select() ;
+            a.setFormerNode(this);
+            a.display();
+        }
 }

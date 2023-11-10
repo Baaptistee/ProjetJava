@@ -28,6 +28,10 @@ public class InnerNode extends Node {
 
         super(nom,description,checkPoint);
     }
+@Override
+	public void goNext() {
+         this.getNextNode().setFormerNode(this);
+         this.getNextNode().display();
 
-	
+    }
 }

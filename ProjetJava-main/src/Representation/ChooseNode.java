@@ -66,6 +66,8 @@ public class ChooseNode extends Node {
 		super.display();
 
 	}
-    
+    // Pour la classe CHooseNode, l'équivalent de la méthode goNext se fait au niveau de l'interface graphique 
+	public void goNext() {
+	}
 }
 
