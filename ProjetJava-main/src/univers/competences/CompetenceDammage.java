@@ -10,7 +10,6 @@ import univers.personnages.PersonnageCombattant;
 public class CompetenceDammage extends CompetencesActives{
 	/** the accuracy of the competence 
 	 * 
-	 * 
 	 */
 	private int accuracy ;
 	/** the power of the competence 

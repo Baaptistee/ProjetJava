@@ -1,13 +1,12 @@
 package univers.armes;
 
-import univers.Collectibles;
 // import java.util.ArrayList;
 import univers.Eleme;
 // import univers.personnages.*;
 
 /** A Weapon object represents the weapon a character carries, it has certains bonus and caracteristics associated to it
  */
-public class Weapon implements Collectibles {
+public class Weapon {
 	/** the bonus the weapon gives to dammage 
 	 */
 	private int dammage ;
@@ -54,10 +53,6 @@ public class Weapon implements Collectibles {
 	/** The type of the weapon
 	 * 
 	 */
-	private boolean vendable ;
-	
-	private int prix ; 
-	
 	private WeaponType weaponType ;
 	
 	/** The constructor of the class 
@@ -118,7 +113,6 @@ public class Weapon implements Collectibles {
 	/* getter for Name 
 	 * 
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -132,7 +126,6 @@ public class Weapon implements Collectibles {
 	/* getter for description 
 	 * @return
 	 */
-	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -240,16 +233,6 @@ public class Weapon implements Collectibles {
 	 */
 	public void setBonusSpeed(int bonusSpeed) {
 		this.bonusSpeed = bonusSpeed;
-	}
-
-	@Override
-	public boolean isVendable() {
-		return this.vendable;
-	}
-
-	@Override
-	public int getPrix() {
-		return this.prix;
 	}
 
 	
