@@ -69,3 +69,14 @@ Leur groupe sera composé de 4 ou 5 personnages (pour l'instant 4 mais ce n'est 
 Le joueur contrôlera dans les combats l'ensemble des membres du groupe mais en dehors de ceux-ci, il est prévu que les autres membres aient une part de "libre-arbitre", notamment le Prince. 
 
 AMELIORATION DU PROJET A VENIR :
+
+Pour la version finale du projet, nous avons prévu de mettre plusieurs choses en place : 
+- Le FightNode (dont beaucoup des éléments nécessaires sont codés (fonction de sélection aléatoire des attaques par exemple))
+- Amélioration du système de jeu avec création de nouveaux types de compétences 
+- Écriture d'une histoire plus poussée
+- Projet d'automatisation de l'instanciation (à partir d'un fichier txt qui serait parcouru)
+- Amélioration de l'interface graphique
+- Aller au bout de la consigne (même si c'est évident :) )
+- Incorporer des images et du son
+- Et bien d'autres choses encore .....
+
