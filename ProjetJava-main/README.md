@@ -1,5 +1,5 @@
 # ProjetJava
-Projet Java de Shyrel TOUIL et Baptiste Matrat pour le premier semestre de la 3eme année de licence MIAGE à l'Université Paris Dauphine
+Projet Java de Shyrel Touil et Baptiste Matrat pour le premier semestre de la 3eme année de licence MIAGE à l'Université Paris Dauphine
 
 DESCRIPTION DES DIFFERENTS PACKAGES :
 
