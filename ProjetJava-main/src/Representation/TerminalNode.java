@@ -7,5 +7,10 @@ public class TerminalNode extends Node {
 		super(nom, description) ;
 		
 	}	
+	@Override
+	public void goNext() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 } 

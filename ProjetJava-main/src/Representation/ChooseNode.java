@@ -8,7 +8,7 @@
 
  import java.util.ArrayList;
 
-public class ChooseNode extends Node {
+public class ChooseNode extends InnerNode {
 	
 	private  ArrayList <Node> options; // An array containing the different available options for the choice
 
@@ -20,52 +20,18 @@ public class ChooseNode extends Node {
      */
 
 	public ChooseNode(String nom, String description, ArrayList <Node> options){
-		super(nom, description) ; // Call to the superclass constructor
-		this.options = options ; 
+		super(nom, description, options) ; // Call to the superclass constructor
 	}
 	
 	
-	 /**
-     * Get the list of available options for the choice.
-     * @return The list of options.
-     */
-
-	public ArrayList <Node> getOptions() {
-		return options ;
-	}
-
-	public void setOptions(ArrayList <Node> options){
-		this.options=options;
-	}
-
-	 /**
-     * Add an option to the list of available options.
-     * @param additionalOption The option to add.
-     */
-
-	public void addOption(Node optionSupp) {
-		this.getOptions().add(optionSupp);
-	}
-
-	/**
-     * Remove an option from the list of available options.
-     * @param removedOption The option to remove.
-     */
-
-	public void suppOption(Node suppOption) {
-		int index= this.getOptions().indexOf(suppOption);
-		this.getOptions().remove(index);
-	}
 	
-	 /**
-     * Overrides the display method to display the information of the choice node.
-     */
-    
 	@Override 
 	public void display() {
 		super.display();
 
 	}
-    
+    // Pour la classe CHooseNode, l'équivalent de la méthode goNext se fait au niveau de l'interface graphique 
+	public void goNext() {
+	}
 }
 
