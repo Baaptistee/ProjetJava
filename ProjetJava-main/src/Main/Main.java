@@ -12,7 +12,7 @@ public class Main {
 		Node test1 = new TerminalNode("Pas encore ", "<html> A la prochaine alors") ; // balise html a revoir            		
 		
 		
-		Node Final = new TerminalNode("Final", "<html> Le test pour le JALON touche à sa fin./ À travers ce test, vous avez pu voir des/ - InnerNodes/ - ChooseNodes/ - TerminalNodes/ - ChanceNodes/ Nous vous réservons bien sûr un FightNode qui est actuellement en cours de construction. Nous espérons que cette petite mise en bouche vous aura plu.");         		
+		Node Final = new TerminalNode("Final", "<html> Le test pour le JALON touche à sa fin./ À travers ce test, vous avez pu voir des/ - InnerNodes/ - ChooseNodes/ - TerminalNodes/ - ChanceNodes/ Nous vous réservons bien sûr un FightNode qui est actuellement en cours de construction./ Nous espérons que cette petite mise en bouche vous aura plu.");         		
 		
 		//InnerNode test2 = new InnerNode("The story", "<html> Le prince se cache dans un village voisin,/ espérant rassembler des éléments pour prouver son innocence et rétablir son nom./ Ses amis loyaux, le soigneur compatissant, le chevalier courageux et le magicien astucieux,/ décident de l'aider en menant leur propre enquête pour découvrir la vérité qui le disculpera.", true) ; // balise html a revoir   
 		//InnerNode test3 = new InnerNode("The story", "<html> En tant qu'un de ces amis,/ le joueur se retrouve plongé au cœur d'une enquête complexe et dangereuse./ Vous devrez chercher des indices,/ interroger des témoins et déjouer les complots qui visent à incriminer le prince./Il faudra parfois se battre pour défendre vos amis/ des adversaires déterminés à garder le secret./ En chemin,/ vous devrez également surmonter des épreuves aléatoires pour progresser dans votre quête.", true) ; // balise html a revoir            		
@@ -44,8 +44,8 @@ public class Main {
 
 		// random choice of ChanceNode
 		ArrayList <Node> randomNode = new ArrayList<Node>();
-		randomNode.add(new ChooseNode("Interrogatoire", "Vous êtes suspecté de complicité avec le prince. Répondez à cet interrogatoire de manière à enlever tout soupçon...", option1));
-		randomNode.add(new ChooseNode("Caserne", "Vous tombez sur une caserne...", option2));
+		randomNode.add(new ChooseNode("Interrogatoire", "<html>Vous êtes suspecté de complicité avec le prince./ Répondez à cet interrogatoire de manière à enlever tout soupçon...", option1));
+		randomNode.add(new ChooseNode("Caserne", "<html>Vous tombez sur une caserne...", option2));
 		
 		// arrayList of chance node
 		ArrayList <Integer> probability = new ArrayList<Integer>();

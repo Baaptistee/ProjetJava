@@ -170,8 +170,8 @@ public static void POPUP(JButton chooseButton){
         if (node instanceof ChanceNode){ 
             panelText.setBounds(80, 110, 800, 300);
         }
-         if (node instanceof FightNode){ 
-            panelText.setBounds(60, 110, 600, 100);
+         if (node instanceof TerminalNode){ 
+            panelText.setBounds(80, 110, 800, 300);
         }
         
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
