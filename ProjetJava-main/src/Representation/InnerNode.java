@@ -6,6 +6,7 @@
 package Representation;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class InnerNode extends Node {
 	
@@ -73,9 +74,28 @@ public abstract class InnerNode extends Node {
 	 /**
      * Overrides the display method to display the information of the choice node.
      */
+    @Override
+    public String toString() {
+        return "InnerNode:"+super.toString();
+    }
+
     
 	public abstract void goNext() ;
-         
+
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        InnerNode innerNode = (InnerNode) obj;
+        return super.equals(obj) &&
+               Objects.equals(getOptions(), innerNode.getOptions());
+    }
 
     
 }

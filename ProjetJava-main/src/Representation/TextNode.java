@@ -18,4 +18,9 @@ public class TextNode extends InnerNode {
 		this.getOptions().get(0).setFormerNode(this);
 		this.getOptions().get(0).display();
 	}
+	@Override
+	public String toString() {
+		return "TextNode:"+super.toString();
+	}
+
 }
