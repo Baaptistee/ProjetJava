@@ -369,7 +369,7 @@ public static void POPUP(JButton chooseButton){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                    	    node.goNext() ; // Code to execute when the button is clicked
+                        	node.goNext() ; // Code to execute when the button is clicked
                     	
                         }
             });

@@ -2,17 +2,19 @@ package Main;
 
 import java.util.ArrayList;
 import Representation.*;
+import univers.Statistiques;
 
 
 public class Main {
      public static void main(String[] args) {
 
 		// instance of InnerNode 
-		Node test = new TextNode("Oui !", "<html> L'histoire se déroule dans un royaume médiéval,/ où le prince héritier, un homme bien-aimé du peuple,/ est soudainement suspecté d'avoir assassiné le roi, son propre père,/ afin de s'emparer de la couronne./Malgré son innocence, les preuves semblent accablantes, et il est contraint de fuir pour échapper à la pendaison....", true) ; // balise html a revoir            		
+		InnerNode test = new TextNode("Oui !", "<html> L'histoire se déroule dans un royaume médiéval,/ où le prince héritier, un homme bien-aimé du peuple,/ est soudainement suspecté d'avoir assassiné le roi, son propre père,/ afin de s'emparer de la couronne./Malgré son innocence, les preuves semblent accablantes, et il est contraint de fuir pour échapper à la pendaison....", true) ; // balise html a revoir            		
 		Node test1 = new TerminalNode("Pas encore ", "<html> A la prochaine alors") ; // balise html a revoir            		
 		
+		ArrayList<Node> n = new ArrayList() ;
 		
-		Node Final = new TerminalNode("Final", "<html> Le test pour le JALON touche à sa fin./ À travers ce test, vous avez pu voir des/ - InnerNodes/ - ChooseNodes/ - TerminalNodes/ - ChanceNodes/ Nous vous réservons bien sûr un FightNode qui est actuellement en cours de construction./ Nous espérons que cette petite mise en bouche vous aura plu.");         		
+		Node Final = new TerminalNode("Final", "<html> Le test pour le JALON touche à sa fin./ À travers ce test, vous avez pu voir des/ - TextNodes/ - ChooseNodes/ - TerminalNodes/ - ChanceNodes/ Nous vous réservons bien sûr un FightNode qui est actuellement en cours de construction./ Nous espérons que cette petite mise en bouche vous aura plu. /Passez une bonne fin de journée ! /Cette fenêtre va maintenant se fermer automatiquement dans quelques secondes :)");         		
 		
 		//InnerNode test2 = new InnerNode("The story", "<html> Le prince se cache dans un village voisin,/ espérant rassembler des éléments pour prouver son innocence et rétablir son nom./ Ses amis loyaux, le soigneur compatissant, le chevalier courageux et le magicien astucieux,/ décident de l'aider en menant leur propre enquête pour découvrir la vérité qui le disculpera.", true) ; // balise html a revoir   
 		//InnerNode test3 = new InnerNode("The story", "<html> En tant qu'un de ces amis,/ le joueur se retrouve plongé au cœur d'une enquête complexe et dangereuse./ Vous devrez chercher des indices,/ interroger des témoins et déjouer les complots qui visent à incriminer le prince./Il faudra parfois se battre pour défendre vos amis/ des adversaires déterminés à garder le secret./ En chemin,/ vous devrez également surmonter des épreuves aléatoires pour progresser dans votre quête.", true) ; // balise html a revoir            		
@@ -26,7 +28,7 @@ public class Main {
 		option.add(test1);
 		
 		// instance of first chooseNode (Begenning)
-		Node Beginning = new ChooseNode("Decouverte", "<html>Bienvenue dans qui a tué le roi./ etes vous pret a lancer une nouvelle partie dans ce jeux ou vous etes le hero?",option);
+		Node Beginning = new ChooseNode("Découverte", "<html>Bienvenue dans \"Qui a tué le roi ?\"./ Êtes vous prêts à lancer une nouvelle partie dans ce jeux où vous êtes le heros ?",option);
 		Beginning.display();
 
 		
@@ -44,20 +46,38 @@ public class Main {
 
 		// random choice of ChanceNode
 		ArrayList <Node> randomNode = new ArrayList<Node>();
-		randomNode.add(new ChooseNode("Interrogatoire", "<html>Vous êtes suspecté de complicité avec le prince./ Répondez à cet interrogatoire de manière à enlever tout soupçon...", option1));
-		randomNode.add(new ChooseNode("Caserne", "<html>Vous tombez sur une caserne...", option2));
+		randomNode.add(new ChooseNode("Possibilité 1", "<html>Vous êtes tombés sur la première possibilité ! /Passez une bonne journée !", option1));
+		randomNode.add(new ChooseNode("Possibilité 2", "<html>Vous êtes tombés sur la deuxième possibilité ! /Passez une bonne soirée !", option2));
 		
 		// arrayList of chance node
 		ArrayList <Integer> probability = new ArrayList<Integer>();
-		probability.add(9);
-		probability.add(1);
+		probability.add(6);
+		probability.add(4);
 
 		//instance of Chance node
 		ChanceNode test7 = new ChanceNode("Chance Node", "Le prochain node est déterminé de manière aléatoire !! Retenez votre souffle ....",randomNode, probability);   
-		test.setNextNode(test7);
         // Lier le TerminalNode "Final" à la fin de test1
-		test1.setNextNode(Final);        
 	
+		
+
+		ArrayList<Node> t = new ArrayList<Node>() ;
+		InnerNode test9 = new TextNode("Échec du groupe", "Le groupe a échoué malheureusement mais ce n'est pas grave ! Ce n'est que le premier jalon", false) ;
+		InnerNode test10 = new TextNode("Réussite du groupe", "Le groupe a réussi le test ! Vous pouvez être fier d\'eux.", false) ;
+		ArrayList<Node> u = new ArrayList<Node>() ;
+		u.add(test7) ;
+		test9.setOptions(u) ;
+		test10.setOptions(u) ;
+		TestNode test8 = new TestNode("Test Node", "<html>Le prochain node va être déterminé en faisant un test de force aux personnages du groupe /Celui-ci est basé sur leur statistique de force mais aussi sur une légère part d'aléatoire ... /Vont-ils réussir ?", false, t, Statistiques.STRENGTH, 13, 3) ;
+		
+		t.add(test10) ;
+		t.add(test9) ;
+		
+		test8.setOptions(t) ;
+		
+		n.add(test8) ;
+		test.setOptions(n) ;
+		
+		
      }
 
 }

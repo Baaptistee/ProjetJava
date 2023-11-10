@@ -74,10 +74,8 @@ public abstract class InnerNode extends Node {
      * Overrides the display method to display the information of the choice node.
      */
     
-@Override
-	public void goNext() {
-         this.getNextNode().setFormerNode(this);
-         this.getNextNode().display();
+	public abstract void goNext() ;
+         
 
-    }
+    
 }

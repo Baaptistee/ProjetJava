@@ -46,7 +46,7 @@ public class TestNode extends InnerNode{
 	
 	public Node select() {
 		int totalReussite = 0 ;
-		for (int i = 0 ; i <= Game.getGroupeJoueur().size() ; i++ ) {
+		for (int i = 0 ; i < Game.getGroupeJoueur().size() ; i++ ) {
 			if (Game.getGroupeJoueur().get(i).testStat(this.getDifficulteTest(), this.getStatATester())) {
 				totalReussite++ ;
 			}

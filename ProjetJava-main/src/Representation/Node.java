@@ -13,7 +13,6 @@ public abstract class Node extends Object implements Event {
 	private String description ; // The description of the Node
 	private int idNode ; // The unique ID of the Node
 	private String nom ; //The name of the Node
-	private Node nextNode ; // The Node that follows 
 	private Node formerNode ; // The previous Node (for backward navigation)
 	private boolean checkPoint = false ;
 	
@@ -42,23 +41,6 @@ public abstract class Node extends Object implements Event {
 		this.description = description ;
 		this.nom = nom ;
 		this.checkPoint = checkPoint ; 
-	}
-	
-	/**
-     * Constructor for the Node with the nextNode already defined.
-     * @param name The name or title of the Node.
-     * @param description The description of the Node.
-     * @param isCheckpoint Indicates whether the Node is a checkpoint.
-     * @param nextNode The next Node in the sequence.
-     */
-	
-	public Node (String nom, String description, boolean checkPoint, Node nextNode) {
-		this.idNode = totalNode++ ;
-		this.description = description ;
-		this.nom = nom ;
-		this.checkPoint = checkPoint ; 
-		this.nextNode = nextNode ;
-		
 	}
 	
 	public Node (String nom, String description, Node nextNode) {
@@ -139,26 +121,6 @@ public abstract class Node extends Object implements Event {
 		this.formerNode = formerNode ;
 	}
 
-	/**
-     * Get the next Node, which is the Node that follows this one.
-     * @return The next Node.
-     */
-
-	public Node getNextNode() {
-		return this.nextNode ;
-		
-	}
-	
-	
-    /**
-     * Set the next Node, which is the Node that follows this one.
-     * @param nextNode The next Node to set.
-     */
-
-	public void setNextNode(Node nextNode) {
-		this.nextNode = nextNode ; 
-		
-	}
 
 	/**
      * Get the checkpoint status of the Node.

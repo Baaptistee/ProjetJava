@@ -12,6 +12,7 @@ public class Game {
 	
 	public static ArrayList<PersonnageCombattant> getGroupeJoueur() {
 		if (groupeJoueur==null) {
+			groupeJoueur = new ArrayList<PersonnageCombattant>() ;
 			groupeJoueur.add(Soigneur.getSoigneur()) ;
 			groupeJoueur.add(Mage.getMage()) ;
 			groupeJoueur.add(Chevalier.getChevalier()) ;
@@ -21,6 +22,6 @@ public class Game {
 	}
 	
 	public void configGame() {
-		InterfaceJeu.configFenetre();
+		InterfaceJeu.configFenetre() ;
 	}
 }
