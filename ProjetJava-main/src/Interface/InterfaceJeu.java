@@ -164,11 +164,8 @@ public static void POPUP(JButton chooseButton){
         if (node instanceof ChooseNode){ 
             panelText.setBounds(60, 110, 600, 100);
         }
-        if (node instanceof InnerNode){ 
-            panelText.setBounds(80, 110, 800, 300);
-        }
-        if (node instanceof ChanceNode){ 
-            panelText.setBounds(80, 110, 800, 300);
+        if (node instanceof TextNode || node instanceof ChanceNode ||node instanceof TestNode){ 
+            panelText.setBounds(80, 110, 850, 300);
         }
          if (node instanceof TerminalNode){ 
             panelText.setBounds(80, 110, 800, 300);
@@ -214,7 +211,7 @@ public static void POPUP(JButton chooseButton){
                 if ( node instanceof ChooseNode){ 
                     ChooseNodeButton(node);
                 }
-                if(node instanceof InnerNode){ 
+                if(node instanceof TextNode || node instanceof ChanceNode || node instanceof TestNode ){ 
                     InnerNodeButton(node);
                 }
                 if(node instanceof FightNode){
@@ -264,6 +261,7 @@ public static void POPUP(JButton chooseButton){
             btn1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    
                     chooseNode.getOptions().get(currentIndex).display(); // clique du bouton provoque affichage du prochain bode
                 
                 }
@@ -371,7 +369,7 @@ public static void POPUP(JButton chooseButton){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                    	    node.goNext().display(); // Code to execute when the button is clicked
+                        	node.goNext() ; // Code to execute when the button is clicked
                     	
                         }
             });
