@@ -12,7 +12,7 @@ public class Main {
 		InnerNode test = new TextNode("Oui !", "<html> L'histoire se déroule dans un royaume médiéval,/ où le prince héritier, un homme bien-aimé du peuple,/ est soudainement suspecté d'avoir assassiné le roi, son propre père,/ afin de s'emparer de la couronne./Malgré son innocence, les preuves semblent accablantes, et il est contraint de fuir pour échapper à la pendaison....", true) ; // balise html a revoir            		
 		Node test1 = new TerminalNode("Pas encore ", "<html> A la prochaine alors") ; // balise html a revoir            		
 		
-		ArrayList<Node> n = new ArrayList() ;
+		ArrayList<Node> n = new ArrayList<Node>() ;
 		
 		Node Final = new TerminalNode("Final", "<html> Le test pour le JALON touche à sa fin./ À travers ce test, vous avez pu voir des/ - TextNodes/ - ChooseNodes/ - TerminalNodes/ - ChanceNodes/ Nous vous réservons bien sûr un FightNode qui est actuellement en cours de construction./ Nous espérons que cette petite mise en bouche vous aura plu. /Passez une bonne fin de journée ! /Cette fenêtre va maintenant se fermer automatiquement dans quelques secondes :)");         		
 		
@@ -26,12 +26,7 @@ public class Main {
 		ArrayList <Node> option= new ArrayList<>();
 		option.add(test);
 		option.add(test1);
-		
-		// instance of first chooseNode (Begenning)
-		Node Beginning = new ChooseNode("Découverte", "<html>Bienvenue dans \"Qui a tué le roi ?\"./ Êtes vous prêts à lancer une nouvelle partie dans ce jeux où vous êtes le heros ?",option);
-		Beginning.display();
-
-		
+			
 		
 		// choices of chooseNode "Interrogatoire"
 		ArrayList <Node> option1= new ArrayList<>();
@@ -77,6 +72,10 @@ public class Main {
 		n.add(test8) ;
 		test.setOptions(n) ;
 		
+		
+		// instance of first chooseNode (Begenning)
+		Node Beginning = new ChooseNode("Découverte", "<html>Bienvenue dans \"Qui a tué le roi ?\"./ Êtes vous prêts à lancer une nouvelle partie dans ce jeux où vous êtes le heros ?",option);
+		Beginning.display();
 		
      }
 

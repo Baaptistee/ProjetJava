@@ -50,6 +50,22 @@ public class Soigneur extends PersoGroupe{
 		}
 		return instance ;
 	}
+	
+	
+
+	// qu'une seule vérification dans le equals car classe est un singleton
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			else
+				return false ;
+		}
+	@Override
+	public String toString() {
+		return "Soigneur " + super.toString();
+	}
+
 	/** a function for when the character  gains a level
 	 * 
 	 */

@@ -1,10 +1,34 @@
 package univers.competences;
 
+import java.util.Objects;
+
 import univers.personnages.PersonnageCombattant;
 /** A class for all the cative competences (the ones that can be chose during a fightNode)
  * 
  */
 public abstract class CompetencesActives extends Competences {
+	
+	@Override
+	public String toString() {
+		return super.toString() + "[coutMana=" + coutMana + "] " ;
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CompetencesActives other = (CompetencesActives) obj;
+		return this.getCoutMana() == other.getCoutMana() && 
+			Objects.equals(this.getDescription(), other.getDescription()) && Objects.equals(this.getName(), other.getName());
+
+	}
+
+
 	/**
 	 * The mana cost of the attack
 	 */

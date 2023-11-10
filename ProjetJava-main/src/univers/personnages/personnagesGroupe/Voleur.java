@@ -49,9 +49,24 @@ public class Voleur extends PersoGroupe{
 		}
 		return instance ;
 	}
+	@Override
+	public String toString() {
+		return "Voleur " + super.toString();
+	}
+
 	/** a function for when the character  gains a level
 	 * 
 	 */
+	
+	// qu'une seule vérification dans le equals car classe est un singleton
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			else
+				return false ;
+		}
+		
 	public String gainNiveau() {
 		Random random = new Random() ;
 		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;

@@ -1,5 +1,6 @@
 package univers.competences;
 
+import java.util.Objects;
 import java.util.Random;
 
 import univers.Eleme;
@@ -139,6 +140,27 @@ public class CompetenceDammage extends CompetencesActives{
 	 */
 	public void setPhysical(boolean physical) {
 		this.physical = physical;
+	}
+	
+	@Override
+	public String toString() {
+		return "CompetenceDammage " + super.toString() + " [accuracy=" + accuracy + ", power=" + power + ", groupDammage=" + groupDammage
+				+ ", nbHits=" + nbHits + ", element=" + element + ", physical=" + physical + "]";
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CompetenceDammage other = (CompetenceDammage) obj;
+		return this.getAccuracy() == other.getAccuracy() && getElement() == other.getElement() && this.isGroupDammage() == other.isGroupDammage()
+				&& this.getNbHits() == other.getNbHits() && this.isPhysical() == other.isPhysical() && this.getPower() == other.getPower() &&
+				this.getCoutMana() == other.getCoutMana() && 
+				Objects.equals(this.getDescription(), other.getDescription()) && Objects.equals(this.getName(), other.getName());
 	}
 	/**a rewrite of the utilisation of the competence 
 	 * The competence will not work if the user doesn't have the mana for it 

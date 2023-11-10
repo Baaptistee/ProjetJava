@@ -244,7 +244,28 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	public abstract String gainNiveau() ;
 	
 	
-	
+	 @Override
+	public String toString() {
+		return super.toString() + " [experience=" + experience + ", weapon=" + weapon + ", competences=" + competences
+				+ ", armePossible=" + armePossible + "]";
+	}
+
+	@Override
+	    public boolean equals(Object obj) {
+			if (this == obj) {
+				return true ;
+			} else if (obj.getClass() != this.getClass()) {
+				return false ;
+			} else {
+				PersoGroupe perso = (PersoGroupe)obj ;
+				if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImage(), perso.getImage()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && Objects.equals(this.getStrength() , perso.getStrength()) && Objects.equals(this.getEndurance() , perso.getEndurance()) && Objects.equals(this.getFaiblesses() , perso.getFaiblesses()) && Objects.equals( this.getGroupe() , perso.getGroupe()) && Objects.equals(this.getIntelligence() , perso.getIntelligence()) && Objects.equals(this.getLevel() , perso.getLevel()) && Objects.equals(this.getLifePoints() , perso.getLifePoints()) && Objects.equals(this.getMana() , perso.getMana()) && Objects.equals(this.getMaxLifePoints() , perso.getMaxLifePoints()) && Objects.equals(this.getMaxMana(), perso.getMaxMana()) && Objects.equals(this.getResistances(), perso.getResistances()) && Objects.equals(this.getSpeed(), perso.getSpeed()) && this.getWeapon().equals(perso.getWeapon())) {
+					return true ;
+				} else {
+					return false ;
+				}
+			}
+	    	
+	    }
 	
 	
 }

@@ -50,6 +50,12 @@ public class Chevalier extends PersoGroupe{
 		}
 		return instance ;
 	}
+	@Override
+	public String toString() {
+		return "Chevalier " + super.toString();
+	}
+
+	
 	/** a function for when the character  gains a level
 	 * 
 	 */
@@ -69,9 +75,18 @@ public class Chevalier extends PersoGroupe{
 		if (this.getLevel() == 2) {
 			CompetenceDammage tailladeLarge = new CompetenceDammage("Taillade Large", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 3, 80, 3, 1, Eleme.NONE, true, true) ;
 			this.getCompetences().add(tailladeLarge) ;
-			t += "/Il apprend la compétence active : Soin Rapide !" ;
+			t += "/Il apprend la compétence active : Taillade Large !" ;
 		}
 		return t ;
+	}
+
+	// qu'une seule vérification dans le equals car classe est un singleton
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		else
+			return false ;
 	}
 	
 	
