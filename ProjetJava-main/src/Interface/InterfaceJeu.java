@@ -170,6 +170,9 @@ public static void POPUP(JButton chooseButton){
          if (node instanceof TerminalNode){ 
             panelText.setBounds(80, 110, 800, 300);
         }
+         if (node instanceof FightNode){ 
+            panelText.setBounds(60, 110, 600, 100);
+        }
         
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
@@ -215,7 +218,7 @@ public static void POPUP(JButton chooseButton){
                     InnerNodeButton(node);
                 }
                 if(node instanceof FightNode){
-                    FightNodeButton(node);
+                   FightNodeButton(node);
                 }
                 if(node instanceof TerminalNode){
                     TerminalNodeButton(node);
@@ -314,16 +317,16 @@ public static void POPUP(JButton chooseButton){
         panelFight.setBounds(700, 200, 150, 300);
         layeredPane.add(panelFight, JLayeredPane.POPUP_LAYER);
         panelFight.setLayout(new FlowLayout());
+        panelFight.setBackground(Color.PINK);
 
         ButtonGroup buttonGroup = new ButtonGroup();  // Create a button group to handle radio button selection
-
-        // Create and add radio buttons for different fight options
+    
         for (int i = 1; i <= 5; i++) {
-            JRadioButton radioButton = new JRadioButton("Option " + i);
+           JRadioButton radioButton = new JRadioButton("Option " + i);
             buttonGroup.add(radioButton);
             panelFight.add(radioButton);
         }
-        JButton validateButton = new JButton("Valider");// Create and add a button to validate the selected option
+     JButton validateButton = new JButton("Valider");// Create and add a button to validate the selected option
 
         panelFight.add(validateButton);
         getFenetre().add(panelFight);

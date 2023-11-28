@@ -78,9 +78,9 @@ public class FightNode extends InnerNode {
      */
 
 	public void display() {
-		
-		
+		super.display();
 	}
+	
 
 	@Override
 	public void goNext() {
