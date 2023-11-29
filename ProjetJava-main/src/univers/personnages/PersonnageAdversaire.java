@@ -151,11 +151,11 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		// si on lance une compétence de soin on le fait uniquement sur les allies 
 		if (competence.getClass().getName()=="univers.competences.CompetencesSoin") {
 			// on va vérifier que la cible est bien blessée 
-			boolean z = false ;
-			while ((z = false)){
+			boolean z = true ;
+			while (z){
 				int i = random.nextInt(this.getGroupe().size()) ;
 				if (this.getGroupe().get(i).getLifePoints()<this.getGroupe().get(i).getMaxLifePoints()){
-						z = true ;
+						z = false ;
 						d = this.getGroupe().get(i) ;
 				}
 			}
