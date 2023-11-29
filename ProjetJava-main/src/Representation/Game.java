@@ -21,6 +21,7 @@ public class Game {
 		return groupeJoueur;
 	}
 	
+	
 	public void configGame() {
 		InterfaceJeu.configFenetre() ;
 	}

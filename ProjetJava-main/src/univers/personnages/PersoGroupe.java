@@ -22,7 +22,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	/** the competences of the character
 	 * 
 	 */
-	private ArrayList<Competences> competences ;
+	private ArrayList<CompetencesActives> competences ;
 	
 	/** an arrayList with the type of weapons the character can carry
 	 * 
@@ -45,7 +45,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * @param resistances
 	 * @param armePossible
 	 */
-	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<Competences> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible) {
+	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible) {
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, faiblesses, resistances) ;
 		this.experience = 0 ;
 		this.armePossible = armePossible ;
@@ -87,7 +87,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * 
 	 * @return
 	 */
-	public ArrayList<Competences> getCompetences() {
+	public ArrayList<CompetencesActives> getCompetences() {
 		return this.competences;
 	}
 
@@ -95,7 +95,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * 
 	 * @param competences
 	 */
-	public void setCompetences(ArrayList<Competences> competences) {
+	public void setCompetences(ArrayList<CompetencesActives> competences) {
 		this.competences = competences;
 	}
 

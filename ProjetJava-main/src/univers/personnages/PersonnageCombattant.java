@@ -7,6 +7,7 @@ import java.util.Random;
 import univers.Eleme;
 import univers.Statistiques;
 import univers.competences.Competences;
+import univers.competences.CompetencesActives;
 import univers.personnages.personnagesGroupe.*;
 /** an abstract class to represent all of our fighting characters (allies or ennemies)
  * 
@@ -420,5 +421,7 @@ public abstract class PersonnageCombattant extends Personnage{
 			}
 	    	
 	    }
+
+		public abstract ArrayList<CompetencesActives> getCompetences() ;
 
 }

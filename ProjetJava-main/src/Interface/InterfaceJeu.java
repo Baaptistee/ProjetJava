@@ -320,18 +320,19 @@ public static void POPUP(JButton chooseButton){
         panelFight.setBackground(Color.PINK);
 
         ButtonGroup buttonGroup = new ButtonGroup();  // Create a button group to handle radio button selection
-    
-        for (int i = 1; i <= 5; i++) {
-           JRadioButton radioButton = new JRadioButton("Option " + i);
-            buttonGroup.add(radioButton);
-            panelFight.add(radioButton);
-        }
-     JButton validateButton = new JButton("Valider");// Create and add a button to validate the selected option
+        for (int i = 0; i< Game.getGroupeJoueur().size(); i++)
+            for (int j = 0; j < Game.getGroupeJoueur().get(i).getCompetences().size(); j++) {
+                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueur().get(i).getCompetences().get(j).getName());
+                buttonGroup.add(radioButton);
+                panelFight.add(radioButton);
 
-        panelFight.add(validateButton);
-        getFenetre().add(panelFight);
-        getFenetre().setVisible(true);
-        
+                JButton validateButton = new JButton("Valider");// Create and add a button to validate the selected option
+
+                panelFight.add(validateButton);
+                getFenetre().add(panelFight);
+                getFenetre().setVisible(true);
+            }
+            
     }
 
    

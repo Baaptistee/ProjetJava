@@ -76,7 +76,25 @@ public class FightNode extends InnerNode {
 	/**
      * Method to display the information of the fight node.
      */
+	public boolean isGroupEnVie(ArrayList<PersonnageCombattant> groupe ){
+		boolean retour = false ;
+		for (int i = 0 ; i < groupe.size(); i++) {
+			if (groupe.get(i).enVie()) {
+				retour = true ;
+			}
+		}
+		return retour ;
+	}
 
+
+	public boolean isOver() {
+		boolean retour = false ;
+		if (this.isGroupEnVie(this.getOpponents()) && this.isGroupEnVie(Game.getGroupeJoueur())) {
+			retour = true ;
+		}
+		return retour ;
+	}
+	
 	public void display() {
 		super.display();
 	}

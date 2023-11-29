@@ -22,7 +22,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	/**
 	 * les competences du personnages
 	 */
-	private CompetencesActives[] competences ; // un tableau avec les compétences utilisables par le personnage ainsi que la probabilité que celui-ci l'utilise 
+	private ArrayList<CompetencesActives> competences ; // un tableau avec les compétences utilisables par le personnage ainsi que la probabilité que celui-ci l'utilise 
 	/** 
 	 * la proba associée à chacune de ces compétences 
 	 */
@@ -48,7 +48,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 * @param competences
 	 * @param probaCompetences
 	 */
-	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, CompetencesActives[] competences, int[] probaCompetences) {
+	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences) {
 		
 		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
 		this.competences = competences ;
@@ -58,14 +58,14 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 * un getter pour les compétences 
 	 * @return
 	 */
-	public CompetencesActives[] getCompetences() {
+	public ArrayList<CompetencesActives> getCompetences() {
 		return competences;
 	}
 	/**
 	 * un setter pour les compétences 
 	 * @param competences
 	 */
-	public void setCompetences(CompetencesActives[] competences) {
+	public void setCompetences(ArrayList<CompetencesActives> competences) {
 		this.competences = competences;
 	}
 	
@@ -98,7 +98,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		Random random = new Random() ;
 		int total = 0 ;
 		boolean pokemon = true ;
-		CompetencesActives o = this.getCompetences()[0] ;
+		CompetencesActives o = this.getCompetences().get(0) ;
 		boolean manaCost = false ;
 		boolean noUselessHeal = false ;
 		while ((manaCost==false)||(noUselessHeal==false)){
@@ -116,7 +116,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 				total += this.getProbaCompetences()[i] ;
 				if (total >= a) {
 					pokemon = false ;
-					o = this.getCompetences()[i] ;
+					o = this.getCompetences().get(i) ;
 				}
 				i++ ;
 			}
@@ -169,7 +169,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	
 	@Override
 	public String toString() {
-		return "PersonnageAdversaire " + super.toString()+ "[competences=" + Arrays.toString(competences) + ", probaCompetences="
+		return "PersonnageAdversaire " + super.toString() // A refaire il manque compétences mais je suis sur autre chose là
 				+ Arrays.toString(probaCompetences) + ", groupe=" + groupe + "]";
 	}
 	@Override

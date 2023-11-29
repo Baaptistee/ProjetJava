@@ -31,7 +31,7 @@ public class Voleur extends PersoGroupe{
 	 * @param resistances
 	 * @param armePossible
 	 */
-	private Voleur (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<Competences> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
+	private Voleur (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances, armePossible) ;
 	}
 	
@@ -41,7 +41,7 @@ public class Voleur extends PersoGroupe{
 	 */
 	public static Voleur getVoleur() {
 		if (instance == null) {
-			ArrayList<Competences> competence = new ArrayList<Competences>() ;
+			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
