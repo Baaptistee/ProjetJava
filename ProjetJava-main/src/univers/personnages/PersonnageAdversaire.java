@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 //import univers.personnages.*;
 
 import Representation.Game;
@@ -167,6 +169,15 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		return d ;
 	}
 	
+	public Map<PersonnageCombattant, Object[]> selectionTout(Map<PersonnageCombattant, Object[]> actions){
+		Object[] c = {} ;
+		c[0] = this.selectionAttaque() ;
+		c[1] = this.selectionCible((CompetencesActives)c[0]) ;
+
+		actions.put(this, c) ;
+		return  actions;
+	}
+
 	@Override
 	public String toString() {
 		return "PersonnageAdversaire " + super.toString() // A refaire il manque compétences mais je suis sur autre chose là

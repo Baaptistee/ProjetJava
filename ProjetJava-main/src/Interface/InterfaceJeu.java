@@ -4,6 +4,17 @@
 
 package Interface;
 import Representation.* ;
+import univers.competences.CompetencesActives;
+import univers.personnages.PersoGroupe;
+import univers.personnages.PersonnageAdversaire;
+import univers.personnages.PersonnageCombattant;
+import univers.* ;
+import univers.competences.CompetenceDammage;
+import java.util.HashMap;
+import java.util.Map;
+
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -218,7 +229,7 @@ public static void POPUP(JButton chooseButton){
                     InnerNodeButton(node);
                 }
                 if(node instanceof FightNode){
-                   FightNodeButton(node);
+                    playFightNode(node);
                 }
                 if(node instanceof TerminalNode){
                     TerminalNodeButton(node);
@@ -309,8 +320,41 @@ public static void POPUP(JButton chooseButton){
     * @param node The current fight node.
     */
 
-    public void FightNodeButton(Node node){
+    public void playFightNode(Node node){
+        FightNode node1 = (FightNode) node ;
+        
+        
+        playTourFightNode(node1) ;
+        node.goNext();
+    }
 
+    public void playTourFightNode(FightNode node) {
+        Map<PersonnageCombattant, Object[]> actions = new HashMap<>();
+        Map<PersonnageCombattant, Object[]>  actions1 = selectionAction(node, actions, 0);
+
+        actions = selectionAdverse(node,actions1) ;
+
+        faireActions(actions) ;
+
+        if (node.isOver()==false) {
+            playTourFightNode(node);
+        }
+    }
+
+    public void faireActions(Map<PersonnageCombattant, Object[]> actions) {
+        
+    }
+
+    public Map<PersonnageCombattant, Object[]> selectionAdverse(FightNode node, Map<PersonnageCombattant, Object[]> actions){
+        for (int i = 0; i<node.getOpponents().size();i++) {
+            actions = ((PersonnageAdversaire)node.getOpponents().get(i)).selectionTout(actions) ;
+        }
+        return actions ;
+    }
+
+    public Map<PersonnageCombattant, Object[]> selectionAction(FightNode node, Map<PersonnageCombattant, Object[]> actions, int perso) {
+        
+        if (perso<Game.getGroupeJoueur().size()) {
         configPanel();
         
         JPanel panelFight = new JPanel(); // Create the main panel to contain the options and validate button
@@ -319,25 +363,106 @@ public static void POPUP(JButton chooseButton){
         panelFight.setLayout(new FlowLayout());
         panelFight.setBackground(Color.PINK);
 
+
+
         ButtonGroup buttonGroup = new ButtonGroup();  // Create a button group to handle radio button selection
-        for (int i = 0; i< Game.getGroupeJoueur().size(); i++)
-            for (int j = 0; j < Game.getGroupeJoueur().get(i).getCompetences().size(); j++) {
-                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueur().get(i).getCompetences().get(j).getName());
+            int nextIteration = perso + 1 ;
+            for (int j = 0; j < Game.getGroupeJoueur().get(perso).getCompetences().size(); j++) {
+                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueur().get(perso).getCompetences().get(j).getName());
+                radioButton.setActionCommand(Game.getGroupeJoueur().get(perso).getCompetences().get(j).getName());
                 buttonGroup.add(radioButton);
-                panelFight.add(radioButton);
-
-                JButton validateButton = new JButton("Valider");// Create and add a button to validate the selected option
-
-                panelFight.add(validateButton);
-                getFenetre().add(panelFight);
-                getFenetre().setVisible(true);
+                panelFight.add(radioButton);             
             }
-            
-    }
+            JButton validateButton = new JButton("Valider");// Create and add a button to validate the selected option
 
-   
+            panelFight.add(validateButton);
+            getFenetre().add(panelFight);
+            getFenetre().setVisible(true);
+
+            validateButton.addActionListener(new ActionListener() {
+                @Override
+                    public void actionPerformed(ActionEvent e) { 
+                       CompetencesActives c = null ;
+                        String n = buttonGroup.getSelection().getActionCommand() ;
+                        for (int i = 0 ; i<Game.getGroupeJoueur().get(perso-1).getCompetences().size();i++) {
+                            if (Game.getGroupeJoueur().get(perso).getCompetences().get(i).getName()== n) {
+                                c = Game.getGroupeJoueur().get(perso).getCompetences().get(i) ;
+                            }
+                        }
+
+                        Object[] cibleCompetence = {c, null};
+                        actions.put((PersoGroupe)Game.getGroupeJoueur().get(perso-1), cibleCompetence) ;
+                        if (c.isGroup()) {
+                            //pas besoin de sélection de la cible pour les attaques de groupe
+                            selectionAction(node, actions, perso);
+                        } else {
+                            selectionCible(node, actions, (PersoGroupe)Game.getGroupeJoueur().get(perso), perso) ;
+                        }   
+                    }
+            });
+            return actions ;
+        } else {
+            return actions ;
+        }
+    }
     
+    public void selectionCible(FightNode node, Map<PersonnageCombattant, Object[]> actions, PersoGroupe perso, int iteration) {
+        configPanel();
+        int nextIteration = iteration + 1 ;
+        JPanel panelFight = new JPanel(); // Create the main panel to contain the options and validate button
+        panelFight.setBounds(700, 200, 150, 300);
+        layeredPane.add(panelFight, JLayeredPane.POPUP_LAYER);
+        panelFight.setLayout(new FlowLayout());
+        panelFight.setBackground(Color.PINK);
+
+
+
+        ButtonGroup buttonGroup = new ButtonGroup();  // Create a button group to handle radio button selection
+        if (actions.get(perso)[0] instanceof CompetenceDammage) {
+            for (int j = 0; j < node.getOpponents().size(); j++) {
+                JRadioButton radioButton = new JRadioButton(node.getOpponents().get(j).getName());
+                radioButton.setActionCommand(node.getOpponents().get(j).getName());
+                buttonGroup.add(radioButton);
+                panelFight.add(radioButton);             
+            }
+        } else {
+            for (int j = 0; j < Game.getGroupeJoueur().size(); j++) {
+                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueur().get(j).getName());
+                radioButton.setActionCommand(Game.getGroupeJoueur().get(j).getName());
+                buttonGroup.add(radioButton);
+                panelFight.add(radioButton);             
+            }
+        }
+            JButton validateButton = new JButton("Valider");// Create and add a button to validate the selected option
+
+            panelFight.add(validateButton);
+            getFenetre().add(panelFight);
+            getFenetre().setVisible(true);
+
+            validateButton.addActionListener(new ActionListener() {
+                @Override
+                    public void actionPerformed(ActionEvent e) { 
+                        PersonnageCombattant c = null ;
+                        String n = buttonGroup.getSelection().getActionCommand() ;
+                        if (actions.get(perso)[0] instanceof CompetenceDammage) {
+                            for (int i=0;i<node.getOpponents().size();i++) {
+                                if (node.getOpponents().get(i).getName() == n) {
+                                    c = node.getOpponents().get(i) ;
+                                }
+                            }
+                        } else {
+                            for (int i=0;i<Game.getGroupeJoueur().size();i++) {
+                                if (Game.getGroupeJoueur().get(i).getName() == n) {
+                                    c = Game.getGroupeJoueur().get(i) ;
+                                }
+                            }
+                        }
+                        actions.get(perso)[1] = c ;
+                        selectionAction(node, actions, nextIteration);
+                    }
+            });
     
+    }
 
     public void CloseFrame(){
         Timer timer = new Timer(5000, new ActionListener() {

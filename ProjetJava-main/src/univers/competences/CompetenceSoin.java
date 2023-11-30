@@ -49,7 +49,7 @@ public class CompetenceSoin extends CompetencesActives {
 	 * 
 	 * @return
 	 */
-	public boolean isGroupHeal() {
+	public boolean isGroup() {
 		return groupHeal;
 	}
 	/** a getter for groupHeal
@@ -75,7 +75,7 @@ public class CompetenceSoin extends CompetencesActives {
 		if (getClass() != obj.getClass())
 			return false;
 		CompetenceSoin other = (CompetenceSoin) obj;
-		return this.isGroupHeal() == other.isGroupHeal() && this.getPowerHeal() == other.getPowerHeal() && this.getCoutMana() == other.getCoutMana() && 
+		return this.isGroup() == other.isGroup() && this.getPowerHeal() == other.getPowerHeal() && this.getCoutMana() == other.getCoutMana() && 
 				Objects.equals(this.getDescription(), other.getDescription()) && Objects.equals(this.getName(), other.getName());
 	}
 	
@@ -92,7 +92,7 @@ public class CompetenceSoin extends CompetencesActives {
 		} else {
 			d = utilisateur.getName() + " utilise " + this.getName() + ".";
 			int a = this.getPowerHeal() + random.nextInt(getPowerHeal()/2) + utilisateur.getIntelligence() - 10 ;
-			if (this.isGroupHeal()) {
+			if (this.isGroup()) {
 				for (int i = 0 ; i<utilisateur.getGroupe().size() ; i++) {
 					cible.getGroupe().get(i).heal(a) ;
 					d += "/Tous les membres du groupe récupère " + a + " points de vie." ;

@@ -65,5 +65,5 @@ public abstract class CompetencesActives extends Competences {
 	 * @return renvoie un String qui sera ensuite à afficher dans le fightNode 
 	 */
 	public abstract String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible) ;
-			
+	public abstract boolean isGroup() ;
 }

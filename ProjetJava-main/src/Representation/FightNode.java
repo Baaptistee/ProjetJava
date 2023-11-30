@@ -88,9 +88,9 @@ public class FightNode extends InnerNode {
 
 
 	public boolean isOver() {
-		boolean retour = false ;
+		boolean retour = true ;
 		if (this.isGroupEnVie(this.getOpponents()) && this.isGroupEnVie(Game.getGroupeJoueur())) {
-			retour = true ;
+			retour = false ;
 		}
 		return retour ;
 	}
@@ -102,8 +102,11 @@ public class FightNode extends InnerNode {
 
 	@Override
 	public void goNext() {
-		// TODO Auto-generated method stub
-		
+		if (this.isGroupEnVie(Game.getGroupeJoueur())) {
+			// le groupe gagne l'expérience et le butin !
+			
+			this.getOptions().get(0).display(); // par convention, c'est le premier qui est le Node de victoire
+		}		
 	}
 	
 }

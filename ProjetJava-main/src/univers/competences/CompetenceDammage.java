@@ -89,7 +89,7 @@ public class CompetenceDammage extends CompetencesActives{
 	 * 
 	 * @return
 	 */
-	public boolean isGroupDammage() {
+	public boolean isGroup() {
 		return groupDammage;
 	}
 	/** a setter for groupdammage 
@@ -157,7 +157,7 @@ public class CompetenceDammage extends CompetencesActives{
 		if (getClass() != obj.getClass())
 			return false;
 		CompetenceDammage other = (CompetenceDammage) obj;
-		return this.getAccuracy() == other.getAccuracy() && getElement() == other.getElement() && this.isGroupDammage() == other.isGroupDammage()
+		return this.getAccuracy() == other.getAccuracy() && getElement() == other.getElement() && this.isGroup() == other.isGroup()
 				&& this.getNbHits() == other.getNbHits() && this.isPhysical() == other.isPhysical() && this.getPower() == other.getPower() &&
 				this.getCoutMana() == other.getCoutMana() && 
 				Objects.equals(this.getDescription(), other.getDescription()) && Objects.equals(this.getName(), other.getName());
@@ -181,7 +181,7 @@ public class CompetenceDammage extends CompetencesActives{
 			// on effectue l'action le nb de cout qu'est censée taper l'attaque 
 			for (int x=0 ; x<this.getNbHits() ; x++) {
 				// on parcoure le groupe en cas de dommages de groupe
-				if (this.isGroupDammage()) {
+				if (this.isGroup()) {
 					for(int i = 0 ; i < cible.getGroupe().size() ; i++) {
 						//on appelle la méthode esquive qui permet de savoir si le personnage a esquivé l'attaque 
 						if (cible.getGroupe().get(i).esquive(this.getAccuracy(), utilisateur)) {
