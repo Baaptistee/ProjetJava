@@ -363,7 +363,7 @@ public abstract class PersonnageCombattant extends Personnage{
 		boolean t = false ;
 		Random random = new Random() ;
 		int a = competenceAccuracy + lanceur.getDexterity()/3 - this.getSpeed()/3 ;
-		if (random.nextInt(100) < a) {
+		if (random.nextInt(100) > a) {
 			t = true ;
 		}
 		return t ;

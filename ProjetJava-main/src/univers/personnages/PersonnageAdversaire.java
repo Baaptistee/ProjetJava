@@ -123,12 +123,12 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 				i++ ;
 			}
 		// on vérifie que le personnage a assez de mana pour lancer la compétence 
-			if (this.getMana()>o.getCoutMana()) {
+			if (this.getMana()>=o.getCoutMana()) {
 				manaCost = true ;
 			}
 		
 			// on vérifie que si c'est une compétence de soin, il y a bien des personnages alliés à soigner 
-			if (o.getClass().getName()=="univers.competences.CompetencesSoin") {
+			if (o instanceof univers.competences.CompetenceSoin) {
 				for (int k = 0 ; k < this.getGroupe().size() ; k++){
 					if (this.getGroupe().get(k).getLifePoints()<this.getGroupe().get(k).getMaxLifePoints()){
 						noUselessHeal = true ;
@@ -151,7 +151,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 
 		// on ne se soucie pas des compétences ciblant des groupes ici, peu importe leur cible, elles affecteront le groupe ciblé 
 		// si on lance une compétence de soin on le fait uniquement sur les allies 
-		if (competence.getClass().getName()=="univers.competences.CompetencesSoin") {
+		if (competence instanceof univers.competences.CompetenceSoin) {
 			// on va vérifier que la cible est bien blessée 
 			boolean z = true ;
 			while (z){

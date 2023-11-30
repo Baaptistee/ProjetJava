@@ -185,19 +185,21 @@ public class CompetenceDammage extends CompetencesActives{
 					for(int i = 0 ; i < cible.getGroupe().size() ; i++) {
 						//on appelle la méthode esquive qui permet de savoir si le personnage a esquivé l'attaque 
 						if (cible.getGroupe().get(i).esquive(this.getAccuracy(), utilisateur)) {
-							d += getName() + " equive l'attaque et s'en tire sans dommage./" ;
+							d += cible.getGroupe().get(i).getName() + " equive l'attaque et s'en tire sans dommage./" ;
 						} else {
 							// en cas de dommages physiques on se base sur la force et en cas de dégats magiques sur l'intelligence 
 							if (this.isPhysical()) {
 								b = this.getPower() + utilisateur.getStrength()/2 + random.nextInt(this.getPower()/2);
 							} else {
 								b = this.getPower() + utilisateur.getIntelligence()/2 + random.nextInt(this.getPower()/2);
-
 							}
 							// en cas de faiblesse élémentaire la cible subit 2 fois plus de dégâts 
 							if (cible.getGroupe().get(i).getFaiblesses().contains(this.getElement())) {
 								b *=2 ;
 								d += "L'attaque est super efficace ! " ;
+							} else if (cible.getGroupe().get(i).getResistances().contains(this.getElement())) {
+								b /=2 ;
+								d += "L'attaque n'est pas très efficace ... /" ;
 							}
 							cible.getGroupe().get(i).dammage(b);
 							d += cible.getGroupe().get(i).getName() + " subit " + b + " points de dégats." ;
@@ -211,6 +213,9 @@ public class CompetenceDammage extends CompetencesActives{
 						if (cible.getFaiblesses().contains(this.getElement())) {
 							b *=2 ;
 							d += "L'attaque est super efficace ! " ;
+						} else if (cible.getResistances().contains(this.getElement())) {
+								b /=2 ;
+								d += "L'attaque n'est pas très efficace ... /" ;
 						}
 						cible.dammage(b);
 						d += cible.getName() + " subit " + b + " points de dégats." ;

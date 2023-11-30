@@ -12,12 +12,15 @@ import univers.* ;
 import univers.competences.CompetenceDammage;
 import java.util.HashMap;
 import java.util.Map;
-
-
-
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.* ;
 
@@ -342,11 +345,26 @@ public static void POPUP(JButton chooseButton){
     }
 
     public void faireActions(Map<PersonnageCombattant, Object[]> actions) {
+        Set<PersonnageCombattant> a = actions.keySet();
+        ArrayList<PersonnageCombattant> ordreDAction = new ArrayList<PersonnageCombattant>(a);
+    // on trie la liste en fonction de la vitesse des personnages 
+        Collections.sort(ordreDAction, Comparator.comparingInt(PersonnageCombattant::getSpeed));
+
+        for (int i =0 ; i <ordreDAction.size();i++) {
+            PersonnageCombattant utilisateur = ordreDAction.get(i) ;
+            PersonnageCombattant cible = (PersonnageCombattant)actions.get(ordreDAction.get(i))[1] ;
+            CompetencesActives competence = (CompetencesActives)actions.get(ordreDAction.get(i))[0] ;
+            System.out.println(competence.utilisation(utilisateur, cible)); // j'ai mis System.out.println pcq il faut réfléchir à la partie affichage sur l'interface 
+        }
+
         
     }
 
+    
+
     public Map<PersonnageCombattant, Object[]> selectionAdverse(FightNode node, Map<PersonnageCombattant, Object[]> actions){
         for (int i = 0; i<node.getOpponents().size();i++) {
+            
             actions = ((PersonnageAdversaire)node.getOpponents().get(i)).selectionTout(actions) ;
         }
         return actions ;
