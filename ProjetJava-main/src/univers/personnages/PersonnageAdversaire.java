@@ -170,11 +170,15 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	}
 	
 	public Map<PersonnageCombattant, Object[]> selectionTout(Map<PersonnageCombattant, Object[]> actions){
+		// on ajoute l'action du personnage que si il est envie 
+		if (this.enVie()) {
+
 		Object[] c = {} ;
 		c[0] = this.selectionAttaque() ;
 		c[1] = this.selectionCible((CompetencesActives)c[0]) ;
 
 		actions.put(this, c) ;
+		}
 		return  actions;
 	}
 

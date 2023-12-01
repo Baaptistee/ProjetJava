@@ -326,34 +326,40 @@ public static void POPUP(JButton chooseButton){
     public void playFightNode(Node node){
         FightNode node1 = (FightNode) node ;
         
-        
+        // on play un tour de fight node 
         playTourFightNode(node1) ;
+        // cette fonction ne sera appelée que quand tous les tours seront finis 
         node.goNext();
     }
 
     public void playTourFightNode(FightNode node) {
         Map<PersonnageCombattant, Object[]> actions = new HashMap<>();
+        // on sélectionne les attaques des personnages du groupe contrôlé par le joueur 
         Map<PersonnageCombattant, Object[]>  actions1 = selectionAction(node, actions, 0);
-
+        // puis met les attaques sélectinées améatoirement des adversaires 
         actions = selectionAdverse(node,actions1) ;
-
-        faireActions(actions) ;
-
+        // puis on exécute toutes ces actions 
+        faireActions(actions1) ;
+        // si le combat n'est pas fini on relance un tour ! 
         if (node.isOver()==false) {
             playTourFightNode(node);
         }
     }
 
     public void faireActions(Map<PersonnageCombattant, Object[]> actions) {
+        // on transforme la map d'action en une arraylist
         Set<PersonnageCombattant> a = actions.keySet();
         ArrayList<PersonnageCombattant> ordreDAction = new ArrayList<PersonnageCombattant>(a);
     // on trie la liste en fonction de la vitesse des personnages 
         Collections.sort(ordreDAction, Comparator.comparingInt(PersonnageCombattant::getSpeed));
 
+        
         String texteAction ="" ;
+        // le nombre d'action du tour 
         int nombreAction = ordreDAction.size() ;
+        // iteration = à quelle action à afficher on en est 
         int iteration = ordreDAction.size() ;
-
+        // boucle pou créer le texte avec toutes les actions 
         for (int i =0 ; i <ordreDAction.size();i++) {
             PersonnageCombattant utilisateur = ordreDAction.get(i) ;
             PersonnageCombattant cible = (PersonnageCombattant)actions.get(ordreDAction.get(i))[1] ;
@@ -362,13 +368,15 @@ public static void POPUP(JButton chooseButton){
             // PROPOSITION : on affiche toutes les 3 utilisations de compétences pour pas surcharger l'écran mais pas perdre torp de temps non plus
         }
 
+        // puis on lance la fonction afficher action qui permet d'afficher les actions 
         afficherAction(texteAction, nombreAction, iteration);
 
         
     }
 
     public void afficherAction(String texteAction, int iteration, int nombreAction){  
-        if (iteration != 0) {
+        // on va faire décroitre le int itration donc quand c à zéro on stop
+        if (iteration <= 0) {
             
             configPanel();
             layeredPane.removeAll();
@@ -448,10 +456,12 @@ public static void POPUP(JButton chooseButton){
      }
 
     public void afficherprochaineaction(JButton suivant, String texteAction, int nombreAction, int iteration) {
-        int nextIteration = iteration - 1;
+        int nextIteration = iteration - 3;
         suivant.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
+                            // on relance la fonction afficher action avec ce qui reste 
+                            // A FAIRE : faire que la premiere iteration n'affiche que les 3 premieres, la seconde que les 3 suivantes etc. 
                             afficherAction(texteAction, nextIteration, nombreAction);
                         }
             });
@@ -460,6 +470,7 @@ public static void POPUP(JButton chooseButton){
 
 
     public Map<PersonnageCombattant, Object[]> selectionAdverse(FightNode node, Map<PersonnageCombattant, Object[]> actions){
+        // pour chaque opponent on lui attribue une action
         for (int i = 0; i<node.getOpponents().size();i++) {
             
             actions = ((PersonnageAdversaire)node.getOpponents().get(i)).selectionTout(actions) ;

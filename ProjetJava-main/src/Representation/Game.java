@@ -21,6 +21,16 @@ public class Game {
 		return groupeJoueur;
 	}
 	
+	public static ArrayList<PersonnageCombattant> getGroupeJoueurVivant() {
+		ArrayList<PersonnageCombattant> joueurEnVie = new ArrayList<PersonnageCombattant>() ;
+
+		for (int i = 0 ; i<getGroupeJoueur().size(); i++) {
+			if (getGroupeJoueur().get(i).enVie()) {
+				joueurEnVie.add(getGroupeJoueur().get(i)) ;
+			}
+		}
+		return joueurEnVie ;
+	}
 	
 	public void configGame() {
 		InterfaceJeu.configFenetre() ;
