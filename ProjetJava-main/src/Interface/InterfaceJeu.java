@@ -350,17 +350,114 @@ public static void POPUP(JButton chooseButton){
     // on trie la liste en fonction de la vitesse des personnages 
         Collections.sort(ordreDAction, Comparator.comparingInt(PersonnageCombattant::getSpeed));
 
+        String texteAction ="" ;
+        int nombreAction = ordreDAction.size() ;
+        int iteration = ordreDAction.size() ;
+
         for (int i =0 ; i <ordreDAction.size();i++) {
             PersonnageCombattant utilisateur = ordreDAction.get(i) ;
             PersonnageCombattant cible = (PersonnageCombattant)actions.get(ordreDAction.get(i))[1] ;
             CompetencesActives competence = (CompetencesActives)actions.get(ordreDAction.get(i))[0] ;
-            System.out.println(competence.utilisation(utilisateur, cible)); // j'ai mis System.out.println pcq il faut réfléchir à la partie affichage sur l'interface 
+            texteAction += (competence.utilisation(utilisateur, cible)) + "$"; // on va se servir du charactère dollar un peu de la même manière dont on s'est servi du charactère "/" 
+            // PROPOSITION : on affiche toutes les 3 utilisations de compétences pour pas surcharger l'écran mais pas perdre torp de temps non plus
         }
+
+        afficherAction(texteAction, nombreAction, iteration);
 
         
     }
 
+    public void afficherAction(String texteAction, int iteration, int nombreAction){  
+        if (iteration != 0) {
+            
+            configPanel();
+            layeredPane.removeAll();
+            layeredPane.revalidate();
+            layeredPane.repaint();
+
+        
+	        getFenetre().getContentPane().setLayout(null);
+	        cleanFenetre() ;
+            JPanel panelText= new JPanel();
+        
+            panelText.setBounds(80, 110, 850, 300);
+            layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+            getFenetre().add(layeredPane);
+            JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+            panelText.add(label);
+            panelText.setBackground(Color.CYAN); 
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+            getFenetre().revalidate();
+            getFenetre().repaint();
+
+            char[] texts = texteAction.toCharArray(); // Convert the description text of the node to a character array
+            Timer timer = new Timer(20, new ActionListener() { // Create a timer to display the description character by character
+            int index = 0; // Index to retrieve each character from the description
+
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index < texts.length) { 
+                    char nextChar = texteAction.charAt(index); 
+                    if(nextChar =='/'){  
+                        label.setText(label.getText() + "<br>");
+                        index++;
+                
+                    }
+                    else{
+                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
+                        index++; //on passe au caractere suivant de la chaine de description
+                    }
+            
+                } else {
+                    ((Timer) e.getSource()).stop(); // Handle line breaks using HTML ta
+                     ButtonSuivant(texteAction, iteration, nombreAction);
+                    
+            
+                }
+        
+            }
+        });
+
+
+    timer.start();           
+            
+        }
+    }
     
+     public void ButtonSuivant(String texteAction, int nombreAction, int iteration){
+        configPanel();
+      
+            // Create a panel for the "Next" button
+            JPanel panelInner = new JPanel();
+            getFenetre().add(layeredPane);
+		    panelInner.setBounds(711, 494, 144, 62);
+        
+            // Add the "Next" panel to the layered pane
+		    layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
+            panelInner.setBackground(Color.yellow);
+        
+        
+            JButton suivant = new JButton("Suivant"); // Create a "Next" button
+            suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+            suivant.setBackground(new Color(240, 240,240));
+		    suivant.setForeground(new Color(128, 64, 0));
+            panelInner.add(suivant);
+            getFenetre().revalidate() ;
+		    afficherprochaineaction(suivant, texteAction, nombreAction, iteration ) ;
+     }
+
+    public void afficherprochaineaction(JButton suivant, String texteAction, int nombreAction, int iteration) {
+        int nextIteration = iteration - 1;
+        suivant.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
+                            afficherAction(texteAction, nextIteration, nombreAction);
+                        }
+            });
+
+    }
+
 
     public Map<PersonnageCombattant, Object[]> selectionAdverse(FightNode node, Map<PersonnageCombattant, Object[]> actions){
         for (int i = 0; i<node.getOpponents().size();i++) {
@@ -524,4 +621,3 @@ public static void POPUP(JButton chooseButton){
 
 
 }
-
