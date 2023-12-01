@@ -480,7 +480,7 @@ public static void POPUP(JButton chooseButton){
 
     public Map<PersonnageCombattant, Object[]> selectionAction(FightNode node, Map<PersonnageCombattant, Object[]> actions, int perso) {
         
-        if (perso<Game.getGroupeJoueur().size()) {
+        if (perso<Game.getGroupeJoueurVivant().size()) {
         configPanel();
         
         JPanel panelFight = new JPanel(); // Create the main panel to contain the options and validate button
@@ -493,9 +493,9 @@ public static void POPUP(JButton chooseButton){
 
         ButtonGroup buttonGroup = new ButtonGroup();  // Create a button group to handle radio button selection
             int nextIteration = perso + 1 ;
-            for (int j = 0; j < Game.getGroupeJoueur().get(perso).getCompetences().size(); j++) {
-                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueur().get(perso).getCompetences().get(j).getName());
-                radioButton.setActionCommand(Game.getGroupeJoueur().get(perso).getCompetences().get(j).getName());
+            for (int j = 0; j < Game.getGroupeJoueurVivant().get(perso).getCompetences().size(); j++) {
+                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
+                radioButton.setActionCommand(Game.getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
                 buttonGroup.add(radioButton);
                 panelFight.add(radioButton);             
             }
@@ -517,7 +517,7 @@ public static void POPUP(JButton chooseButton){
                         }
 
                         Object[] cibleCompetence = {c, null};
-                        actions.put((PersoGroupe)Game.getGroupeJoueur().get(perso-1), cibleCompetence) ;
+                        actions.put((PersoGroupe)Game.getGroupeJoueurVivant().get(perso-1), cibleCompetence) ;
                         if (c.isGroup()) {
                             //pas besoin de sélection de la cible pour les attaques de groupe
                             selectionAction(node, actions, perso);
