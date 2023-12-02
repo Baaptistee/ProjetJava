@@ -10,12 +10,16 @@ import java.util.Objects;
 
 import univers.Collectibles;
 import univers.personnages.* ;
+import java.util.HashMap;
+import java.util.Map;
+//import java.util.Set;
 
 public class FightNode extends InnerNode {
 	
 	private ArrayList<PersonnageCombattant> opponents ; //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
 	private int xp ;
 	private ArrayList<Collectibles> butin ;
+	private Map<PersonnageCombattant, Object[]> actions ;
 
 
     /**
@@ -99,6 +103,24 @@ public class FightNode extends InnerNode {
 		super.display();
 	}
 	
+	public Map<PersonnageCombattant,Object[]> getAction() {
+		if (actions == null){
+			Map<PersonnageCombattant,Object[]> actions  = new HashMap<>();
+				return actions ;
+		} else {
+
+		return actions ;
+		}
+	}
+
+	public void putAction(PersonnageCombattant utilisateur, Object[] competenceCible){
+		actions.put(utilisateur, competenceCible) ;
+	}
+
+	public void videActions() {
+		actions = null ;
+	}
+
 
 	@Override
 	public void goNext() {

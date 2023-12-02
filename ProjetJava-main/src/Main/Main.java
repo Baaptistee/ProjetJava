@@ -2,6 +2,11 @@ package Main;
 
 import java.util.ArrayList;
 import Representation.*;
+import univers.Eleme;
+import univers.competences.CompetenceDammage;
+import univers.competences.CompetencesActives;
+import univers.personnages.PersonnageAdversaire;
+import univers.personnages.PersonnageCombattant;
 import univers.Statistiques;
 
 
@@ -74,7 +79,27 @@ public class Main {
 		
 		
 		// instance of first chooseNode (Begenning)
-		Node Beginning = new FightNode("Découverte", "<html>Bienvenue dans \"Qui a tué le roi ?\"./ Êtes vous prêts à lancer une nouvelle partie dans ce jeu où vous êtes le heros ?",option);
+		FightNode Beginning = new FightNode("Découverte", "Choisissez les compétances du :",option);
+		ArrayList<PersonnageCombattant> opponents= new ArrayList<>();
+		Beginning.setOpponents(opponents);
+		ArrayList <Eleme> faiblesses=new ArrayList<>();
+		faiblesses.add(Eleme.FEU);
+		faiblesses.add(Eleme.GLACE);
+		ArrayList <Eleme> resistances=new ArrayList<>();
+		resistances.add(Eleme.FEU);
+		resistances.add(Eleme.GLACE);
+		int [] probaCompetences={7,3};
+		ArrayList <CompetencesActives> locknessC= new ArrayList<>();
+		PersonnageAdversaire leMonstreduLockness= new PersonnageAdversaire("LocknessMonster1","hgfjrguerh", 4, 7, 1, 1,1,  10, 20, faiblesses, resistances,locknessC, probaCompetences);
+		PersonnageAdversaire leMonstreduLockness2= new PersonnageAdversaire("LocknessMonster2","hgfjrguerh", 4, 7, 1, 1,1,  10, 20, faiblesses, resistances,locknessC, probaCompetences);
+		opponents.add(leMonstreduLockness);
+		opponents.add(leMonstreduLockness2);
+		
+		locknessC.add(new CompetenceDammage("la mort", "rttt", 1, 1,1,1, Eleme.FOUDRE, false, true));
+		
+		
+		
+		
 		Beginning.display();
 		
      }

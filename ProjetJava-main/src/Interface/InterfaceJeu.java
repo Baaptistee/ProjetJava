@@ -329,24 +329,37 @@ public static void POPUP(JButton chooseButton){
         // on play un tour de fight node 
         playTourFightNode(node1) ;
         // cette fonction ne sera appelée que quand tous les tours seront finis 
-        node.goNext();
+        //clenode.goNext();
     }
 
     public void playTourFightNode(FightNode node) {
         Map<PersonnageCombattant, Object[]> actions = new HashMap<>();
+    
         // on sélectionne les attaques des personnages du groupe contrôlé par le joueur 
-        Map<PersonnageCombattant, Object[]>  actions1 = selectionAction(node, actions, 0);
+        
+        actions =  selectionAction(node, actions, 0);
+       
+        
+
+       System.out.println("tatata") ; 
         // puis met les attaques sélectinées améatoirement des adversaires 
-        actions = selectionAdverse(node,actions1) ;
+        
+        //actions = selectionAdverse(node,actions1) ;
+        
         // puis on exécute toutes ces actions 
-        faireActions(actions1) ;
+        //faireActions(actions1) ;
         // si le combat n'est pas fini on relance un tour ! 
+         
         if (node.isOver()==false) {
             playTourFightNode(node);
-        }
+            
+        } 
+        System.out.println("tatata");
     }
-
+    
+    /* 
     public void faireActions(Map<PersonnageCombattant, Object[]> actions) {
+        
         // on transforme la map d'action en une arraylist
         Set<PersonnageCombattant> a = actions.keySet();
         ArrayList<PersonnageCombattant> ordreDAction = new ArrayList<PersonnageCombattant>(a);
@@ -478,6 +491,7 @@ public static void POPUP(JButton chooseButton){
         return actions ;
     }
 
+    */
     public Map<PersonnageCombattant, Object[]> selectionAction(FightNode node, Map<PersonnageCombattant, Object[]> actions, int perso) {
         
         if (perso<Game.getGroupeJoueurVivant().size()) {
@@ -492,7 +506,7 @@ public static void POPUP(JButton chooseButton){
 
 
         ButtonGroup buttonGroup = new ButtonGroup();  // Create a button group to handle radio button selection
-            int nextIteration = perso + 1 ;
+            //int nextIteration = perso + 1 ;
             for (int j = 0; j < Game.getGroupeJoueurVivant().get(perso).getCompetences().size(); j++) {
                 JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
                 radioButton.setActionCommand(Game.getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
@@ -510,14 +524,14 @@ public static void POPUP(JButton chooseButton){
                     public void actionPerformed(ActionEvent e) { 
                        CompetencesActives c = null ;
                         String n = buttonGroup.getSelection().getActionCommand() ;
-                        for (int i = 0 ; i<Game.getGroupeJoueur().get(perso-1).getCompetences().size();i++) {
+                        for (int i = 0 ; i<Game.getGroupeJoueur().get(perso).getCompetences().size();i++) {
                             if (Game.getGroupeJoueur().get(perso).getCompetences().get(i).getName()== n) {
                                 c = Game.getGroupeJoueur().get(perso).getCompetences().get(i) ;
                             }
                         }
 
                         Object[] cibleCompetence = {c, null};
-                        actions.put((PersoGroupe)Game.getGroupeJoueurVivant().get(perso-1), cibleCompetence) ;
+                        actions.put((PersoGroupe)Game.getGroupeJoueurVivant().get(perso), cibleCompetence) ;
                         if (c.isGroup()) {
                             //pas besoin de sélection de la cible pour les attaques de groupe
                             selectionAction(node, actions, perso);
@@ -526,10 +540,12 @@ public static void POPUP(JButton chooseButton){
                         }   
                     }
             });
+
+            System.out.println("tototo");
             return actions ;
-        } else {
-            return actions ;
-        }
+        } 
+        else return actions ;
+
     }
     
     public void selectionCible(FightNode node, Map<PersonnageCombattant, Object[]> actions, PersoGroupe perso, int iteration) {
