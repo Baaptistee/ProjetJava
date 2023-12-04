@@ -104,9 +104,9 @@ public class FightNode extends InnerNode {
 	}
 	
 	public Map<PersonnageCombattant,Object[]> getAction() {
-		if (actions == null){
-			Map<PersonnageCombattant,Object[]> actions  = new HashMap<>();
-				return actions ;
+		if (this.actions == null){
+			this.actions  = new HashMap<>();
+				return this.actions ;
 		} else {
 
 		return actions ;
@@ -114,11 +114,14 @@ public class FightNode extends InnerNode {
 	}
 
 	public void putAction(PersonnageCombattant utilisateur, Object[] competenceCible){
-		actions.put(utilisateur, competenceCible) ;
+		if (this.actions == null){
+			this.actions  = new HashMap<>();
+		}
+		this.actions.put(utilisateur, competenceCible) ;
 	}
 
 	public void videActions() {
-		actions = null ;
+		this.actions = null ;
 	}
 
 

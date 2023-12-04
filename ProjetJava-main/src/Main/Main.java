@@ -89,13 +89,19 @@ public class Main {
 		resistances.add(Eleme.FEU);
 		resistances.add(Eleme.GLACE);
 		int [] probaCompetences={7,3};
+		
+		
+
 		ArrayList <CompetencesActives> locknessC= new ArrayList<>();
+		locknessC.add(new CompetenceDammage("la mort", "rttt", 1, 1,1,1, Eleme.FOUDRE, false, true));
+		locknessC.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,1,1, Eleme.FOUDRE, false, true));
+
+
 		PersonnageAdversaire leMonstreduLockness= new PersonnageAdversaire("LocknessMonster1","hgfjrguerh", 4, 7, 1, 1,1,  10, 20, faiblesses, resistances,locknessC, probaCompetences);
 		PersonnageAdversaire leMonstreduLockness2= new PersonnageAdversaire("LocknessMonster2","hgfjrguerh", 4, 7, 1, 1,1,  10, 20, faiblesses, resistances,locknessC, probaCompetences);
 		opponents.add(leMonstreduLockness);
 		opponents.add(leMonstreduLockness2);
 		
-		locknessC.add(new CompetenceDammage("la mort", "rttt", 1, 1,1,1, Eleme.FOUDRE, false, true));
 		
 		
 		

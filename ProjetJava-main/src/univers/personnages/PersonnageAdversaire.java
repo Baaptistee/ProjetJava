@@ -99,11 +99,11 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	public CompetencesActives selectionAttaque() {
 		Random random = new Random() ;
 		int total = 0 ;
-		boolean pokemon = true ;
 		CompetencesActives o = this.getCompetences().get(0) ;
 		boolean manaCost = false ;
 		boolean noUselessHeal = false ;
 		while ((manaCost==false)||(noUselessHeal==false)){
+			System.out.println("ici ?") ;
 			manaCost = false ;
 			noUselessHeal = false ;
 			for (int i = 0 ; i < this.getProbaCompetences().length ; i++){
@@ -114,7 +114,10 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		
 			total = 0 ;
 			int i = 0 ;
-			while ((pokemon == true)&(i < this.getProbaCompetences().length)){
+			boolean pokemon = true ;
+
+			while ((pokemon == true)&&(i < this.getProbaCompetences().length)){
+				System.out.println("ou là ?") ;
 				total += this.getProbaCompetences()[i] ;
 				if (total >= a) {
 					pokemon = false ;
@@ -134,6 +137,8 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 						noUselessHeal = true ;
 					}
 				}
+			} else {
+				noUselessHeal = true ;
 			}
 		}
 		return o ;
@@ -148,6 +153,11 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	public PersonnageCombattant selectionCible(CompetencesActives competence) {
 		PersonnageCombattant d = Game.getGroupeJoueur().get(0) ;
 		Random random = new Random() ;
+		if (competence.isGroup()) {
+			return null ;
+		} else {
+
+		
 
 		// on ne se soucie pas des compétences ciblant des groupes ici, peu importe leur cible, elles affecteront le groupe ciblé 
 		// si on lance une compétence de soin on le fait uniquement sur les allies 
@@ -167,6 +177,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 			d = Game.getGroupeJoueur().get(u) ;
 		}
 		return d ;
+	}
 	}
 	
 	public Map<PersonnageCombattant, Object[]> selectionTout(Map<PersonnageCombattant, Object[]> actions){
