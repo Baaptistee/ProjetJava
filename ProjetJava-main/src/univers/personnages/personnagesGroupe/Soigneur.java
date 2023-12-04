@@ -50,7 +50,7 @@ public class Soigneur extends PersoGroupe{
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
-			instance = new Soigneur("Nom du Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance = new Soigneur("Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
 		}
 		return instance ;
 	}

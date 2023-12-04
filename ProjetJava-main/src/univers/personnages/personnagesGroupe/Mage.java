@@ -49,7 +49,7 @@ public class Mage extends PersoGroupe{
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
-			instance = new Mage("Nom du Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance = new Mage("Mage", "Description du Mage", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
 		}
 		return instance ;
 	}

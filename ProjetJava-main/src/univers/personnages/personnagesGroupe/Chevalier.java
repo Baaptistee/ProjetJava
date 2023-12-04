@@ -50,7 +50,7 @@ public class Chevalier extends PersoGroupe{
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
-			instance = new Chevalier("Nom du Chevalier", "Description du Chevalier", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance = new Chevalier("Chevalier", "Description du Chevalier", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
 		}
 		return instance ;
 	}
