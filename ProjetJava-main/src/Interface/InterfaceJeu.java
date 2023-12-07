@@ -5,6 +5,7 @@
 package Interface;
 import Representation.* ;
 import univers.competences.CompetencesActives;
+import univers.personnages.PersoGroupe;
 //import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageAdversaire;
 import univers.personnages.PersonnageCombattant;
@@ -713,9 +714,8 @@ public void selectionAction(FightNode node, int perso) {
     /**
      * la fonction qui selon la valeur renvoyée par le fightNode va lancer le node suivant 
      * @param node
-     * @param isvictoire
      */
-    public void VictoireDefaite(FightNode node, boolean isvictoire) {
+    public void Victoire(FightNode node) {
         System.out.println("victoire défaite") ;
         configPanel();
         layeredPane.removeAll();
@@ -735,23 +735,27 @@ public void selectionAction(FightNode node, int perso) {
         getFenetre().revalidate();
         getFenetre().repaint();
         
-        String q = "" ;
-        Node nodeNext = null ;
+        String q = "Le groupe remporte la victoire !!/" ;
+        Node nodeNext = node.getOptions().get(0) ;
+        q+= node.gainXP() ;
+        q += node.gainButin() ;
+        String u = "" ;
 
-        if(isvictoire){
-            q = "Vous avez gagné bravo ! " ;
-            nodeNext = node.getOptions().get(0) ;
-        } else {
-            nodeNext = node.getOptions().get(1) ;
-            q = "Vous avez perdu, dommage, peut-être une autre fois ..." ;
+        ArrayList<String> gainNiveau = new ArrayList<String>() ;
+
+        for (int i = 0;i<Game.getGroupeJoueur().size();i++){
+            u = ((PersoGroupe)Game.getGroupeJoueur().get(i)).gainExperience(node.getXp()) ;
+            if (u!="nope"){
+                gainNiveau.add(u) ;
+            }
         }
 
         final Node nodeNext2 = nodeNext ;
         final String texte = q ;
 
-        char[] texts = q.toCharArray(); // Convert the description text of the node to a character array
-        Timer timer = new Timer(20, new ActionListener() { // Create a timer to display the description character by character
-        int index = 0; // Index to retrieve each character from the description
+        char[] texts = q.toCharArray(); 
+        Timer timer = new Timer(20, new ActionListener() { 
+        int index = 0; 
 
 
         @Override
@@ -768,15 +772,155 @@ public void selectionAction(FightNode node, int perso) {
                         index++; //on passe au caractere suivant de la chaine de description
 
                     }
-
-
                     } else {
-                    ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
-                    nextNodeButton(nodeNext2) ;
+                        ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
+                        if (gainNiveau.size()!=0){
+                            gainDeNiveauButton(node,gainNiveau) ;
+                        } else {
+                            nextNodeButton(nodeNext2) ;
+                        }
                     }
                 }
             });
             timer.start(); 
+    }
+
+    public void ecranGainNiveau(FightNode node, ArrayList<String> gainNiveau){
+        configPanel();
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        getFenetre().getContentPane().setLayout(null);
+	    cleanFenetre() ;
+        JPanel panelText= new JPanel();
+        
+        panelText.setBounds(80, 110, 850, 300);
+        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+        getFenetre().add(layeredPane);
+        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
+        panelText.add(label);
+        panelText.setBackground(Color.CYAN); 
+        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        getFenetre().revalidate();
+        getFenetre().repaint();
+        
+        String q = gainNiveau.remove(0) ;
+        Node nodeNext = node.getOptions().get(0) ;
+        
+        char[] texts = q.toCharArray(); 
+        Timer timer = new Timer(20, new ActionListener() { 
+        int index = 0; 
+
+        final Node nodeNext2 = nodeNext ;
+        final String texte = q ;
+
+
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index < texts.length) { 
+                    char nextChar = texte.charAt(index); 
+                    if(nextChar =='/'){  
+                        label.setText(label.getText() + "<br>");
+                        index++;
+                
+                    }
+                    else{
+                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
+                        index++; //on passe au caractere suivant de la chaine de description
+
+                    }
+                    } else {
+                        ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
+                        if (gainNiveau.size()!=0){
+                            gainDeNiveauButton(node, gainNiveau);
+                        } else {
+                            nextNodeButton(nodeNext2) ;
+                        }
+                    }
+                }
+            });
+            timer.start(); 
+    }
+
+    public void Defaite(FightNode node) {
+        configPanel();
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        getFenetre().getContentPane().setLayout(null);
+	    cleanFenetre() ;
+        JPanel panelText= new JPanel();
+        
+        panelText.setBounds(80, 110, 850, 300);
+        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+        getFenetre().add(layeredPane);
+        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
+        panelText.add(label);
+        panelText.setBackground(Color.CYAN); 
+        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        getFenetre().revalidate();
+        getFenetre().repaint();
+        
+        String q = "Le groupe a perdu ..." ;
+
+         
+        char[] texts = q.toCharArray(); 
+        Timer timer = new Timer(20, new ActionListener() { 
+        int index = 0; 
+        Node nodeNext = node.getOptions().get(1) ;
+        final Node nodeNext2 = nodeNext ;
+        final String texte = q ;
+
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index < texts.length) { 
+                    char nextChar = texte.charAt(index); 
+                    if(nextChar =='/'){  
+                        label.setText(label.getText() + "<br>");
+                        index++;
+                
+                    }
+                    else{
+                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
+                        index++; //on passe au caractere suivant de la chaine de description
+
+                    }
+                    } else {
+                        ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
+                            nextNodeButton(nodeNext2) ;
+                        
+                    }
+                }
+            });
+            timer.start(); 
+    }
+
+    public void gainDeNiveauButton(FightNode node, ArrayList<String> gainNiveau){
+        configPanel();
+      
+        // Create a panel for the "Next" button
+        JPanel panelInner = new JPanel();
+        getFenetre().add(layeredPane);
+		panelInner.setBounds(711, 494, 144, 62);
+        
+        // Add the "Next" panel to the layered pane
+		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
+        panelInner.setBackground(Color.yellow);
+        
+        
+        JButton suivant = new JButton("Suivant"); // Create a "Next" button
+        suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+        suivant.setBackground(new Color(240, 240,240));
+		suivant.setForeground(new Color(128, 64, 0));
+        panelInner.add(suivant);
+        getFenetre().revalidate() ;
+
+        suivant.addActionListener(new ActionListener() {
+            @Override
+                public void actionPerformed(ActionEvent e) { 
+                        ecranGainNiveau(node,gainNiveau) ;
+                    }
+            });
     }
 
     public void nextNodeButton(Node nodeNext){

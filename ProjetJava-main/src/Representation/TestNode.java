@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import univers.Statistiques;
-import univers.personnages.*;
+//import univers.personnages.*;
 
 
 public class TestNode extends InnerNode{

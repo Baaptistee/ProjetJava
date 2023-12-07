@@ -2,12 +2,14 @@ package Main;
 
 import java.util.ArrayList;
 import Representation.*;
+import univers.Collectibles;
 import univers.Eleme;
 import univers.competences.CompetenceDammage;
 import univers.competences.CompetencesActives;
 import univers.personnages.PersonnageAdversaire;
 import univers.personnages.PersonnageCombattant;
 import univers.Statistiques;
+import univers.Objets.Objets;
 
 
 public class Main {
@@ -81,6 +83,14 @@ public class Main {
 		// instance of first chooseNode (Begenning)
 		FightNode Beginning = new FightNode("Découverte", "Oh non 2 monstres du Lockness sauvages apparaissent !",option);
 		ArrayList<PersonnageCombattant> opponents= new ArrayList<>();
+		Beginning.setXp(150);
+		ArrayList<Collectibles> bytin= new ArrayList<Collectibles>() ;
+		Collectibles potion = new Objets("Potion de soin") ;
+		Collectibles banane = new Objets("Banane") ;
+
+		bytin.add(banane) ;
+		bytin.add(potion) ;
+		Beginning.setButin(bytin);
 		Beginning.setOpponents(opponents);
 		ArrayList <Eleme> faiblesses=new ArrayList<>();
 		faiblesses.add(Eleme.FEU);
@@ -89,16 +99,14 @@ public class Main {
 		resistances.add(Eleme.FEU);
 		resistances.add(Eleme.GLACE);
 		int [] probaCompetences={7,3};
-		
-		
 
 		ArrayList <CompetencesActives> locknessC= new ArrayList<>();
-		locknessC.add(new CompetenceDammage("la mort", "rttt", 1, 100,150,1, Eleme.FOUDRE, false, true));
-		locknessC.add(new CompetenceDammage("la mort 2", "2rttt", 0, 100,150,1, Eleme.FOUDRE, false, true));
+		locknessC.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
+		locknessC.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
 
 
-		PersonnageAdversaire leMonstreduLockness= new PersonnageAdversaire("LocknessMonster1","hgfjrguerh", 4, 7, 1, 1,1,  200, 20, faiblesses, resistances,locknessC, probaCompetences);
-		PersonnageAdversaire leMonstreduLockness2= new PersonnageAdversaire("LocknessMonster2","hgfjrguerh", 4, 7, 1, 1,1,  200, 20, faiblesses, resistances,locknessC, probaCompetences);
+		PersonnageAdversaire leMonstreduLockness= new PersonnageAdversaire("LocknessMonster1","hgfjrguerh", 4, 7, 1, 1,1,  5, 20, faiblesses, resistances,locknessC, probaCompetences);
+		PersonnageAdversaire leMonstreduLockness2= new PersonnageAdversaire("LocknessMonster2","hgfjrguerh", 4, 7, 1, 1,1,  5, 20, faiblesses, resistances,locknessC, probaCompetences);
 		opponents.add(leMonstreduLockness);
 		opponents.add(leMonstreduLockness2);
 		

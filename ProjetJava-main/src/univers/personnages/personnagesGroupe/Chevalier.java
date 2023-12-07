@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
-import univers.armes.Weapon;
+//import univers.armes.Weapon;
 import univers.armes.WeaponType;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
@@ -65,6 +65,7 @@ public class Chevalier extends PersoGroupe{
 	 */
 	public String gainNiveau() {
 		Random random = new Random() ;
+		this.setLevel(this.getLevel() +1);
 		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
@@ -72,7 +73,7 @@ public class Chevalier extends PersoGroupe{
 		setDexterity(getBaseDexterity() + 1 + random.nextInt(1)) ;
 		setSpeed(getBaseSpeed() + 1 + random.nextInt(1)) ; 
 		setEndurance(getBaseEndurance() + 1 + random.nextInt(1)) ;
-		
+
 		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance();
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 

@@ -237,17 +237,27 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * @param xp
 	 */
 	// une fonction qui gère le gain d'XP
-	public void gainExperience(int xp) {
-		
+	public String gainExperience(int xp) {
+		String retour = "nope" ;
+		//boolean retour = false ;
 		experience += xp ; 
 		// si il y a assez d'expérience 
 		if (this.getExperience() >= this.getLevel()*10 + 90) {
 			// on réinitialise l'expérience enlevant celle qui a servi au gain de niveau 
 			this.setExperience(getExperience() - (getLevel()*10 + 90)) ;
 			//On appelle la fonction gain de niveau 
-			this.gainNiveau() ;
+			retour = this.gainNiveau() ;
 			
 		}
+		return retour ;
+	}
+
+	public boolean isLevelUp(int xp){
+		boolean retour = false ;
+		if (this.getExperience() >= this.getLevel()*10 + 90) {
+			retour = true ;
+		}
+		return retour ;
 	}
 	
 	/** a abstract method to make our character win levels
@@ -257,7 +267,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	public abstract String gainNiveau() ;
 	
 	
-	 @Override
+	@Override
 	public String toString() {
 		return super.toString() + " [experience=" + experience + ", weapon=" + weapon + ", competences=" + competences
 				+ ", armePossible=" + armePossible + "]";

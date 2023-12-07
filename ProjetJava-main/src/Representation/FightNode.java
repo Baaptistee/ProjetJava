@@ -150,14 +150,31 @@ public class FightNode extends InnerNode {
 		this.actions = null ;
 	}
 
+	public String gainButin(){
+		String d = "" ;
+		if (butin.size()!=0){
+			for(int i = 0; i<butin.size();i++){
+				d += "Le groupe remporte un(e) " + butin.get(i).getName() + " !/";
+			}
+		}
+		return d ;
+	}
+
+	public String gainXP() {
+
+		String d = "L'ensemble du groupe remporte " + this.getXp() + " points d'expériences !/";
+		
+		
+		return d ;
+	}
 	
 
 	@Override
 	public void goNext() {
 		if (this.isGroupEnVie(Game.getGroupeJoueur())) {
-			getInterface().VictoireDefaite(this, true) ;
+			getInterface().Victoire(this) ;
 		} else {
-			getInterface().VictoireDefaite(this, false) ;
+			getInterface().Defaite(this) ;
 		}	
 	}
 	

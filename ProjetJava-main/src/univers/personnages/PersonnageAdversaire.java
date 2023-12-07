@@ -3,14 +3,14 @@ package univers.personnages;
 import univers.Eleme;
 //import java.util.ArrayList;
 //import univers.armes.*;
-import univers.competences.Competences;
+//import univers.competences.Competences;
 import univers.competences.CompetencesActives;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.Map;
 //import univers.personnages.*;
 

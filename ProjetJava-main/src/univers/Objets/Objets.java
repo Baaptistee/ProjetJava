@@ -15,6 +15,10 @@ public class Objets implements Collectibles{
 	private String name ;
 	private String description ;
 	
+	public Objets(String name){
+		this.name = name;
+	}
+
 	@Override
 	public String getName() {
 		return this.name ;

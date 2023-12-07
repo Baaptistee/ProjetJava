@@ -6,9 +6,9 @@ import java.util.Random;
 
 import univers.Eleme;
 import univers.Statistiques;
-import univers.competences.Competences;
+//import univers.competences.Competences;
 import univers.competences.CompetencesActives;
-import univers.personnages.personnagesGroupe.*;
+//import univers.personnages.personnagesGroupe.*;
 /** an abstract class to represent all of our fighting characters (allies or ennemies)
  * 
  */
@@ -66,7 +66,7 @@ public abstract class PersonnageCombattant extends Personnage{
 	 */
 	private ArrayList<Eleme> resistances ;
 
-	private static ArrayList<PersonnageCombattant> groupeJoueur ;
+	//private static ArrayList<PersonnageCombattant> groupeJoueur ;
 
 	
 	/** the constructor for the class 
@@ -281,10 +281,10 @@ public abstract class PersonnageCombattant extends Personnage{
 	public void setFaiblesse(ArrayList<Eleme> faiblesse) {
 		this.faiblesses = faiblesse;
 	}
-
+	/* 
 	public static void setGroupeJoueur(ArrayList<PersonnageCombattant> groupeJoueur) {
 		PersonnageCombattant.groupeJoueur = groupeJoueur;
-	}
+	}*/
 	
 	/** 
 	 * a method to test a character's statistic

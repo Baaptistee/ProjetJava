@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
-import univers.armes.Weapon;
+//import univers.armes.Weapon;
 import univers.armes.WeaponType;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
@@ -75,6 +75,7 @@ public class Soigneur extends PersoGroupe{
 	 */
 	public String gainNiveau() {
 		Random random = new Random() ;
+		this.setLevel(getLevel()+1);
 		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
