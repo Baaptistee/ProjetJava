@@ -201,6 +201,19 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 		return Game.getGroupeJoueur();
 	}
 
+	public void setGroupe(ArrayList<PersonnageCombattant> newGroup) {} ;
+
+
+	public ArrayList<PersonnageCombattant> getGroupeVivant() {
+		ArrayList<PersonnageCombattant> groupeVivant = new ArrayList<PersonnageCombattant>() ;
+		for (int i = 0 ; i < this.getGroupe().size() ; i++){
+			if (this.getGroupe().get(i).enVie()){
+				groupeVivant.add(this.getGroupe().get(i)) ;
+			}
+		}
+		return groupeVivant;
+	}
+
 
 	/** a getter for the possible weapons
 	 * 

@@ -84,6 +84,18 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	public ArrayList<PersonnageCombattant> getGroupe() {
 		return groupe;
 	}
+
+	public ArrayList<PersonnageCombattant> getGroupeVivant() {
+		ArrayList<PersonnageCombattant> groupeVivant = new ArrayList<PersonnageCombattant>() ;
+		for (int i = 0 ; i < this.getGroupe().size() ; i++){
+			if (this.getGroupe().get(i).enVie()){
+				groupeVivant.add(this.getGroupe().get(i)) ;
+			}
+		}
+		return groupeVivant;
+	}
+
+
 	/**
 	 * un setter pour le groupe 
 	 * @param groupe
@@ -103,7 +115,6 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		boolean manaCost = false ;
 		boolean noUselessHeal = false ;
 		while ((manaCost==false)||(noUselessHeal==false)){
-			System.out.println("ici ?") ;
 			manaCost = false ;
 			noUselessHeal = false ;
 			for (int i = 0 ; i < this.getProbaCompetences().length ; i++){
@@ -117,7 +128,6 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 			boolean pokemon = true ;
 
 			while ((pokemon == true)&&(i < this.getProbaCompetences().length)){
-				System.out.println("ou là ?") ;
 				total += this.getProbaCompetences()[i] ;
 				if (total >= a) {
 					pokemon = false ;

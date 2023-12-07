@@ -342,7 +342,7 @@ public abstract class PersonnageCombattant extends Personnage{
 		if (this.getLifePoints() <= 0) {
 			this.setAlive(false);
 		}
-		return this.isAlive() ;
+		return this.alive ;
 	}
 	/** a method to prevent the character to overheal
 	 * 
@@ -396,7 +396,9 @@ public abstract class PersonnageCombattant extends Personnage{
 	 * 
 	 * @return
 	 */
-	public abstract ArrayList<PersonnageCombattant> getGroupe() ; 
+	public abstract ArrayList<PersonnageCombattant> getGroupe() ;
+	public abstract void setGroupe(ArrayList<PersonnageCombattant> newGroup) ;
+	public abstract ArrayList<PersonnageCombattant> getGroupeVivant() ;
 	
 	 @Override
 	public String toString() {

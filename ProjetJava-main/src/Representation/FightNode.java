@@ -36,6 +36,16 @@ public class FightNode extends InnerNode {
 		return opponents;
 	}
 
+	public ArrayList<PersonnageCombattant> getOpponentsVivant() {
+		ArrayList<PersonnageCombattant> groupeVivant = new ArrayList<PersonnageCombattant>() ;
+		for (int i = 0 ; i < this.getOpponents().size() ; i++){
+			if (this.getOpponents().get(i).enVie()){
+				groupeVivant.add(this.getOpponents().get(i)) ;
+			}
+		}
+		return groupeVivant ;
+	}
+
 	public void setOpponents(ArrayList<PersonnageCombattant> opponents) {
 		this.opponents = opponents;
 	}
@@ -92,14 +102,25 @@ public class FightNode extends InnerNode {
 
 
 	public boolean isOver() {
-		boolean retour = true ;
-		if (this.isGroupEnVie(this.getOpponents()) && this.isGroupEnVie(Game.getGroupeJoueur())) {
-			retour = false ;
+		boolean retour = false ;
+		int t = 0 ;
+		if (this.isGroupEnVie(this.getOpponents())){
+			t++ ;
+		}
+		
+		if(this.isGroupEnVie(Game.getGroupeJoueur())){
+			t++;
+		}
+		if (t==1){
+			retour = true ; 
 		}
 		return retour ;
 	}
 	
 	public void display() {
+		for(int i = 0; i<this.getOpponents().size() ; i++){
+			this.getOpponents().get(i).setGroupe(opponents);
+		}
 		super.display();
 	}
 	
@@ -118,20 +139,26 @@ public class FightNode extends InnerNode {
 			this.actions  = new HashMap<>();
 		}
 		this.actions.put(utilisateur, competenceCible) ;
+
+	}
+
+	public void removeAction(PersonnageCombattant utilisateur) {
+		this.actions.remove(utilisateur) ;
 	}
 
 	public void videActions() {
 		this.actions = null ;
 	}
 
+	
 
 	@Override
 	public void goNext() {
 		if (this.isGroupEnVie(Game.getGroupeJoueur())) {
-			// le groupe gagne l'expérience et le butin !
-			
-			this.getOptions().get(0).display(); // par convention, c'est le premier qui est le Node de victoire
-		}		
+			getInterface().VictoireDefaite(this, true) ;
+		} else {
+			getInterface().VictoireDefaite(this, false) ;
+		}	
 	}
 	
 }

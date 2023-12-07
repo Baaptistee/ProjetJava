@@ -5,22 +5,22 @@
 package Interface;
 import Representation.* ;
 import univers.competences.CompetencesActives;
-import univers.personnages.PersoGroupe;
+//import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageAdversaire;
 import univers.personnages.PersonnageCombattant;
-import univers.* ;
+//import univers.* ;
 import univers.competences.CompetenceDammage;
-import java.util.HashMap;
-import java.util.Map;
+//import java.util.HashMap;
+//import java.util.Map;
 import java.util.Set;
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+//import java.util.List;
 
 import javax.swing.* ;
 
@@ -196,7 +196,7 @@ public static void POPUP(JButton chooseButton){
         label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
         getFenetre().revalidate();
         getFenetre().repaint();
-        JButton btn = new JButton("TEST POPUP");
+        //JButton btn = new JButton("TEST POPUP");
         //panelText.add(btn);
         //POPUP(btn);
 
@@ -247,6 +247,7 @@ public static void POPUP(JButton chooseButton){
     timer.start(); 
 
 }
+
     /**
     * Configures the interface to display buttons for a ChooseNode and handles the button actions.
     *
@@ -317,22 +318,77 @@ public static void POPUP(JButton chooseButton){
         
     }   
 
+    
     /**
-    * Configures the interface to display options for a fight node.
-    *
-    * @param node The current fight node.
-    */
-
+     * La fonction pour lancer le fight node 
+     * @param node
+     */
     public void playFightNode(Node node){
         FightNode node1 = (FightNode) node ;
-        playTourFightNode(node1) ;     
+         configPanel();
+      
+        // Create a panel for the "Next" button
+        JPanel panelInner = new JPanel();
+        getFenetre().add(layeredPane);
+		panelInner.setBounds(711, 494, 144, 62);
+        
+        // Add the "Next" panel to the layered pane
+		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
+        panelInner.setBackground(Color.yellow);
+        
+        
+        JButton suivant = new JButton("C'est Parti !"); // Create a "Next" button
+        suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+        suivant.setBackground(new Color(240, 240,240));
+		suivant.setForeground(new Color(128, 64, 0));
+        panelInner.add(suivant);
+        getFenetre().revalidate() ;
+        suivant.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
+                        playTourFightNode(node1) ; // une fois le bouton cliqué on lance le premier tour du fightNode    
+                    	
+                        }
+            });
+
     }
 
+    
+    /**
+     * La fonction qui se joue à chaque nouveau tour du combat
+     * @param node
+     */
     public void playTourFightNode(FightNode node) {
-        selectionAction(node ,0);
+        configPanel();
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        
+	    getFenetre().getContentPane().setLayout(null);
+	    cleanFenetre() ;
+        JPanel panelText= new JPanel();
+    
+        panelText.setBounds(60, 110, 600, 100);
+        
+        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+        getFenetre().add(layeredPane);
+        JLabel label = new JLabel("Choisissez les compétences et les cibles de vos personnages :", JLabel.CENTER);
+        panelText.add(label);
+        panelText.setBackground(Color.CYAN); 
+        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        getFenetre().revalidate();
+        getFenetre().repaint();
+        
+        node.videActions(); //On vide la variable actions du FightNode
+        selectionAction(node ,0); // on lance la sélection des actions
         
     }
 
+/**
+ * La fonction pour sélectionner la compétence du personnage 
+ * @param node
+ * @param perso // le personnage auquel on est dans le groupe
+ */
 public void selectionAction(FightNode node, int perso) {
         configPanel();
         JPanel panelFight = new JPanel();
@@ -342,15 +398,13 @@ public void selectionAction(FightNode node, int perso) {
         panelFight.setBackground(Color.PINK);
     
         ButtonGroup buttonGroup = new ButtonGroup();
-
-        //System.out.println("Nombre de compétences : " + Game.getGroupeJoueurVivant().get(perso).getCompetences().size());
         JLabel cmp = new JLabel(Game.getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
             panelFight.add(cmp);
         for (int j = 0; j < Game.getGroupeJoueurVivant().get(perso).getCompetences().size(); j++) {
             JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
             radioButton.setActionCommand(Game.getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
             buttonGroup.add(radioButton);
-            panelFight.add(radioButton);
+            panelFight.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
         }
     
         JButton validateButton = new JButton("Valider");
@@ -361,21 +415,21 @@ public void selectionAction(FightNode node, int perso) {
                        CompetencesActives competence = null ;
                         String n = buttonGroup.getSelection().getActionCommand() ;
                         for (int i = 0 ; i<Game.getGroupeJoueurVivant().get(perso).getCompetences().size();i++) {
-                            if (Game.getGroupeJoueur().get(perso).getCompetences().get(i).getName().equals(n)) {
-                                competence = Game.getGroupeJoueur().get(perso).getCompetences().get(i) ;
-                            }
+                            if (Game.getGroupeJoueurVivant().get(perso).getCompetences().get(i).getName().equals(n)) {
+                                competence = Game.getGroupeJoueurVivant().get(perso).getCompetences().get(i) ;
+                            } // on récupère la compétence (un radio button ne peut renvoyer qu'un String)
                         }
-                        if (competence.isGroup()) {
+                        if (competence.isGroup()) { // si la compétence est une de groupe on apsse directement à la sélection suivante
                             Object[] cibleComp = {competence,null} ;
                             node.putAction(Game.getGroupeJoueurVivant().get(perso), cibleComp);
-                            if (perso + 1 == Game.getGroupeJoueurVivant().size()) {
+                            if (perso + 1 == Game.getGroupeJoueurVivant().size()) { // on s'arrête si on a fini tous les persos
                                 selectionAdverse(node) ;
                             } else {
                                 selectionAction(node, perso+1);
                             }
                         } else {
                             Object[] cibleCompetence = {competence, null};   
-                            selectionCible(node, perso, cibleCompetence) ;                                
+                            selectionCible(node, perso, cibleCompetence) ; // on va sélectionner la cible de la compétence                             
                         }
                         layeredPane.remove(panelFight);
                         layeredPane.revalidate();
@@ -387,6 +441,12 @@ public void selectionAction(FightNode node, int perso) {
          getFenetre().setVisible(true); 
     }
 
+    /**
+     * La fonction pour sélectionner la cible d'une compétence 
+     * @param node
+     * @param perso
+     * @param cibleCompetence
+     */
     public void selectionCible(FightNode node, int perso, Object [] cibleCompetence) {
         configPanel();
         JPanel panelFight = new JPanel(); 
@@ -399,16 +459,16 @@ public void selectionAction(FightNode node, int perso) {
         JLabel cmp = new JLabel("Cible du " + Game.getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
         panelFight.add(cmp);
         if (cibleCompetence[0] instanceof CompetenceDammage) {
-            for (int j = 0; j < node.getOpponents().size(); j++) {
-                JRadioButton radioButton = new JRadioButton(node.getOpponents().get(j).getName());
-                radioButton.setActionCommand(node.getOpponents().get(j).getName());
+            for (int j = 0; j < node.getOpponentsVivant().size(); j++) {
+                JRadioButton radioButton = new JRadioButton(node.getOpponentsVivant().get(j).getName());
+                radioButton.setActionCommand(node.getOpponentsVivant().get(j).getName());
                 buttonGroup.add(radioButton);
                 panelFight.add(radioButton);
             }
         } else {
-            for (int j = 0; j < Game.getGroupeJoueur().size(); j++) {
-                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueur().get(j).getName());
-                radioButton.setActionCommand(Game.getGroupeJoueur().get(j).getName());
+            for (int j = 0; j < Game.getGroupeJoueurVivant().size(); j++) {
+                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueurVivant().get(j).getName());
+                radioButton.setActionCommand(Game.getGroupeJoueurVivant().get(j).getName());
                 buttonGroup.add(radioButton);
                 panelFight.add(radioButton);
             }
@@ -424,9 +484,9 @@ public void selectionAction(FightNode node, int perso) {
                 String n = buttonGroup.getSelection().getActionCommand();
                 
                 if (cibleCompetence[0] instanceof CompetenceDammage) {
-                    for (int i = 0; i < node.getOpponents().size(); i++) {
-                        if (node.getOpponents().get(i).getName().equals(n)) {
-                            cible = node.getOpponents().get(i);
+                    for (int i = 0; i < node.getOpponentsVivant().size(); i++) {
+                        if (node.getOpponentsVivant().get(i).getName().equals(n)) {
+                            cible = node.getOpponentsVivant().get(i);
                         }
                     }
                 } else {
@@ -459,18 +519,24 @@ public void selectionAction(FightNode node, int perso) {
         getFenetre().setVisible(true);
     }
 
-
+    /**
+     * La fonction pour sélection des capacités ennemies 
+     * @param node
+     */
     public void selectionAdverse(FightNode node) {
         // pour chaque opponent on lui attribue une action
-        for (int i = 0; i<node.getOpponents().size();i++) {
-            CompetencesActives competence = ((PersonnageAdversaire)node.getOpponents().get(i)).selectionAttaque() ;
-            Object[] competenceCible = {competence, ((PersonnageAdversaire)node.getOpponents().get(i)).selectionCible(competence)} ;
-            node.putAction(node.getOpponents().get(i), competenceCible);
+        for (int i = 0; i<node.getOpponentsVivant().size();i++) {
+            CompetencesActives competence = ((PersonnageAdversaire)node.getOpponentsVivant().get(i)).selectionAttaque() ;
+            Object[] competenceCible = {competence, ((PersonnageAdversaire)node.getOpponentsVivant().get(i)).selectionCible(competence)} ;
+            node.putAction(node.getOpponentsVivant().get(i), competenceCible);
         }
         faireActions(node);
     }
     
-    
+    /**
+     * la fonction pour exécuter les compétences et récupérer leur texte
+     * @param node
+     */
     public void faireActions(FightNode node) {
         
         // on transforme la map d'action en une arraylist
@@ -480,38 +546,52 @@ public void selectionAction(FightNode node, int perso) {
     // on trie la liste en fonction de la vitesse des personnages 
         Collections.sort(ordreDAction, Comparator.comparingInt(PersonnageCombattant::getSpeed));
 
-        
+        String txt = "" ;
         String texteAction ="" ;
         // le nombre d'action du tour 
         int nombreAction = ordreDAction.size() ;
-        // iteration = à quelle action à afficher on en est 
-        int iteration = ordreDAction.size() ;
         // boucle pou créer le texte avec toutes les actions 
-        for (int i =0 ; i <ordreDAction.size();i++) {
+        for (int i = 0; i < ordreDAction.size() ;i++) {
             PersonnageCombattant utilisateur = ordreDAction.get(i) ;
+            if(utilisateur.enVie() == false){
+                texteAction += "$" ;
+                continue ;
+            }
             PersonnageCombattant cible = (PersonnageCombattant)node.getAction().get(ordreDAction.get(i))[1] ;
             CompetencesActives competence = (CompetencesActives)node.getAction().get(ordreDAction.get(i))[0] ;
-            texteAction += (competence.utilisation(utilisateur, cible)) + "$"; // on va se servir du charactère dollar un peu de la même manière dont on s'est servi du charactère "/" 
-            // PROPOSITION : on affiche toutes les 3 utilisations de compétences pour pas surcharger l'écran mais pas perdre torp de temps non plus
+        
+            txt = (competence.utilisation(utilisateur, cible));
+            
+            if (txt == "nope"){ // la fonction competence d'utilisation renvoie "nope" si rien ne se passe 
+                texteAction += "$" ;
+                continue ;
+            }
+
+            texteAction += txt + "$"; // on va se servir du charactère dollar un peu de la même manière dont on s'est servi du charactère "/" 
+            
         }
 
         // puis on lance la fonction afficher action qui permet d'afficher les actions 
-        System.out.println(texteAction);
-        afficherAction(texteAction, nombreAction, iteration);
-
-        
+        //System.out.println(texteAction);
+        afficherAction(node, texteAction, nombreAction, 0, 0);
     }
 
-    public void afficherAction(String texteAction, int iteration, int nombreAction){  
-        // on va faire décroitre le int itration donc quand c à zéro on stop
-        if (iteration <= 0) {
-            
-            configPanel();
-            layeredPane.removeAll();
-            layeredPane.revalidate();
-            layeredPane.repaint();
+    /**
+     * La fonction pour afficher le résultat du tour
+     * Les actions sont affichées 12 lignes par 12
+     * @param node
+     * @param texteAction
+     * @param nombreAction
+     * @param ligneAffichee
+     * @param actionAffichee
+     */
+    public void afficherAction(FightNode node, String texteAction, int nombreAction, int ligneAffichee, int actionAffichee){  
+        configPanel();
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        if (nombreAction-actionAffichee> 0) {
 
-        
 	        getFenetre().getContentPane().setLayout(null);
 	        cleanFenetre() ;
             JPanel panelText= new JPanel();
@@ -519,49 +599,70 @@ public void selectionAction(FightNode node, int perso) {
             panelText.setBounds(80, 110, 850, 300);
             layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
             getFenetre().add(layeredPane);
-            JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+            JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
             panelText.add(label);
             panelText.setBackground(Color.CYAN); 
             label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
             getFenetre().revalidate();
             getFenetre().repaint();
+            int action = 0 ;
+            int debut = 0; 
+            int ligne = 0 ;
+            char[] texts = texteAction.toCharArray(); 
 
-            char[] texts = texteAction.toCharArray(); // Convert the description text of the node to a character array
-            Timer timer = new Timer(20, new ActionListener() { // Create a timer to display the description character by character
-            int index = 0; // Index to retrieve each character from the description
-
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (index < texts.length) { 
-                    char nextChar = texteAction.charAt(index); 
-                    if(nextChar =='/'){  
-                        label.setText(label.getText() + "<br>");
-                        index++;
-                
-                    }
-                    else{
-                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
-                        index++; //on passe au caractere suivant de la chaine de description
-                    }
-            
-                } else {
-                    ((Timer) e.getSource()).stop(); // Handle line breaks using HTML ta
-                     ButtonSuivant(texteAction, iteration, nombreAction);
-                    
-            
+            if (ligneAffichee != 0) {
+                    do {
+                        if (texts[debut]=='/'){
+                            ligne++ ; // on compte le nombre de lignes déjà affichées pour ajuster l'index de début
+                        }
+                        if (texts[debut]=='$'){
+                            action++; // on compte le nombre d'actions déjà affichées pour savoir quand s'arrêter 
+                        }
+                        debut++ ;
+                     } while(ligne < ligneAffichee) ;
                 }
-        
-            }
-        });
-
-
-    timer.start();           
             
+            final int debut2 = debut ;
+            final int action2 = action ;
+            
+            Timer timer = new Timer(20, new ActionListener(){ // Create a timer to display the description character by character
+            int index = debut2 ;
+            int action3 = action2 ;
+            int nbAction = 0 ;
+            int nbLigne = 0 ;
+                @Override
+                    public void actionPerformed(ActionEvent e){
+                        if (index < texts.length) { 
+                            if (nbLigne<12){
+                                char nextChar = texteAction.charAt(index); 
+                                if(nextChar =='/'){  
+                                    label.setText(label.getText() + "<br>");
+                                    index++;
+                                    nbLigne++ ;
+                                } else if(nextChar == '$') {
+                                    index++ ;
+                                    nbAction++ ;
+                                } else {
+                                    label.setText(label.getText() + nextChar); 
+                                    index++; //on passe au caractere suivant de la chaine de description
+                                }
+                            } else {
+                                index = texts.length ;
+                            }
+                        } else {
+                            ((Timer) e.getSource()).stop(); 
+                            ButtonSuivant(node, texteAction, nombreAction, action3 + nbAction, ligneAffichee+12);
+                        }
+        
+                    }
+            });
+    timer.start();                  
+        } else {
+            FightOver(node) ;
         }
     }
-    
-     public void ButtonSuivant(String texteAction, int nombreAction, int iteration){
+
+    public void ButtonSuivant(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee){
         configPanel();
       
             // Create a panel for the "Next" button
@@ -580,21 +681,132 @@ public void selectionAction(FightNode node, int perso) {
 		    suivant.setForeground(new Color(128, 64, 0));
             panelInner.add(suivant);
             getFenetre().revalidate() ;
-		    afficherprochaineaction(suivant, texteAction, nombreAction, iteration ) ;
-     }
 
-    public void afficherprochaineaction(JButton suivant, String texteAction, int nombreAction, int iteration) {
-        int nextIteration = iteration - 3;
+		    afficherProchaineAction(suivant, node, texteAction, nombreAction, actionAffichee, ligneAffichee) ;
+     }
+    
+      
+    public void afficherProchaineAction(JButton suivant, FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee) {
         suivant.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                            // on relance la fonction afficher action avec ce qui reste 
-                            // A FAIRE : faire que la premiere iteration n'affiche que les 3 premieres, la seconde que les 3 suivantes etc. 
-                            afficherAction(texteAction, nextIteration, nombreAction);
+                            afficherAction(node, texteAction, nombreAction, actionAffichee, ligneAffichee);
                         }
             });
 
+    } 
+
+    /**
+     * on vérifie si le combat est terminé 
+     * @param node
+     */
+    public void FightOver(FightNode node){
+        if (node.isOver()){  // si le combat est terminé on passe au node suivant 
+            System.out.println("Combat fini") ;
+            node.goNext();
+        } else {
+        System.out.println("c'est reparti pour un tour !") ; // sinon on continue avec un nouveau tour
+        playTourFightNode(node);
+        }
     }
+
+    /**
+     * la fonction qui selon la valeur renvoyée par le fightNode va lancer le node suivant 
+     * @param node
+     * @param isvictoire
+     */
+    public void VictoireDefaite(FightNode node, boolean isvictoire) {
+        System.out.println("victoire défaite") ;
+        configPanel();
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        getFenetre().getContentPane().setLayout(null);
+	    cleanFenetre() ;
+        JPanel panelText= new JPanel();
+        
+        panelText.setBounds(80, 110, 850, 300);
+        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+        getFenetre().add(layeredPane);
+        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
+        panelText.add(label);
+        panelText.setBackground(Color.CYAN); 
+        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        getFenetre().revalidate();
+        getFenetre().repaint();
+        
+        String q = "" ;
+        Node nodeNext = null ;
+
+        if(isvictoire){
+            q = "Vous avez gagné bravo ! " ;
+            nodeNext = node.getOptions().get(0) ;
+        } else {
+            nodeNext = node.getOptions().get(1) ;
+            q = "Vous avez perdu, dommage, peut-être une autre fois ..." ;
+        }
+
+        final Node nodeNext2 = nodeNext ;
+        final String texte = q ;
+
+        char[] texts = q.toCharArray(); // Convert the description text of the node to a character array
+        Timer timer = new Timer(20, new ActionListener() { // Create a timer to display the description character by character
+        int index = 0; // Index to retrieve each character from the description
+
+
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index < texts.length) { 
+                    char nextChar = texte.charAt(index); 
+                    if(nextChar =='/'){  
+                        label.setText(label.getText() + "<br>");
+                        index++;
+                
+                    }
+                    else{
+                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
+                        index++; //on passe au caractere suivant de la chaine de description
+
+                    }
+
+
+                    } else {
+                    ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
+                    nextNodeButton(nodeNext2) ;
+                    }
+                }
+            });
+            timer.start(); 
+    }
+
+    public void nextNodeButton(Node nodeNext){
+        configPanel();
+      
+        // Create a panel for the "Next" button
+        JPanel panelInner = new JPanel();
+        getFenetre().add(layeredPane);
+		panelInner.setBounds(711, 494, 144, 62);
+        
+        // Add the "Next" panel to the layered pane
+		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
+        panelInner.setBackground(Color.yellow);
+        
+        
+        JButton suivant = new JButton("Suivant"); // Create a "Next" button
+        suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+        suivant.setBackground(new Color(240, 240,240));
+		suivant.setForeground(new Color(128, 64, 0));
+        panelInner.add(suivant);
+        getFenetre().revalidate() ;
+
+        suivant.addActionListener(new ActionListener() {
+            @Override
+                public void actionPerformed(ActionEvent e) { 
+                    nodeNext.display();
+                        }
+            });
+    }
+
     
     
     public void CloseFrame(){
