@@ -1,4 +1,5 @@
 package Representation;
+import java.io.Serializable;
 import java.util.Objects;
 
 //import javax.swing.* ;
@@ -6,7 +7,7 @@ import java.util.Objects;
 import Event.Event;
 import Interface.* ;
 
-public abstract class Node extends Object implements Event {
+public abstract class Node extends Object implements Event, Serializable {
 	
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
 	private static Node lastCheckPoint;
@@ -171,8 +172,8 @@ public abstract class Node extends Object implements Event {
 	}
 	
 	/**
-     * Get the game interface instance.
-     * @return The game interface.
+     * Get the Game.getGame() interface instance.
+     * @return The Game.getGame() interface.
      */
 
 	public static InterfaceJeu getInterface() {
@@ -224,6 +225,7 @@ public boolean equals(Object obj) {
 	public void display() {
 		
 		this.isCheckPoint() ;
+		Game.getGame().setCurrentNode(this);
 		getInterface().afficherNodeBase(this) ;
 
 	}

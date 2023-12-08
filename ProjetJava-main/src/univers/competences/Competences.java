@@ -1,11 +1,12 @@
 package univers.competences;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /** A class that is used to represents competences
  * they will be a distinction beteen passive and active competences later 
  */
-public abstract class Competences {
+public abstract class Competences implements Serializable{
 	/** The description of the competence
 	 * 
 	 */

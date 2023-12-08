@@ -1,12 +1,13 @@
 package univers.Objets;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import univers.Collectibles;
 /**
  * une classe pour les objets en tous genres (potions de soin, pépites d'or ...)
  */
-public class Objets implements Collectibles{
+public class Objets implements Collectibles, Serializable{
 	
 	
 

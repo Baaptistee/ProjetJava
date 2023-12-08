@@ -1,6 +1,7 @@
 package univers.personnages.personnagesGroupe;
 
 
+//import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,7 +11,7 @@ import univers.armes.WeaponType;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
 
-public class Mage extends PersoGroupe{
+public class Mage extends PersoGroupe {
 	/** the class is a singleton so we have the instance of the class 
 	 * 
 	 */

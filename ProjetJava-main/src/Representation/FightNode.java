@@ -108,7 +108,7 @@ public class FightNode extends InnerNode {
 			t++ ;
 		}
 		
-		if(this.isGroupEnVie(Game.getGroupeJoueur())){
+		if(this.isGroupEnVie(Game.getGame().getGroupeJoueur())){
 			t++;
 		}
 		if (t==1){
@@ -171,7 +171,7 @@ public class FightNode extends InnerNode {
 
 	@Override
 	public void goNext() {
-		if (this.isGroupEnVie(Game.getGroupeJoueur())) {
+		if (this.isGroupEnVie(Game.getGame().getGroupeJoueur())) {
 			getInterface().Victoire(this) ;
 		} else {
 			getInterface().Defaite(this) ;

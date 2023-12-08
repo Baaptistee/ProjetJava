@@ -113,7 +113,6 @@ public class Main {
 		
 		
 		
-		
 		Beginning.display();
 		
      }

@@ -1,5 +1,5 @@
 /**
-* Represents the game interface that displays nodes and allows interactions.
+* Represents the Game.getGame() interface that displays nodes and allows interactions.
 */
 
 package Interface;
@@ -29,13 +29,13 @@ import javax.swing.* ;
 
 public class InterfaceJeu {
 	
-	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the game interface.
-	private static JMenuBar barreMenu = new JMenuBar() ;//Reference to the menu bar of the game interface.
+	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the Game.getGame() interface.
+	private static JMenuBar barreMenu = new JMenuBar() ;//Reference to the menu bar of the Game.getGame() interface.
     private static JLayeredPane layeredPane =new JLayeredPane();
 
 
 	 /**
-     * Constructs a new game interface and configures the frame.
+     * Constructs a new Game.getGame() interface and configures the frame.
      */
 
 	public InterfaceJeu() {
@@ -44,7 +44,7 @@ public class InterfaceJeu {
 	}
 
      /**
-     * Get the main frame of the game interface.
+     * Get the main frame of the Game.getGame() interface.
      * @return The main frame.
      */
 
@@ -53,7 +53,7 @@ public class InterfaceJeu {
     }
 
      /**
-     * Set the main frame of the game interface.
+     * Set the main frame of the Game.getGame() interface.
      * @param fenetre The main frame to set.
      */
 
@@ -62,7 +62,7 @@ public class InterfaceJeu {
     }
 
      /**
-     * Get the menu bar of the game interface.
+     * Get the menu bar of the Game.getGame() interface.
      * @return The menu bar.
      */
 
@@ -71,7 +71,7 @@ public class InterfaceJeu {
     }
     
      /**
-     * Set the menu bar of the game interface.
+     * Set the menu bar of the Game.getGame() interface.
      * @param barreMenu The menu bar to set.
      */
     public static void setBarreMenu(JMenuBar barreMenu) {
@@ -87,7 +87,7 @@ public class InterfaceJeu {
     }
 
      /**
-     * Clears the content of the game frame.
+     * Clears the content of the Game.getGame() frame.
      */
 
     public static void cleanFenetre() {
@@ -119,22 +119,36 @@ public static void POPUP(JButton chooseButton){
 }
 
      /**
-     * Configures the game menu including options for inventory, story, and status.
+     * Configures the Game.getGame() menu including options for inventory, story, and status.
      */
 
     public static void configMenu() {
         JMenu inventaire = new JMenu("Inventaire");
         JMenu histoire = new JMenu("Histoire");
         JMenu statut = new JMenu("Statut");
+        JMenu systeme = new JMenu("Système") ;
     
         JMenuItem precedent = new JMenuItem("Voir précédent");
         JMenuItem resumeH = new JMenuItem("Résumé de l'histoire");
         JMenuItem stats = new JMenuItem("Statistiques");
+        JMenuItem sauvegarder = new JMenuItem("Sauvegarder") ;
+        JMenuItem sauvegarderEtQuitter = new JMenuItem("Sauvegarder et Quitter") ;
+        JMenuItem quitter = new JMenuItem("Quitter") ;
+        JMenuItem ecranTitre = new JMenuItem("Ecran Titre") ;
+
+        quitter(quitter) ;
+        sauvegarder(sauvegarder);
+        sauvegarderEtQuitter(sauvegarderEtQuitter);
     
+        systeme.add(sauvegarder);
+        systeme.add(sauvegarderEtQuitter);
+        systeme.add(quitter) ;
+        systeme.add(ecranTitre) ;
         histoire.add(precedent);
         histoire.add(resumeH);
         statut.add(stats);
-    
+        
+        getBarreMenu().add(systeme) ;
         getBarreMenu().add(histoire);
         getBarreMenu().add(inventaire);
         getBarreMenu().add(statut);
@@ -142,8 +156,38 @@ public static void POPUP(JButton chooseButton){
        
     }
 
+    public static void quitter(JMenuItem quitter){
+        quitter.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
+                            getFenetre().dispose(); // Fermer la fenêtre
+
+                        }
+            });
+    }
+
+    public static void sauvegarder(JMenuItem sauvegarder) {
+        sauvegarder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game.getGame().sauvegarde() ;
+            }
+        });
+    }
+
+    public static void sauvegarderEtQuitter(JMenuItem sauvegarderEtQuitter){
+        sauvegarderEtQuitter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game.getGame().sauvegarde() ;
+                getFenetre().dispose(); // Fermer la fenêtre
+
+            }
+        });
+    }
+
      /**
-     * Configures the game frame including its size, location, and visibility.
+     * Configures the Game.getGame() frame including its size, location, and visibility.
      */
 
     public static void configFenetre() {
@@ -161,7 +205,7 @@ public static void POPUP(JButton chooseButton){
     }
 
     /**
-     * Displays a base node in the game interface.
+     * Displays a base node in the Game.getGame() interface.
      * @param node The node to be displayed.
      */
 
@@ -399,11 +443,11 @@ public void selectionAction(FightNode node, int perso) {
         panelFight.setBackground(Color.PINK);
     
         ButtonGroup buttonGroup = new ButtonGroup();
-        JLabel cmp = new JLabel(Game.getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
+        JLabel cmp = new JLabel(Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
             panelFight.add(cmp);
-        for (int j = 0; j < Game.getGroupeJoueurVivant().get(perso).getCompetences().size(); j++) {
-            JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
-            radioButton.setActionCommand(Game.getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
+        for (int j = 0; j < Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().size(); j++) {
+            JRadioButton radioButton = new JRadioButton(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
+            radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
             buttonGroup.add(radioButton);
             panelFight.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
         }
@@ -415,15 +459,15 @@ public void selectionAction(FightNode node, int perso) {
                 public void actionPerformed(ActionEvent e) { 
                        CompetencesActives competence = null ;
                         String n = buttonGroup.getSelection().getActionCommand() ;
-                        for (int i = 0 ; i<Game.getGroupeJoueurVivant().get(perso).getCompetences().size();i++) {
-                            if (Game.getGroupeJoueurVivant().get(perso).getCompetences().get(i).getName().equals(n)) {
-                                competence = Game.getGroupeJoueurVivant().get(perso).getCompetences().get(i) ;
+                        for (int i = 0 ; i<Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().size();i++) {
+                            if (Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(i).getName().equals(n)) {
+                                competence = Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(i) ;
                             } // on récupère la compétence (un radio button ne peut renvoyer qu'un String)
                         }
                         if (competence.isGroup()) { // si la compétence est une de groupe on apsse directement à la sélection suivante
                             Object[] cibleComp = {competence,null} ;
-                            node.putAction(Game.getGroupeJoueurVivant().get(perso), cibleComp);
-                            if (perso + 1 == Game.getGroupeJoueurVivant().size()) { // on s'arrête si on a fini tous les persos
+                            node.putAction(Game.getGame().getGroupeJoueurVivant().get(perso), cibleComp);
+                            if (perso + 1 == Game.getGame().getGroupeJoueurVivant().size()) { // on s'arrête si on a fini tous les persos
                                 selectionAdverse(node) ;
                             } else {
                                 selectionAction(node, perso+1);
@@ -457,7 +501,7 @@ public void selectionAction(FightNode node, int perso) {
         panelFight.setBackground(Color.PINK);
     
         ButtonGroup buttonGroup = new ButtonGroup();  
-        JLabel cmp = new JLabel("Cible du " + Game.getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
+        JLabel cmp = new JLabel("Cible du " + Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
         panelFight.add(cmp);
         if (cibleCompetence[0] instanceof CompetenceDammage) {
             for (int j = 0; j < node.getOpponentsVivant().size(); j++) {
@@ -467,9 +511,9 @@ public void selectionAction(FightNode node, int perso) {
                 panelFight.add(radioButton);
             }
         } else {
-            for (int j = 0; j < Game.getGroupeJoueurVivant().size(); j++) {
-                JRadioButton radioButton = new JRadioButton(Game.getGroupeJoueurVivant().get(j).getName());
-                radioButton.setActionCommand(Game.getGroupeJoueurVivant().get(j).getName());
+            for (int j = 0; j < Game.getGame().getGroupeJoueurVivant().size(); j++) {
+                JRadioButton radioButton = new JRadioButton(Game.getGame().getGroupeJoueurVivant().get(j).getName());
+                radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(j).getName());
                 buttonGroup.add(radioButton);
                 panelFight.add(radioButton);
             }
@@ -491,16 +535,16 @@ public void selectionAction(FightNode node, int perso) {
                         }
                     }
                 } else {
-                    for (int i = 0; i < Game.getGroupeJoueur().size(); i++) {
-                        if (Game.getGroupeJoueur().get(i).getName().equals(n)) {
-                            cible = Game.getGroupeJoueur().get(i) ;
+                    for (int i = 0; i < Game.getGame().getGroupeJoueur().size(); i++) {
+                        if (Game.getGame().getGroupeJoueur().get(i).getName().equals(n)) {
+                            cible = Game.getGame().getGroupeJoueur().get(i) ;
                         }
                     }
                 }
 
                 cibleCompetence[1] = cible ;
-                node.putAction(Game.getGroupeJoueurVivant().get(perso), cibleCompetence) ;
-                if (perso + 1 < Game.getGroupeJoueurVivant().size()) {
+                node.putAction(Game.getGame().getGroupeJoueurVivant().get(perso), cibleCompetence) ;
+                if (perso + 1 < Game.getGame().getGroupeJoueurVivant().size()) {
                     // i use getFenetre() and note layeredpane because it doesn't delet panelfight
                         getFenetre().remove(panelFight);
                         layeredPane.revalidate();
@@ -743,8 +787,8 @@ public void selectionAction(FightNode node, int perso) {
 
         ArrayList<String> gainNiveau = new ArrayList<String>() ;
 
-        for (int i = 0;i<Game.getGroupeJoueur().size();i++){
-            u = ((PersoGroupe)Game.getGroupeJoueur().get(i)).gainExperience(node.getXp()) ;
+        for (int i = 0;i<Game.getGame().getGroupeJoueur().size();i++){
+            u = ((PersoGroupe)Game.getGame().getGroupeJoueur().get(i)).gainExperience(node.getXp()) ;
             if (u!="nope"){
                 gainNiveau.add(u) ;
             }

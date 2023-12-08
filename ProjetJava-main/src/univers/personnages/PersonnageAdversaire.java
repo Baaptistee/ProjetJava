@@ -161,7 +161,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 */
 	// une fonction pour la sélection aléatoire de la cible 
 	public PersonnageCombattant selectionCible(CompetencesActives competence) {
-		PersonnageCombattant d = Game.getGroupeJoueur().get(0) ;
+		PersonnageCombattant d = Game.getGame().getGroupeJoueur().get(0) ;
 		Random random = new Random() ;
 		if (competence.isGroup()) {
 			return null ;
@@ -183,8 +183,8 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 			}
 		} else {
 			
-			int u = random.nextInt(Game.getGroupeJoueur().size()) ;
-			d = Game.getGroupeJoueur().get(u) ;
+			int u = random.nextInt(Game.getGame().getGroupeJoueur().size()) ;
+			d = Game.getGame().getGroupeJoueur().get(u) ;
 		}
 		return d ;
 	}

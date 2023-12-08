@@ -6,11 +6,12 @@ import univers.Collectibles;
 // import java.util.ArrayList;
 import univers.Eleme;
 // import univers.personnages.*;
-import univers.personnages.PersoGroupe;
+//import univers.personnages.PersoGroupe;
+import java.io.Serializable;
 
 /** A Weapon object represents the weapon a character carries, it has certains bonus and caracteristics associated to it
  */
-public class Weapon implements Collectibles {
+public class Weapon implements Collectibles, Serializable{
 	/** the bonus the weapon gives to dammage 
 	 */
 	private int dammage ;

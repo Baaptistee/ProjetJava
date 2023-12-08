@@ -4,13 +4,15 @@ package univers.personnages;
 import univers.competences.*;
 import univers.Eleme;
 import univers.armes.*;
+
+//import java.io.Serializable;
 import java.util.* ;
 
 import Representation.Game;
 /** a class for the personnage of our group
  * 
  */
-public abstract class PersoGroupe extends PersonnageCombattant {
+public abstract class PersoGroupe extends PersonnageCombattant{
 	/** the current exp of the character 
 	 * 
 	 */
@@ -198,7 +200,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * 
 	 */
 	public ArrayList<PersonnageCombattant> getGroupe() {
-		return Game.getGroupeJoueur();
+		return Game.getGame().getGroupeJoueur();
 	}
 
 	public void setGroupe(ArrayList<PersonnageCombattant> newGroup) {} ;

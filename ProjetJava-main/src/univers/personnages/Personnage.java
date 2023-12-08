@@ -1,11 +1,12 @@
 package univers.personnages;
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.Objects;
 
 /** a class used to represents characters 
  * We might delete it later because for now all our characters will be fighting ones 
  */
-public class Personnage{
+public class Personnage implements Serializable{
     /** the name of the character 
      * 
      */

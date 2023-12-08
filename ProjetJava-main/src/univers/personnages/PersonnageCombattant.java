@@ -12,7 +12,7 @@ import univers.competences.CompetencesActives;
 /** an abstract class to represent all of our fighting characters (allies or ennemies)
  * 
  */
-public abstract class PersonnageCombattant extends Personnage{
+public abstract class PersonnageCombattant extends Personnage {
 	/** the level of the character
 	 * used for progression in the specific class "PersoGroupe" and mainly for tension when it comes to ennemies
 	 */
