@@ -18,6 +18,7 @@ import java.util.ArrayList;
 //import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,11 +30,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-
-
-
-
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 
 public class InterfaceJeu {
@@ -344,13 +342,34 @@ public class InterfaceJeu {
             File[] fichiers = dossier.listFiles();
             // Parcourez la liste des fichiers et dossiers
             if (fichiers != null) {
-                for (File fichier : fichiers) {
+                ArrayList<File> listeFichier = new ArrayList<File>() ;
+                for (File fichier : fichiers){
+                    listeFichier.add(fichier);
+                }
+
+            Comparator<File> comparateurDate = (fichier1, fichier2) -> {
+                try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+                Date date1 = sdf.parse(fichier1.getName().substring(11, 30));
+                Date date2 = sdf.parse(fichier2.getName().substring(11, 30));
+                return date2.compareTo(date1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                return 0;
+                }
+            };
+
+            Collections.sort(listeFichier, comparateurDate);
+                
+                for (File fichier : listeFichier) {
+
                     JRadioButton radioButton = new JRadioButton(fichier.getName());
                     radioButton.setActionCommand(fichier.getName());
                     buttonGroup.add(radioButton);
                     contentPanel.add(radioButton);
-                    fichier.getName() ;
                 }
+
+
             }
         } else {
             System.out.println("Le chemin spécifié ne correspond pas à un dossier existant.");
