@@ -190,7 +190,9 @@ public class InterfaceJeu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Game.getGame().sauvegarde() ;
+                if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
                 getFenetre().dispose(); // Fermer la fenêtre
+                }
 
             }
         });

@@ -77,7 +77,9 @@ public class Soigneur extends PersoGroupe{
 		return instance ;
 	}
 	
-	
+	public static void newSoigneur(){
+		instance = null ;
+	}
 
 	// qu'une seule vérification dans le equals car classe est un singleton
 		@Override

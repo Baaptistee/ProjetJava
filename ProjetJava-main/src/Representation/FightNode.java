@@ -120,6 +120,8 @@ public class FightNode extends InnerNode {
 	public void display() {
 		for(int i = 0; i<this.getOpponents().size() ; i++){
 			this.getOpponents().get(i).setGroupe(opponents);
+			this.getOpponents().get(i).setMana(this.getOpponents().get(i).getMana()) ;
+			this.getOpponents().get(i).setLifePoints(this.getOpponents().get(i).getLifePoints());
 		}
 		super.display();
 	}

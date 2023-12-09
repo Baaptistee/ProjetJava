@@ -53,6 +53,11 @@ public class Voleur extends PersoGroupe{
 		}
 		return instance ;
 	}
+
+	public static void newVoleur(){
+		instance = null ;
+	}
+
 	@Override
 	public String toString() {
 		return "Voleur " + super.toString();

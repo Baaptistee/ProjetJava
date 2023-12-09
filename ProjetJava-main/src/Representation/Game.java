@@ -10,6 +10,7 @@ import java.util.ArrayList;
 //import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
 
 import Interface.InterfaceJeu;
 import univers.personnages.*;
@@ -47,26 +48,37 @@ public class Game implements Serializable {
 		instance = newGame ;
 	}
 
-	public void sauvegarde() {
-	
-	File dossierSauvegardes = new File("Sauvegardes");
-	if (!dossierSauvegardes.exists()) {
-		dossierSauvegardes.mkdir();  // Crée le dossier Sauvegardes si inexistant
+	public static void newGame(){
+		instance = null ;
+		Chevalier.newChevalier();
+		Mage.newMage();
+		Soigneur.newSoigneur();
+		Voleur.newVoleur();
 	}
+
+	public void sauvegarde() {
+		if (!(this.currentNode instanceof FightNode)){
+			File dossierSauvegardes = new File("Sauvegardes");
+			if (!dossierSauvegardes.exists()) {
+				dossierSauvegardes.mkdir();  // Crée le dossier Sauvegardes si inexistant
+			}
 	
-	long timestamp = System.currentTimeMillis();
-    Date date = new Date();
-    date.setTime(timestamp);
+			long timestamp = System.currentTimeMillis();
+    		Date date = new Date();
+    		date.setTime(timestamp);
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-    String nomFichier = "Sauvegardes/Sauvegarde_" + sdf.format(date) + ".txt";
+    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+    		String nomFichier = "Sauvegardes/Sauvegarde_" + sdf.format(date) + ".txt";
 
-    try (ObjectOutputStream oos = new ObjectOutputStream(
-            new FileOutputStream(new File(nomFichier)))) {
-        oos.writeObject(this);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+    		try (ObjectOutputStream oos = new ObjectOutputStream(
+            		new FileOutputStream(new File(nomFichier)))) {
+       		 oos.writeObject(this);
+    		} catch (IOException e) {
+       		 e.printStackTrace();
+    		}
+		} else {
+			JOptionPane.showMessageDialog(null, "Désolé, impossible de sauvegarder lors d'un combat !", "Alerte", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 

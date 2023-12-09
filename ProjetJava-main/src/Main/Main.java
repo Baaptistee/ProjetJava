@@ -2,6 +2,8 @@ package Main;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Interface.InterfaceJeu;
 import Representation.*;
 import univers.Collectibles;

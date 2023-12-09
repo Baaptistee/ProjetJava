@@ -54,6 +54,11 @@ public class Chevalier extends PersoGroupe{
 		}
 		return instance ;
 	}
+
+	public static void newChevalier(){
+		instance = null ;
+	}
+	
 	@Override
 	public String toString() {
 		return "Chevalier " + super.toString();

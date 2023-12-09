@@ -54,6 +54,9 @@ public class Mage extends PersoGroupe {
 		}
 		return instance ;
 	}
+	public static void newMage(){
+		instance = null ;
+	}
 	@Override
 	public String toString() {
 		return "Mage " + super.toString();
