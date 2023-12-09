@@ -19,6 +19,7 @@ public class Game implements Serializable {
 	
 	private ArrayList<PersonnageCombattant> groupeJoueur ;
 	private Node currentNode ;
+	private Node firstNode ;
 	private static Game instance;
 
 	private Game(){}
@@ -40,6 +41,10 @@ public class Game implements Serializable {
 			instance = new Game() ;
 		}
 		return instance ;
+	}
+
+	public static void setGame(Game newGame){
+		instance = newGame ;
 	}
 
 	public void sauvegarde() {
@@ -67,6 +72,14 @@ public class Game implements Serializable {
 
 	public Node getCurrentNode(){
 		return this.currentNode ;
+	}
+
+	public Node getFirstNode(){
+		return this.firstNode ;
+	}
+
+	public void setFirstNode(Node node){
+		this.firstNode=node ;
 	}
 
 	public void setCurrentNode(Node node){

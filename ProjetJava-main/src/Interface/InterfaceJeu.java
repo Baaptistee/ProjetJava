@@ -22,8 +22,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //import java.util.List;
+import javax.swing.*;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
-import javax.swing.* ;
+
+
+
 
 
 
@@ -40,7 +49,7 @@ public class InterfaceJeu {
 
 	public InterfaceJeu() {
 		
-		configFenetre();
+		//configFenetre();
 	}
 
      /**
@@ -97,7 +106,7 @@ public class InterfaceJeu {
     }
 
      
-public static void POPUP(JButton chooseButton){
+    public static void POPUP(JButton chooseButton){
      
         configPanel();
         JPanel panelPopUp = new JPanel();
@@ -116,7 +125,7 @@ public static void POPUP(JButton chooseButton){
                 }
             }
         });
-}
+    }
 
      /**
      * Configures the Game.getGame() menu including options for inventory, story, and status.
@@ -139,6 +148,7 @@ public static void POPUP(JButton chooseButton){
         quitter(quitter) ;
         sauvegarder(sauvegarder);
         sauvegarderEtQuitter(sauvegarderEtQuitter);
+        ecranTitre(ecranTitre) ;
     
         systeme.add(sauvegarder);
         systeme.add(sauvegarderEtQuitter);
@@ -186,9 +196,208 @@ public static void POPUP(JButton chooseButton){
         });
     }
 
+    public static void ecranTitre(JMenuItem ecranTitre){
+        ecranTitre.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
+                            ecranTitre() ;      
+                        }
+            });
+    }
      /**
      * Configures the Game.getGame() frame including its size, location, and visibility.
      */
+
+    public static void ecranTitre(){
+        SwingUtilities.invokeLater(()-> {
+        getFenetre().setSize(1000, 1000); //taille fenetre
+        getFenetre().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; //sortir correctement de la fenetre
+        getFenetre().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
+        cleanFenetre();
+        getFenetre().remove(barreMenu);
+        layeredPane.removeAll();
+        getFenetre().revalidate();
+        getFenetre().repaint();
+        getFenetre().setVisible(true); // rendre la fenetre visible
+        configPanel();
+
+        getFenetre().getContentPane().setLayout(null);
+        JPanel panelText= new JPanel();
+        
+        panelText.setBounds(80, 110, 850, 300);
+        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+        getFenetre().add(layeredPane);
+        JLabel label = new JLabel("<html> <strong> Ecran titre !! </strong>", JLabel.CENTER);// Create a label for displaying the description of the node
+        panelText.add(label);
+        panelText.setBackground(Color.CYAN); 
+        label.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+        getFenetre().revalidate();
+        getFenetre().repaint();
+
+        JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
+        getFenetre().add(layeredPane);
+        panelChoose.setBounds(120, 400, 770, 100);
+        layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
+	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
+        panelChoose.setBackground(Color.RED); 
+
+        // Create buttons for each option in the ChooseNode
+            JButton btn1 = new JButton("Nouvelle Partie");
+            btn1.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+            btn1.setBackground(new Color(240, 240,240));
+		    btn1.setForeground(new Color(128, 64, 0));
+            panelChoose.add(btn1);
+
+            // Add an ActionListener to handle button clicks
+            btn1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    configMenu();
+                    Game.getGame().getFirstNode().display() ;              
+                }
+            });
+        
+            File dossierSauvegardes = new File("Sauvegardes");
+        if (dossierSauvegardes.exists()) {
+        
+        JButton btn2 = new JButton("Charger une partie");
+            btn2.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+            btn2.setBackground(new Color(240, 240,240));
+		    btn2.setForeground(new Color(128, 64, 0));
+            panelChoose.add(btn2);
+
+            // Add an ActionListener to handle button clicks
+            btn2.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ecranSauvegarde() ;
+                }
+            });
+        
+        }
+
+        JButton btn3 = new JButton("Quitter le jeu");
+            btn3.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+            btn3.setBackground(new Color(240, 240,240));
+		    btn3.setForeground(new Color(128, 64, 0));
+            panelChoose.add(btn3);
+
+            // Add an ActionListener to handle button clicks
+            btn3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    getFenetre().dispose(); // Fermer la fenêtre
+                }
+            });
+
+        getFenetre().add(layeredPane) ;
+        });
+    }
+
+    public static void ecranSauvegarde(){
+        
+        SwingUtilities.invokeLater(()-> {
+        configPanel();
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        
+	    getFenetre().getContentPane().setLayout(null);
+        getFenetre().revalidate();
+        getFenetre().repaint();
+    
+        JScrollPane panelSauvegarde = new JScrollPane();
+        panelSauvegarde.setBounds(250, 110, 500, 500);
+        JPanel contentPanel = new JPanel();
+   
+        int numberOfColumns = 1; // Vous pouvez ajuster le nombre de colonnes en fonction de vos besoins
+        contentPanel.setLayout(new GridLayout(0, numberOfColumns)); // 0 pour un nombre de lignes dynamique
+        panelSauvegarde.setViewportView(contentPanel);
+
+        layeredPane.add(panelSauvegarde, JLayeredPane.POPUP_LAYER);
+        JLabel label = new JLabel("<html> <strong> Choisissez la partie à charger </strong>", JLabel.CENTER);// Create a label for displaying the description of the node
+        
+        contentPanel.add(label);
+        contentPanel.setBackground(Color.CYAN); 
+        label.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+
+        // Ajoute un écouteur pour gérer la molette de la souris au premier JScrollPane
+        contentPanel.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                // Défilement vertical en fonction de l'événement de la molette
+                JScrollBar verticalScrollBar = panelSauvegarde.getVerticalScrollBar();
+                verticalScrollBar.setValue(verticalScrollBar.getValue() - e.getUnitsToScroll());
+            }
+        });
+
+    
+        ButtonGroup buttonGroup = new ButtonGroup();
+        String cheminDossier = "Sauvegardes";
+        File dossier = new File(cheminDossier);
+        
+        // Vérifiez si le chemin correspond à un dossier existant
+        if (dossier.isDirectory()) {
+            // Obtenez la liste des fichiers et dossiers dans le dossier
+            File[] fichiers = dossier.listFiles();
+            // Parcourez la liste des fichiers et dossiers
+            if (fichiers != null) {
+                for (File fichier : fichiers) {
+                    JRadioButton radioButton = new JRadioButton(fichier.getName());
+                    radioButton.setActionCommand(fichier.getName());
+                    buttonGroup.add(radioButton);
+                    contentPanel.add(radioButton);
+                    fichier.getName() ;
+                }
+            }
+        } else {
+            System.out.println("Le chemin spécifié ne correspond pas à un dossier existant.");
+        }
+
+
+        JButton validateButton = new JButton("Valider");
+        contentPanel.add(validateButton);
+        validateButton.addActionListener(new ActionListener() {
+            @Override
+                public void actionPerformed(ActionEvent e) { 
+                        String n = buttonGroup.getSelection().getActionCommand() ;
+                        if (dossier.isDirectory()) {
+                            File[] fichiers = dossier.listFiles();
+                            if (fichiers != null) {
+                                for (File fichier : fichiers) {
+                                    if (fichier.getName().equals(n)){
+                                        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Sauvegardes/"+n))) {
+                                            Game partieAcharger = (Game)ois.readObject();
+                                            Game.setGame(partieAcharger) ;
+                                            Game.getGame().getCurrentNode().display();
+                                            break ;
+                                        } catch (IOException | ClassNotFoundException f) {
+                                            f.printStackTrace();
+                                        }
+                                        
+                                        
+                                    }
+                                }
+                            } else {
+                                System.out.println("Le chemin spécifié ne correspond pas à un dossier existant.");
+                            }
+                        }
+                        
+                        layeredPane.remove(panelSauvegarde);
+                        layeredPane.revalidate();
+                        layeredPane.repaint();
+                    }
+                    
+                });        
+        getFenetre().revalidate();
+        getFenetre().repaint();
+        getFenetre().add(layeredPane);
+
+        });
+
+        
+    }
+    
 
     public static void configFenetre() {
 
@@ -248,7 +457,7 @@ public static void POPUP(JButton chooseButton){
 
 	
         char[] texts = node.getDescription().toCharArray(); // Convert the description text of the node to a character array
-        Timer timer = new Timer(20, new ActionListener() { // Create a timer to display the description character by character
+        Timer timer = new Timer(10, new ActionListener() { // Create a timer to display the description character by character
         int index = 0; // Index to retrieve each character from the description
 
 
@@ -434,26 +643,48 @@ public static void POPUP(JButton chooseButton){
  * @param node
  * @param perso // le personnage auquel on est dans le groupe
  */
-public void selectionAction(FightNode node, int perso) {
-        configPanel();
-        JPanel panelFight = new JPanel();
-        panelFight.setBounds(700, 200, 150, 300);
+    public void selectionAction(FightNode node, int perso) {
+        
+    configPanel();
+    JScrollPane panelFight = new JScrollPane();
+    panelFight.setBounds(700, 200, 250, 300);
+        
+    JPanel contentPanel = new JPanel();
+   
+    int numberOfColumns = 1; // Vous pouvez ajuster le nombre de colonnes en fonction de vos besoins
+    contentPanel.setLayout(new GridLayout(0, numberOfColumns)); // 0 pour un nombre de lignes dynamique
+    panelFight.setViewportView(contentPanel);
+
+
+    // Ajoutez le reste de votre code pour configurer le contenuPanel
+
+        contentPanel.setBackground(Color.PINK);
+
+        // Ajoute un écouteur pour gérer la molette de la souris au premier JScrollPane
+        contentPanel.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                // Défilement vertical en fonction de l'événement de la molette
+                JScrollBar verticalScrollBar = panelFight.getVerticalScrollBar();
+                verticalScrollBar.setValue(verticalScrollBar.getValue() - e.getUnitsToScroll());
+            }
+        });
+        
         layeredPane.add(panelFight, JLayeredPane.POPUP_LAYER);
-        panelFight.setLayout(new FlowLayout());
-        panelFight.setBackground(Color.PINK);
+
     
         ButtonGroup buttonGroup = new ButtonGroup();
         JLabel cmp = new JLabel(Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
-            panelFight.add(cmp);
+            contentPanel.add(cmp);
         for (int j = 0; j < Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().size(); j++) {
-            JRadioButton radioButton = new JRadioButton(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
-            radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
-            buttonGroup.add(radioButton);
-            panelFight.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
+        JRadioButton radioButton = new JRadioButton(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
+        radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
+        buttonGroup.add(radioButton);
+        contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
         }
     
         JButton validateButton = new JButton("Valider");
-        panelFight.add(validateButton);
+        contentPanel.add(validateButton);
         validateButton.addActionListener(new ActionListener() {
             @Override
                 public void actionPerformed(ActionEvent e) { 
@@ -493,34 +724,55 @@ public void selectionAction(FightNode node, int perso) {
      * @param cibleCompetence
      */
     public void selectionCible(FightNode node, int perso, Object [] cibleCompetence) {
+        
+
         configPanel();
-        JPanel panelFight = new JPanel(); 
-        panelFight.setBounds(700, 200, 150, 300);
+        JScrollPane panelFight = new JScrollPane();
+        panelFight.setBounds(700, 200, 250, 300);
+        
+        JPanel contentPanel = new JPanel();
+   
+        int numberOfColumns = 1; // Vous pouvez ajuster le nombre de colonnes en fonction de vos besoins
+        contentPanel.setLayout(new GridLayout(0, numberOfColumns)); // 0 pour un nombre de lignes dynamique
+        panelFight.setViewportView(contentPanel);
+
+
+
+        contentPanel.setBackground(Color.PINK);
+
+        contentPanel.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                // Défilement vertical en fonction de l'événement de la molette
+                JScrollBar verticalScrollBar = panelFight.getVerticalScrollBar();
+                verticalScrollBar.setValue(verticalScrollBar.getValue() - e.getUnitsToScroll());
+            }
+        });
+        
         layeredPane.add(panelFight, JLayeredPane.POPUP_LAYER);
-        panelFight.setLayout(new FlowLayout());
-        panelFight.setBackground(Color.PINK);
+
     
         ButtonGroup buttonGroup = new ButtonGroup();  
         JLabel cmp = new JLabel("Cible du " + Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
-        panelFight.add(cmp);
+        contentPanel.add(cmp);
         if (cibleCompetence[0] instanceof CompetenceDammage) {
             for (int j = 0; j < node.getOpponentsVivant().size(); j++) {
                 JRadioButton radioButton = new JRadioButton(node.getOpponentsVivant().get(j).getName());
                 radioButton.setActionCommand(node.getOpponentsVivant().get(j).getName());
                 buttonGroup.add(radioButton);
-                panelFight.add(radioButton);
+                contentPanel.add(radioButton);
             }
         } else {
             for (int j = 0; j < Game.getGame().getGroupeJoueurVivant().size(); j++) {
                 JRadioButton radioButton = new JRadioButton(Game.getGame().getGroupeJoueurVivant().get(j).getName());
                 radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(j).getName());
                 buttonGroup.add(radioButton);
-                panelFight.add(radioButton);
+                contentPanel.add(radioButton);
             }
         }
         JButton validateButton = new JButton("Valider");
     
-        panelFight.add(validateButton);
+        contentPanel.add(validateButton);
     
         validateButton.addActionListener(new ActionListener() {
             @Override
@@ -670,7 +922,7 @@ public void selectionAction(FightNode node, int perso) {
             final int debut2 = debut ;
             final int action2 = action ;
             
-            Timer timer = new Timer(20, new ActionListener(){ // Create a timer to display the description character by character
+            Timer timer = new Timer(10, new ActionListener(){ // Create a timer to display the description character by character
             int index = debut2 ;
             int action3 = action2 ;
             int nbAction = 0 ;
@@ -747,7 +999,6 @@ public void selectionAction(FightNode node, int perso) {
      */
     public void FightOver(FightNode node){
         if (node.isOver()){  // si le combat est terminé on passe au node suivant 
-            System.out.println("Combat fini") ;
             node.goNext();
         } else {
         System.out.println("c'est reparti pour un tour !") ; // sinon on continue avec un nouveau tour
@@ -760,7 +1011,6 @@ public void selectionAction(FightNode node, int perso) {
      * @param node
      */
     public void Victoire(FightNode node) {
-        System.out.println("victoire défaite") ;
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -798,7 +1048,7 @@ public void selectionAction(FightNode node, int perso) {
         final String texte = q ;
 
         char[] texts = q.toCharArray(); 
-        Timer timer = new Timer(20, new ActionListener() { 
+        Timer timer = new Timer(10, new ActionListener() { 
         int index = 0; 
 
 
@@ -852,7 +1102,7 @@ public void selectionAction(FightNode node, int perso) {
         Node nodeNext = node.getOptions().get(0) ;
         
         char[] texts = q.toCharArray(); 
-        Timer timer = new Timer(20, new ActionListener() { 
+        Timer timer = new Timer(10, new ActionListener() { 
         int index = 0; 
 
         final Node nodeNext2 = nodeNext ;
@@ -909,7 +1159,7 @@ public void selectionAction(FightNode node, int perso) {
 
          
         char[] texts = q.toCharArray(); 
-        Timer timer = new Timer(20, new ActionListener() { 
+        Timer timer = new Timer(10, new ActionListener() { 
         int index = 0; 
         Node nodeNext = node.getOptions().get(1) ;
         final Node nodeNext2 = nodeNext ;

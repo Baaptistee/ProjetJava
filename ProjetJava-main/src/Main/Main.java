@@ -1,6 +1,8 @@
 package Main;
 
 import java.util.ArrayList;
+
+import Interface.InterfaceJeu;
 import Representation.*;
 import univers.Collectibles;
 import univers.Eleme;
@@ -110,10 +112,10 @@ public class Main {
 		opponents.add(leMonstreduLockness);
 		opponents.add(leMonstreduLockness2);
 		
+		Game.getGame().setFirstNode(Beginning) ;
+		InterfaceJeu.ecranTitre();
 		
-		
-		
-		Beginning.display();
+		//Beginning.display();
 		
      }
 

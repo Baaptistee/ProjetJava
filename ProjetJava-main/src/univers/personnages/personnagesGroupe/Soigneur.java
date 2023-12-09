@@ -43,10 +43,32 @@ public class Soigneur extends PersoGroupe{
 	public static Soigneur getSoigneur() {
 		if (instance == null) {
 			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
-			CompetencesActives c1 = new CompetenceDammage("Attaque de base", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c1 = new CompetenceSoin("Attaque de base", "Une attaque de base avec l'arme", 0, 100,false) ;
 			CompetencesActives c2 = new CompetenceDammage("Attaque puissante", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
 			competence.add(c2) ;
 			competence.add(c1) ;
+			CompetencesActives c3 = new CompetenceDammage("Attaque de odios", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c4 = new CompetenceDammage("Attaque tata", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			competence.add(c3) ;
+			competence.add(c4) ;
+			CompetencesActives c5 = new CompetenceDammage("Attaque de lol", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c6 = new CompetenceDammage("Attaque dhdd", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			competence.add(c5) ;
+			competence.add(c6) ;
+			CompetencesActives c7 = new CompetenceDammage("Attaque de sskjdios", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c8 = new CompetenceDammage("Attaque dsjncx", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
