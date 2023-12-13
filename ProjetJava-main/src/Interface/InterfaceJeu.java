@@ -465,7 +465,7 @@ public class InterfaceJeu {
         
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
         panelText.add(label);
         panelText.setBackground(Color.CYAN); 
         label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
@@ -486,7 +486,7 @@ public class InterfaceJeu {
         public void actionPerformed(ActionEvent e) {
             if (index < texts.length) { 
                 char nextChar = node.getDescription().charAt(index); 
-                if(nextChar =='/'){  
+                if((nextChar =='/')&&!(node.getDescription().charAt(index-1)=='<')){  
                     label.setText(label.getText() + "<br>");
                     index++;
                 
@@ -698,7 +698,7 @@ public class InterfaceJeu {
         JLabel cmp = new JLabel(Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
             contentPanel.add(cmp);
         for (int j = 0; j < Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().size(); j++) {
-        JRadioButton radioButton = new JRadioButton(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
+        JRadioButton radioButton = new JRadioButton("<html>"+Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName()+Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).affichageCoutMana());
         radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
         buttonGroup.add(radioButton);
         contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage

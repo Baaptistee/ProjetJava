@@ -87,6 +87,12 @@ public class Chevalier extends PersoGroupe{
 			this.getCompetences().add(tailladeLarge) ;
 			t += "/Il apprend la compétence active : Taillade Large !" ;
 		}
+
+		if (this.getLevel() == 7) {
+			CompetenceDammage AttaqueMort = new CompetenceDammage("Attaque de la mort", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 3, 80, 3, 1, Eleme.NONE, true, true) ;
+			this.getCompetences().add(AttaqueMort) ;
+			t += "/Il apprend la compétence active : Attaque de la mort !" ;
+		}
 		return t ;
 	}
 

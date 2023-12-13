@@ -64,6 +64,10 @@ public abstract class Node extends Object implements Event, Serializable {
 		
 	}
 
+	public static int getTotalNode(){
+		return totalNode;
+	}
+
 	 /**
      * Get the description of the Node.
      * @return The description of the Node.

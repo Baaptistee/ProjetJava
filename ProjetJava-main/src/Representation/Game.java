@@ -9,12 +9,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 //import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
 import Interface.InterfaceJeu;
 import univers.personnages.*;
 import univers.personnages.personnagesGroupe.* ;
+import univers.*;
 
 public class Game implements Serializable {
 	
@@ -22,6 +24,8 @@ public class Game implements Serializable {
 	private Node currentNode ;
 	private Node firstNode ;
 	private static Game instance;
+	private Map<Collectibles, Integer> inventaire ;
+	private String nomJoueur = "Baptiste";
 
 	private Game(){}
 	
@@ -42,6 +46,10 @@ public class Game implements Serializable {
 			instance = new Game() ;
 		}
 		return instance ;
+	}
+
+	public String getNomJoueur(){
+		return this.nomJoueur;
 	}
 
 	public static void setGame(Game newGame){
@@ -79,6 +87,10 @@ public class Game implements Serializable {
 		} else {
 			JOptionPane.showMessageDialog(null, "Désolé, impossible de sauvegarder lors d'un combat !", "Alerte", JOptionPane.WARNING_MESSAGE);
 		}
+	}
+
+	public Map<Collectibles,Integer> getInventaire(){
+		return this.inventaire;
 	}
 
 

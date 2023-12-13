@@ -52,6 +52,14 @@ public abstract class CompetencesActives extends Competences {
 		return coutMana;
 	}
 
+	public String affichageCoutMana(){
+		if (this.coutMana==0){
+			return "" ;
+		} else{	
+		return " <strong>"+this.coutMana+"PM</strong>";
+		}
+	}
+
 	/*a setter for coutMana
 	 * 
 	 */

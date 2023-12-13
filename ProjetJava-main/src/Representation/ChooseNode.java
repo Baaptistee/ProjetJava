@@ -22,6 +22,10 @@ public class ChooseNode extends InnerNode {
 	public ChooseNode(String nom, String description, ArrayList <Node> options){
 		super(nom, description, options) ; // Call to the superclass constructor
 	}
+
+	public ChooseNode(String nom, String description){
+		super(nom, description, false) ;
+	}
 	
 	@Override
 	public String toString() {

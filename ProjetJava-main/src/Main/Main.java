@@ -19,6 +19,31 @@ import univers.Objets.Objets;
 public class Main {
      public static void main(String[] args) {
 
+		// Tutoriel : 
+		String joueur = Game.getGame().getNomJoueur() ;
+
+		InnerNode n1 = new TextNode("??? : "+joueur+"... ! / Réveille-toi !!");
+		InnerNode n2 = new ChooseNode("Continuer à dormir", "??? : Aller dêpeche toi on va être en retard !") ;
+		InnerNode n3 = new ChooseNode("Continuer à dormir","??? : "+ joueur.toUpperCase()+" !!!!/ RÉVEILLE TOI !!");
+		InnerNode n4 = new TextNode("Se réveiller", "??? : Ah enfin tu te décides ... Tu sais pourtant très bien qu'aujourd'hui est un jour important./");
+		InnerNode n5 = new TextNode("Leo : Heu t'es sur que ça va ?/Allô la lune ici Leo t'as oublié que la remise des diplômes c'était aujourd'hui ou quoi ?/"+joueur+" : La remise des diplômes ?/Leo : Non mais je rêve ! Tu sais le diplôme de magie pour lequel on sue sang et eau depuis qu'on est gosse ?/C'est enfin le grand jour !!//<em>Les deux garçons se dépêchent d'enfiler leurs tenues et de se diriger vers le hall de la cérémonie.</em>");
+		InnerNode n6 = new TextNode("Leo : Woaaah c'est beaucoup plus impressionant en vrai !/ Jeune fille : Ah enfin vous êtes là vous, je pensais que vous n'arriveriez jamais !/Leo : Désolé Anna, C'est "+joueur+" il se l'est joué Belle au bois Dormant ce matin./"+joueur+" : La ferme Leo, j'ai juste eu du mal à dormir hier soir à cause de tes ronflements. /Leo : Dit le mec qui faisait trembler la chambre ce matin .../<em> Les interrompt</em>/Anna : C'est pas bientôt fini vous deux ? Taisez vous ça va bientôt commencer.");
+		InnerNode n7 = new TextNode("")
+		n1.addOption(n2);
+		n2.addOption(n4);
+		n2.addOption(n3);
+		n3.addOption(n4);
+		n3.addOption(n2);
+		n4.addOption(n5);
+		n5.addOption(n6);
+
+		
+
+
+		Game.getGame().setFirstNode(n1) ;
+		InterfaceJeu.ecranTitre();
+
+		/* 
 		// instance of InnerNode 
 		InnerNode test = new TextNode("Oui !", "<html> L'histoire se déroule dans un royaume médiéval,/ où le prince héritier, un homme bien-aimé du peuple,/ est soudainement suspecté d'avoir assassiné le roi, son propre père,/ afin de s'emparer de la couronne./Malgré son innocence, les preuves semblent accablantes, et il est contraint de fuir pour échapper à la pendaison....", true) ; // balise html a revoir            		
 		Node test1 = new TerminalNode("Pas encore ", "<html> A la prochaine alors") ; // balise html a revoir            		
@@ -116,9 +141,15 @@ public class Main {
 		
 		Game.getGame().setFirstNode(Beginning) ;
 		InterfaceJeu.ecranTitre();
+		*/
 		
-		//Beginning.display();
+
+
+
+
 		
-     }
+    }
+
+
 
 }

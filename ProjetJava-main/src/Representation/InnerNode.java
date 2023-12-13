@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public abstract class InnerNode extends Node {
 	
-	private ArrayList<Node> options ;
+	private ArrayList<Node> options = new ArrayList<>();
 	 /**
      * Constructor for an InnerNode without a checkpoint.
      * @param name The name of the inner node.

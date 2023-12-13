@@ -13,6 +13,14 @@ public class TextNode extends InnerNode {
 	public TextNode(String nom, String description, boolean checkPoint) {
 		super(nom, description, checkPoint) ;
 	}
+
+	public TextNode(String nom, String description){
+		super(nom, description, false);
+	}
+
+	public TextNode(String description){
+		super("Node" + Node.getTotalNode()+1, description,false) ;
+	}
 	
 	public void goNext() {
 		this.getOptions().get(0).setFormerNode(this);
