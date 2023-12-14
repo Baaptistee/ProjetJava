@@ -26,8 +26,8 @@ public class FightNode extends Node {
      * @param description The description of the fight node.
      */
 
-	public FightNode(String nom, String description) {
-				super(nom, description) ;
+	public FightNode(String nom, String description, String imageName) {
+				super(nom, description,imageName) ;
 	}
 	
 	public ArrayList<PersonnageCombattant> getOpponents() {
@@ -75,7 +75,8 @@ public class FightNode extends Node {
      */
 
 	public void display() {
-		
+		super.display();
+        System.out.println("Displaying Fight Node");
 		
 	}
 

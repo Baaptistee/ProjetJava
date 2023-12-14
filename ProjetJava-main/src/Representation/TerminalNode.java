@@ -2,9 +2,9 @@ package Representation;
 
 public class TerminalNode extends Node {
 	
-	public TerminalNode(String nom, String description) {
+	public TerminalNode(String nom, String description,String imageName) {
 		
-		super(nom, description) ;
+		super(nom, description, imageName) ;
 		
 	}	
 	@Override

@@ -14,8 +14,8 @@ public class TestNode extends InnerNode{
 	
 	
 
-	public TestNode(String nom, String description, boolean checkPoint, ArrayList<Node> options, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
-		super(nom, description, checkPoint, options) ;
+	public TestNode(String nom, String description,String imageName, boolean checkPoint, ArrayList<Node> options, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
+		super(nom, description,imageName, checkPoint, options) ;
 		this.difficulteTest = difficulteTest ;
 		this.statATester = statATester ;
 		this.nombreReussiteNecessaire = nombreReussiteNecessaire ;

@@ -7,6 +7,8 @@ import Representation.* ;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Event.*;
+import Event.ImageNode;
 
 import javax.swing.* ;
 
@@ -151,16 +153,18 @@ public static void POPUP(JButton chooseButton){
      */
 
     
- public void afficherNodeBase(Node node) {
+ public void afficherNodeBase(Node node, ImageIcon imageIcon) {
 
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
-        
+        afficherImageDansInterface(new ImageIcon(node.getImageName()));
+
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        
         if (node instanceof ChooseNode){ 
             panelText.setBounds(60, 110, 600, 100);
         }
@@ -209,7 +213,7 @@ public static void POPUP(JButton chooseButton){
 
                 // Determine the type of the node and handle accordingly
                 if ( node instanceof ChooseNode){ 
-                    ChooseNodeButton(node);
+                    ChooseNodeButton(node, imageIcon);
                 }
                 if(node instanceof TextNode || node instanceof ChanceNode || node instanceof TestNode ){ 
                     InnerNodeButton(node);
@@ -236,9 +240,10 @@ public static void POPUP(JButton chooseButton){
     * @param node The current ChooseNode to display options for.
     */
 
-    public void ChooseNodeButton(Node node){
+    public void ChooseNodeButton(Node node, ImageIcon imageIcon){
         configPanel();
         ChooseNode chooseNode;// Cast the node to a ChooseNode
+        
         chooseNode=(ChooseNode)node;
 
         JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
@@ -247,6 +252,7 @@ public static void POPUP(JButton chooseButton){
         layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
 	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
         panelChoose.setBackground(Color.RED); 
+        
 
         // Create buttons for each option in the ChooseNode
         for (int i = 0; i < chooseNode.getOptions().size(); i++) {
@@ -263,7 +269,9 @@ public static void POPUP(JButton chooseButton){
                 public void actionPerformed(ActionEvent e) {
                     
                     chooseNode.getOptions().get(currentIndex).display(); // clique du bouton provoque affichage du prochain bode
-                
+                    ImageNode imageNode= new ImageNode(chooseNode.getOptions().get(currentIndex), imageIcon);
+                    imageNode.display();
+                    System.out.println("first");
                 }
             });
             
@@ -370,10 +378,26 @@ public static void POPUP(JButton chooseButton){
                         @Override
                         public void actionPerformed(ActionEvent e) { 
                         	node.goNext() ; // Code to execute when the button is clicked
-                    	
+                            
+                            
                         }
             });
     }
+
+    public void afficherImageDansInterface(ImageIcon imageIcon) {
+        if (imageIcon != null) {
+            configPanel();
+            JLabel label = new JLabel(imageIcon);
+            JPanel panel = new JPanel();
+            panel.add(label);
+            panel.setOpaque(false);
+            panel.setBounds(0, 0, 1280, 720);
+            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+        }
+    }
+    
 
 
 }

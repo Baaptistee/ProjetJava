@@ -18,9 +18,8 @@ public class ChanceNode extends InnerNode{
      * @param probability the probability of each possible node
      */ 
 
-    public ChanceNode(String nom, String description, ArrayList <Node> options, ArrayList <Integer> probability){
-        super(nom, description, options);
-        
+    public ChanceNode(String nom, String description, ArrayList <Node> options,String imageName,ArrayList <Integer> probability){
+        super(nom, description,imageName, options);
         this.probability=probability;
     }
 

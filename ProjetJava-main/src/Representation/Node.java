@@ -2,8 +2,8 @@ package Representation;
 import java.util.Objects;
 
 import javax.swing.* ;
-
 import Event.Event;
+import Event.ImageNode;
 import Interface.* ;
 
 public abstract class Node extends Object implements Event {
@@ -17,17 +17,18 @@ public abstract class Node extends Object implements Event {
 	private String nom ; //The name of the Node
 	private Node formerNode ; // The previous Node (for backward navigation)
 	private boolean checkPoint = false ;
-	
+	private String imageName;
 	 /**
      * Constructor for the Node.
      * @param name The name of the Node.
      * @param description The description of the Node.
      */
 
-	public Node(String nom, String description) {
+	public Node(String nom, String description, String imageName) {
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
 		this.description = description ;
 		this.nom = nom ;
+		this.imageName=imageName;
 	}
 	
 	/**
@@ -37,19 +38,24 @@ public abstract class Node extends Object implements Event {
      * @param isCheckpoint Indicates whether the Node is a checkpoint.
      */
 
-	public Node(String nom, String description, boolean checkPoint) {
+	public Node(String nom, String description,String imageName, boolean checkPoint) {
 		
 		this.idNode = totalNode++ ;
 		this.description = description ;
 		this.nom = nom ;
-		this.checkPoint = checkPoint ; 
+		this.checkPoint = checkPoint ;
+		this.imageName=imageName; 
 	}
 	
-	public Node (String nom, String description, Node nextNode) {
+	public Node (String nom, String description,String imageName, Node nextNode) {
 		this.idNode = totalNode++ ;
 		this.description = description ;
 		this.nom = nom ;
+		this.imageName=imageName;
 		
+	}
+	public String getImageName(){
+		return imageName;
 	}
 
 	/**
@@ -223,10 +229,25 @@ public boolean equals(Object obj) {
 	public void display() {
 		
 		this.isCheckPoint() ;
-		getInterface().afficherNodeBase(this) ;
+		ImageIcon imageIcon = new ImageIcon(imageName);
+    	getInterface().afficherNodeBase(this, imageIcon);
+		System.out.println("Fonctionnalité de base");
+		
 
 	}
+	
 
+	@Override
+	public Event chooseNext() {
+    // Appel de la méthode goNext() pour obtenir le prochain nœud en fonction du choix de l'utilisateur.
+    goNext();
+	
+
+
+
+    // Retournez le nœud actuel, car goNext() a déjà effectué le déplacement vers le nœud suivant.
+    return this;
+}
 	
 	
 	
