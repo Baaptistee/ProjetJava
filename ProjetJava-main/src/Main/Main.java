@@ -30,12 +30,41 @@ public class Main {
 		InnerNode n5 = new TextNode("Leo : Heu t'es sur que ça va ?/Allô la lune ici Leo t'as oublié que la remise des diplômes c'était aujourd'hui ou quoi ?/"+joueur+" : La remise des diplômes ?/Leo : Non mais je rêve ! Tu sais le diplôme de magie pour lequel on sue sang et eau depuis qu'on est gosse ?/C'est enfin le grand jour !!//<em>Les deux garçons se dépêchent d'enfiler leurs tenues et de se diriger vers le hall de la cérémonie.</em>");
 		InnerNode n6 = new TextNode("Leo : Woaaah c'est beaucoup plus impressionant en vrai !/ Jeune fille : Ah enfin vous êtes là vous, je pensais que vous n'arriveriez jamais !/Leo : Désolé Anna, C'est "+joueur+" il se l'est joué Belle au bois Dormant ce matin./"+joueur+" : La ferme Leo, j'ai juste eu du mal à dormir hier soir à cause de tes ronflements. /Leo : Dit le mec qui faisait trembler la chambre ce matin .../<em> Les interrompt</em>/Anna : C'est pas bientôt fini vous deux ? Taisez vous ça va bientôt commencer.");
 		InnerNode n7 = new TextNode("Le crépuscule enveloppait le château de mystère,/ tandis que "+joueur+", accompagné de son fidèle chevalier, du sage mage et de l'attentionné soigneur,/ décidait de fuir les murs imposants qui avaient été témoins de la tragédie royale./ Les lourdes portes du château s'ouvrirent silencieusement, et l'équipe s'éclipsa dans l'obscurité./ Guidés par l'ombre bienveillante de la nuit,/ "+joueur+" et ses compagnons chevauchèrent à travers les bois embrumés,/ laissant derrière eux les murmures inquiets du château endormi./ ");
-		InnerNode n8= new ChooseNode("history","La lueur pâle de la lune éclairait leur chemin /alors qu'ils traversaient la forêt,/ cherchant refuge dans l'incertitude du destin qui les attendait./Ils ne savaient pas où leurs pas les conduiraient, /mais le besoin pressant de s'éloigner du château empreint de trahison les guidait./ Ils devaient prendre uen decision:");
+		InnerNode n8= new ChooseNode("first choice","La lueur pâle de la lune éclairait leur chemin /alors qu'ils traversaient la forêt,/ cherchant refuge dans l'incertitude du destin qui les attendait./Ils ne savaient pas où leurs pas les conduiraient, /mais le besoin pressant de s'éloigner du château empreint de trahison les guidait./ Ils devaient prendre uen decision:");
 		InnerNode n9= new TextNode("Chez Mage", "");
 		InnerNode n10= new TextNode("Chez Chevalier", "Guidés par l'ombre bienveillante de la nuit,/ "+joueur+" et ses compagnons chevauchèrent à travers les bois embrumés,/ laissant derrière eux les murmures inquiets du château endormi./le domaine du père du chevalier émergea des ombres./ Une imposante silhouette de château se dressait contre le ciel nocturne,/ éclairée par la douce lueur des lanternes./ La cour intérieure, encadrée par des murailles de pierre solides,/ accueillit les fugitifs avec l'assurance de la loyauté./ Le portail grinça légèrement lorsqu'ils entrèrent,/ mais le silence qui enveloppait le domaine indiquait que leur arrivée n'avait pas été remarquée./ "+joueur+", le chevalier, le mage et le soigneur se dirigèrent vers la résidence principale, où le père du chevalier les attendait,/ ignorant encore les événements qui avaient secoué le royaume. ");
 		InnerNode n11= new TextNode("Chez Soigneur", "");
 		InnerNode n12 = new TextNode("Dans le hall majestueux du domaine du chevalier,/ le père écouta avec une attention grave le récit du prince et de son équipe./ Les yeux du vieil homme reflétaient l'inquiétude mêlée d'une détermination à défendre l'honneur de son fils et la quête de justice du prince./Cependant, à peine avaient-ils commencé à élaborer leurs plans que les lourds bruits de sabots résonnèrent à l'extérieur./ Les échos de la cavalerie du roi, armée jusqu'aux dents, annonçaient l'arrivée imminente de la garde royale.");
-		
+		InnerNode n13= new ChooseNode("second choice","Ils s'echapèrent précipitemment par un chemin secret qui menait à deux chemins différents. L'equipe divisée, ils demandèerent tous en coeur. Prince: Vers lequel allons nous"+joueur+"?");
+		InnerNode n14= new TextNode("droite","A pas de loup, ils se precipitèreent dans ce chemin secret sinueu."+joueur+": SPLACH!!/"+joueur+" était tombé, le garde des environt l'avait entendu et se precipita à notre rencontre");
+		InnerNode n15= new TextNode("Gauche","");
+		FightNode n16= new FightNode("combat 1", "Attention, Deux gardes se précipites vers vous");
+		ArrayList<PersonnageCombattant> opponents= new ArrayList<>();
+		n16.setXp(150);
+		ArrayList<Collectibles> bytin= new ArrayList<Collectibles>() ;
+		Collectibles potion = new Objets("Potion de soin") ;
+		Collectibles banane = new Objets("Banane") ;
+		bytin.add(banane) ;
+		bytin.add(potion) ;
+		n16.setButin(bytin);
+		n16.setOpponents(opponents);
+		ArrayList <Eleme> resistances=new ArrayList<>();
+		resistances.add(Eleme.FEU);
+		resistances.add(Eleme.LUMIERE);
+		int [] probaCompetences={7,3};
+		ArrayList <CompetencesActives> jeanJacquesC= new ArrayList<>();
+		jeanJacquesC.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
+		jeanJacquesC.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
+		//opponents characters
+		PersonnageAdversaire n17 = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 0, 3, 3, 7, 10,resistances,resistances, jeanJacquesC,probaCompetences);
+		PersonnageAdversaire n18 = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 0, 3, 3, 7, 10,resistances ,resistances, jeanJacquesC, probaCompetences);
+		opponents.add(n17);
+		opponents.add(n18);
+		InnerNode n19= new TextNode("foret foret, il pleut c'est la merde on a peur on a froid comment on va vivre MAMANNN");
+		InnerNode n20= new ChooseNode("La sorciere", "grrr, on croise une personne bien chelou au plus profond de cette foret. Elle a l'air gentille mais chelou aussi");
+		InnerNode n21= new TextNode("J'y vais", "On suit la dame dans sa maison patati patata");
+		InnerNode n22= new TextNode("Je crève", "continue à courrir");
+
 		n1.addOption(n2);
 		n2.addOption(n4);
 		n2.addOption(n3);
@@ -49,6 +78,15 @@ public class Main {
 		n8.addOption(n10);
 		n8.addOption(n11);
 		n10.addOption(n12);
+		n12.addOption(n13);
+		n13.addOption(n14);
+		n13.addOption(n15);
+		n14.addOption(n16);
+		n16.addOption(n19);
+		n19.addOption(n20);
+		n20.addOption(n21);
+		n20.addOption(n22);
+		
 
 		
 

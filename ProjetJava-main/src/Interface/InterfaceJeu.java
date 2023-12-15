@@ -451,7 +451,7 @@ public class InterfaceJeu {
 	    cleanFenetre() ;
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         if (node instanceof ChooseNode){ 
-            panelText.setBounds(60, 110, 600, 100);
+            panelText.setBounds(60, 110, 600, 300);
         }
         if (node instanceof TextNode || node instanceof ChanceNode ||node instanceof TestNode){ 
             panelText.setBounds(80, 110, 850, 300);
