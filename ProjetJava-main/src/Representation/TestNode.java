@@ -20,6 +20,13 @@ public class TestNode extends InnerNode{
 		this.statATester = statATester ;
 		this.nombreReussiteNecessaire = nombreReussiteNecessaire ;
 	}
+
+		public TestNode(String description, boolean checkPoint, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
+		super("Node" + Node.getTotalNode()+1, description, checkPoint) ;
+		this.difficulteTest = difficulteTest ;
+		this.statATester = statATester ;
+		this.nombreReussiteNecessaire = nombreReussiteNecessaire ;
+	}
 	
 	public int getNombreReussiteNecessaire() {
 		return nombreReussiteNecessaire;
