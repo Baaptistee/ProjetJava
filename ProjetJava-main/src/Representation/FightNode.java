@@ -31,8 +31,8 @@ public class FightNode extends InnerNode {
 	public FightNode(String nom, String description, ArrayList<Node> options) {
 				super(nom, description, options) ;
 	}
-	public FightNode(String nom, String description){
-		super(nom, description, false) ;
+	public FightNode(String description){
+		super("Node" + Node.getTotalNode()+1, description, false) ;
 	}
 	
 	public ArrayList<PersonnageCombattant> getOpponents() {

@@ -24,6 +24,12 @@ public class ChanceNode extends InnerNode{
         this.probability=probability;
     }
 
+     public ChanceNode(String description, ArrayList <Integer> probability){
+        super("Node" + Node.getTotalNode()+1, description, false);
+        
+        this.probability=probability;
+    }
+
     public ArrayList <Integer> getProbability(){
         return probability;
     }
