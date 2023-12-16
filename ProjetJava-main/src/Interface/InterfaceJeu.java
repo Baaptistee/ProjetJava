@@ -164,48 +164,62 @@ public static void POPUP(JButton chooseButton){
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
-        
+        JEditorPane editorPane = new JEditorPane();
+ 
         if (node instanceof ChooseNode){ 
-            panelText.setBounds(60, 110, 600, 100);
+            panelText.setBounds(60, 110, 600, 300);
+            editorPane.setPreferredSize(new Dimension(600, 300));
         }
         if (node instanceof TextNode || node instanceof ChanceNode ||node instanceof TestNode){ 
             panelText.setBounds(80, 110, 850, 300);
+            editorPane.setPreferredSize(new Dimension(850, 300));
         }
          if (node instanceof TerminalNode){ 
             panelText.setBounds(80, 110, 800, 300);
+            editorPane.setPreferredSize(new Dimension(800, 300));
+        }
+         if (node instanceof FightNode){ 
+            panelText.setBounds(60, 110, 600, 100);
+            editorPane.setPreferredSize(new Dimension(600, 100));
         }
         
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
         panelText.add(label);
         panelText.setBackground(Color.CYAN); 
         label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
         getFenetre().revalidate();
         getFenetre().repaint();
-        JButton btn = new JButton("TEST POPUP");
-        panelText.add(btn);
-        POPUP(btn);
+        // JButton btn = new JButton("TEST POPUP");
+        // panelText.add(btn);
+        // POPUP(btn);
 
-
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html"); // Set content type to HTML
+        
+        panelText.add(editorPane);
 	
         char[] texts = node.getDescription().toCharArray(); // Convert the description text of the node to a character array
-        Timer timer = new Timer(20, new ActionListener() { // Create a timer to display the description character by character
+        Timer timer = new Timer(10, new ActionListener() { // Create a timer to display the description character by character
         int index = 0; // Index to retrieve each character from the description
-
+        StringBuilder textBuilder = new StringBuilder();
 
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index < texts.length) { 
-                char nextChar = node.getDescription().charAt(index); 
-                if(nextChar =='/'){  
-                    label.setText(label.getText() + "<br>");
-                    index++;
+                char nextChar = texts[index];
+                    if ((nextChar == '/') && !(texts[index - 1] == '<')) {
+                        textBuilder.append("<br>");
+                        editorPane.setText(textBuilder.toString());
+                        index++;
                 
                 }
                 else{
-                    label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
-                    index++; //on passe au caractere suivant de la chaine de description
+                    textBuilder.append(nextChar);
+                    editorPane.setText(textBuilder.toString());
+                    index++;
                 }
             
             } else {
