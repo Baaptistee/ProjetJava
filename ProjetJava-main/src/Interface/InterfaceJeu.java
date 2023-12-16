@@ -230,7 +230,7 @@ public static void POPUP(JButton chooseButton){
                     ChooseNodeButton(node, imageIcon);
                 }
                 if(node instanceof TextNode || node instanceof ChanceNode || node instanceof TestNode ){ 
-                    InnerNodeButton(node);
+                    InnerNodeButton(node, imageIcon);
                 }
                 if(node instanceof FightNode){
                     FightNodeButton(node);
@@ -299,7 +299,7 @@ public static void POPUP(JButton chooseButton){
     * @param node The current inner node.
     */
 
-    public void InnerNodeButton(Node node){
+    public void InnerNodeButton(Node node, ImageIcon imageIcon){
         configPanel();
       
         // Create a panel for the "Next" button
@@ -318,7 +318,8 @@ public static void POPUP(JButton chooseButton){
 		suivant.setForeground(new Color(128, 64, 0));
         panelInner.add(suivant);
         getFenetre().revalidate() ;
-		boutonGoNext(suivant, node);
+        
+		boutonGoNext(suivant, node, imageIcon);
         
     }   
 
@@ -387,12 +388,14 @@ public static void POPUP(JButton chooseButton){
     * @param node The current node that will be followed by the next node when the button is clicked.
     */
 
-    public void boutonGoNext(JButton btn1, Node node){
+    public void boutonGoNext(JButton btn1, Node node, ImageIcon imageIcon){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
                         	node.goNext() ; // Code to execute when the button is clicked
-                            
+                            ImageNode imageNode= new ImageNode(node, imageIcon);
+                            imageNode.display();
+                            System.out.println("Inner");
                             
                         }
             });
