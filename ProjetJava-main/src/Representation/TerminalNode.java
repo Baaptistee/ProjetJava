@@ -8,10 +8,10 @@ public class TerminalNode extends Node {
 		
 	}	
 	
-	@Override
-	public String toString() {
-		return "TerminalNode:"+super.toString();
-	}
+	// @Override
+	// public String toString() {
+	// 	return "TerminalNode:"+super.toString();
+	// }
 	
 	@Override
 	public void goNext() {

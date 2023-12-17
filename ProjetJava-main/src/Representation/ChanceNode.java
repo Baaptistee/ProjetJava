@@ -42,25 +42,25 @@ public class ChanceNode extends InnerNode{
         this.probability=probability;
     }
     
-    @Override
-    public String toString() {
-        return "ChanceNode:"+super.toString();
-    }
+    // @Override
+    // public String toString() {
+    //     return "ChanceNode:"+super.toString();
+    // }
 
-    @Override
-public boolean equals(Object obj) {
-    if (this == obj) {
-        return true;
-    }
+//     @Override
+// public boolean equals(Object obj) {
+//     if (this == obj) {
+//         return true;
+//     }
 
-    if (obj == null || getClass() != obj.getClass()) {
-        return false;
-    }
+//     if (obj == null || getClass() != obj.getClass()) {
+//         return false;
+//     }
 
-    ChanceNode chanceNode = (ChanceNode) obj;
-    return super.equals(obj) &&
-           Objects.equals(this.getProbability(), chanceNode.getProbability());
-}
+//     ChanceNode chanceNode = (ChanceNode) obj;
+//     return super.equals(obj) &&
+//            Objects.equals(this.getProbability(), chanceNode.getProbability());
+// }
 
     /**
      * Select a node based on a random outcome.

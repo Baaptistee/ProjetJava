@@ -69,26 +69,26 @@ public class TestNode extends InnerNode{
 		}
 	}
 	
-	@Override
-	public String toString() {
-		return "TestNode"+super.toString();
-	}
+	// @Override
+	// public String toString() {
+	// 	return "TestNode"+super.toString();
+	// }
 
-	 @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
+	//  @Override
+    // public boolean equals(Object obj) {
+    //     if (this == obj) {
+    //         return true;
+    //     }
 
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        TestNode testNode = (TestNode) obj;
-        return super.equals(obj) &&
-               Objects.equals(this.getStatATester(), testNode.getStatATester()) &&
-               Objects.equals(this.getDifficulteTest(),testNode.getDifficulteTest())&&
-               Objects.equals(this.getNombreReussiteNecessaire(),testNode.getNombreReussiteNecessaire());
-    }
+    //     if (obj == null || getClass() != obj.getClass()) {
+    //         return false;
+    //     }
+    //     TestNode testNode = (TestNode) obj;
+    //     return super.equals(obj) &&
+    //            Objects.equals(this.getStatATester(), testNode.getStatATester()) &&
+    //            Objects.equals(this.getDifficulteTest(),testNode.getDifficulteTest())&&
+    //            Objects.equals(this.getNombreReussiteNecessaire(),testNode.getNombreReussiteNecessaire());
+    // }
 
 	
 	@Override

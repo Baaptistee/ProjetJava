@@ -33,6 +33,12 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.nom = nom ;
 		this.imageName=imageName;
 	}
+
+	public Node(String nom, String description) {
+		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
+		this.description = description ;
+		this.nom = nom ;
+	}
 	
 	/**
      * Constructor for the Node with an optional checkpoint.
@@ -55,6 +61,22 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.description = description ;
 		this.nom = nom ;
 		this.imageName=imageName;
+		
+	}
+	
+
+	public Node(String nom, String description, boolean checkPoint) {
+		
+		this.idNode = totalNode++ ;
+		this.description = description ;
+		this.nom = nom ;
+		this.checkPoint = checkPoint ;
+	}
+	
+	public Node (String nom, String description, Node nextNode) {
+		this.idNode = totalNode++ ;
+		this.description = description ;
+		this.nom = nom ;
 		
 	}
 	public String getImageName(){
@@ -168,6 +190,7 @@ public abstract class Node extends Object implements Event, Serializable {
      * @param x The last checkpoint Node to set.
      */
 
+/* 
 	@Override
 	public String toString() {
 		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
@@ -189,7 +212,7 @@ public boolean equals(Object obj) {
     }
 }
 
-
+/* */
 	public static void setLastCheckpoint(Node x) {
 		
 		lastCheckPoint = x ;
@@ -257,8 +280,8 @@ public boolean equals(Object obj) {
 
 	public void display() {
 		
-		this.isCheckPoint() ;
-		ImageIcon imageIcon = new ImageIcon(imageName);
+	this.isCheckPoint() ;
+	ImageIcon imageIcon = new ImageIcon(imageName);
     Game.getGame().setCurrentNode(this);
 
     getInterface().afficherNodeBase(this, imageIcon);

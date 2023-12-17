@@ -33,7 +33,7 @@ public class ImageNode extends AbstractDecorator {
         InterfaceJeu interfaceJeu = Node.getInterface();
         if (interfaceJeu != null) {
             interfaceJeu.afficherImageDansInterface(imageIcon);
-            System.out.println("Fonctionnalité ajoutée par le décorateur");
+            //System.out.println("Fonctionnalité ajoutée par le décorateur");
     
     
         } else {

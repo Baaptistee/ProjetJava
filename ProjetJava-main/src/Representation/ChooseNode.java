@@ -26,31 +26,32 @@ public class ChooseNode extends InnerNode {
 		super(nom, description, false) ;
 	}
 	
-	@Override
-	public String toString() {
-		return "Choose Node:"+ super.toString();
-	}
+	// @Override
+	// public String toString() {
+	// 	return "Choose Node:"+ super.toString();
+	// }
 
-	@Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
+	// @Override
+    // public boolean equals(Object obj) {
+    //     if (this == obj) {
+    //         return true;
+    //     }
 
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        return super.equals(obj);
-    }
+    //     if (obj == null || getClass() != obj.getClass()) {
+    //         return false;
+    //     }
+    //     return super.equals(obj);
+    // }
 	
 	@Override 
 	public void display() {
 		super.display();
-        System.out.println("Displaying Choose Node");
+        //System.out.println("Displaying Choose Node");
 
 	}
     // Pour la classe CHooseNode, l'équivalent de la méthode goNext se fait au niveau de l'interface graphique 
 	public void goNext() {
+        
 	}
 
 	@Override

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import univers.Eleme;
 import univers.personnages.PersonnageCombattant;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+// import static org.junit.Assert.*;
+// import org.junit.Before;
+// import org.junit.Test;
 
 import univers.Eleme;
 import univers.Statistiques;

@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import Event.*;
 
 
 
@@ -254,7 +255,8 @@ public class InterfaceJeu {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     configMenu();
-                    Game.getGame().getFirstNode().display() ;              
+                    Game.getGame().getFirstNode().display() ; 
+                    System.out.println("premier node joué !");        
                 }
             });
         
@@ -471,9 +473,7 @@ public class InterfaceJeu {
             panelText.setBounds(60, 110, 600, 100);
             editorPane.setPreferredSize(new Dimension(600, 100));
         }
-         if (node instanceof FightNode){ 
-            panelText.setBounds(60, 110, 600, 100);
-        }
+        
         
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
@@ -580,7 +580,7 @@ public class InterfaceJeu {
                     chooseNode.getOptions().get(currentIndex).display(); // clique du bouton provoque affichage du prochain bode
                     ImageNode imageNode= new ImageNode(chooseNode.getOptions().get(currentIndex), imageIcon);
                     imageNode.display();
-                    System.out.println("first");
+                    //System.out.println("first");
                 }
             });
             
@@ -613,6 +613,7 @@ public class InterfaceJeu {
 		suivant.setForeground(new Color(128, 64, 0));
         panelInner.add(suivant);
         getFenetre().revalidate() ;
+        getFenetre().repaint() ;
         
 		boutonGoNext(suivant, node, imageIcon);
         

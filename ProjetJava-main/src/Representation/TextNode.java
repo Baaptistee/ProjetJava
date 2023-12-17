@@ -22,11 +22,15 @@ public class TextNode extends InnerNode {
 		super("Node" + Node.getTotalNode()+1, description,false) ;
 	}
 	
+	public TextNode(String nom, String description, boolean checkPoint, ArrayList<Node> option) {
+		super(nom, description, checkPoint, option);
+	}
 	
 	public void goNext() {
 		this.getOptions().get(0).setFormerNode(this);
 		this.getOptions().get(0).display();
 	}
+	
 	@Override
 	public String toString() {
 		return "TextNode:"+super.toString();

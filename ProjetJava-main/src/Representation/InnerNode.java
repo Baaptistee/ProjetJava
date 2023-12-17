@@ -24,6 +24,15 @@ public abstract class InnerNode extends Node {
 		this.options = options ;
 	}
 
+    public InnerNode(String nom, String description, ArrayList<Node> options, boolean checkPoint) {
+		super(nom, description, checkPoint);
+        this.options = options ;
+	}
+
+    public InnerNode(String nom, String description) {
+		super(nom, description);
+	}
+
 	/**
      * Constructor for an InnerNode with an optional checkpoint.
      * @param name The name of the inner node.
@@ -39,6 +48,28 @@ public abstract class InnerNode extends Node {
     
     public InnerNode(String nom, String description,String imageName, boolean checkPoint) {
     	super(nom, description,imageName, checkPoint) ;
+    }
+
+    public InnerNode(String nom, String description, ArrayList<Node> options) {
+		super(nom,description);
+		this.options = options ;
+	}
+
+	/**
+     * Constructor for an InnerNode with an optional checkpoint.
+     * @param name The name of the inner node.
+     * @param description The description of the inner node.
+     * @param checkpoint Indicates whether the inner node is a checkpoint.
+     */
+
+    public InnerNode(String nom, String description, boolean checkPoint, ArrayList<Node>  options) {
+
+        super(nom,description,checkPoint);
+        this.options = options ;
+    }
+    
+    public InnerNode(String nom, String description, boolean checkPoint) {
+    	super(nom, description, checkPoint) ;
     }
     
     /**
@@ -73,38 +104,38 @@ public abstract class InnerNode extends Node {
 		this.getOptions().remove(index);
 	}
 	
-	@Override
-    public String toString() {
-        return "InnerNode:"+super.toString();
-    }
+	// @Override
+    // public String toString() {
+    //     return "InnerNode:"+super.toString();
+    // }
 
    
-	@Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
+	// // @Override
+    // // public boolean equals(Object obj) {
+    // //     if (this == obj) {
+    // //         return true;
+    // //     }
 
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
+    //     if (obj == null || getClass() != obj.getClass()) {
+    //         return false;
+    //     }
 
-        InnerNode innerNode = (InnerNode) obj;
-        return 
-               Objects.equals(getOptions(), innerNode.getOptions()) && Objects.equals(this.getDescription(), innerNode.getDescription()) &&
-               Objects.equals(this.getNom(), innerNode.getNom()) &&
-               Objects.equals(this.getID(), innerNode.getID()) &&
-               Objects.equals(this.getFormerNode(), innerNode.getFormerNode()) &&
-               Objects.equals(this.getCheckPoint(), innerNode.getCheckPoint());
-    }
+    //     InnerNode innerNode = (InnerNode) obj;
+    //     return 
+    //            Objects.equals(getOptions(), innerNode.getOptions()) && Objects.equals(this.getDescription(), innerNode.getDescription()) &&
+    //            Objects.equals(this.getNom(), innerNode.getNom()) &&
+    //            Objects.equals(this.getID(), innerNode.getID()) &&
+    //            Objects.equals(this.getFormerNode(), innerNode.getFormerNode()) &&
+    //            Objects.equals(this.getCheckPoint(), innerNode.getCheckPoint());
+    // }
 	
-	 /**
-     * Overrides the display method to display the information of the choice node.
-     */
-    @Override
-    public String toString() {
-        return "InnerNode:"+super.toString();
-    }
+	//  /**
+    //  * Overrides the display method to display the information of the choice node.
+    //  */
+    // @Override
+    // public String toString() {
+    //     return "InnerNode:"+super.toString();
+    // }
 
     
 	public abstract void goNext() ;

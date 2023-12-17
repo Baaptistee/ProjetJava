@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 //import java.util.Set;
 
-public class FightNode extends Node {
+public class FightNode extends InnerNode {
 	
 	private ArrayList<PersonnageCombattant> opponents ; //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
 	private Node GameOverNode ;
@@ -30,8 +30,8 @@ public class FightNode extends Node {
      * @param description The description of the fight node.
      */
 
-	public FightNode(String nom, String description, String imageName) {
-				super(nom, description,imageName) ;
+	public FightNode(String nom, String description) {
+				super(nom, description) ;
 	}
 	public FightNode(String description){
 		super("Node" + Node.getTotalNode()+1, description, false) ;
@@ -87,27 +87,27 @@ public class FightNode extends Node {
 		this.butin = butin;
 	}
 
-	@Override
-	public String toString() {
-		return "FightNode:"+super.toString();
-	}
+	// @Override
+	// public String toString() {
+	// 	return "FightNode:"+super.toString();
+	// }
 	
-	 @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
+	//  @Override
+    // public boolean equals(Object obj) {
+    //     if (this == obj) {
+    //         return true;
+    //     }
 
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
+    //     if (obj == null || getClass() != obj.getClass()) {
+    //         return false;
+    //     }
 
-        FightNode fightNode = (FightNode) obj;
-        return super.equals(obj) &&
-               Objects.equals(this.getOpponents(), fightNode.getOpponents()) &&
-               Objects.equals(this.getXp(),fightNode.getXp()) &&
-               Objects.equals(this.getButin(), fightNode.getButin());
-    }
+    //     FightNode fightNode = (FightNode) obj;
+    //     return super.equals(obj) &&
+    //            Objects.equals(this.getOpponents(), fightNode.getOpponents()) &&
+    //            Objects.equals(this.getXp(),fightNode.getXp()) &&
+    //            Objects.equals(this.getButin(), fightNode.getButin());
+    // }
 	
 	/**
      * Method to display the information of the fight node.
