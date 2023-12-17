@@ -14,9 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 //import java.util.Set;
 
-public class FightNode extends InnerNode {
+public class FightNode extends Node {
 	
 	private ArrayList<PersonnageCombattant> opponents ; //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
+	private Node GameOverNode ;
+	private Node SuccessNode ;
 	private int xp ;
 	private ArrayList<Collectibles> butin ;
 	private Map<PersonnageCombattant, Object[]> actions ;
@@ -28,8 +30,8 @@ public class FightNode extends InnerNode {
      * @param description The description of the fight node.
      */
 
-	public FightNode(String nom, String description, ArrayList<Node> options) {
-				super(nom, description, options) ;
+	public FightNode(String nom, String description, String imageName) {
+				super(nom, description,imageName) ;
 	}
 	public FightNode(String description){
 		super("Node" + Node.getTotalNode()+1, description, false) ;
@@ -52,6 +54,23 @@ public class FightNode extends InnerNode {
 	public void setOpponents(ArrayList<PersonnageCombattant> opponents) {
 		this.opponents = opponents;
 	}
+
+	public Node getGameOverNode() {
+		return GameOverNode;
+	}
+
+	public void setGameOverNode(Node gameOverNode) {
+		GameOverNode = gameOverNode;
+	}
+
+	public Node getSuccessNode() {
+		return SuccessNode;
+	}
+
+	public void setSuccessNode(Node successNode) {
+		SuccessNode = successNode;
+	}
+
 	public int getXp() {
 		return xp;
 	}
@@ -121,6 +140,7 @@ public class FightNode extends InnerNode {
 	}
 	
 	public void display() {
+
 		for(int i = 0; i<this.getOpponents().size() ; i++){
 			this.getOpponents().get(i).setGroupe(opponents);
 			this.getOpponents().get(i).setMana(this.getOpponents().get(i).getMana()) ;
@@ -168,19 +188,41 @@ public class FightNode extends InnerNode {
 	public String gainXP() {
 
 		String d = "L'ensemble du groupe remporte " + this.getXp() + " points d'expériences !/";
-		
-		
+				
 		return d ;
 	}
 	
 
 	@Override
 	public void goNext() {
+
 		if (this.isGroupEnVie(Game.getGame().getGroupeJoueur())) {
 			getInterface().Victoire(this) ;
 		} else {
 			getInterface().Defaite(this) ;
 		}	
 	}
+	@Override
+	public String toString() {
+		return "FightNode:"+super.toString();
+	}
 	
+	 @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        FightNode fightNode = (FightNode) obj;
+        return super.equals(obj) &&
+               Objects.equals(this.getOpponents(), fightNode.getOpponents()) &&
+               Objects.equals(this.getGameOverNode(), fightNode.getGameOverNode()) &&
+               Objects.equals(this.getSuccessNode(), fightNode.getSuccessNode()) &&
+               Objects.equals(this.getXp(),fightNode.getXp()) &&
+               Objects.equals(this.getButin(), fightNode.getButin());
+    }
 }

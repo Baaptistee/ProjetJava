@@ -4,7 +4,9 @@ import java.util.Objects;
 
 //import javax.swing.* ;
 
+import javax.swing.* ;
 import Event.Event;
+import Event.ImageNode;
 import Interface.* ;
 
 public abstract class Node extends Object implements Event, Serializable {
@@ -18,17 +20,18 @@ public abstract class Node extends Object implements Event, Serializable {
 	private String nom ; //The name of the Node
 	private Node formerNode ; // The previous Node (for backward navigation)
 	private boolean checkPoint = false ;
-	
+	private String imageName;
 	 /**
      * Constructor for the Node.
      * @param name The name of the Node.
      * @param description The description of the Node.
      */
 
-	public Node(String nom, String description) {
+	public Node(String nom, String description, String imageName) {
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
 		this.description = description ;
 		this.nom = nom ;
+		this.imageName=imageName;
 	}
 	
 	/**
@@ -38,19 +41,24 @@ public abstract class Node extends Object implements Event, Serializable {
      * @param isCheckpoint Indicates whether the Node is a checkpoint.
      */
 
-	public Node(String nom, String description, boolean checkPoint) {
+	public Node(String nom, String description,String imageName, boolean checkPoint) {
 		
 		this.idNode = totalNode++ ;
 		this.description = description ;
 		this.nom = nom ;
-		this.checkPoint = checkPoint ; 
+		this.checkPoint = checkPoint ;
+		this.imageName=imageName; 
 	}
 	
-	public Node (String nom, String description, Node nextNode) {
+	public Node (String nom, String description,String imageName, Node nextNode) {
 		this.idNode = totalNode++ ;
 		this.description = description ;
 		this.nom = nom ;
+		this.imageName=imageName;
 		
+	}
+	public String getImageName(){
+		return imageName;
 	}
 
 	/**
@@ -160,7 +168,28 @@ public abstract class Node extends Object implements Event, Serializable {
      * @param x The last checkpoint Node to set.
      */
 
-	
+	@Override
+	public String toString() {
+		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
+	}
+
+	@Override
+public boolean equals(Object obj) {
+    if (this == obj) {
+        return true;
+    } else if (obj == null || getClass() != obj.getClass()) {
+        return false;
+    } else {
+        Node node = (Node) obj;
+        return Objects.equals(this.getDescription(), node.getDescription()) &&
+                Objects.equals(this.getNom(), node.getNom()) &&
+                Objects.equals(this.getID(), node.getID()) &&
+                Objects.equals(this.getFormerNode(), node.getFormerNode()) &&
+                Objects.equals(this.getCheckPoint(), node.getCheckPoint());
+    }
+}
+
+
 	public static void setLastCheckpoint(Node x) {
 		
 		lastCheckPoint = x ;
@@ -229,11 +258,29 @@ public boolean equals(Object obj) {
 	public void display() {
 		
 		this.isCheckPoint() ;
-		Game.getGame().setCurrentNode(this);
-		getInterface().afficherNodeBase(this) ;
+		ImageIcon imageIcon = new ImageIcon(imageName);
+    Game.getGame().setCurrentNode(this);
+
+    getInterface().afficherNodeBase(this, imageIcon);
+
+		System.out.println("Fonctionnalité de base");
+		
+
 
 	}
+	
 
+	@Override
+	public Event chooseNext() {
+    // Appel de la méthode goNext() pour obtenir le prochain nœud en fonction du choix de l'utilisateur.
+    goNext();
+	
+
+
+
+    // Retournez le nœud actuel, car goNext() a déjà effectué le déplacement vers le nœud suivant.
+    return this;
+}
 	
 	
 	

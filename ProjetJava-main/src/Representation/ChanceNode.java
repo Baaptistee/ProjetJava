@@ -18,9 +18,8 @@ public class ChanceNode extends InnerNode{
      * @param probability the probability of each possible node
      */ 
 
-    public ChanceNode(String nom, String description, ArrayList <Node> options, ArrayList <Integer> probability){
-        super(nom, description, options);
-        
+    public ChanceNode(String nom, String description, ArrayList <Node> options,String imageName,ArrayList <Integer> probability){
+        super(nom, description,imageName, options);
         this.probability=probability;
     }
 
@@ -85,4 +84,26 @@ public boolean equals(Object obj) {
             a.setFormerNode(this);
             a.display();
         }
+
+        @Override
+        public String toString() {
+            return "ChanceNode:"+super.toString();
+        }
+
+        @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        ChanceNode chanceNode = (ChanceNode) obj;
+        return super.equals(obj) &&
+               Objects.equals(this.getProbability(), chanceNode.getProbability());
+    }
+
+        
 }

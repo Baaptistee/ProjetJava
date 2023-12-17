@@ -6,12 +6,12 @@ import java.util.ArrayList;
  */
 public class TextNode extends InnerNode {
 
-	public TextNode(String nom, String description, boolean checkPoint, ArrayList<Node> option) {
-		super(nom, description, checkPoint, option);
+	public TextNode(String nom, String description,String imageName, boolean checkPoint, ArrayList<Node> option) {
+		super(nom, description,imageName, checkPoint, option);
 	}
 
-	public TextNode(String nom, String description, boolean checkPoint) {
-		super(nom, description, checkPoint) ;
+	public TextNode(String nom, String description,String imageName, boolean checkPoint) {
+		super(nom, description,imageName, checkPoint) ;
 	}
 
 	public TextNode(String nom, String description){
@@ -22,14 +22,15 @@ public class TextNode extends InnerNode {
 		super("Node" + Node.getTotalNode()+1, description,false) ;
 	}
 	
+	
 	public void goNext() {
 		this.getOptions().get(0).setFormerNode(this);
 		this.getOptions().get(0).display();
 	}
-	
 	@Override
 	public String toString() {
-		return "TextNode:" + super.toString();
+		return "TextNode:"+super.toString();
+
 	}
 
 }

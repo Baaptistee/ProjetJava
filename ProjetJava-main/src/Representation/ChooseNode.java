@@ -7,10 +7,9 @@
  package Representation;
 
  import java.util.ArrayList;
-
+import java.util.Objects;
 public class ChooseNode extends InnerNode {
-	
-	private  ArrayList <Node> options; // An array containing the different available options for the choice
+
 
 	/**
      * Constructor for the ChooseNode class.
@@ -19,8 +18,8 @@ public class ChooseNode extends InnerNode {
      * @param options The available options for the choice.
      */
 
-	public ChooseNode(String nom, String description, ArrayList <Node> options){
-		super(nom, description, options) ; // Call to the superclass constructor
+	public ChooseNode(String nom, String description,String imageName, ArrayList <Node> options){
+		super(nom, description,imageName, options) ; // Call to the superclass constructor
 	}
 
 	public ChooseNode(String nom, String description){
@@ -47,10 +46,29 @@ public class ChooseNode extends InnerNode {
 	@Override 
 	public void display() {
 		super.display();
+        System.out.println("Displaying Choose Node");
 
 	}
     // Pour la classe CHooseNode, l'équivalent de la méthode goNext se fait au niveau de l'interface graphique 
 	public void goNext() {
 	}
+
+	@Override
+	public String toString() {
+		return "Choose Node:"+super.toString();
+	}
+
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }
+
 

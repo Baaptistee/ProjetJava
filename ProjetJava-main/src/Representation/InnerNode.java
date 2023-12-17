@@ -7,6 +7,8 @@ package Representation;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import javax.swing.ImageIcon;
+
 
 public abstract class InnerNode extends Node {
 	
@@ -17,8 +19,8 @@ public abstract class InnerNode extends Node {
      * @param description The description of the inner node.
      */
 
-    public InnerNode(String nom, String description, ArrayList<Node> options) {
-		super(nom,description);
+    public InnerNode(String nom, String description,String imageName, ArrayList<Node> options) {
+		super(nom,description, imageName);
 		this.options = options ;
 	}
 
@@ -29,14 +31,14 @@ public abstract class InnerNode extends Node {
      * @param checkpoint Indicates whether the inner node is a checkpoint.
      */
 
-    public InnerNode(String nom, String description, boolean checkPoint, ArrayList<Node>  options) {
+    public InnerNode(String nom, String description,String imageName, boolean checkPoint, ArrayList<Node>  options) {
 
-        super(nom,description,checkPoint);
+        super(nom,description,imageName,checkPoint);
         this.options = options ;
     }
     
-    public InnerNode(String nom, String description, boolean checkPoint) {
-    	super(nom, description, checkPoint) ;
+    public InnerNode(String nom, String description,String imageName, boolean checkPoint) {
+    	super(nom, description,imageName, checkPoint) ;
     }
     
     /**
@@ -99,9 +101,28 @@ public abstract class InnerNode extends Node {
 	 /**
      * Overrides the display method to display the information of the choice node.
      */
+    @Override
+    public String toString() {
+        return "InnerNode:"+super.toString();
+    }
+
     
 	public abstract void goNext() ;
-         
+
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        InnerNode innerNode = (InnerNode) obj;
+        return super.equals(obj) &&
+               Objects.equals(getOptions(), innerNode.getOptions());
+    }
 
     
 }

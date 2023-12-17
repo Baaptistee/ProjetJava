@@ -2,9 +2,9 @@ package Representation;
 
 public class TerminalNode extends Node {
 	
-	public TerminalNode(String nom, String description) {
+	public TerminalNode(String nom, String description,String imageName) {
 		
-		super(nom, description) ;
+		super(nom, description, imageName) ;
 		
 	}	
 	
@@ -15,8 +15,13 @@ public class TerminalNode extends Node {
 	
 	@Override
 	public void goNext() {
+
 		// méthode vide pour l'instant mais qui sera utilisée plus tard quand implémentation de checkpoint et de 
 		// possibilité de recommencer 
+	}
+	@Override
+	public String toString() {
+		return "TerminalNode:"+super.toString();
 	}
 	
 } 

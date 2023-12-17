@@ -14,8 +14,8 @@ public class TestNode extends InnerNode{
 	
 	
 
-	public TestNode(String nom, String description, boolean checkPoint, ArrayList<Node> options, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
-		super(nom, description, checkPoint, options) ;
+	public TestNode(String nom, String description,String imageName, boolean checkPoint, ArrayList<Node> options, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
+		super(nom, description,imageName, checkPoint, options) ;
 		this.difficulteTest = difficulteTest ;
 		this.statATester = statATester ;
 		this.nombreReussiteNecessaire = nombreReussiteNecessaire ;
@@ -98,5 +98,25 @@ public class TestNode extends InnerNode{
 			a.display();
 			
 	}
+	@Override
+	public String toString() {
+		return "TestNode"+super.toString();
+	}
+
+	 @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        TestNode testNode = (TestNode) obj;
+        return super.equals(obj) &&
+               Objects.equals(this.getStatATester(), testNode.getStatATester()) &&
+               Objects.equals(this.getDifficulteTest(),testNode.getDifficulteTest())&&
+               Objects.equals(this.getNombreReussiteNecessaire(),testNode.getNombreReussiteNecessaire());
+    }
 
 }

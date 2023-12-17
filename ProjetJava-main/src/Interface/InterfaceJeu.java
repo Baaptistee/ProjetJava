@@ -34,6 +34,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 
+
 public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the Game.getGame() interface.
@@ -440,24 +441,35 @@ public class InterfaceJeu {
      */
 
     
- public void afficherNodeBase(Node node) {
+ public void afficherNodeBase(Node node, ImageIcon imageIcon) {
 
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
-        
+        afficherImageDansInterface(new ImageIcon(node.getImageName()));
+
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JEditorPane editorPane = new JEditorPane();
+ 
         if (node instanceof ChooseNode){ 
             panelText.setBounds(60, 110, 600, 300);
+            editorPane.setPreferredSize(new Dimension(600, 300));
+
         }
         if (node instanceof TextNode || node instanceof ChanceNode ||node instanceof TestNode){ 
             panelText.setBounds(80, 110, 850, 300);
+            editorPane.setPreferredSize(new Dimension(850, 300));
         }
          if (node instanceof TerminalNode){ 
             panelText.setBounds(80, 110, 800, 300);
+            editorPane.setPreferredSize(new Dimension(800, 300));
+        }
+         if (node instanceof FightNode){ 
+            panelText.setBounds(60, 110, 600, 100);
+            editorPane.setPreferredSize(new Dimension(600, 100));
         }
          if (node instanceof FightNode){ 
             panelText.setBounds(60, 110, 600, 100);
@@ -471,29 +483,37 @@ public class InterfaceJeu {
         label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
         getFenetre().revalidate();
         getFenetre().repaint();
-        //JButton btn = new JButton("TEST POPUP");
-        //panelText.add(btn);
-        //POPUP(btn);
+        // JButton btn = new JButton("TEST POPUP");
+        // panelText.add(btn);
+        // POPUP(btn);
 
 
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html"); // Set content type to HTML
+        
+        panelText.add(editorPane);
 	
         char[] texts = node.getDescription().toCharArray(); // Convert the description text of the node to a character array
         Timer timer = new Timer(10, new ActionListener() { // Create a timer to display the description character by character
         int index = 0; // Index to retrieve each character from the description
-
+        StringBuilder textBuilder = new StringBuilder();
 
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index < texts.length) { 
-                char nextChar = node.getDescription().charAt(index); 
-                if((nextChar =='/')&&!(node.getDescription().charAt(index-1)=='<')){  
-                    label.setText(label.getText() + "<br>");
-                    index++;
+                char nextChar = texts[index];
+                    if ((nextChar == '/') && !(texts[index - 1] == '<')) {
+                        textBuilder.append("<br>");
+                        editorPane.setText(textBuilder.toString());
+                        index++;
+
                 
                 }
                 else{
-                    label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
-                    index++; //on passe au caractere suivant de la chaine de description
+                    textBuilder.append(nextChar);
+                    editorPane.setText(textBuilder.toString());
+                    index++;
                 }
             
             } else {
@@ -501,10 +521,10 @@ public class InterfaceJeu {
 
                 // Determine the type of the node and handle accordingly
                 if ( node instanceof ChooseNode){ 
-                    ChooseNodeButton(node);
+                    ChooseNodeButton(node, imageIcon);
                 }
                 if(node instanceof TextNode || node instanceof ChanceNode || node instanceof TestNode ){ 
-                    InnerNodeButton(node);
+                    InnerNodeButton(node, imageIcon);
                 }
                 if(node instanceof FightNode){
                     playFightNode(node);
@@ -529,9 +549,10 @@ public class InterfaceJeu {
     * @param node The current ChooseNode to display options for.
     */
 
-    public void ChooseNodeButton(Node node){
+    public void ChooseNodeButton(Node node, ImageIcon imageIcon){
         configPanel();
         ChooseNode chooseNode;// Cast the node to a ChooseNode
+        
         chooseNode=(ChooseNode)node;
 
         JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
@@ -540,6 +561,7 @@ public class InterfaceJeu {
         layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
 	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
         panelChoose.setBackground(Color.RED); 
+        
 
         // Create buttons for each option in the ChooseNode
         for (int i = 0; i < chooseNode.getOptions().size(); i++) {
@@ -556,7 +578,9 @@ public class InterfaceJeu {
                 public void actionPerformed(ActionEvent e) {
                     
                     chooseNode.getOptions().get(currentIndex).display(); // clique du bouton provoque affichage du prochain bode
-                
+                    ImageNode imageNode= new ImageNode(chooseNode.getOptions().get(currentIndex), imageIcon);
+                    imageNode.display();
+                    System.out.println("first");
                 }
             });
             
@@ -570,7 +594,7 @@ public class InterfaceJeu {
     * @param node The current inner node.
     */
 
-    public void InnerNodeButton(Node node){
+    public void InnerNodeButton(Node node, ImageIcon imageIcon){
         configPanel();
       
         // Create a panel for the "Next" button
@@ -589,7 +613,8 @@ public class InterfaceJeu {
 		suivant.setForeground(new Color(128, 64, 0));
         panelInner.add(suivant);
         getFenetre().revalidate() ;
-		boutonGoNext(suivant, node);
+        
+		boutonGoNext(suivant, node, imageIcon);
         
     }   
 
@@ -1298,15 +1323,33 @@ public class InterfaceJeu {
     * @param node The current node that will be followed by the next node when the button is clicked.
     */
 
-    public void boutonGoNext(JButton btn1, Node node){
+    public void boutonGoNext(JButton btn1, Node node, ImageIcon imageIcon){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
                         	node.goNext() ; // Code to execute when the button is clicked
-                    	
+                            ImageNode imageNode= new ImageNode(node, imageIcon);
+                            imageNode.display();
+                            System.out.println("Inner");
+                            
                         }
             });
     }
+
+    public void afficherImageDansInterface(ImageIcon imageIcon) {
+        if (imageIcon != null) {
+            configPanel();
+            JLabel label = new JLabel(imageIcon);
+            JPanel panel = new JPanel();
+            panel.add(label);
+            panel.setOpaque(false);
+            panel.setBounds(0, 0, 1280, 720);
+            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+        }
+    }
+    
 
 
 }
