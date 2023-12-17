@@ -13,6 +13,14 @@ public class TextNode extends InnerNode {
 	public TextNode(String nom, String description,String imageName, boolean checkPoint) {
 		super(nom, description,imageName, checkPoint) ;
 	}
+
+	public TextNode(String nom, String description){
+		super(nom, description, false);
+	}
+
+	public TextNode(String description){
+		super("Node" + Node.getTotalNode()+1, description,false) ;
+	}
 	
 	
 	public void goNext() {
@@ -22,6 +30,7 @@ public class TextNode extends InnerNode {
 	@Override
 	public String toString() {
 		return "TextNode:"+super.toString();
+
 	}
 
 }

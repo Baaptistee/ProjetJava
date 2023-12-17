@@ -1,13 +1,17 @@
 package univers.armes;
 
+import java.util.Objects;
+
 import univers.Collectibles;
 // import java.util.ArrayList;
 import univers.Eleme;
 // import univers.personnages.*;
+//import univers.personnages.PersoGroupe;
+import java.io.Serializable;
 
 /** A Weapon object represents the weapon a character carries, it has certains bonus and caracteristics associated to it
  */
-public class Weapon implements Collectibles {
+public class Weapon implements Collectibles, Serializable{
 	/** the bonus the weapon gives to dammage 
 	 */
 	private int dammage ;
@@ -252,6 +256,21 @@ public class Weapon implements Collectibles {
 		return this.prix;
 	}
 
-	
+	@Override
+    public boolean equals(Object obj) {
+		if (this == obj) {
+			return true ;
+		} else if (obj.getClass() != this.getClass()) {
+			return false ;
+		} else {
+			Weapon perso = (Weapon)obj ;
+			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getAccuracy(), perso.getAccuracy()) && Objects.equals(this.getBonusDexterity(), perso.getBonusDexterity()) && Objects.equals(this.getBonusEndurance(), perso.getBonusEndurance()) && Objects.equals(this.getBonusIntelligence(), perso.getBonusIntelligence()) && Objects.equals(this.getBonusSpeed() , perso.getBonusSpeed()) && Objects.equals(this.getBonusStrength(), perso.getBonusStrength()) && Objects.equals(this.getDammage(), perso.getDammage()) && Objects.equals(this.getElement(), perso.getElement()) && Objects.equals(this.getPrix(), perso.getPrix()) && Objects.equals(this.getWeaponType(), perso.getWeaponType())) {
+				return true ;
+			} else {
+				return false ;
+			}
+		}
+    	
+    }
 	
 }

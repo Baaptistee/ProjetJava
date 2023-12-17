@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
-import univers.armes.Weapon;
+//import univers.armes.Weapon;
 import univers.armes.WeaponType;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
@@ -32,7 +32,7 @@ public class Soigneur extends PersoGroupe{
 	 * @param resistances
 	 * @param armePossible
 	 */
-	private Soigneur  (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<Competences> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
+	private Soigneur  (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances, armePossible) ;
 	}
 	
@@ -42,19 +42,64 @@ public class Soigneur extends PersoGroupe{
 	 */
 	public static Soigneur getSoigneur() {
 		if (instance == null) {
-			ArrayList<Competences> competence = new ArrayList<Competences>() ;
+			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
+			CompetencesActives c1 = new CompetenceSoin("Attaque de base", "Une attaque de base avec l'arme", 0, 100,false) ;
+			CompetencesActives c2 = new CompetenceDammage("Attaque puissante", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			competence.add(c2) ;
+			competence.add(c1) ;
+			CompetencesActives c3 = new CompetenceDammage("Attaque de odios", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c4 = new CompetenceDammage("Attaque tata", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			competence.add(c3) ;
+			competence.add(c4) ;
+			CompetencesActives c5 = new CompetenceDammage("Attaque de lol", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c6 = new CompetenceDammage("Attaque dhdd", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			competence.add(c5) ;
+			competence.add(c6) ;
+			CompetencesActives c7 = new CompetenceDammage("Attaque de sskjdios", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c8 = new CompetenceDammage("Attaque dsjncx", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
+			competence.add(c7) ;
+			competence.add(c8) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
-			instance = new Soigneur("Nom du Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance = new Soigneur("Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
 		}
 		return instance ;
 	}
+	
+	public static void newSoigneur(){
+		instance = null ;
+	}
+
+	// qu'une seule vérification dans le equals car classe est un singleton
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			else
+				return false ;
+		}
+	@Override
+	public String toString() {
+		return "Soigneur " + super.toString();
+	}
+
 	/** a function for when the character  gains a level
 	 * 
 	 */
 	public String gainNiveau() {
 		Random random = new Random() ;
+		this.setLevel(getLevel()+1);
 		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;

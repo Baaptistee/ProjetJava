@@ -1,10 +1,12 @@
 package univers.personnages;
 import java.awt.Image;
+import java.io.Serializable;
+import java.util.Objects;
 
 /** a class used to represents characters 
  * We might delete it later because for now all our characters will be fighting ones 
  */
-public class Personnage{
+public class Personnage implements Serializable{
     /** the name of the character 
      * 
      */
@@ -95,6 +97,30 @@ public class Personnage{
      */
     public void setImage(Image img){
         this.img=img;
+    }
+    
+    @Override
+	public String toString() {
+		return " [name=" + name + ", description=" + description + ", img=" + img + ", persoId=" + persoId
+				+ "]";
+	}
+
+	@Override
+    public boolean equals(Object obj) {
+		if (this == obj) {
+			return true ;
+		} else if (obj.getClass() != this.getClass()) {
+			return false ;
+		} else {
+			Personnage perso = (Personnage)obj ;
+			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImage(), perso.getImage()) && this.getPersoId() == perso.getPersoId()) {
+				
+				return true ;
+			} else {
+				return false ;
+			}
+		}
+    	
     }
 
 }

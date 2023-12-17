@@ -1,12 +1,15 @@
 package Representation;
+import java.io.Serializable;
 import java.util.Objects;
+
+//import javax.swing.* ;
 
 import javax.swing.* ;
 import Event.Event;
 import Event.ImageNode;
 import Interface.* ;
 
-public abstract class Node extends Object implements Event {
+public abstract class Node extends Object implements Event, Serializable {
 	
 	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
 	private static Node lastCheckPoint;
@@ -67,6 +70,10 @@ public abstract class Node extends Object implements Event {
 		
 		this.description = newDescription ;
 		
+	}
+
+	public static int getTotalNode(){
+		return totalNode;
 	}
 
 	 /**
@@ -182,7 +189,7 @@ public boolean equals(Object obj) {
     }
 }
 
-	
+
 	public static void setLastCheckpoint(Node x) {
 		
 		lastCheckPoint = x ;
@@ -198,8 +205,8 @@ public boolean equals(Object obj) {
 	}
 	
 	/**
-     * Get the game interface instance.
-     * @return The game interface.
+     * Get the Game.getGame() interface instance.
+     * @return The Game.getGame() interface.
      */
 
 	public static InterfaceJeu getInterface() {
@@ -221,6 +228,28 @@ public boolean equals(Object obj) {
         	setLastCheckpoint(this) ;
         }
 	}
+	
+	@Override
+	public String toString() {
+		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
+	}
+
+	@Override
+public boolean equals(Object obj) {
+    if (this == obj) {
+        return true;
+    } else if (obj == null || getClass() != obj.getClass()) {
+        return false;
+    } else {
+        Node node = (Node) obj;
+        return Objects.equals(this.getDescription(), node.getDescription()) &&
+                Objects.equals(this.getNom(), node.getNom()) &&
+                Objects.equals(this.getID(), node.getID()) &&
+                Objects.equals(this.getFormerNode(), node.getFormerNode()) &&
+                Objects.equals(this.getCheckPoint(), node.getCheckPoint());
+    }
+}
+
    
 	/**
      * Display the Node in the user interface.
@@ -230,9 +259,13 @@ public boolean equals(Object obj) {
 		
 		this.isCheckPoint() ;
 		ImageIcon imageIcon = new ImageIcon(imageName);
-    	getInterface().afficherNodeBase(this, imageIcon);
+    Game.getGame().setCurrentNode(this);
+
+    getInterface().afficherNodeBase(this, imageIcon);
+
 		System.out.println("Fonctionnalité de base");
 		
+
 
 	}
 	

@@ -70,6 +70,7 @@ Le joueur contrôlera dans les combats l'ensemble des membres du groupe mais en 
 
 AMELIORATION DU PROJET A VENIR :
 
+
 Pour la version finale du projet, nous avons prévu de mettre plusieurs choses en place : 
 - Le FightNode (dont beaucoup des éléments nécessaires sont codés (fonction de sélection aléatoire des attaques par exemple))
 - Amélioration du système de jeu avec création de nouveaux types de compétences 
@@ -79,4 +80,5 @@ Pour la version finale du projet, nous avons prévu de mettre plusieurs choses e
 - Aller au bout de la consigne (même si c'est évident :) )
 - Incorporer des images et du son
 - Et bien d'autres choses encore .....
+
 

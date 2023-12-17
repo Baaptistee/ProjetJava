@@ -1,5 +1,6 @@
 package univers.competences;
 
+import java.util.Objects;
 import java.util.Random;
 
 import univers.Eleme;
@@ -88,7 +89,7 @@ public class CompetenceDammage extends CompetencesActives{
 	 * 
 	 * @return
 	 */
-	public boolean isGroupDammage() {
+	public boolean isGroup() {
 		return groupDammage;
 	}
 	/** a setter for groupdammage 
@@ -140,6 +141,27 @@ public class CompetenceDammage extends CompetencesActives{
 	public void setPhysical(boolean physical) {
 		this.physical = physical;
 	}
+	
+	@Override
+	public String toString() {
+		return "CompetenceDammage " + super.toString() + " [accuracy=" + accuracy + ", power=" + power + ", groupDammage=" + groupDammage
+				+ ", nbHits=" + nbHits + ", element=" + element + ", physical=" + physical + "]";
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CompetenceDammage other = (CompetenceDammage) obj;
+		return this.getAccuracy() == other.getAccuracy() && getElement() == other.getElement() && this.isGroup() == other.isGroup()
+				&& this.getNbHits() == other.getNbHits() && this.isPhysical() == other.isPhysical() && this.getPower() == other.getPower() &&
+				this.getCoutMana() == other.getCoutMana() && 
+				Objects.equals(this.getDescription(), other.getDescription()) && Objects.equals(this.getName(), other.getName());
+	}
 	/**a rewrite of the utilisation of the competence 
 	 * The competence will not work if the user doesn't have the mana for it 
 	 * @param
@@ -152,6 +174,12 @@ public class CompetenceDammage extends CompetencesActives{
 		String d ;
 		int b ;
 		// on teste si l'utilisateur a assez de mana 
+		if (cible.getGroupeVivant().size()==0){
+			d = "nope" ;
+			return d ;
+		} else if(!cible.enVie()){
+			cible = cible.getGroupeVivant().get(0) ;
+		}
 		if (utilisateur.getMana()<this.getCoutMana()) {
 			d = "Pas assez de mana, rien ne se passe" ;
 		} else {
@@ -159,39 +187,54 @@ public class CompetenceDammage extends CompetencesActives{
 			// on effectue l'action le nb de cout qu'est censée taper l'attaque 
 			for (int x=0 ; x<this.getNbHits() ; x++) {
 				// on parcoure le groupe en cas de dommages de groupe
-				if (this.isGroupDammage()) {
+				if (this.isGroup()) {
 					for(int i = 0 ; i < cible.getGroupe().size() ; i++) {
 						//on appelle la méthode esquive qui permet de savoir si le personnage a esquivé l'attaque 
-						if (cible.getGroupe().get(i).esquive(this.getAccuracy(), utilisateur)) {
-							d += getName() + " equive l'attaque et s'en tire sans dommage./" ;
+						if (cible.getGroupeVivant().get(i).esquive(this.getAccuracy(), utilisateur)) {
+							d += cible.getGroupeVivant().get(i).getName() + " equive l'attaque et s'en tire sans dommage./" ;
 						} else {
 							// en cas de dommages physiques on se base sur la force et en cas de dégats magiques sur l'intelligence 
 							if (this.isPhysical()) {
 								b = this.getPower() + utilisateur.getStrength()/2 + random.nextInt(this.getPower()/2);
 							} else {
 								b = this.getPower() + utilisateur.getIntelligence()/2 + random.nextInt(this.getPower()/2);
-
 							}
 							// en cas de faiblesse élémentaire la cible subit 2 fois plus de dégâts 
-							if (cible.getGroupe().get(i).getFaiblesses().contains(this.getElement())) {
+							if (cible.getGroupeVivant().get(i).getFaiblesses().contains(this.getElement())) {
 								b *=2 ;
-								d += "L'attaque est super efficace ! " ;
+								d += "L'attaque est super efficace ! /" ;
+							} else if (cible.getGroupeVivant().get(i).getResistances().contains(this.getElement())) {
+								b /=2 ;
+								d += "L'attaque n'est pas très efficace ... /" ;
 							}
-							cible.getGroupe().get(i).dammage(b);
-							d += cible.getGroupe().get(i).getName() + " subit " + b + " points de dégats." ;
+							cible.getGroupeVivant().get(i).dammage(b);
+							d += cible.getGroupeVivant().get(i).getName() + " subit " + b + " points de dégats./" ;
+							if (!cible.getGroupeVivant().get(i).enVie()){
+								cible.setAlive(false);
+								
+								d += cible.getName() + " est vaincu(e) !/" ;
+								System.out.println(d) ;
+							}
 						}
 					}
 				} else {
 					if (cible.esquive(this.getAccuracy(), utilisateur)) {
-						d += getName() + " equive l'attaque et s'en tire sans dommage./" ;
+						d += cible.getName() + " equive l'attaque et s'en tire sans dommage./" ;
 					} else {
 						b = this.getPower() + utilisateur.getIntelligence()/2 + random.nextInt(this.getPower()/2);
 						if (cible.getFaiblesses().contains(this.getElement())) {
 							b *=2 ;
 							d += "L'attaque est super efficace ! " ;
+						} else if (cible.getResistances().contains(this.getElement())) {
+								b /=2 ;
+								d += "L'attaque n'est pas très efficace ... /" ;
 						}
 						cible.dammage(b);
-						d += cible.getName() + " subit " + b + " points de dégats." ;
+						d += cible.getName() + " subit " + b + " points de dégats. /" ;
+						if (!cible.enVie()){
+							cible.setAlive(false);
+							d += cible.getName() + " est vaincu(e) !/" ;
+						}
 					}
 				
 				}	

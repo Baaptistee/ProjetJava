@@ -4,13 +4,15 @@ package univers.personnages;
 import univers.competences.*;
 import univers.Eleme;
 import univers.armes.*;
+
+//import java.io.Serializable;
 import java.util.* ;
 
 import Representation.Game;
 /** a class for the personnage of our group
  * 
  */
-public abstract class PersoGroupe extends PersonnageCombattant {
+public abstract class PersoGroupe extends PersonnageCombattant{
 	/** the current exp of the character 
 	 * 
 	 */
@@ -22,7 +24,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	/** the competences of the character
 	 * 
 	 */
-	private ArrayList<Competences> competences ;
+	private ArrayList<CompetencesActives> competences ;
 	
 	/** an arrayList with the type of weapons the character can carry
 	 * 
@@ -45,7 +47,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * @param resistances
 	 * @param armePossible
 	 */
-	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<Competences> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible) {
+	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible) {
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, faiblesses, resistances) ;
 		this.experience = 0 ;
 		this.armePossible = armePossible ;
@@ -87,7 +89,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * 
 	 * @return
 	 */
-	public ArrayList<Competences> getCompetences() {
+	public ArrayList<CompetencesActives> getCompetences() {
 		return this.competences;
 	}
 
@@ -95,7 +97,7 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * 
 	 * @param competences
 	 */
-	public void setCompetences(ArrayList<Competences> competences) {
+	public void setCompetences(ArrayList<CompetencesActives> competences) {
 		this.competences = competences;
 	}
 
@@ -198,7 +200,20 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * 
 	 */
 	public ArrayList<PersonnageCombattant> getGroupe() {
-		return Game.getGroupeJoueur();
+		return Game.getGame().getGroupeJoueur();
+	}
+
+	public void setGroupe(ArrayList<PersonnageCombattant> newGroup) {} ;
+
+
+	public ArrayList<PersonnageCombattant> getGroupeVivant() {
+		ArrayList<PersonnageCombattant> groupeVivant = new ArrayList<PersonnageCombattant>() ;
+		for (int i = 0 ; i < this.getGroupe().size() ; i++){
+			if (this.getGroupe().get(i).enVie()){
+				groupeVivant.add(this.getGroupe().get(i)) ;
+			}
+		}
+		return groupeVivant;
 	}
 
 
@@ -224,17 +239,27 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	 * @param xp
 	 */
 	// une fonction qui gère le gain d'XP
-	public void gainExperience(int xp) {
-		
+	public String gainExperience(int xp) {
+		String retour = "nope" ;
+		//boolean retour = false ;
 		experience += xp ; 
 		// si il y a assez d'expérience 
 		if (this.getExperience() >= this.getLevel()*10 + 90) {
 			// on réinitialise l'expérience enlevant celle qui a servi au gain de niveau 
 			this.setExperience(getExperience() - (getLevel()*10 + 90)) ;
 			//On appelle la fonction gain de niveau 
-			this.gainNiveau() ;
+			retour = this.gainNiveau() ;
 			
 		}
+		return retour ;
+	}
+
+	public boolean isLevelUp(int xp){
+		boolean retour = false ;
+		if (this.getExperience() >= this.getLevel()*10 + 90) {
+			retour = true ;
+		}
+		return retour ;
 	}
 	
 	/** a abstract method to make our character win levels
@@ -244,7 +269,28 @@ public abstract class PersoGroupe extends PersonnageCombattant {
 	public abstract String gainNiveau() ;
 	
 	
-	
+	@Override
+	public String toString() {
+		return super.toString() + " [experience=" + experience + ", weapon=" + weapon + ", competences=" + competences
+				+ ", armePossible=" + armePossible + "]";
+	}
+
+	@Override
+	    public boolean equals(Object obj) {
+			if (this == obj) {
+				return true ;
+			} else if (obj.getClass() != this.getClass()) {
+				return false ;
+			} else {
+				PersoGroupe perso = (PersoGroupe)obj ;
+				if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImage(), perso.getImage()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && Objects.equals(this.getStrength() , perso.getStrength()) && Objects.equals(this.getEndurance() , perso.getEndurance()) && Objects.equals(this.getFaiblesses() , perso.getFaiblesses()) && Objects.equals( this.getGroupe() , perso.getGroupe()) && Objects.equals(this.getIntelligence() , perso.getIntelligence()) && Objects.equals(this.getLevel() , perso.getLevel()) && Objects.equals(this.getLifePoints() , perso.getLifePoints()) && Objects.equals(this.getMana() , perso.getMana()) && Objects.equals(this.getMaxLifePoints() , perso.getMaxLifePoints()) && Objects.equals(this.getMaxMana(), perso.getMaxMana()) && Objects.equals(this.getResistances(), perso.getResistances()) && Objects.equals(this.getSpeed(), perso.getSpeed()) && this.getWeapon().equals(perso.getWeapon())) {
+					return true ;
+				} else {
+					return false ;
+				}
+			}
+	    	
+	    }
 	
 	
 }

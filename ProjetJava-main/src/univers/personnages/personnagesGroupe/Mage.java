@@ -1,16 +1,17 @@
 package univers.personnages.personnagesGroupe;
 
 
+//import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
-import univers.armes.Weapon;
+//import univers.armes.Weapon;
 import univers.armes.WeaponType;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
 
-public class Mage extends PersoGroupe{
+public class Mage extends PersoGroupe {
 	/** the class is a singleton so we have the instance of the class 
 	 * 
 	 */
@@ -31,7 +32,7 @@ public class Mage extends PersoGroupe{
 	 * @param resistances
 	 * @param armePossible
 	 */
-	private Mage (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<Competences> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
+	private Mage (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances, armePossible) ;
 	}
 	
@@ -41,19 +42,42 @@ public class Mage extends PersoGroupe{
 	 */
 	public static Mage getMage() {
 		if (instance == null) {
-			ArrayList<Competences> competence = new ArrayList<Competences>() ;
+			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
+			CompetencesActives c1 = new CompetenceDammage("Attaque de base", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c2 = new CompetenceDammage("Attaque puissante", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			competence.add(c2) ;
+			competence.add(c1) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
-			instance = new Mage("Nom du Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance = new Mage("Mage", "Description du Mage", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
 		}
 		return instance ;
 	}
+	public static void newMage(){
+		instance = null ;
+	}
+	@Override
+	public String toString() {
+		return "Mage " + super.toString();
+	}
+
 	/** a function for when the character  gains a level
 	 * 
 	 */
+	
+	// qu'une seule vérification dans le equals car classe est un singleton
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			else
+				return false ;
+		}
+		
 	public String gainNiveau() {
 		Random random = new Random() ;
+		this.setLevel(this.getLevel()+1);
 		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;

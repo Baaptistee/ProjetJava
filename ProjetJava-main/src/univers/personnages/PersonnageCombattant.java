@@ -1,16 +1,18 @@
 package univers.personnages;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 import univers.Eleme;
 import univers.Statistiques;
-import univers.competences.Competences;
-import univers.personnages.personnagesGroupe.*;
+//import univers.competences.Competences;
+import univers.competences.CompetencesActives;
+//import univers.personnages.personnagesGroupe.*;
 /** an abstract class to represent all of our fighting characters (allies or ennemies)
  * 
  */
-public abstract class PersonnageCombattant extends Personnage{
+public abstract class PersonnageCombattant extends Personnage {
 	/** the level of the character
 	 * used for progression in the specific class "PersoGroupe" and mainly for tension when it comes to ennemies
 	 */
@@ -64,7 +66,7 @@ public abstract class PersonnageCombattant extends Personnage{
 	 */
 	private ArrayList<Eleme> resistances ;
 
-	private static ArrayList<PersonnageCombattant> groupeJoueur ;
+	//private static ArrayList<PersonnageCombattant> groupeJoueur ;
 
 	
 	/** the constructor for the class 
@@ -279,10 +281,10 @@ public abstract class PersonnageCombattant extends Personnage{
 	public void setFaiblesse(ArrayList<Eleme> faiblesse) {
 		this.faiblesses = faiblesse;
 	}
-
+	/* 
 	public static void setGroupeJoueur(ArrayList<PersonnageCombattant> groupeJoueur) {
 		PersonnageCombattant.groupeJoueur = groupeJoueur;
-	}
+	}*/
 	
 	/** 
 	 * a method to test a character's statistic
@@ -340,7 +342,7 @@ public abstract class PersonnageCombattant extends Personnage{
 		if (this.getLifePoints() <= 0) {
 			this.setAlive(false);
 		}
-		return this.isAlive() ;
+		return this.alive ;
 	}
 	/** a method to prevent the character to overheal
 	 * 
@@ -361,7 +363,7 @@ public abstract class PersonnageCombattant extends Personnage{
 		boolean t = false ;
 		Random random = new Random() ;
 		int a = competenceAccuracy + lanceur.getDexterity()/3 - this.getSpeed()/3 ;
-		if (random.nextInt(100) < a) {
+		if (random.nextInt(100) > a) {
 			t = true ;
 		}
 		return t ;
@@ -388,12 +390,40 @@ public abstract class PersonnageCombattant extends Personnage{
 	// une méthode pour soigner les personnages
 	public void heal(int heal) {
 		this.setLifePoints(this.getLifePoints() + heal) ;
-		this.noOverHeal(); 	
+		this.noOverHeal();  
 	}
 	/** a function used to get the group of the characters
 	 * 
 	 * @return
 	 */
-	public abstract ArrayList<PersonnageCombattant> getGroupe() ; 
+	public abstract ArrayList<PersonnageCombattant> getGroupe() ;
+	public abstract void setGroupe(ArrayList<PersonnageCombattant> newGroup) ;
+	public abstract ArrayList<PersonnageCombattant> getGroupeVivant() ;
+	
+	 @Override
+	public String toString() {
+		return super.toString() + " [level=" + level + ", strength=" + strength + ", intelligence=" + intelligence
+				+ ", dexterity=" + dexterity + ", speed=" + speed + ", lifePoints=" + lifePoints + ", maxLifePoints="
+				+ maxLifePoints + ", alive=" + alive + ", endurance=" + endurance + ", mana=" + mana + ", maxMana="
+				+ maxMana + ", faiblesses=" + faiblesses + ", resistances=" + resistances + "]";
+	}
+	@Override
+	    public boolean equals(Object obj) {
+			if (this == obj) {
+				return true ;
+			} else if (obj.getClass() != this.getClass()) {
+				return false ;
+			} else {
+				PersonnageCombattant perso = (PersonnageCombattant)obj ;
+				if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImage(), perso.getImage()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && Objects.equals(this.getStrength() , perso.getStrength()) && Objects.equals(this.getEndurance() , perso.getEndurance()) && Objects.equals(this.getFaiblesses() , perso.getFaiblesses()) && Objects.equals( this.getGroupe() , perso.getGroupe()) && Objects.equals(this.getIntelligence() , perso.getIntelligence()) && Objects.equals(this.getLevel() , perso.getLevel()) && Objects.equals(this.getLifePoints() , perso.getLifePoints()) && Objects.equals(this.getMana() , perso.getMana()) && Objects.equals(this.getMaxLifePoints() , perso.getMaxLifePoints()) && Objects.equals(this.getMaxMana(), perso.getMaxMana()) && Objects.equals(this.getResistances(), perso.getResistances()) && Objects.equals(this.getSpeed(), perso.getSpeed())) {
+					return true ;
+				} else {
+					return false ;
+				}
+			}
+	    	
+	    }
+
+		public abstract ArrayList<CompetencesActives> getCompetences() ;
 
 }

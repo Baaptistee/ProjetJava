@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import univers.Statistiques;
-import univers.personnages.*;
+//import univers.personnages.*;
 
 
 public class TestNode extends InnerNode{
@@ -16,6 +16,13 @@ public class TestNode extends InnerNode{
 
 	public TestNode(String nom, String description,String imageName, boolean checkPoint, ArrayList<Node> options, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
 		super(nom, description,imageName, checkPoint, options) ;
+		this.difficulteTest = difficulteTest ;
+		this.statATester = statATester ;
+		this.nombreReussiteNecessaire = nombreReussiteNecessaire ;
+	}
+
+		public TestNode(String description, boolean checkPoint, Statistiques statATester, int difficulteTest, int nombreReussiteNecessaire) {
+		super("Node" + Node.getTotalNode()+1, description, checkPoint) ;
 		this.difficulteTest = difficulteTest ;
 		this.statATester = statATester ;
 		this.nombreReussiteNecessaire = nombreReussiteNecessaire ;
@@ -47,8 +54,8 @@ public class TestNode extends InnerNode{
 	
 	public Node select() {
 		int totalReussite = 0 ;
-		for (int i = 0 ; i < Game.getGroupeJoueur().size() ; i++ ) {
-			if (Game.getGroupeJoueur().get(i).testStat(this.getDifficulteTest(), this.getStatATester())) {
+		for (int i = 0 ; i < Game.getGame().getGroupeJoueur().size() ; i++ ) {
+			if (Game.getGame().getGroupeJoueur().get(i).testStat(this.getDifficulteTest(), this.getStatATester())) {
 				totalReussite++ ;
 			}
 		}
@@ -61,6 +68,28 @@ public class TestNode extends InnerNode{
 			return this.getOptions().get(1) ;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "TestNode"+super.toString();
+	}
+
+	 @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        TestNode testNode = (TestNode) obj;
+        return super.equals(obj) &&
+               Objects.equals(this.getStatATester(), testNode.getStatATester()) &&
+               Objects.equals(this.getDifficulteTest(),testNode.getDifficulteTest())&&
+               Objects.equals(this.getNombreReussiteNecessaire(),testNode.getNombreReussiteNecessaire());
+    }
+
 	
 	@Override
 	public void goNext() {

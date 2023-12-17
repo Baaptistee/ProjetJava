@@ -1,5 +1,6 @@
 package univers.competences ;
 
+import java.util.Objects;
 import java.util.Random;
 
 import univers.personnages.PersonnageCombattant;
@@ -8,6 +9,7 @@ import univers.personnages.PersonnageCombattant;
  * 
  */
 public class CompetenceSoin extends CompetencesActives {
+	
 	/**The heal power of the capacity
 	 * 
 	 */
@@ -47,7 +49,7 @@ public class CompetenceSoin extends CompetencesActives {
 	 * 
 	 * @return
 	 */
-	public boolean isGroupHeal() {
+	public boolean isGroup() {
 		return groupHeal;
 	}
 	/** a getter for groupHeal
@@ -58,6 +60,24 @@ public class CompetenceSoin extends CompetencesActives {
 		this.groupHeal = groupHeal;
 	}
 	
+	@Override
+	public String toString() {
+		return "CompetenceSoin " + super.toString() + "[powerHeal=" + powerHeal + ", groupHeal=" + groupHeal + "]";
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CompetenceSoin other = (CompetenceSoin) obj;
+		return this.isGroup() == other.isGroup() && this.getPowerHeal() == other.getPowerHeal() && this.getCoutMana() == other.getCoutMana() && 
+				Objects.equals(this.getDescription(), other.getDescription()) && Objects.equals(this.getName(), other.getName());
+	}
 	
 	@Override
 	/** the fonction utilisation is the one used to call the competence 
@@ -72,7 +92,7 @@ public class CompetenceSoin extends CompetencesActives {
 		} else {
 			d = utilisateur.getName() + " utilise " + this.getName() + ".";
 			int a = this.getPowerHeal() + random.nextInt(getPowerHeal()/2) + utilisateur.getIntelligence() - 10 ;
-			if (this.isGroupHeal()) {
+			if (this.isGroup()) {
 				for (int i = 0 ; i<utilisateur.getGroupe().size() ; i++) {
 					cible.getGroupe().get(i).heal(a) ;
 					d += "/Tous les membres du groupe récupère " + a + " points de vie." ;
