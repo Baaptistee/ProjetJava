@@ -22,8 +22,11 @@ public class ChooseNode extends InnerNode {
 		super(nom, description,imageName, options) ; // Call to the superclass constructor
 	}
 
-	public ChooseNode(String nom, String description){
-		super(nom, description, false) ;
+	public ChooseNode(String description, String imageNode){
+		super("Node" + Node.getTotalNode()+1, description,imageNode, false) ;
+	}
+    public ChooseNode(String nom,String description, String imageNode){
+		super(nom, description,imageNode, false) ;
 	}
 	
 	// @Override

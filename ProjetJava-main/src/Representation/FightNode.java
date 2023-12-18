@@ -30,11 +30,11 @@ public class FightNode extends InnerNode {
      * @param description The description of the fight node.
      */
 
-	public FightNode(String nom, String description) {
-				super(nom, description) ;
+	public FightNode(String nom, String description,String imageName) {
+				super(nom, description, imageName) ;
 	}
-	public FightNode(String description){
-		super("Node" + Node.getTotalNode()+1, description, false) ;
+	public FightNode(String description, String imageName){
+		super("Node" + Node.getTotalNode()+1, description,imageName, false) ;
 	}
 	
 	public ArrayList<PersonnageCombattant> getOpponents() {

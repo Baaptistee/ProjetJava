@@ -934,6 +934,8 @@ public class InterfaceJeu {
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
+
+        
         if (nombreAction-actionAffichee> 0) {
 
 	        getFenetre().getContentPane().setLayout(null);
@@ -1329,7 +1331,8 @@ public class InterfaceJeu {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
                         	node.goNext() ; // Code to execute when the button is clicked
-                            ImageNode imageNode= new ImageNode(node, imageIcon);
+                            TextNode j= (TextNode) node;
+                            ImageNode imageNode= new ImageNode(j.getOptions().get(0), imageIcon);
                             imageNode.display();
                             System.out.println("Inner");
                             

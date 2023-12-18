@@ -46,6 +46,10 @@ public abstract class InnerNode extends Node {
         this.options = options ;
     }
     
+     public InnerNode(String nom, String description,String imageName) {
+    	super(nom, description,imageName) ;
+    }
+
     public InnerNode(String nom, String description,String imageName, boolean checkPoint) {
     	super(nom, description,imageName, checkPoint) ;
     }
@@ -55,6 +59,7 @@ public abstract class InnerNode extends Node {
 		this.options = options ;
 	}
 
+  
 	/**
      * Constructor for an InnerNode with an optional checkpoint.
      * @param name The name of the inner node.

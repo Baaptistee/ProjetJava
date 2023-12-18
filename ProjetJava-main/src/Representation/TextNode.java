@@ -10,16 +10,16 @@ public class TextNode extends InnerNode {
 		super(nom, description,imageName, checkPoint, option);
 	}
 
-	public TextNode(String nom, String description,String imageName, boolean checkPoint) {
-		super(nom, description,imageName, checkPoint) ;
+	public TextNode(String description,String imageName, boolean checkPoint) {
+		super(description,imageName, checkPoint) ;
 	}
 
-	public TextNode(String nom, String description){
-		super(nom, description, false);
+	public TextNode(String nom, String description, String imageName){
+		super(nom, description,imageName, false);
 	}
 
-	public TextNode(String description){
-		super("Node" + Node.getTotalNode()+1, description,false) ;
+	public TextNode(String description, String imageName){
+		super("Node" + Node.getTotalNode()+1, description,imageName, false);
 	}
 	
 	public TextNode(String nom, String description, boolean checkPoint, ArrayList<Node> option) {
@@ -28,7 +28,7 @@ public class TextNode extends InnerNode {
 	
 	public void goNext() {
 		this.getOptions().get(0).setFormerNode(this);
-		this.getOptions().get(0).display();
+		//this.getOptions().get(0).display();
 	}
 	
 	@Override
