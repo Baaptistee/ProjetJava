@@ -10,7 +10,8 @@ public class TextNode extends InnerNode {
 		super(nom, description,imageName, checkPoint, option);
 	}
 
-	public TextNode(String description,String imageName, boolean checkPoint) {
+	
+	public TextNode(String description, String imageName, boolean checkPoint) {
 		super(description,imageName, checkPoint) ;
 	}
 
@@ -30,7 +31,7 @@ public class TextNode extends InnerNode {
 		this.getOptions().get(0).setFormerNode(this);
 		//this.getOptions().get(0).display();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "TextNode:"+super.toString();

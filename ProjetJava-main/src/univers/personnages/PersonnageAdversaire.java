@@ -56,6 +56,13 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		this.competences = competences ;
 		this.probaCompetences = probaCompetences ;
 	}
+
+	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences, String image) {
+		
+		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
+		this.competences = competences ;
+		this.probaCompetences = probaCompetences ;
+	}
 	/**
 	 * un getter pour les compétences 
 	 * @return
@@ -161,30 +168,27 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 */
 	// une fonction pour la sélection aléatoire de la cible 
 	public PersonnageCombattant selectionCible(CompetencesActives competence) {
-		PersonnageCombattant d = Game.getGame().getGroupeJoueur().get(0) ;
+		PersonnageCombattant d = Game.getGame().getGroupeJoueurVivant().get(0) ;
 		Random random = new Random() ;
 		if (competence.isGroup()) {
 			return null ;
 		} else {
-
-		
-
 		// on ne se soucie pas des compétences ciblant des groupes ici, peu importe leur cible, elles affecteront le groupe ciblé 
 		// si on lance une compétence de soin on le fait uniquement sur les allies 
 		if (competence instanceof univers.competences.CompetenceSoin) {
 			// on va vérifier que la cible est bien blessée 
 			boolean z = true ;
 			while (z){
-				int i = random.nextInt(this.getGroupe().size()) ;
-				if (this.getGroupe().get(i).getLifePoints()<this.getGroupe().get(i).getMaxLifePoints()){
+				int i = random.nextInt(this.getGroupeVivant().size()) ;
+				if (this.getGroupeVivant().get(i).getLifePoints()<this.getGroupeVivant().get(i).getMaxLifePoints()){
 						z = false ;
 						d = this.getGroupe().get(i) ;
 				}
 			}
 		} else {
 			
-			int u = random.nextInt(Game.getGame().getGroupeJoueur().size()) ;
-			d = Game.getGame().getGroupeJoueur().get(u) ;
+			int u = random.nextInt(Game.getGame().getGroupeJoueurVivant().size()) ;
+			d = Game.getGame().getGroupeJoueurVivant().get(u) ;
 		}
 		return d ;
 	}

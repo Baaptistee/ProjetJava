@@ -29,7 +29,7 @@ abstract class AbstractDecorator implements Event {
         // Implémentation de base de l'affichage
        
         decorator.display();
-        System.out.println("Displaying Abstract Node");
+        //System.out.println("Displaying Abstract Node");
     }
     public Event getDecorator(){
         return decorator;

@@ -66,6 +66,8 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	private ArrayList<Eleme> resistances ;
 
+	private String image ;
+
 	//private static ArrayList<PersonnageCombattant> groupeJoueur ;
 
 	
