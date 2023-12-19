@@ -85,21 +85,49 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param faiblesse
 	 * @param resistances
 	 */
-	public PersonnageCombattant(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<Eleme> faiblesse, ArrayList<Eleme> resistances) {
+	public PersonnageCombattant(String nom, String description, Integer dexterite, Integer force, Integer intelligence, Integer endurance, Integer speed, Integer maxMana, Integer maxLifePoints, ArrayList<Eleme> faiblesse, ArrayList<Eleme> resistances) {
 		super(nom, description) ;
+		if (dexterite == null || dexterite<=0){
+			throw new IllegalArgumentException("La dexterité ne peut pas être null ou négatif!");
+
+		}
 		this.dexterity = dexterite ;
+		if (force==null || force <= 0){
+                throw new IllegalArgumentException("La force  ne peut pas être null ou négatif !");
+            }
 		this.intelligence = intelligence ; 
+		if (intelligence==null || intelligence <= 0){
+			throw new IllegalArgumentException("La intelligence  ne peut pas être null ou négatif !");
+		}
 		this.strength = force ;
+		
 		this.level = 1 ;
+		if (maxLifePoints==null || maxLifePoints <= 0){
+			throw new IllegalArgumentException("Les Lifepoints max  ne peut pas être null ou négatif!");
+		}
 		this.maxLifePoints = maxLifePoints ;
+
 		this.lifePoints = maxLifePoints ;
+		if (endurance==null||endurance <= 0){
+			throw new IllegalArgumentException("La endurance  ne peut pas être null ou négative!");
+		}
 		this.endurance = endurance ; 
 		this.alive = true ;
+		if (speed==null || speed <= 0){
+			throw new IllegalArgumentException("La speed  ne peut pas être null ou négative !");
+		}
 		this.speed = speed ;
+		if (maxMana==null || maxMana<=0){
+			throw new IllegalArgumentException("La max Mana  ne peut pas être null ou négatif !");
+		}
 		this.maxMana = maxMana ;
 		this.mana = maxMana ;
-		this.faiblesses=faiblesse ;
-		this.resistances = resistances ;
+		if (faiblesses==null){
+			this.faiblesses = new ArrayList<Eleme>();
+		} this.faiblesses=faiblesse ;
+		if (resistances==null){
+			this.resistances = new ArrayList<Eleme>();
+		} else this.resistances = resistances ;
 	}
 	/** a getter for the speed
 	 * 
@@ -127,7 +155,14 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param level
 	 */
 	public void setLevel(int level) {
-		this.level = level;
+		try {
+			if(level<=0){
+				throw new IllegalArgumentException("Level ne peut être négatif ou 0");
+			}
+			this.level = level;
+		}catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}
 	}
 	/** a getter for strength
 	 * 
@@ -141,7 +176,14 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param strengh
 	 */
 	public void setStrength(int strengh) {
-		this.strength = strengh;
+		try {
+			if(strengh<=0){
+				throw new IllegalArgumentException("Strengh ne peut être négatif ou 0");
+			}
+			this.strength = strengh;
+		}catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}
 	}
 	/** a getter for intelligence
 	 * 
@@ -155,9 +197,16 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param intelligence
 	 */
 	public void setIntelligence(int intelligence) {
-		this.intelligence = intelligence;
+		try {
+			if(intelligence<=0){
+				throw new IllegalArgumentException("Intelligence ne peut être négatif ou 0");
+			}
+			this.intelligence = intelligence;
+		}catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}	
 	}
-	/** a gette for dexterity
+	/** a getter for dexterity
 	 * 
 	 * @return
 	 */
@@ -168,8 +217,14 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * 
 	 */
 	public void setDexterity(int dexterity) {
-		this.dexterity = dexterity;
-	}
+		try {
+			if(dexterity<=0){
+				throw new IllegalArgumentException("Dexterity ne peut être négatif ou 0");
+			}
+			this.dexterity = dexterity;
+		}catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}		}
 	/** a getter for endurance
 	 * 
 	 * @return
@@ -182,8 +237,14 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param endurance
 	 */
 	public void setEndurance(int endurance) {
-		this.endurance = endurance;
-	}
+		try {
+			if(endurance<=0){
+				throw new IllegalArgumentException("Endurance ne peut être négatif ou 0");
+			}
+			this.endurance = endurance;
+		}catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}		}
 	/** a getter for Lifepoints
 	 * 
 	 * @return
@@ -197,6 +258,8 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	public void setLifePoints(int lifePoints) {
 		this.lifePoints = lifePoints;
+		this.enVie();
+		this.noOverHeal();
 	}
 	/** a getter for max lifePOints
 	 * 
@@ -210,8 +273,14 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param maxLifePoints
 	 */
 	public void setMaxLifePoints(int maxLifePoints) {
-		this.maxLifePoints = maxLifePoints;
-	}
+		try {
+			if(maxLifePoints<=0){
+				throw new IllegalArgumentException("MaxLifepoints ne peut être négatif ou 0");
+			}
+			this.maxLifePoints = maxLifePoints;
+		}catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}		}
 	/** a getter for the current mana
 	 * 
 	 * @return
@@ -224,7 +293,16 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param mana
 	 */
 	public void setMana(int mana) {
-		this.mana = mana;
+		try {
+			if (mana < 0){
+				throw new IllegalArgumentException("mana ne peut être négatif ! ");
+			}
+			if (mana > maxMana){
+				this.mana = maxMana ;
+			} else this.mana = mana;
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}
 	}
 	/** a getter for the maximum mana
 	 * 
@@ -238,8 +316,14 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param maxMana
 	 */
 	public void setMaxMana(int maxMana) {
-		this.maxMana = maxMana;
-	}
+		try {
+			if(maxMana<=0){
+				throw new IllegalArgumentException("MaxMana ne peut être négatif ou 0");
+			}
+			this.maxMana = maxMana;
+		}catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}		}
 	/** a getter for alive
 	 * 
 	 * @return
@@ -267,7 +351,9 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param resistances
 	 */
 	public void setResistances(ArrayList<Eleme> resistances) {
-		this.resistances = resistances;
+		if (resistances==null){
+			resistances = new ArrayList<Eleme>() ;
+		} else this.resistances = resistances;
 	}
 	/** a getter for weaknesses
 	 * 
@@ -280,9 +366,10 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * 
 	 * @param faiblesse
 	 */
-	public void setFaiblesse(ArrayList<Eleme> faiblesse) {
-		this.faiblesses = faiblesse;
-	}
+	public void setFaiblesse(ArrayList<Eleme> faiblesses) {
+		if (faiblesses==null){
+			this.faiblesses = new ArrayList<Eleme>() ;
+		} else this.faiblesses = faiblesses;	}
 	/* 
 	public static void setGroupeJoueur(ArrayList<PersonnageCombattant> groupeJoueur) {
 		PersonnageCombattant.groupeJoueur = groupeJoueur;
@@ -296,39 +383,50 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	
 	public boolean testStat(int valeurTest, Statistiques stat){
-		Random random = new Random() ;
-		switch(stat) {
-		case STRENGTH:
-			if (valeurTest <= this.getStrength() + random.nextInt(19) + 1) {
+		try{
+			if (valeurTest>0) {
+				throw new IllegalArgumentException("La valeur test doit être supérieure à zéro !");
+			}
+			if (stat == null){
+				throw new IllegalArgumentException("Le nom ne peut pas être null !");
+			}
+			Random random = new Random() ;
+			switch(stat) {
+			case STRENGTH:
+				if (valeurTest <= this.getStrength() + random.nextInt(19) + 1) {
+					return true ;
+				} else {
+					return false ;
+				}
+			case DEXTERITY:
+				if (valeurTest <= this.getDexterity() + random.nextInt(19) + 1) {
+					return true ;
+				} else {
+					return false ;
+				}
+			case INTELLIGENCE:
+				if (valeurTest <= this.getIntelligence() + random.nextInt(19) + 1) {
 				return true ;
-			} else {
+				} else {
+					return false ;
+				}
+			case SPEED:
+				if (valeurTest <= this.getSpeed() + random.nextInt(19) + 1) {
+					return true ;
+				} else {
+					return false ;
+				}
+			case ENDURANCE:
+				if (valeurTest <= this.getEndurance() + random.nextInt(19) + 1) {
+					return true ;
+				} else {
+					return false ;
+				}
+			default:
 				return false ;
 			}
-		case DEXTERITY:
-			if (valeurTest <= this.getDexterity() + random.nextInt(19) + 1) {
-				return true ;
-			} else {
-				return false ;
-			}
-		case INTELLIGENCE:
-			if (valeurTest <= this.getIntelligence() + random.nextInt(19) + 1) {
-				return true ;
-			} else {
-				return false ;
-			}
-		case SPEED:
-			if (valeurTest <= this.getSpeed() + random.nextInt(19) + 1) {
-				return true ;
-			} else {
-				return false ;
-			}
-		case ENDURANCE:
-			if (valeurTest <= this.getEndurance() + random.nextInt(19) + 1) {
-				return true ;
-			} else {
-				return false ;
-			}
-		default:
+		} catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
 			return false ;
 		}
 	}
@@ -343,6 +441,7 @@ public abstract class PersonnageCombattant extends Personnage {
 	public boolean enVie() {
 		if (this.getLifePoints() <= 0) {
 			this.setAlive(false);
+			setLifePoints(0);
 		}
 		return this.alive ;
 	}
@@ -362,13 +461,24 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @return
 	 */
 	public boolean esquive (int competenceAccuracy, PersonnageCombattant lanceur) {
-		boolean t = false ;
-		Random random = new Random() ;
-		int a = competenceAccuracy + lanceur.getDexterity()/3 - this.getSpeed()/3 ;
-		if (random.nextInt(100) > a) {
-			t = true ;
+		try {
+			if (lanceur==null){
+				throw new IllegalArgumentException("Lanceur ne peut être null") ;
+			}
+			if (competenceAccuracy<=0){
+				throw new IllegalArgumentException("competence Accuracy doit être suéprieur à zéro");
+			}
+			boolean t = false ;
+			Random random = new Random() ;
+			int a = competenceAccuracy + lanceur.getDexterity()/3 - this.getSpeed()/3 ;
+			if (random.nextInt(100) > a) {
+				t = true ;
+			}
+			return t ;
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage());
+			return false ;
 		}
-		return t ;
 	}
 	/** a method to deal dammage to characters
 	 * 
@@ -376,14 +486,20 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	// une méthode pour faire subir des dégâts à nos personnages 
 	public void dammage(int dammage) {
-		// les dégats sont réduits par l'endurance 
-		int a = dammage - (endurance/2) ;
-		// on veut que nos personnages subissent au moins 1 dégât 
-		if (a <= 0) {
-			a = 1 ;
+		try {// les dégats sont réduits par l'endurance 
+			if (dammage<=0){
+				throw new IllegalArgumentException("dammage doit être supérieur à zéro") ;
+			}
+			int a = dammage - (endurance/2) ;
+			// on veut que nos personnages subissent au moins 1 dégât 
+			if (a <= 0) {
+				a = 1 ;
+			}
+			this.setLifePoints(this.getLifePoints() - a) ;
+			this.setAlive(this.enVie()) ;
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
 		}
-		this.setLifePoints(this.getLifePoints() - a) ;
-		this.setAlive(this.enVie()) ;
 	}
 	/** a method to heal characters 
 	 * 
@@ -391,8 +507,14 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	// une méthode pour soigner les personnages
 	public void heal(int heal) {
+		try{
+			if (heal<=0){
+				throw new IllegalArgumentException("heal doit être supérieur à, zéro");
+			}
 		this.setLifePoints(this.getLifePoints() + heal) ;
-		this.noOverHeal();  
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}
 	}
 	/** a function used to get the group of the characters
 	 * 
@@ -417,7 +539,7 @@ public abstract class PersonnageCombattant extends Personnage {
 				return false ;
 			} else {
 				PersonnageCombattant perso = (PersonnageCombattant)obj ;
-				if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImage(), perso.getImage()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && Objects.equals(this.getStrength() , perso.getStrength()) && Objects.equals(this.getEndurance() , perso.getEndurance()) && Objects.equals(this.getFaiblesses() , perso.getFaiblesses()) && Objects.equals( this.getGroupe() , perso.getGroupe()) && Objects.equals(this.getIntelligence() , perso.getIntelligence()) && Objects.equals(this.getLevel() , perso.getLevel()) && Objects.equals(this.getLifePoints() , perso.getLifePoints()) && Objects.equals(this.getMana() , perso.getMana()) && Objects.equals(this.getMaxLifePoints() , perso.getMaxLifePoints()) && Objects.equals(this.getMaxMana(), perso.getMaxMana()) && Objects.equals(this.getResistances(), perso.getResistances()) && Objects.equals(this.getSpeed(), perso.getSpeed())) {
+				if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImageLien(), perso.getImageLien()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && Objects.equals(this.getStrength() , perso.getStrength()) && Objects.equals(this.getEndurance() , perso.getEndurance()) && Objects.equals(this.getFaiblesses() , perso.getFaiblesses()) && Objects.equals( this.getGroupe() , perso.getGroupe()) && Objects.equals(this.getIntelligence() , perso.getIntelligence()) && Objects.equals(this.getLevel() , perso.getLevel()) && Objects.equals(this.getLifePoints() , perso.getLifePoints()) && Objects.equals(this.getMana() , perso.getMana()) && Objects.equals(this.getMaxLifePoints() , perso.getMaxLifePoints()) && Objects.equals(this.getMaxMana(), perso.getMaxMana()) && Objects.equals(this.getResistances(), perso.getResistances()) && Objects.equals(this.getSpeed(), perso.getSpeed())) {
 					return true ;
 				} else {
 					return false ;

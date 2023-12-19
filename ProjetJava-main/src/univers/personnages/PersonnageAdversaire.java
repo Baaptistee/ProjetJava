@@ -1,6 +1,8 @@
 package univers.personnages;
 
 import univers.Eleme;
+import univers.competences.CompetenceDammage;
+import univers.competences.CompetenceSoin;
 //import java.util.ArrayList;
 //import univers.armes.*;
 //import univers.competences.Competences;
@@ -51,7 +53,6 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 * @param probaCompetences
 	 */
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences) {
-		
 		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
 		this.competences = competences ;
 		this.probaCompetences = probaCompetences ;
@@ -115,54 +116,79 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		this.groupe = groupe;
 	}
 
+	public void competenceBienInstanciees(){
+		if (this.competences.size()==0){
+			throw new IllegalStateException("Le personnage n'a pas de compétences") ;
+		}
+		if (this.probaCompetences.length!=this.competences.size()){
+			throw new IllegalStateException("Il y a un problème avec les probabilités des attaques du personnage") ;
+		}
+		boolean b = false ;
+		for (int i = 0; i<competences.size();i++){
+			if((competences.get(i) instanceof CompetenceDammage)&&competences.get(i).getCoutMana()==0){
+				b = true ;
+			}
+		}
+		if (b){
+			throw new IllegalStateException("Le personnage n'a pas de compétence qu'il peut utiliser dans tous les cas !") ;
+		}
+
+	}
+
 	/**
 	 * une fonction pour sélectionner de manière "aléatoire" une compétence
 	 * @return
 	 */
 	public CompetencesActives selectionAttaque() {
-		Random random = new Random() ;
-		int total = 0 ;
-		CompetencesActives o = this.getCompetences().get(0) ;
-		boolean manaCost = false ;
-		boolean noUselessHeal = false ;
-		while ((manaCost==false)||(noUselessHeal==false)){
-			manaCost = false ;
-			noUselessHeal = false ;
-			for (int i = 0 ; i < this.getProbaCompetences().length ; i++){
-				total += this.getProbaCompetences()[i] ;
-			}
-
-			int a = random.nextInt(total-1) + 1 ;
-		
-			total = 0 ;
-			int i = 0 ;
-			boolean pokemon = true ;
-
-			while ((pokemon == true)&&(i < this.getProbaCompetences().length)){
-				total += this.getProbaCompetences()[i] ;
-				if (total >= a) {
-					pokemon = false ;
-					o = this.getCompetences().get(i) ;
+		try {
+			competenceBienInstanciees();
+			Random random = new Random() ;
+			int total = 0 ;
+			CompetencesActives o = this.getCompetences().get(0) ;
+			boolean manaCost = false ;
+			boolean noUselessHeal = false ;
+			while ((manaCost==false)||(noUselessHeal==false)){
+				manaCost = false ;
+				noUselessHeal = false ;
+				for (int i = 0 ; i < this.getProbaCompetences().length ; i++){
+					total += this.getProbaCompetences()[i] ;
 				}
-				i++ ;
-			}
-		// on vérifie que le personnage a assez de mana pour lancer la compétence 
-			if (this.getMana()>=o.getCoutMana()) {
-				manaCost = true ;
-			}
+
+				int a = random.nextInt(total-1) + 1 ;
 		
-			// on vérifie que si c'est une compétence de soin, il y a bien des personnages alliés à soigner 
-			if (o instanceof univers.competences.CompetenceSoin) {
-				for (int k = 0 ; k < this.getGroupe().size() ; k++){
-					if (this.getGroupe().get(k).getLifePoints()<this.getGroupe().get(k).getMaxLifePoints()){
-						noUselessHeal = true ;
+				total = 0 ;
+				int i = 0 ;
+				boolean pokemon = true ;
+
+				while ((pokemon == true)&&(i < this.getProbaCompetences().length)){
+					total += this.getProbaCompetences()[i] ;
+					if (total >= a) {
+						pokemon = false ;
+						o = this.getCompetences().get(i) ;
 					}
+					i++ ;
 				}
-			} else {
-				noUselessHeal = true ;
+			// on vérifie que le personnage a assez de mana pour lancer la compétence 
+				if (this.getMana()>=o.getCoutMana()) {
+					manaCost = true ;
+				}
+				
+				// on vérifie que si c'est une compétence de soin, il y a bien des personnages alliés à soigner 
+				if (o instanceof univers.competences.CompetenceSoin) {
+					for (int k = 0 ; k < this.getGroupe().size() ; k++){
+						if (this.getGroupe().get(k).getLifePoints()<this.getGroupe().get(k).getMaxLifePoints()){
+						noUselessHeal = true ;
+						}
+					}
+				} else {
+					noUselessHeal = true ;
+				}
 			}
+			return o ;
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+			return null ;
 		}
-		return o ;
 	}
 
 	/** 
@@ -172,6 +198,19 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 */
 	// une fonction pour la sélection aléatoire de la cible 
 	public PersonnageCombattant selectionCible(CompetencesActives competence) {
+		try {
+		if (competence instanceof CompetenceSoin){
+			boolean b = false ;
+			for (int i = 0; i<this.getGroupe().size();i++){
+				if(this.getGroupe().get(i).getLifePoints()<this.getGroupe().get(i).getMaxLifePoints()){
+					b = true ;
+				}
+			}
+			if (!b){
+				throw new IllegalArgumentException("ERREUR de selection de compétence : compétence de soin alors qu'il n'y a pas d'allié blessé !!");
+			}
+		}
+
 		PersonnageCombattant d = Game.getGame().getGroupeJoueurVivant().get(0) ;
 		Random random = new Random() ;
 		if (competence.isGroup()) {
@@ -193,10 +232,14 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 			
 			int u = random.nextInt(Game.getGame().getGroupeJoueurVivant().size()) ;
 			d = Game.getGame().getGroupeJoueurVivant().get(u) ;
+			}
+			return d ;
 		}
-		return d ;
+	} catch (IllegalStateException e){
+		System.out.println(e.getMessage()) ;
+		return null ;
 	}
-	}
+}
 	
 	public Map<PersonnageCombattant, Object[]> selectionTout(Map<PersonnageCombattant, Object[]> actions){
 		// on ajoute l'action du personnage que si il est envie 
@@ -224,8 +267,8 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 			return false ;
 		} else {
 			PersonnageAdversaire perso = (PersonnageAdversaire)obj ;
-			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImage(), 
-					perso.getImage()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && 
+			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImageLien(), 
+					perso.getImageLien()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && 
 					Objects.equals(this.getStrength() , perso.getStrength()) && Objects.equals(this.getEndurance() , perso.getEndurance()) && Objects.equals(this.getFaiblesses() , 
 					perso.getFaiblesses()) && Objects.equals( this.getGroupe() , perso.getGroupe()) && Objects.equals(this.getIntelligence() , perso.getIntelligence()) && 
 					Objects.equals(this.getLevel() , perso.getLevel()) && Objects.equals(this.getLifePoints() , perso.getLifePoints()) && Objects.equals(this.getMana() , perso.getMana()) && 

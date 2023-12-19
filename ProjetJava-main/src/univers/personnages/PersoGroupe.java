@@ -50,8 +50,12 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible) {
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, faiblesses, resistances) ;
 		this.experience = 0 ;
-		this.armePossible = armePossible ;
-		this.competences = competences ;
+		if (armePossible==null){
+			this.armePossible = new ArrayList<>() ;
+		} else this.armePossible = armePossible ;
+		if (competences==null){
+			this.competences=new ArrayList<>();
+		} else this.competences = competences ;
 	}
 	
 	/** a getter for the experience 
@@ -67,7 +71,13 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	 * @param experience
 	 */
 	public void setExperience(int experience) {
-		this.experience = experience;
+		try {
+			if (experience < 0){
+				throw new IllegalArgumentException("Experience ne peut être inferieure à zéro") ;
+			} else this.experience = experience;
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}
 	}
 	/** a getter for the weapon
 	 * 
@@ -82,7 +92,13 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	 * @param weapon
 	 */
 	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
+		try {if (!this.armePossible.contains(weapon.getWeaponType())){
+			throw new IllegalArgumentException("Impossible pour ce personnage d'équiper cette arme !") ;
+		}
+		this.weapon = weapon;}
+		catch (IllegalArgumentException e){
+			System.out.println(e.getMessage()) ;
+		}
 	}
 
 	/** a getter for the competences 
@@ -203,7 +219,8 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 		return Game.getGame().getGroupeJoueur();
 	}
 
-	public void setGroupe(ArrayList<PersonnageCombattant> newGroup) {} ;
+	//Méthode vide car on en a besoin pour des personnages Adverses quand ils sont considérés comme des persos combattant qui est abstraite
+	public void setGroupe(ArrayList<PersonnageCombattant> newGroup) {};
 
 
 	public ArrayList<PersonnageCombattant> getGroupeVivant() {
@@ -240,18 +257,26 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	 */
 	// une fonction qui gère le gain d'XP
 	public String gainExperience(int xp) {
-		String retour = "nope" ;
-		//boolean retour = false ;
-		experience += xp ; 
-		// si il y a assez d'expérience 
-		if (this.getExperience() >= this.getLevel()*10 + 90) {
-			// on réinitialise l'expérience enlevant celle qui a servi au gain de niveau 
-			this.setExperience(getExperience() - (getLevel()*10 + 90)) ;
-			//On appelle la fonction gain de niveau 
-			retour = this.gainNiveau() ;
+		try {
+			if (xp<=0){
+				throw new IllegalArgumentException("Expérience peut pas être inférieure à zéro") ;
+			}
+			String retour = "nope" ;
+			//boolean retour = false ;
+			experience += xp ; 
+			// si il y a assez d'expérience 
+			if (this.getExperience() >= this.getLevel()*10 + 90) {
+				// on réinitialise l'expérience enlevant celle qui a servi au gain de niveau 
+				this.setExperience(getExperience() - (getLevel()*10 + 90)) ;
+				//On appelle la fonction gain de niveau 
+				retour = this.gainNiveau() ;
 			
+			}
+			return retour ;
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage());
+			return null ;
 		}
-		return retour ;
 	}
 
 	public boolean isLevelUp(int xp){
@@ -283,7 +308,7 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 				return false ;
 			} else {
 				PersoGroupe perso = (PersoGroupe)obj ;
-				if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImage(), perso.getImage()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && Objects.equals(this.getStrength() , perso.getStrength()) && Objects.equals(this.getEndurance() , perso.getEndurance()) && Objects.equals(this.getFaiblesses() , perso.getFaiblesses()) && Objects.equals( this.getGroupe() , perso.getGroupe()) && Objects.equals(this.getIntelligence() , perso.getIntelligence()) && Objects.equals(this.getLevel() , perso.getLevel()) && Objects.equals(this.getLifePoints() , perso.getLifePoints()) && Objects.equals(this.getMana() , perso.getMana()) && Objects.equals(this.getMaxLifePoints() , perso.getMaxLifePoints()) && Objects.equals(this.getMaxMana(), perso.getMaxMana()) && Objects.equals(this.getResistances(), perso.getResistances()) && Objects.equals(this.getSpeed(), perso.getSpeed()) && this.getWeapon().equals(perso.getWeapon())) {
+				if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImageLien(), perso.getImageLien()) && Objects.equals(this.getPersoId(), perso.getPersoId()) && Objects.equals(this.getDexterity() , perso.getDexterity()) && Objects.equals(this.getStrength() , perso.getStrength()) && Objects.equals(this.getEndurance() , perso.getEndurance()) && Objects.equals(this.getFaiblesses() , perso.getFaiblesses()) && Objects.equals( this.getGroupe() , perso.getGroupe()) && Objects.equals(this.getIntelligence() , perso.getIntelligence()) && Objects.equals(this.getLevel() , perso.getLevel()) && Objects.equals(this.getLifePoints() , perso.getLifePoints()) && Objects.equals(this.getMana() , perso.getMana()) && Objects.equals(this.getMaxLifePoints() , perso.getMaxLifePoints()) && Objects.equals(this.getMaxMana(), perso.getMaxMana()) && Objects.equals(this.getResistances(), perso.getResistances()) && Objects.equals(this.getSpeed(), perso.getSpeed()) && this.getWeapon().equals(perso.getWeapon())) {
 					return true ;
 				} else {
 					return false ;

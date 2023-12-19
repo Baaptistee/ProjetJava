@@ -18,7 +18,7 @@ public class Personnage implements Serializable{
     /** the image of the character 
      * Not used yet 
      */
-    private Image img;
+    private String imageLien;
     /** a static variable representing the total of characters 
      * 
      */
@@ -34,19 +34,28 @@ public class Personnage implements Serializable{
      * @param description
      */
     public Personnage(String name, String description) {
-    	totalPerso++ ;
-    	this.persoId = totalPerso ; 
-    	this.name=name;
-        this.description=description;
+        try {
+        
+            if (this.name==null){
+                throw new IllegalArgumentException("Le nom ne peut pas être null !");
+            }
+            totalPerso++ ;
+    	    this.persoId = totalPerso ;
+    	    this.name=name;
+            this.description=description;
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+
+        }
     }
     
-    /*
-    public Personnage(Image img, String name, String description){
+    
+    public Personnage(String name, String description, String imageLien){
         this.name=name;
         this.description=description;
-        this.img=img;
+        this.imageLien=imageLien;
     }
-    */
+    
 
     //Getters Setters
     /** a getter for the name
@@ -67,8 +76,8 @@ public class Personnage implements Serializable{
      * 
      * @return
      */
-    public Image getImage(){
-        return img;
+    public String getImageLien(){
+        return this.imageLien;
     }
     /** a setter for the name
      * 
@@ -95,13 +104,13 @@ public class Personnage implements Serializable{
      * 
      * @param img
      */
-    public void setImage(Image img){
-        this.img=img;
+    public void setImage(String img){
+        this.imageLien=img;
     }
     
     @Override
 	public String toString() {
-		return " [name=" + name + ", description=" + description + ", img=" + img + ", persoId=" + persoId
+		return " [name=" + name + ", description=" + description + ", img=" + imageLien + ", persoId=" + persoId
 				+ "]";
 	}
 
@@ -113,7 +122,7 @@ public class Personnage implements Serializable{
 			return false ;
 		} else {
 			Personnage perso = (Personnage)obj ;
-			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImage(), perso.getImage()) && this.getPersoId() == perso.getPersoId()) {
+			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getImageLien(), perso.getImageLien()) && this.getPersoId() == perso.getPersoId()) {
 				
 				return true ;
 			} else {

@@ -56,13 +56,6 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.imageName=imageName; 
 	}
 	
-	public Node (String nom, String description,String imageName, Node nextNode) {
-		this.idNode = totalNode++ ;
-		this.description = description ;
-		this.nom = nom ;
-		this.imageName=imageName;
-		
-	}
 	
 
 	public Node(String nom, String description, boolean checkPoint) {
