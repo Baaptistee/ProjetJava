@@ -256,7 +256,7 @@ public class InterfaceJeu {
                 public void actionPerformed(ActionEvent e) {
                     configMenu();
                     Game.getGame().getFirstNode().display() ; 
-                    System.out.println("premier node joué !");        
+                         
                 }
             });
         
@@ -443,16 +443,20 @@ public class InterfaceJeu {
      */
 
     
- public void afficherNodeBase(Node node, ImageIcon imageIcon) {
+ public void afficherNodeBase(Node node, ImageIcon imageIcon, ArrayList<String> imageperso) {
 
+        
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
         afficherImageDansInterface(new ImageIcon(node.getImageName()));
+        
+        
 
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
+        
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
  
@@ -521,10 +525,10 @@ public class InterfaceJeu {
 
                 // Determine the type of the node and handle accordingly
                 if ( node instanceof ChooseNode){ 
-                    ChooseNodeButton(node, imageIcon);
+                    ChooseNodeButton(node, imageIcon, imageperso);
                 }
                 if(node instanceof TextNode || node instanceof ChanceNode || node instanceof TestNode ){ 
-                    InnerNodeButton(node, imageIcon);
+                    InnerNodeButton(node, imageIcon, imageperso);
                 }
                 if(node instanceof FightNode){
                     playFightNode(node);
@@ -549,7 +553,7 @@ public class InterfaceJeu {
     * @param node The current ChooseNode to display options for.
     */
 
-    public void ChooseNodeButton(Node node, ImageIcon imageIcon){
+    public void ChooseNodeButton(Node node, ImageIcon imageIcon, ArrayList<String> imageperso){
         configPanel();
         ChooseNode chooseNode;// Cast the node to a ChooseNode
         
@@ -580,7 +584,14 @@ public class InterfaceJeu {
                     chooseNode.getOptions().get(currentIndex).display(); // clique du bouton provoque affichage du prochain bode
                     ImageNode imageNode= new ImageNode(chooseNode.getOptions().get(currentIndex), imageIcon);
                     imageNode.display();
-                    //System.out.println("first");
+                    
+                    
+                    afficherperso((chooseNode.getOptions().get(currentIndex)).getImagePersoList());
+                    System.out.println("youpi");
+                    
+                   
+                    
+                 
                 }
             });
             
@@ -594,7 +605,7 @@ public class InterfaceJeu {
     * @param node The current inner node.
     */
 
-    public void InnerNodeButton(Node node, ImageIcon imageIcon){
+    public void InnerNodeButton(Node node, ImageIcon imageIcon, ArrayList<String> imageperso){
         configPanel();
       
         // Create a panel for the "Next" button
@@ -615,7 +626,7 @@ public class InterfaceJeu {
         getFenetre().revalidate() ;
         getFenetre().repaint() ;
         
-		boutonGoNext(suivant, node, imageIcon);
+		boutonGoNext(suivant, node, imageIcon, imageperso);
         
     }   
 
@@ -647,7 +658,8 @@ public class InterfaceJeu {
         suivant.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                        playTourFightNode(node1) ; // une fois le bouton cliqué on lance le premier tour du fightNode    
+                        playTourFightNode(node1) ; // une fois le bouton cliqué on lance le premier tour du fightNode 
+                          
                     	
                         }
             });
@@ -1050,7 +1062,7 @@ public class InterfaceJeu {
         if (node.isOver()){  // si le combat est terminé on passe au node suivant 
             node.goNext();
         } else {
-        System.out.println("c'est reparti pour un tour !") ; // sinon on continue avec un nouveau tour
+       
         playTourFightNode(node);
         }
     }
@@ -1326,18 +1338,32 @@ public class InterfaceJeu {
     * @param node The current node that will be followed by the next node when the button is clicked.
     */
 
-    public void boutonGoNext(JButton btn1, Node node, ImageIcon imageIcon){
+    public void boutonGoNext(JButton btn1, Node node, ImageIcon imageIcon, ArrayList <String> imageperso){
         btn1.addActionListener(new ActionListener() {
                         @Override
-                        public void actionPerformed(ActionEvent e) { 
+                        public void actionPerformed(ActionEvent e) {
                         	node.goNext() ; // Code to execute when the button is clicked
-                            TextNode j= (TextNode) node;
-                            ImageNode imageNode= new ImageNode(j.getOptions().get(0), imageIcon);
-                            imageNode.display();
-                            System.out.println("Inner");
+                            if(node instanceof TextNode){
+                                TextNode j= (TextNode) node;
+                                ImageNode imageNode= new ImageNode(j.getOptions().get(0), imageIcon);
+                                imageNode.display();
+                                afficherperso(imageperso);
+                              
+                            }
+                            if(node instanceof ChanceNode){
+                                ChanceNode x = (ChanceNode) node;
+                                x.goNext();
+                               
+                            }
+                            if (node instanceof TestNode){
+                                TestNode x = (TestNode) node;
+                                x.goNext();
+                              
+                            }
                             
                         }
             });
+        getFenetre().revalidate();
     }
 
     public void afficherImageDansInterface(ImageIcon imageIcon) {
@@ -1347,10 +1373,29 @@ public class InterfaceJeu {
             JPanel panel = new JPanel();
             panel.add(label);
             panel.setOpaque(false);
-            panel.setBounds(0, 0, 1280, 720);
+            panel.setBounds(0, 0, 1000, 1000);
             layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
             getFenetre().add(layeredPane);
             getFenetre().setVisible(true);
+            
+        }
+    }
+
+    public void afficherperso(ArrayList<String> imageperso){
+        JPanel panel= new JPanel(new FlowLayout());
+        panel.setBounds(200, 400, 500, 500);
+        if (imageperso!=null){
+        for (String  element : imageperso) {
+            ImageIcon imageIcon1= new ImageIcon(element);
+            JLabel label = new JLabel(imageIcon1);
+            panel.add(label);
+            panel.setOpaque(false);
+            layeredPane.add(panel, JLayeredPane.DRAG_LAYER);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            System.out.println("label");
+        }
+
         }
     }
     

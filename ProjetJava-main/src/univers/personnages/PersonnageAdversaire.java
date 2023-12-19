@@ -129,7 +129,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 				b = true ;
 			}
 		}
-		if (b){
+		if (!b){
 			throw new IllegalStateException("Le personnage n'a pas de compétence qu'il peut utiliser dans tous les cas !") ;
 		}
 

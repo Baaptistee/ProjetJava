@@ -2,16 +2,11 @@ package Representation;
 
 public class TerminalNode extends Node {
 	
-	public TerminalNode(String nom, String description,String imageName) {
+	public TerminalNode(String nom, String description,String imageName) throws IllegalArgumentException {
 		
 		super(nom, description, imageName) ;
 		
 	}	
-	
-	// @Override
-	// public String toString() {
-	// 	return "TerminalNode:"+super.toString();
-	// }
 	
 	@Override
 	public void goNext() {

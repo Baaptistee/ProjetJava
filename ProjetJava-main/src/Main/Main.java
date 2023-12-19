@@ -27,7 +27,9 @@ public class Main {
 
 		// Tutoriel : 
 		String joueur = Game.getGame().getNomJoueur() ;
-
+		ArrayList <String> optionn= new ArrayList<>();
+		optionn.add("image/MC Mage.png");
+		optionn.add("image/Soigneur.png");
 /********************************************************** INTRODUCTION ***************************************************************/
 		InnerNode n1 = new TextNode("??? : "+joueur+"... ! / Réveille-toi !!","image/mystery-2169794_1280.jpg");
 		InnerNode n2 = new ChooseNode("Continuer à dormir", "??? : Aller dêpeche toi on va être en retard !","image/mystery-2169794_1280.jpg") ;
@@ -38,7 +40,11 @@ public class Main {
 		
 /********************************************************** DEBUT **************************************************************/
 		InnerNode n7 = new TextNode("Le crépuscule enveloppait le château de mystère, tandis que " + joueur + ", accompagné de son fidèle chevalier, du sage mage et de l'attentionné soigneur, décidait de fuir les murs imposants qui avaient été témoins de la tragédie royale. Les lourdes portes du château s'ouvrirent silencieusement, et l'équipe s'éclipsa dans l'obscurité. Guidés par l'ombre bienveillante de la nuit, " + joueur + " et ses compagnons chevauchèrent à travers les bois embrumés, laissant derrière eux les murmures inquiets du château endormi.","image/mystery-2169794_1280.jpg");
-		InnerNode n8 = new ChooseNode("La lueur pâle de la lune éclairait leur chemin alors qu'ils traversaient la forêt, cherchant refuge dans l'incertitude du destin qui les attendait. Ils ne savaient pas où leurs pas les conduiraient, mais le besoin pressant de s'éloigner du château empreint de trahison les guidait. Ils devaient prendre une décision:","image/mystery-2169794_1280.jpg");
+		
+
+
+		
+		InnerNode n8 = new ChooseNode("La lueur pâle de la lune éclairait leur chemin alors qu'ils traversaient la forêt, cherchant refuge dans l'incertitude du destin qui les attendait. Ils ne savaient pas où leurs pas les conduiraient, mais le besoin pressant de s'éloigner du château empreint de trahison les guidait. Ils devaient prendre une décision:","image/mystery-2169794_1280.jpg",optionn);
 		InnerNode n9 = new TextNode("Chez Mage", "","image/mystery-2169794_1280.jpg");
 		InnerNode n10 = new TextNode("Chez Chevalier", "Guidés par l'ombre bienveillante de la nuit, " + joueur + " et ses compagnons chevauchèrent à travers les bois embrumés, laissant derrière eux les murmures inquiets du château endormi. Le domaine du père du chevalier émergea des ombres. Une imposante silhouette de château se dressait contre le ciel nocturne, éclairée par la douce lueur des lanternes. La cour intérieure, encadrée par des murailles de pierre solides, accueillit les fugitifs avec l'assurance de la loyauté. Le portail grinça légèrement lorsqu'ils entrèrent, mais le silence qui enveloppait le domaine indiquait que leur arrivée n'avait pas été remarquée. " + joueur + ", le chevalier, le mage et le soigneur se dirigèrent vers la résidence principale, où le père du chevalier les attendait, ignorant encore les événements qui avaient secoué le royaume.","image/mystery-2169794_1280.jpg");
 		InnerNode n11 = new TextNode("Chez Soigneur", "C'est à plusieurs lieues d'ici ? Il y a des cheveux YAHHH, direction le désert arabica.","image/mystery-2169794_1280.jpg");
@@ -75,10 +81,10 @@ public class Main {
 		ArrayList <CompetencesActives> jeanJacquesC= new ArrayList<>();
 		jeanJacquesC.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
 		jeanJacquesC.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-		PersonnageAdversaire n19S = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 0, 3, 3, 7, 10,resistancess,resistancess, jeanJacquesC,probaCompetences);
-		PersonnageAdversaire n20S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 0, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
-		PersonnageAdversaire n21S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 0, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
-		PersonnageAdversaire n22S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 0, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		PersonnageAdversaire n19S = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 7, 10,resistancess,resistancess, jeanJacquesC,probaCompetences);
+		PersonnageAdversaire n20S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		PersonnageAdversaire n21S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		PersonnageAdversaire n22S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
 		opponents1.add(n19S);
 		opponents1.add(n20S);
 		opponents1.add(n21S);
@@ -166,7 +172,7 @@ public class Main {
 		ArrayList <CompetencesActives> sorciere= new ArrayList<>();
 		sorciere.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
 		sorciere.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-		PersonnageAdversaire n32 = new PersonnageAdversaire("sorciere", "fesf", 5, 4, 0, 3, 3, 7, 10,resistances2,resistances2, sorciere,probaCompetences2);
+		PersonnageAdversaire n32 = new PersonnageAdversaire("sorciere", "fesf", 5, 4, 5, 3, 3, 7, 10,resistances2,resistances2, sorciere,probaCompetences2);
 		opponents2.add(n32);
 		n31.setOpponents(opponents2);
 		

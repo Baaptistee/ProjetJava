@@ -1,43 +1,83 @@
 package Representation;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
-
-//import javax.swing.* ;
-
 import javax.swing.* ;
 import Event.Event;
-import Event.ImageNode;
 import Interface.* ;
 
 public abstract class Node extends Object implements Event, Serializable {
 	
-	private static int totalNode = 0; // le nombre total de node qui permet ensuite d'attribuer l'id du node
+	private static int totalNode = 0; 
 	private static Node lastCheckPoint;
 	private static InterfaceJeu interfac = new InterfaceJeu() ; 
 
-	private String description ; // The description of the Node
-	private int idNode ; // The unique ID of the Node
-	private String nom ; //The name of the Node
-	private Node formerNode ; // The previous Node (for backward navigation)
+	private String description ; 
+	private int idNode ; 
+	private String nom ; 
+	private Node formerNode ; 
 	private boolean checkPoint = false ;
 	private String imageName;
+	private ArrayList <String> imagepersoPath;
+
+
 	 /**
      * Constructor for the Node.
      * @param name The name of the Node.
      * @param description The description of the Node.
      */
 
-	public Node(String nom, String description, String imageName) {
+	 public Node(String nom, String description, String imageName) throws IllegalArgumentException {
+		try {
+			if (nom == null) {
+				throw new IllegalArgumentException("Le nom ne peut pas être null");
+			}
+			this.nom = nom;
+	
+			if (description == null) {
+				throw new IllegalArgumentException("La description ne peut pas être null");
+			}
+			this.description = description;
+	
+			if (imageName == null) {
+				throw new IllegalArgumentException("Le nom de l'image ne peut pas être null");
+			}
+			this.imageName = imageName;
+	
+		} catch (IllegalArgumentException e) {
+			System.err.println("Erreur : " + e.getMessage());
+		}
+	}
+	
+
+	public Node(String nom, String description) throws IllegalArgumentException {
+		if (nom == null) {
+			throw new IllegalArgumentException("Le nom ne peut pas être null");
+		}
+		if (description == null) {
+			throw new IllegalArgumentException("La description ne peut pas être null");
+		}
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
 		this.description = description ;
 		this.nom = nom ;
-		this.imageName=imageName;
 	}
 
-	public Node(String nom, String description) {
+	public Node(String nom, String description, String imageName,ArrayList<String> imagepersoPath) throws IllegalArgumentException {
+		if (nom == null) {
+			throw new IllegalArgumentException("Le nom ne peut pas être null");
+		}
+		if (description == null) {
+			throw new IllegalArgumentException("La description ne peut pas être null");
+		}
+		if (imageName == null) {
+			throw new IllegalArgumentException("Le nom de l'image ne peut pas être null");
+		}
+		
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
 		this.description = description ;
 		this.nom = nom ;
+		this.imageName= imageName;
+		this.imagepersoPath=imagepersoPath;
 	}
 	
 	/**
@@ -47,7 +87,17 @@ public abstract class Node extends Object implements Event, Serializable {
      * @param isCheckpoint Indicates whether the Node is a checkpoint.
      */
 
-	public Node(String nom, String description,String imageName, boolean checkPoint) {
+	public Node(String nom, String description,String imageName, boolean checkPoint) throws IllegalArgumentException {
+
+		if (nom == null) {
+			throw new IllegalArgumentException("Le nom ne peut pas être null");
+		}
+		if (description == null) {
+			throw new IllegalArgumentException("La description ne peut pas être null");
+		}
+		if (imageName == null) {
+			throw new IllegalArgumentException("Le nom de l'image ne peut pas être null");
+		}
 		
 		this.idNode = totalNode++ ;
 		this.description = description ;
@@ -56,22 +106,28 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.imageName=imageName; 
 	}
 	
-	
 
-	public Node(String nom, String description, boolean checkPoint) {
-		
+	public Node(String nom, String description, boolean checkPoint) throws IllegalArgumentException {
+
+		if (nom == null) {
+			throw new IllegalArgumentException("Le nom ne peut pas être null");
+		}
+		if (description == null) {
+			throw new IllegalArgumentException("La description ne peut pas être null");
+		}
 		this.idNode = totalNode++ ;
 		this.description = description ;
 		this.nom = nom ;
 		this.checkPoint = checkPoint ;
 	}
-	
-	public Node (String nom, String description, Node nextNode) {
-		this.idNode = totalNode++ ;
-		this.description = description ;
-		this.nom = nom ;
-		
-	}
+	//public abstract ArrayList<ImageIcon> ImagePersoList();
+
+
+	public ArrayList<String> getImagePersoList() {
+        return this.imagepersoPath;
+    }
+
+
 	public String getImageName(){
 		return imageName;
 	}
@@ -183,31 +239,7 @@ public abstract class Node extends Object implements Event, Serializable {
      * @param x The last checkpoint Node to set.
      */
 
-/* 
-	@Override
-	public String toString() {
-		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
-	}
-
-	@Override
-public boolean equals(Object obj) {
-    if (this == obj) {
-        return true;
-    } else if (obj == null || getClass() != obj.getClass()) {
-        return false;
-    } else {
-        Node node = (Node) obj;
-        return Objects.equals(this.getDescription(), node.getDescription()) &&
-                Objects.equals(this.getNom(), node.getNom()) &&
-                Objects.equals(this.getID(), node.getID()) &&
-                Objects.equals(this.getFormerNode(), node.getFormerNode()) &&
-                Objects.equals(this.getCheckPoint(), node.getCheckPoint());
-    }
-}
-
-/* */
 	public static void setLastCheckpoint(Node x) {
-		
 		lastCheckPoint = x ;
 	}
 
@@ -272,35 +304,17 @@ public boolean equals(Object obj) {
      */
 
 	public void display() {
-		
-	this.isCheckPoint() ;
-	ImageIcon imageIcon = new ImageIcon(imageName);
-    Game.getGame().setCurrentNode(this);
-
-    getInterface().afficherNodeBase(this, imageIcon);
-
-		System.out.println("Fonctionnalité de base");
-		
-
-
+		this.isCheckPoint() ;
+		ImageIcon imageIcon = new ImageIcon(imageName);
+		Game.getGame().setCurrentNode(this);
+		getInterface().afficherNodeBase(this, imageIcon, getImagePersoList());
 	}
 	
 
 	@Override
 	public Event chooseNext() {
-    // Appel de la méthode goNext() pour obtenir le prochain nœud en fonction du choix de l'utilisateur.
-    goNext();
-	
-
-
-
-    // Retournez le nœud actuel, car goNext() a déjà effectué le déplacement vers le nœud suivant.
-    return this;
-}
-	
-	
-	
-	
-	
+		goNext();
+		return this;
+	}
 	
 }
