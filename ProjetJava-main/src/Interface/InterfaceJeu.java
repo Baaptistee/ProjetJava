@@ -443,14 +443,14 @@ public class InterfaceJeu {
      */
 
     
- public void afficherNodeBase(Node node, ImageIcon imageIcon, ArrayList<String> imageperso) {
+ public void afficherNodeBase(Node node) {
 
         
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
-        afficherImageDansInterface(new ImageIcon(node.getImageName()));
+        afficherImageDansInterface(node.getImageName());
         
         
 
@@ -525,10 +525,10 @@ public class InterfaceJeu {
 
                 // Determine the type of the node and handle accordingly
                 if ( node instanceof ChooseNode){ 
-                    ChooseNodeButton(node, imageIcon, imageperso);
+                    ChooseNodeButton(node);
                 }
                 if(node instanceof TextNode || node instanceof ChanceNode || node instanceof TestNode ){ 
-                    InnerNodeButton(node, imageIcon, imageperso);
+                    InnerNodeButton(node);
                 }
                 if(node instanceof FightNode){
                     playFightNode(node);
@@ -553,7 +553,7 @@ public class InterfaceJeu {
     * @param node The current ChooseNode to display options for.
     */
 
-    public void ChooseNodeButton(Node node, ImageIcon imageIcon, ArrayList<String> imageperso){
+    public void ChooseNodeButton(Node node){
         configPanel();
         ChooseNode chooseNode;// Cast the node to a ChooseNode
         
@@ -582,11 +582,11 @@ public class InterfaceJeu {
                 public void actionPerformed(ActionEvent e) {
                     
                     chooseNode.getOptions().get(currentIndex).display(); // clique du bouton provoque affichage du prochain bode
-                    ImageNode imageNode= new ImageNode(chooseNode.getOptions().get(currentIndex), imageIcon);
+                    ImageNode imageNode= new ImageNode(chooseNode.getOptions().get(currentIndex), node.getImageName());
                     imageNode.display();
                     
                     
-                    afficherperso((chooseNode.getOptions().get(currentIndex)).getImagePersoList());
+                    afficherperso(chooseNode.getImagePersoList());
                     System.out.println("youpi");
                     
                    
@@ -605,7 +605,7 @@ public class InterfaceJeu {
     * @param node The current inner node.
     */
 
-    public void InnerNodeButton(Node node, ImageIcon imageIcon, ArrayList<String> imageperso){
+    public void InnerNodeButton(Node node){
         configPanel();
       
         // Create a panel for the "Next" button
@@ -626,7 +626,7 @@ public class InterfaceJeu {
         getFenetre().revalidate() ;
         getFenetre().repaint() ;
         
-		boutonGoNext(suivant, node, imageIcon, imageperso);
+		boutonGoNext(suivant, node);
         
     }   
 
@@ -1338,16 +1338,16 @@ public class InterfaceJeu {
     * @param node The current node that will be followed by the next node when the button is clicked.
     */
 
-    public void boutonGoNext(JButton btn1, Node node, ImageIcon imageIcon, ArrayList <String> imageperso){
+    public void boutonGoNext(JButton btn1, Node node){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                         	node.goNext() ; // Code to execute when the button is clicked
                             if(node instanceof TextNode){
                                 TextNode j= (TextNode) node;
-                                ImageNode imageNode= new ImageNode(j.getOptions().get(0), imageIcon);
+                                ImageNode imageNode= new ImageNode(j.getOptions().get(0), node.getImageName());
                                 imageNode.display();
-                                afficherperso(imageperso);
+                                afficherperso(node.getImagePersoList());
                               
                             }
                             if(node instanceof ChanceNode){
@@ -1366,9 +1366,10 @@ public class InterfaceJeu {
         getFenetre().revalidate();
     }
 
-    public void afficherImageDansInterface(ImageIcon imageIcon) {
-        if (imageIcon != null) {
+    public void afficherImageDansInterface(String imageName) {
+        if (imageName != null) {
             configPanel();
+            ImageIcon imageIcon= new ImageIcon(imageName);
             JLabel label = new JLabel(imageIcon);
             JPanel panel = new JPanel();
             panel.add(label);

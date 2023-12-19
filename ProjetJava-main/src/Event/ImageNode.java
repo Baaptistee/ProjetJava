@@ -12,15 +12,15 @@ import Interface.InterfaceJeu;
  */
 public class ImageNode extends AbstractDecorator {
 
-    private ImageIcon imageIcon;
+    private String imageName;
 
-    public ImageNode(Event decoratedEvent, ImageIcon imageIcon) {
+    public ImageNode(Event decoratedEvent, String imageName) {
         super(decoratedEvent);
-        this.imageIcon=imageIcon;
+        this.imageName=imageName;
     }
 
-    public ImageIcon getCheminImage() {
-        return imageIcon;
+    public String getCheminImage() {
+        return imageName;
     }
     @Override
     public void display() {
@@ -32,7 +32,7 @@ public class ImageNode extends AbstractDecorator {
     private void ajoutFonctionnalite() {
         InterfaceJeu interfaceJeu = Node.getInterface();
         if (interfaceJeu != null) {
-            interfaceJeu.afficherImageDansInterface(imageIcon);
+            interfaceJeu.afficherImageDansInterface(imageName);
             System.out.println("Fonctionnalité ajoutée par le décorateur");
     
     
@@ -48,7 +48,7 @@ public class ImageNode extends AbstractDecorator {
 
     @Override
     public String toString(){
-        return "voici le path "+imageIcon;
+        return "voici le path "+imageName;
     }
 
         

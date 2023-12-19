@@ -307,7 +307,7 @@ public boolean equals(Object obj) {
 		this.isCheckPoint() ;
 		ImageIcon imageIcon = new ImageIcon(imageName);
 		Game.getGame().setCurrentNode(this);
-		getInterface().afficherNodeBase(this, imageIcon, getImagePersoList());
+		getInterface().afficherNodeBase(this);
 	}
 	
 
