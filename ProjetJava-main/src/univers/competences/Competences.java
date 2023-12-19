@@ -33,6 +33,10 @@ public abstract class Competences implements Serializable{
 		this.name = null ;
 	}
 	
+	public Competences(String nom) {
+		this.name = nom ;
+}
+
 	/** a Getter for the description
 	 * 
 	 * @return

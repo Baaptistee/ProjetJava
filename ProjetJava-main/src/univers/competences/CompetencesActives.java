@@ -44,6 +44,11 @@ public abstract class CompetencesActives extends Competences {
 		this.coutMana = coutMana ;
 	}
 	
+	public CompetencesActives(String nom) {
+		super(nom);
+}
+
+
 	/** a getter for coutMana
 	 * 
 	 * @return
@@ -74,4 +79,7 @@ public abstract class CompetencesActives extends Competences {
 	 */
 	public abstract String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible) ;
 	public abstract boolean isGroup() ;
+
+
+	public abstract void setGroup(boolean b);
 }

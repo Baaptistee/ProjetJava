@@ -85,6 +85,10 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	public int[] getProbaCompetences() {
 		return probaCompetences;
 	}
+	
+	public void setProbaCompetences(int[] probaCompetences) {
+		this.probaCompetences=probaCompetences ;
+	}
 	/** 
 	 * un getter pour le groupe
 	 */
@@ -198,7 +202,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		// on ajoute l'action du personnage que si il est envie 
 		if (this.enVie()) {
 
-		Object[] c = {} ;
+		Object[] c = new Object[2] ;
 		c[0] = this.selectionAttaque() ;
 		c[1] = this.selectionCible((CompetencesActives)c[0]) ;
 

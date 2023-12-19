@@ -56,7 +56,7 @@ public class CompetenceSoin extends CompetencesActives {
 	 * 
 	 * @param groupHeal
 	 */
-	public void setGroupHeal(boolean groupHeal) {
+	public void setGroup(boolean groupHeal) {
 		this.groupHeal = groupHeal;
 	}
 	

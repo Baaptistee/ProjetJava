@@ -55,6 +55,9 @@ public class CompetenceDammage extends CompetencesActives{
 		this.element = element ;
 		this.physical = physical ;
 	}
+	public CompetenceDammage(String nom) {
+		super(nom);
+	}
 	/** a getter for accuracy
 	 * 
 	 * @return
@@ -96,7 +99,7 @@ public class CompetenceDammage extends CompetencesActives{
 	 * 
 	 * @param groupDammage
 	 */
-	public void setGroupDammage(boolean groupDammage) {
+	public void setGroup(boolean groupDammage) {
 		this.groupDammage = groupDammage;
 	}
 	/** a getter for the nbHits

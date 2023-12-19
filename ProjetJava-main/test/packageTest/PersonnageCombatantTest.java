@@ -1,4 +1,4 @@
-package univers.personnages.test;
+package packageTest;
 
 import java.util.ArrayList;
 
