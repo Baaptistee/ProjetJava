@@ -76,28 +76,6 @@ public class FightNode extends InnerNode {
 		this.butin = butin;
 	}
 
-	// @Override
-	// public String toString() {
-	// 	return "FightNode:"+super.toString();
-	// }
-	
-	//  @Override
-    // public boolean equals(Object obj) {
-    //     if (this == obj) {
-    //         return true;
-    //     }
-
-    //     if (obj == null || getClass() != obj.getClass()) {
-    //         return false;
-    //     }
-
-    //     FightNode fightNode = (FightNode) obj;
-    //     return super.equals(obj) &&
-    //            Objects.equals(this.getOpponents(), fightNode.getOpponents()) &&
-    //            Objects.equals(this.getXp(),fightNode.getXp()) &&
-    //            Objects.equals(this.getButin(), fightNode.getButin());
-    // }
-	
 	/**
      * Method to display the information of the fight node.
      */

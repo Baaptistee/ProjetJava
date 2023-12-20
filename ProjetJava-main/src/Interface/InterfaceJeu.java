@@ -33,6 +33,10 @@ import java.io.ObjectInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import Event.*;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 
 
@@ -451,6 +455,7 @@ public class InterfaceJeu {
         layeredPane.revalidate();
         layeredPane.repaint();
         afficherImageDansInterface(node.getImageName());
+        afficherSoundDansInterface(node.getSoundName());
         
         
 
@@ -1376,6 +1381,28 @@ public class InterfaceJeu {
             panel.setOpaque(false);
             panel.setBounds(0, 0, 1000, 1000);
             layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            
+        }
+    }
+    public void afficherSoundDansInterface(String soundName) {
+        if (soundName != null) {
+            configPanel();
+            try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            // JLabel label = new JLabel(imageIcon);
+            // JPanel panel = new JPanel();
+            // panel.add(label);
+            // panel.setOpaque(false);
+            // panel.setBounds(0, 0, 1000, 1000);
+            // layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
             getFenetre().add(layeredPane);
             getFenetre().setVisible(true);
             
