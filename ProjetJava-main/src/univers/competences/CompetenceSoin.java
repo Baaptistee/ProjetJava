@@ -28,8 +28,15 @@ public class CompetenceSoin extends CompetencesActives {
 	 */
 	public CompetenceSoin(String nom, String description, int coutMana, int powerHeal, boolean groupHeal){
 		super(nom, description, coutMana) ;
+		try{ if (powerHeal<=0){
+			throw new IllegalArgumentException("Power heal égal à zéro attention !");
+		}
 		this.powerHeal = powerHeal ;
+		
 		this.groupHeal = groupHeal ;
+	} catch (IllegalArgumentException e){
+		System.out.println(e.getMessage()) ;
+	}
 	}
 	/** a getter for powerHeal
 	 * 
@@ -43,7 +50,14 @@ public class CompetenceSoin extends CompetencesActives {
 	 * @param powerHeal
 	 */
 	public void setPowerHeal(int powerHeal) {
-		this.powerHeal = powerHeal;
+		try {
+			if (powerHeal<0){
+				throw new IllegalArgumentException("impossible pour powerHeal d'être à zéro");
+			}
+			this.powerHeal = powerHeal;
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	/** a getter for groupHeal
 	 * 
@@ -85,6 +99,10 @@ public class CompetenceSoin extends CompetencesActives {
 	 * @param the target of the competence 
 	 */
 	public String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible) {
+		try {
+		if (utilisateur==null){
+			throw new IllegalArgumentException("utilisateur null !!");
+		}
 		Random random = new Random() ;
 		String d ;
 		if (utilisateur.getMana()<this.getCoutMana()) {
@@ -94,15 +112,19 @@ public class CompetenceSoin extends CompetencesActives {
 			int a = this.getPowerHeal() + random.nextInt(getPowerHeal()/2) + utilisateur.getIntelligence() - 10 ;
 			if (this.isGroup()) {
 				for (int i = 0 ; i<utilisateur.getGroupe().size() ; i++) {
-					cible.getGroupe().get(i).heal(a) ;
+					utilisateur.getGroupe().get(i).heal(a) ;
 					d += "/Tous les membres du groupe récupère " + a + " points de vie." ;
 				}
 			} else {
-				utilisateur.heal(a) ;
+				cible.heal(a) ;
 				d += "/" + cible.getName() + " récupère " + a + " points de vie." ;
 			}
 		}
 		return d ;
+	} catch (IllegalArgumentException e){
+		System.out.println(e.getMessage()) ;
+		return "";
+	}
 	}
 	
 }

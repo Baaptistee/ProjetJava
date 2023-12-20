@@ -41,7 +41,14 @@ public abstract class CompetencesActives extends Competences {
 	 */
 	public CompetencesActives(String nom, String description, int coutMana){
 		super(nom, description) ;
-		this.coutMana = coutMana ;
+		try{
+			if (coutMana < 0){
+				throw new IllegalArgumentException("cout mana ne peut être négatif "+nom);
+			}
+			this.coutMana = coutMana ;
+		} catch (IllegalArgumentException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public CompetencesActives(String nom) {

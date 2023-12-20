@@ -66,8 +66,6 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	private ArrayList<Eleme> resistances ;
 
-	private String image ;
-
 	//private static ArrayList<PersonnageCombattant> groupeJoueur ;
 
 	
@@ -87,6 +85,51 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	public PersonnageCombattant(String nom, String description, Integer dexterite, Integer force, Integer intelligence, Integer endurance, Integer speed, Integer maxMana, Integer maxLifePoints, ArrayList<Eleme> faiblesse, ArrayList<Eleme> resistances) {
 		super(nom, description) ;
+		if (dexterite == null || dexterite<=0){
+			throw new IllegalArgumentException("La dexterité ne peut pas être null ou négatif!");
+
+		}
+		this.dexterity = dexterite ;
+		if (force==null || force <= 0){
+                throw new IllegalArgumentException("La force  ne peut pas être null ou négatif !");
+            }
+		this.intelligence = intelligence ; 
+		if (intelligence==null || intelligence <= 0){
+			throw new IllegalArgumentException("La intelligence  ne peut pas être null ou négatif !");
+		}
+		this.strength = force ;
+		
+		this.level = 1 ;
+		if (maxLifePoints==null || maxLifePoints <= 0){
+			throw new IllegalArgumentException("Les Lifepoints max  ne peut pas être null ou négatif!");
+		}
+		this.maxLifePoints = maxLifePoints ;
+
+		this.lifePoints = maxLifePoints ;
+		if (endurance==null||endurance <= 0){
+			throw new IllegalArgumentException("La endurance  ne peut pas être null ou négative!");
+		}
+		this.endurance = endurance ; 
+		this.alive = true ;
+		if (speed==null || speed <= 0){
+			throw new IllegalArgumentException("La speed  ne peut pas être null ou négative !");
+		}
+		this.speed = speed ;
+		if (maxMana==null || maxMana<=0){
+			throw new IllegalArgumentException("La max Mana  ne peut pas être null ou négatif !");
+		}
+		this.maxMana = maxMana ;
+		this.mana = maxMana ;
+		if (faiblesses==null){
+			this.faiblesses = new ArrayList<Eleme>();
+		} this.faiblesses=faiblesse ;
+		if (resistances==null){
+			this.resistances = new ArrayList<Eleme>();
+		} else this.resistances = resistances ;
+	}
+
+	public PersonnageCombattant(String nom, String description, String imagePath, Integer dexterite, Integer force, Integer intelligence, Integer endurance, Integer speed, Integer maxMana, Integer maxLifePoints, ArrayList<Eleme> faiblesse, ArrayList<Eleme> resistances) {
+		super(nom, description, imagePath) ;
 		if (dexterite == null || dexterite<=0){
 			throw new IllegalArgumentException("La dexterité ne peut pas être null ou négatif!");
 
@@ -258,8 +301,6 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	public void setLifePoints(int lifePoints) {
 		this.lifePoints = lifePoints;
-		this.enVie();
-		this.noOverHeal();
 	}
 	/** a getter for max lifePOints
 	 * 

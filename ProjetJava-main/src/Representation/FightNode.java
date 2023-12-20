@@ -17,8 +17,6 @@ import java.util.Map;
 public class FightNode extends InnerNode {
 	
 	private ArrayList<PersonnageCombattant> opponents ; //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
-	private Node GameOverNode ;
-	private Node SuccessNode ;
 	private int xp ;
 	private ArrayList<Collectibles> butin ;
 	private Map<PersonnageCombattant, Object[]> actions ;
@@ -35,6 +33,14 @@ public class FightNode extends InnerNode {
 	}
 	public FightNode(String description, String imageName){
 		super("Node" + Node.getTotalNode()+1, description,imageName, false) ;
+	}
+
+	public FightNode(String nom, String description,String imageName, ArrayList<PersonnageCombattant> opponents, int xp, ArrayList<Collectibles> butin){
+				super(nom, description, imageName) ;
+				this.opponents=opponents;
+				this.xp = xp;
+				this.butin = butin ;
+				this.actions= new HashMap<PersonnageCombattant, Object[]>();
 	}
 	
 	public ArrayList<PersonnageCombattant> getOpponents() {
@@ -55,21 +61,6 @@ public class FightNode extends InnerNode {
 		this.opponents = opponents;
 	}
 
-	public Node getGameOverNode() {
-		return GameOverNode;
-	}
-
-	public void setGameOverNode(Node gameOverNode) {
-		GameOverNode = gameOverNode;
-	}
-
-	public Node getSuccessNode() {
-		return SuccessNode;
-	}
-
-	public void setSuccessNode(Node successNode) {
-		SuccessNode = successNode;
-	}
 
 	public int getXp() {
 		return xp;
@@ -143,8 +134,8 @@ public class FightNode extends InnerNode {
 
 		for(int i = 0; i<this.getOpponents().size() ; i++){
 			this.getOpponents().get(i).setGroupe(opponents);
-			this.getOpponents().get(i).setMana(this.getOpponents().get(i).getMana()) ;
-			this.getOpponents().get(i).setLifePoints(this.getOpponents().get(i).getLifePoints());
+			this.getOpponents().get(i).setMana(this.getOpponents().get(i).getMaxMana()) ;
+			this.getOpponents().get(i).setLifePoints(this.getOpponents().get(i).getMaxLifePoints());
 		}
 		super.display();
 	}
@@ -220,8 +211,6 @@ public class FightNode extends InnerNode {
         FightNode fightNode = (FightNode) obj;
         return super.equals(obj) &&
                Objects.equals(this.getOpponents(), fightNode.getOpponents()) &&
-               Objects.equals(this.getGameOverNode(), fightNode.getGameOverNode()) &&
-               Objects.equals(this.getSuccessNode(), fightNode.getSuccessNode()) &&
                Objects.equals(this.getXp(),fightNode.getXp()) &&
                Objects.equals(this.getButin(), fightNode.getButin());
     }

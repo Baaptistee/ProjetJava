@@ -131,4 +131,96 @@ public class PersonnageAdversaireTest {
         assertTrue(size==newActions.size());
     }
 
+//***************************TEST DES EXCEPTIONS ******************************************************************\\
+
+    @Test
+    public void testCompetencesBienInstanciees(){
+        CompetenceDammage competence3 = new CompetenceDammage("Competence1",  "",  0,  100, 20,  1, null, false, false);
+        this.competences.add(competence3) ;
+        this.adversaire.setCompetences(this.competences);
+
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+            adversaire.competenceBienInstanciees();
+        });
+
+        String expectedMessage = "Il y a un problème avec les probabilités des attaques du personnage";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void testCompetencesBienInstanciees2(){
+        this.competences = new ArrayList<>();
+        this.adversaire.setCompetences(this.competences);
+
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+            adversaire.competenceBienInstanciees();
+        });
+
+        String expectedMessage = "Le personnage n'a pas de compétences";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void testCompetencesBienInstanciees3(){
+        CompetenceDammage competence3 = new CompetenceDammage("Competence1",  "",  3,  100, 20,  1, null, false, false);
+        CompetenceDammage competence4 = new CompetenceDammage("Competence1",  "",  3,  100, 20,  1, null, false, false);
+
+        this.competences = new ArrayList<>();
+        this.competences.add(competence3) ;
+        this.competences.add(competence4) ;
+
+        this.adversaire.setCompetences(this.competences);
+
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+            adversaire.competenceBienInstanciees();
+        });
+
+        String expectedMessage = "Le personnage n'a pas de compétence qu'il peut utiliser dans tous les cas !";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test 
+    public void testCompetencesBienInstanciees4(){
+        CompetencesActives competenceSoin = new CompetenceSoin("Soin","",0,20, false);
+        CompetencesActives competenceSoin2 = new CompetenceSoin("Soin","",0,20, false);
+
+        this.competences = new ArrayList<>();
+        this.competences.add(competenceSoin2) ;
+        this.competences.add(competenceSoin) ;
+        this.adversaire.setCompetences(this.competences);
+
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+            adversaire.competenceBienInstanciees();
+        });
+
+        String expectedMessage = "Le personnage n'a pas de compétence qu'il peut utiliser dans tous les cas !";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test 
+    public void testSelectionCible2(){
+        CompetencesActives competenceSoin = new CompetenceSoin("Soin","",0,20, false);
+        ArrayList<CompetencesActives> newCompetences = new ArrayList<>(Arrays.asList(competence1, competenceSoin));
+        adversaire.setCompetences(newCompetences);
+        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new int[]{});
+        ArrayList<PersonnageCombattant> groupe = new ArrayList<PersonnageCombattant>();
+        groupe.add(adversaire);
+        groupe.add(adversaire2);
+        adversaire.setGroupe(groupe);
+        adversaire2.setGroupe(groupe);
+
+         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            adversaire.selectionCible(competenceSoin);
+        });
+
+        String expectedMessage = "ERREUR de selection de compétence : compétence de soin alors qu'il n'y a pas d'allié blessé !!";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
 }

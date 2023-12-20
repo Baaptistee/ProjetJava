@@ -1,7 +1,7 @@
 package Main;
 import Event.*;
 import java.util.ArrayList;
-
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 
@@ -73,7 +73,6 @@ public class Main {
 		bytin1.add(banane) ;
 		bytin1.add(potion) ;
 		n15S.setButin(bytin1);
-		n15S.setOpponents(opponents1);
 		ArrayList <Eleme> resistancess=new ArrayList<>();
 		resistancess.add(Eleme.FEU);
 		resistancess.add(Eleme.LUMIERE);
@@ -275,9 +274,32 @@ public class Main {
 
 
 		
+		
+		ArrayList<PersonnageCombattant> opponents8= new ArrayList<PersonnageCombattant>();
+		ArrayList<Collectibles> bytin8= new ArrayList<Collectibles>() ;
+		Collectibles potion8 = new Objets("Potion de soin") ;
+		Collectibles banane8 = new Objets("Banane") ;
+		bytin1.add(banane8) ;
+		bytin1.add(potion8) ;
+		ArrayList <Eleme> resistancess2=new ArrayList<>();
+		resistancess.add(Eleme.FEU);
+		resistancess.add(Eleme.LUMIERE);
+		int [] probaCompetences8={7,3};
+		ArrayList <CompetencesActives> jeanJacquesCtest= new ArrayList<>();
+		jeanJacquesC.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
+		jeanJacquesC.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
+		PersonnageAdversaire n19Stest = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 7, 10,resistancess,resistancess, jeanJacquesC,probaCompetences);
+		PersonnageAdversaire n20Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		PersonnageAdversaire n21Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		PersonnageAdversaire n22Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		opponents8.add(n19Stest);
+		opponents8.add(n20Stest);
+		opponents8.add(n21Stest);
+		opponents8.add(n22Stest);
 
+		InnerNode nodeTest = new FightNode("Prout", "prout prout", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin8);
 
-		Game.getGame().setFirstNode(n1) ;
+		Game.getGame().setFirstNode(nodeTest) ;
 		InterfaceJeu.ecranTitre();
 
 		/* 

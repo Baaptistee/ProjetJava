@@ -36,8 +36,8 @@ public class Personnage implements Serializable{
     public Personnage(String name, String description) {
         try {
         
-            if (this.name==null){
-                throw new IllegalArgumentException("Le nom ne peut pas être null !");
+            if (name==null){
+                throw new IllegalArgumentException("Le nom ne peut pas être null (Personnage)!");
             }
             totalPerso++ ;
     	    this.persoId = totalPerso ;

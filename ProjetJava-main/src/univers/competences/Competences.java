@@ -21,8 +21,14 @@ public abstract class Competences implements Serializable{
 	 * @param description
 	 */
 	public Competences(String name, String description) {
+		try { if (name==null){
+			throw new IllegalArgumentException("Nom doit être rempli (compétence)");
+		}
 		this.description = description ;
 		this.name = name ;
+	} catch (IllegalArgumentException e){
+		System.out.println(e.getMessage());
+	}
 	}
 	
 	/** the default constructeur

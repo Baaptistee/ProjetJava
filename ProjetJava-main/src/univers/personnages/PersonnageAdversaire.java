@@ -54,15 +54,26 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 */
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences) {
 		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
+		try { 
 		this.competences = competences ;
 		this.probaCompetences = probaCompetences ;
+		competenceBienInstanciees();
+		} catch (IllegalStateException e){
+			System.out.println(e.getMessage()) ;
+		}
+
 	}
 
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences, String image) {
 		
-		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
+		super(nom, description, image, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
+		try {
 		this.competences = competences ;
 		this.probaCompetences = probaCompetences ;
+		competenceBienInstanciees();
+		} catch (IllegalStateException e){
+			System.out.println(e.getMessage()) ;
+		}
 	}
 	/**
 	 * un getter pour les compétences 
@@ -76,7 +87,12 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 * @param competences
 	 */
 	public void setCompetences(ArrayList<CompetencesActives> competences) {
-		this.competences = competences;
+		try {
+			this.competences = competences;
+			competenceBienInstanciees();
+		} catch (IllegalStateException e){
+			System.out.println(e.getMessage()) ;
+		}
 	}
 	
 	/**
@@ -88,8 +104,12 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	}
 	
 	public void setProbaCompetences(int[] probaCompetences) {
-		this.probaCompetences=probaCompetences ;
-	}
+		try {	
+			this.probaCompetences = probaCompetences;
+			competenceBienInstanciees();
+		} catch (IllegalStateException e){
+			System.out.println(e.getMessage()) ;
+		}	}
 	/** 
 	 * un getter pour le groupe
 	 */
@@ -116,23 +136,22 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		this.groupe = groupe;
 	}
 
-	public void competenceBienInstanciees(){
+	public void competenceBienInstanciees() throws IllegalStateException{
 		if (this.competences.size()==0){
 			throw new IllegalStateException("Le personnage n'a pas de compétences") ;
-		}
-		if (this.probaCompetences.length!=this.competences.size()){
+		} else if (this.probaCompetences.length!=this.competences.size()){
 			throw new IllegalStateException("Il y a un problème avec les probabilités des attaques du personnage") ;
-		}
-		boolean b = false ;
-		for (int i = 0; i<competences.size();i++){
-			if((competences.get(i) instanceof CompetenceDammage)&&competences.get(i).getCoutMana()==0){
-				b = true ;
+		} else {
+			boolean b = false ;
+			for (int i = 0; i<competences.size();i++){
+				if((competences.get(i) instanceof CompetenceDammage)&&competences.get(i).getCoutMana()==0){
+					b = true ;
+				}
+			}
+			if (!b){
+				throw new IllegalStateException("Le personnage n'a pas de compétence qu'il peut utiliser dans tous les cas !") ;
 			}
 		}
-		if (!b){
-			throw new IllegalStateException("Le personnage n'a pas de compétence qu'il peut utiliser dans tous les cas !") ;
-		}
-
 	}
 
 	/**
