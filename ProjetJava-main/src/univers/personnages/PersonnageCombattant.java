@@ -198,14 +198,11 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param level
 	 */
 	public void setLevel(int level) {
-		try {
+		
 			if(level<=0){
 				throw new IllegalArgumentException("Level ne peut être négatif ou 0");
 			}
 			this.level = level;
-		}catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}
 	}
 	/** a getter for strength
 	 * 
@@ -219,14 +216,10 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param strengh
 	 */
 	public void setStrength(int strengh) {
-		try {
 			if(strengh<=0){
 				throw new IllegalArgumentException("Strengh ne peut être négatif ou 0");
 			}
 			this.strength = strengh;
-		}catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}
 	}
 	/** a getter for intelligence
 	 * 
@@ -240,14 +233,10 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param intelligence
 	 */
 	public void setIntelligence(int intelligence) {
-		try {
 			if(intelligence<=0){
 				throw new IllegalArgumentException("Intelligence ne peut être négatif ou 0");
 			}
 			this.intelligence = intelligence;
-		}catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}	
 	}
 	/** a getter for dexterity
 	 * 
@@ -260,14 +249,11 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * 
 	 */
 	public void setDexterity(int dexterity) {
-		try {
 			if(dexterity<=0){
 				throw new IllegalArgumentException("Dexterity ne peut être négatif ou 0");
 			}
 			this.dexterity = dexterity;
-		}catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}		}
+	}
 	/** a getter for endurance
 	 * 
 	 * @return
@@ -280,14 +266,11 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param endurance
 	 */
 	public void setEndurance(int endurance) {
-		try {
 			if(endurance<=0){
 				throw new IllegalArgumentException("Endurance ne peut être négatif ou 0");
 			}
 			this.endurance = endurance;
-		}catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}		}
+	}
 	/** a getter for Lifepoints
 	 * 
 	 * @return
@@ -314,14 +297,11 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param maxLifePoints
 	 */
 	public void setMaxLifePoints(int maxLifePoints) {
-		try {
 			if(maxLifePoints<=0){
 				throw new IllegalArgumentException("MaxLifepoints ne peut être négatif ou 0");
 			}
 			this.maxLifePoints = maxLifePoints;
-		}catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}		}
+	}
 	/** a getter for the current mana
 	 * 
 	 * @return
@@ -334,16 +314,13 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param mana
 	 */
 	public void setMana(int mana) {
-		try {
 			if (mana < 0){
 				throw new IllegalArgumentException("mana ne peut être négatif ! ");
 			}
 			if (mana > maxMana){
 				this.mana = maxMana ;
 			} else this.mana = mana;
-		} catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}
+
 	}
 	/** a getter for the maximum mana
 	 * 
@@ -357,14 +334,12 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param maxMana
 	 */
 	public void setMaxMana(int maxMana) {
-		try {
 			if(maxMana<=0){
 				throw new IllegalArgumentException("MaxMana ne peut être négatif ou 0");
 			}
 			this.maxMana = maxMana;
-		}catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}		}
+		
+	}
 	/** a getter for alive
 	 * 
 	 * @return
@@ -424,7 +399,6 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	
 	public boolean testStat(int valeurTest, Statistiques stat){
-		try{
 			if (valeurTest>0) {
 				throw new IllegalArgumentException("La valeur test doit être supérieure à zéro !");
 			}
@@ -466,10 +440,6 @@ public abstract class PersonnageCombattant extends Personnage {
 			default:
 				return false ;
 			}
-		} catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-			return false ;
-		}
 	}
 	
 	
@@ -502,7 +472,6 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @return
 	 */
 	public boolean esquive (int competenceAccuracy, PersonnageCombattant lanceur) {
-		try {
 			if (lanceur==null){
 				throw new IllegalArgumentException("Lanceur ne peut être null") ;
 			}
@@ -516,10 +485,6 @@ public abstract class PersonnageCombattant extends Personnage {
 				t = true ;
 			}
 			return t ;
-		} catch (IllegalArgumentException e){
-			System.out.println(e.getMessage());
-			return false ;
-		}
 	}
 	/** a method to deal dammage to characters
 	 * 
@@ -527,7 +492,6 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	// une méthode pour faire subir des dégâts à nos personnages 
 	public void dammage(int dammage) {
-		try {// les dégats sont réduits par l'endurance 
 			if (dammage<=0){
 				throw new IllegalArgumentException("dammage doit être supérieur à zéro") ;
 			}
@@ -538,9 +502,6 @@ public abstract class PersonnageCombattant extends Personnage {
 			}
 			this.setLifePoints(this.getLifePoints() - a) ;
 			this.setAlive(this.enVie()) ;
-		} catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}
 	}
 	/** a method to heal characters 
 	 * 
@@ -548,14 +509,10 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	// une méthode pour soigner les personnages
 	public void heal(int heal) {
-		try{
 			if (heal<=0){
 				throw new IllegalArgumentException("heal doit être supérieur à, zéro");
 			}
 		this.setLifePoints(this.getLifePoints() + heal) ;
-		} catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}
 	}
 	/** a function used to get the group of the characters
 	 * 

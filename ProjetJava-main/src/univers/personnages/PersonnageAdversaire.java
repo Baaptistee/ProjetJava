@@ -54,26 +54,18 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 */
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences) {
 		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
-		try { 
 		this.competences = competences ;
 		this.probaCompetences = probaCompetences ;
 		competenceBienInstanciees();
-		} catch (IllegalStateException e){
-			System.out.println(e.getMessage()) ;
-		}
-
 	}
 
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences, String image) {
 		
 		super(nom, description, image, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
-		try {
 		this.competences = competences ;
 		this.probaCompetences = probaCompetences ;
 		competenceBienInstanciees();
-		} catch (IllegalStateException e){
-			System.out.println(e.getMessage()) ;
-		}
+
 	}
 	/**
 	 * un getter pour les compétences 
@@ -87,12 +79,8 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 * @param competences
 	 */
 	public void setCompetences(ArrayList<CompetencesActives> competences) {
-		try {
 			this.competences = competences;
 			competenceBienInstanciees();
-		} catch (IllegalStateException e){
-			System.out.println(e.getMessage()) ;
-		}
 	}
 	
 	/**
@@ -104,12 +92,9 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	}
 	
 	public void setProbaCompetences(int[] probaCompetences) {
-		try {	
 			this.probaCompetences = probaCompetences;
 			competenceBienInstanciees();
-		} catch (IllegalStateException e){
-			System.out.println(e.getMessage()) ;
-		}	}
+	}
 	/** 
 	 * un getter pour le groupe
 	 */
@@ -159,7 +144,6 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 * @return
 	 */
 	public CompetencesActives selectionAttaque() {
-		try {
 			competenceBienInstanciees();
 			Random random = new Random() ;
 			int total = 0 ;
@@ -204,10 +188,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 				}
 			}
 			return o ;
-		} catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-			return null ;
-		}
+
 	}
 
 	/** 
@@ -217,7 +198,6 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	 */
 	// une fonction pour la sélection aléatoire de la cible 
 	public PersonnageCombattant selectionCible(CompetencesActives competence) {
-		try {
 		if (competence instanceof CompetenceSoin){
 			boolean b = false ;
 			for (int i = 0; i<this.getGroupe().size();i++){
@@ -254,11 +234,8 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 			}
 			return d ;
 		}
-	} catch (IllegalStateException e){
-		System.out.println(e.getMessage()) ;
-		return null ;
+
 	}
-}
 	
 	public Map<PersonnageCombattant, Object[]> selectionTout(Map<PersonnageCombattant, Object[]> actions){
 		// on ajoute l'action du personnage que si il est envie 

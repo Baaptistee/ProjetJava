@@ -71,13 +71,9 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	 * @param experience
 	 */
 	public void setExperience(int experience) {
-		try {
 			if (experience < 0){
 				throw new IllegalArgumentException("Experience ne peut être inferieure à zéro") ;
 			} else this.experience = experience;
-		} catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}
 	}
 	/** a getter for the weapon
 	 * 
@@ -92,14 +88,11 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	 * @param weapon
 	 */
 	public void setWeapon(Weapon weapon) {
-		try {if (!this.armePossible.contains(weapon.getWeaponType())){
+		if (!this.armePossible.contains(weapon.getWeaponType())){
 			throw new IllegalArgumentException("Impossible pour ce personnage d'équiper cette arme !") ;
 		}
 		this.weapon = weapon;}
-		catch (IllegalArgumentException e){
-			System.out.println(e.getMessage()) ;
-		}
-	}
+	
 
 	/** a getter for the competences 
 	 * 
@@ -257,7 +250,6 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	 */
 	// une fonction qui gère le gain d'XP
 	public String gainExperience(int xp) {
-		try {
 			if (xp<=0){
 				throw new IllegalArgumentException("Expérience peut pas être inférieure à zéro") ;
 			}
@@ -273,10 +265,7 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 			
 			}
 			return retour ;
-		} catch (IllegalArgumentException e){
-			System.out.println(e.getMessage());
-			return null ;
-		}
+
 	}
 
 	public boolean isLevelUp(int xp){

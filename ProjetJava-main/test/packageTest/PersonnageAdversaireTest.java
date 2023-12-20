@@ -24,13 +24,15 @@ public class PersonnageAdversaireTest {
     private CompetencesActives competence1;
     private CompetencesActives competence2;
     private ArrayList<CompetencesActives> competences ;
+    private int[] probaCompetences ;
 
     @BeforeEach
     public void setUp(){
         this.competence1 = new CompetenceDammage("Competence1",  "",  0,  100, 20,  1, null, false, false);
         this.competence2 = new CompetenceDammage("Competence1",  "",  3,  100, 20,  1, null, false, false);
         this.competences = new ArrayList<>(Arrays.asList(competence1, competence2));
-        int[] probaCompetences = {50, 50}; // 50% de chance pour chaque compétence
+        int[] probaCompetencesprim = {50, 50};
+        this.probaCompetences =probaCompetencesprim; // 50% de chance pour chaque compétence
         this.adversaire = new PersonnageAdversaire("Adversaire", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), competences, probaCompetences);
     }
 
@@ -58,7 +60,7 @@ public class PersonnageAdversaireTest {
         CompetencesActives competenceSoin = new CompetenceSoin("Soin","",0,20, false);
         ArrayList<CompetencesActives> newCompetences = new ArrayList<>(Arrays.asList(competence1, competenceSoin));
         adversaire.setCompetences(newCompetences);
-        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new int[]{});
+        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), competences, probaCompetences);
         ArrayList<PersonnageCombattant> groupe = new ArrayList<PersonnageCombattant>();
         groupe.add(adversaire);
         groupe.add(adversaire2);
@@ -75,7 +77,7 @@ public class PersonnageAdversaireTest {
     // test de la sélection de la cible blessée en cas de compétence de loin 
    @Test
     public void testSelectionCibleSoin() {
-        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new int[]{});
+        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), competences, probaCompetences);
         adversaire2.setLifePoints(adversaire2.getLifePoints()-1);
         CompetencesActives competenceSoin = new CompetenceSoin("Soin","",0,20, false);
         ArrayList<PersonnageCombattant> groupe = new ArrayList<PersonnageCombattant>();
@@ -111,7 +113,7 @@ public class PersonnageAdversaireTest {
     @Test
     public void testSelectionTout() {
         Map<PersonnageCombattant, Object[]> actions = new HashMap<PersonnageCombattant, Object[]>();
-        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new int[]{});
+        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), competences, probaCompetences);
         Object[] remplissage = {null, null};
         actions.put(adversaire2, remplissage);
         adversaire.setAlive(true);
@@ -137,10 +139,10 @@ public class PersonnageAdversaireTest {
     public void testCompetencesBienInstanciees(){
         CompetenceDammage competence3 = new CompetenceDammage("Competence1",  "",  0,  100, 20,  1, null, false, false);
         this.competences.add(competence3) ;
-        this.adversaire.setCompetences(this.competences);
 
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-            adversaire.competenceBienInstanciees();
+            this.adversaire.setCompetences(this.competences);
+
         });
 
         String expectedMessage = "Il y a un problème avec les probabilités des attaques du personnage";
@@ -151,10 +153,9 @@ public class PersonnageAdversaireTest {
     @Test
     public void testCompetencesBienInstanciees2(){
         this.competences = new ArrayList<>();
-        this.adversaire.setCompetences(this.competences);
 
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-            adversaire.competenceBienInstanciees();
+            this.adversaire.setCompetences(this.competences);
         });
 
         String expectedMessage = "Le personnage n'a pas de compétences";
@@ -171,10 +172,10 @@ public class PersonnageAdversaireTest {
         this.competences.add(competence3) ;
         this.competences.add(competence4) ;
 
-        this.adversaire.setCompetences(this.competences);
 
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-            adversaire.competenceBienInstanciees();
+            this.adversaire.setCompetences(this.competences);
+
         });
 
         String expectedMessage = "Le personnage n'a pas de compétence qu'il peut utiliser dans tous les cas !";
@@ -190,10 +191,9 @@ public class PersonnageAdversaireTest {
         this.competences = new ArrayList<>();
         this.competences.add(competenceSoin2) ;
         this.competences.add(competenceSoin) ;
-        this.adversaire.setCompetences(this.competences);
 
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-            adversaire.competenceBienInstanciees();
+            this.adversaire.setCompetences(this.competences);
         });
 
         String expectedMessage = "Le personnage n'a pas de compétence qu'il peut utiliser dans tous les cas !";
@@ -206,7 +206,7 @@ public class PersonnageAdversaireTest {
         CompetencesActives competenceSoin = new CompetenceSoin("Soin","",0,20, false);
         ArrayList<CompetencesActives> newCompetences = new ArrayList<>(Arrays.asList(competence1, competenceSoin));
         adversaire.setCompetences(newCompetences);
-        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new int[]{});
+        PersonnageAdversaire adversaire2 = new PersonnageAdversaire("Adversaire2", "Description", 10, 20, 15, 30, 5, 100, 50, new ArrayList<>(), new ArrayList<>(), newCompetences,probaCompetences);
         ArrayList<PersonnageCombattant> groupe = new ArrayList<PersonnageCombattant>();
         groupe.add(adversaire);
         groupe.add(adversaire2);
