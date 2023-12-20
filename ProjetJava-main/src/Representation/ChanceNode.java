@@ -23,11 +23,11 @@ public class ChanceNode extends InnerNode {
     /**
      * Constructs a ChanceNode with a name, description, options, image name, and probability for each option.
      *
-     * @param nom          The name of the ChanceNode.
-     * @param description  The description of the ChanceNode.
-     * @param options      The available options for the chance node.
-     * @param imageName    The name of the associated image.
-     * @param probability  The probability of each possible node.
+     * @param nom The name of the ChanceNode.
+     * @param description The description of the ChanceNode.
+     * @param options The available options for the chance node.
+     * @param imageName The name of the associated image.
+     * @param probability The probability of each possible node.
      */
     public ChanceNode(String nom, String description, ArrayList<Node> options, String imageName, ArrayList<Integer> probability) {
         super(nom, description, imageName, options);

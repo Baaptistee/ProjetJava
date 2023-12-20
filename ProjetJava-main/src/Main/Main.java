@@ -1,13 +1,7 @@
 package Main;
-import Event.*;
+
 import java.util.ArrayList;
-import java.util.Map;
 
-import javax.swing.ImageIcon;
-
-
-import javax.print.attribute.TextSyntax;
-import javax.swing.JOptionPane;
 
 import Interface.InterfaceJeu;
 
@@ -32,7 +26,7 @@ public class Main {
 		optionn.add("image/Soigneur.png");
 /********************************************************** INTRODUCTION ***************************************************************/
 		InnerNode n1 = new TextNode("??? : "+joueur+"... ! / Réveille-toi !!","image/mystery-2169794_1280.jpg");
-		InnerNode n2 = new ChooseNode("Continuer à dormir", "??? : Aller dêpeche toi on va être en retard !","image/mystery-2169794_1280.jpg") ;
+		InnerNode n2 = new ChooseNode("Continuer à dormir", "??? : Aller dêpeche toi on va être en retard !","image/mystery-2169794_1280.jpg","sound/epic-hybrid-logo-157092.mp3",optionn) ;
 		InnerNode n3 = new ChooseNode("Continuer à dormir","??? : "+ joueur.toUpperCase()+" !!!!/ RÉVEILLE TOI !!","image/mystery-2169794_1280.jpg");
 		InnerNode n4 = new TextNode("Se réveiller", "??? : Ah enfin tu te décides ... Tu sais pourtant très bien qu'aujourd'hui est un jour important./","image/mystery-2169794_1280.jpg");
 		InnerNode n5 = new TextNode("Leo : Heu t'es sur que ça va ?/Allô la lune ici Leo t'as oublié que la remise des diplômes c'était aujourd'hui ou quoi ?/"+joueur+" : La remise des diplômes ?/Leo : Non mais je rêve ! Tu sais le diplôme de magie pour lequel on sue sang et eau depuis qu'on est gosse ?/C'est enfin le grand jour !!//<em>Les deux garçons se dépêchent d'enfiler leurs tenues et de se diriger vers le hall de la cérémonie.</em>","image/mystery-2169794_1280.jpg");

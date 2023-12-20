@@ -3,7 +3,8 @@
 */
 
 package Interface;
-import Representation.* ;
+import Representation.*;
+
 import univers.competences.CompetencesActives;
 import univers.personnages.PersoGroupe;
 //import univers.personnages.PersoGroupe;

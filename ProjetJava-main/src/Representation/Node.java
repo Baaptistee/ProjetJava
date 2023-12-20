@@ -16,13 +16,15 @@ public abstract class Node extends Object implements Event, Serializable {
 	private Node formerNode ; 
 	private boolean checkPoint = false ;
 	private String imageName;
+	private String soundName;
 	private ArrayList <String> imagepersoPath;
 
 
-	 /**
-     * Constructor for the Node.
-     * @param name The name of the Node.
+	/**
+     * Constructor for the Node with essential attributes.
+     * @param nom The name of the Node.
      * @param description The description of the Node.
+     * @param imageName The name of the associated image.
      */
 
 	 public Node(String nom, String description, String imageName){
@@ -40,8 +42,15 @@ public abstract class Node extends Object implements Event, Serializable {
 				throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
 			}
 			this.imageName = imageName;
+			
 	}
-	
+
+
+	/**
+	* Constructor for the Node with essential attributes.
+     * @param nom The name of the Node.
+     * @param description The description of the Node.
+     */
 
 	public Node(String nom, String description){
 		if (nom == null) {
@@ -55,7 +64,15 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.nom = nom ;
 	}
 
-	public Node(String nom, String description, String imageName,ArrayList<String> imagepersoPath) throws IllegalArgumentException {
+	/**
+     * Constructor for the Node with essential attributes.
+     * @param nom The name of the Node.
+     * @param description The description of the Node.
+     * @param imageName The name of the associated image.
+	 * @param imagepersoPath The name of the associated image.
+     */
+
+	public Node(String nom, String description, String imageName,ArrayList<String> imagepersoPath) {
 		if (nom == null) {
 			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
 		}
@@ -72,15 +89,35 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.imageName= imageName;
 		this.imagepersoPath=imagepersoPath;
 	}
+
+	public Node(String nom, String description, String imageName,String soundName,ArrayList<String> imagepersoPath) {
+		if (nom == null) {
+			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
+		}
+		if (description == null) {
+			throw new IllegalArgumentException("La description du node ne peut pas être null");
+		}
+		if (imageName == null) {
+			throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
+		}
+		
+		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
+		this.description = description ;
+		this.nom = nom ;
+		this.imageName= imageName;
+		this.imagepersoPath=imagepersoPath;
+		this.soundName=soundName;
+	}
 	
 	/**
      * Constructor for the Node with an optional checkpoint.
      * @param name The name of the Node.
      * @param description The description of the Node.
+	 * @param imageName The name of the associated image.
      * @param isCheckpoint Indicates whether the Node is a checkpoint.
      */
 
-	public Node(String nom, String description,String imageName, boolean checkPoint) throws IllegalArgumentException {
+	public Node(String nom, String description,String imageName, boolean checkPoint){
 
 		if (nom == null) {
 			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
@@ -98,9 +135,16 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.checkPoint = checkPoint ;
 		this.imageName=imageName; 
 	}
+
+	/**
+     * Constructor for the Node with an optional checkpoint.
+     * @param name The name of the Node.
+     * @param description The description of the Node.
+     * @param isCheckpoint Indicates whether the Node is a checkpoint.
+     */
 	
 
-	public Node(String nom, String description, boolean checkPoint) throws IllegalArgumentException {
+	public Node(String nom, String description, boolean checkPoint){
 
 		if (nom == null) {
 			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
@@ -115,14 +159,27 @@ public abstract class Node extends Object implements Event, Serializable {
 	}
 
 
-	public ArrayList<String> getImagePersoList() {
-        return this.imagepersoPath;
-    }
+	/**
+ * Get the list of image paths for associated characters.
+ *
+ * @return The list of image paths.
+ */
+public ArrayList<String> getImagePersoList() {
+    return this.imagepersoPath;
+}
 
+public String getSoundName(){
+	return soundName;
+}
 
-	public String getImageName(){
-		return imageName;
-	}
+/**
+ * Get the name of the associated image.
+ *
+ * @return The name of the image.
+ */
+public String getImageName() {
+    return imageName;
+}
 
 	/**
      * Set the description of the Node.
@@ -134,11 +191,14 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.description = newDescription ;
 		
 	}
-
-	public static int getTotalNode(){
+	/**
+	 * Get the total number of nodes created.
+	 *
+	 * @return The total number of nodes.
+	 */
+	public static int getTotalNode() {
 		return totalNode;
 	}
-
 	 /**
      * Get the description of the Node.
      * @return The description of the Node.
@@ -269,43 +329,55 @@ public abstract class Node extends Object implements Event, Serializable {
         }
 	}
 	
+		/**
+	 * Returns a string representation of the Node, including its name and description.
+	 *
+	 * @return A string representation of the Node.
+	 */
 	@Override
 	public String toString() {
-		return "Nom:"+this.getNom()+"Description:"+ this.getDescription();
+		return "Nom:" + this.getNom() + "Description:" + this.getDescription();
 	}
 
+	/**
+	 * Indicates whether some other object is "equal to" this one.
+	 *
+	 * @param obj The reference object with which to compare.
+	 * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+	 */
 	@Override
-public boolean equals(Object obj) {
-    if (this == obj) {
-        return true;
-    } else if (obj == null || getClass() != obj.getClass()) {
-        return false;
-    } else {
-        Node node = (Node) obj;
-        return Objects.equals(this.getDescription(), node.getDescription()) &&
-                Objects.equals(this.getNom(), node.getNom()) &&
-                Objects.equals(this.getID(), node.getID()) &&
-                Objects.equals(this.getFormerNode(), node.getFormerNode()) &&
-                Objects.equals(this.getCheckPoint(), node.getCheckPoint());
-    }
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		} else if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		} else {
+			Node node = (Node) obj;
+			return Objects.equals(this.getDescription(), node.getDescription()) &&
+					Objects.equals(this.getNom(), node.getNom()) &&
+					Objects.equals(this.getID(), node.getID()) &&
+					Objects.equals(this.getFormerNode(), node.getFormerNode()) &&
+					Objects.equals(this.getCheckPoint(), node.getCheckPoint());
+		}
+	}
+
+	/**
+ * Displays the Node in the user interface, sets it as the current Node in the game, and
+ * checks if it is a checkpoint to update the last checkpoint if needed.
+ */
+public void display() {
+    this.isCheckPoint();
+    Game.getGame().setCurrentNode(this);
+    getInterface().afficherNodeBase(this);
 }
 
-   
-	/**
-     * Display the Node in the user interface.
-     */
-
-	public void display() {
-		this.isCheckPoint() ;
-		Game.getGame().setCurrentNode(this);
-		getInterface().afficherNodeBase(this);
-	}
-	
-
-	@Override
-	public Event chooseNext() {
-		goNext();
-		return this;
-	}
+/**
+ * @return The current Node as the next event.
+ */
+@Override
+public Event chooseNext() {
+    goNext();
+    return this;
+}
 	
 }

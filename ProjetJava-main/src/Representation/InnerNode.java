@@ -69,6 +69,9 @@ public abstract class InnerNode extends Node {
     public InnerNode(String nom, String description, String imageName){
         super(nom, description, imageName);
     }
+    public InnerNode(String nom, String description, String imageName,String soundName, ArrayList<String> imagepersoPath){
+        super(nom, description, imageName, soundName, imagepersoPath);
+    }
 
     /**
      * Constructor for an `InnerNode` without an explicit checkpoint.

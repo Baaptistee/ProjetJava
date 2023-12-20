@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  * The ChooseNode class represents a node for making a choice among different options.
  * It extends the InnerNode class.
  *
- * @see InnerNode
+
  */
 public class ChooseNode extends InnerNode {
 
@@ -36,8 +36,8 @@ public class ChooseNode extends InnerNode {
      * @param description The description of the choice node.
      * @param imageNode   The name of the associated image.
      */
-    public ChooseNode(String description, String imageNode) {
-        super("Node" + Node.getTotalNode() + 1, description, imageNode, false);
+    public ChooseNode(String description, String imageName) {
+        super("Node" + Node.getTotalNode() + 1, description, imageName, false);
     }
 
     /**
@@ -47,10 +47,13 @@ public class ChooseNode extends InnerNode {
      * @param description The description of the choice node.
      * @param imageNode   The name of the associated image.
      */
-    public ChooseNode(String nom, String description, String imageNode) {
-        super(nom, description, imageNode, false);
+    public ChooseNode(String nom, String description, String imageName) {
+        super(nom, description, imageName, false);
     }
 
+    public ChooseNode(String nom, String description, String imageName, String soundNode, ArrayList<String> imagepersoPath ) {
+        super(nom, description, imageName,soundNode,imagepersoPath);
+    }
     /**
      * Constructor for the ChooseNode class.
      *
