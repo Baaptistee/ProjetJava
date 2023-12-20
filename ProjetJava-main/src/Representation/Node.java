@@ -18,7 +18,7 @@ public abstract class Node extends Object implements Event, Serializable {
 	private Node formerNode ; 
 	private boolean checkPoint = false ;
 	private String imageName;
-	private ArrayList <String> imagepersoPath;
+	private ArrayList <String> imagepersoPath= new ArrayList<>();
 
 
 	 /**
@@ -72,6 +72,9 @@ public abstract class Node extends Object implements Event, Serializable {
 		if (imageName == null) {
 			throw new IllegalArgumentException("Le nom de l'image ne peut pas être null");
 		}
+		if (imagepersoPath.size()>5){
+            throw new IllegalArgumentException("Le jeu ne peut afficher que 5 persos à la fois ! Node concerné : "+this.nom);
+        }
 		
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
 		this.description = description ;
@@ -128,12 +131,19 @@ public abstract class Node extends Object implements Event, Serializable {
     }
 
 	public void setImagePersoList(ArrayList<String> im){
+		if (im.size()>5){
+            throw new IllegalArgumentException("Le jeu ne peut afficher que 5 persos à la fois ! Node concerné : "+this.nom);
+        }
 		this.imagepersoPath=im ;
 	}
 
 
 	public String getImageName(){
 		return imageName;
+	}
+
+	public void setImageName(String imageName){
+		this.imageName=imageName;
 	}
 
 	/**

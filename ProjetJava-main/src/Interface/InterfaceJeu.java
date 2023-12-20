@@ -44,6 +44,7 @@ public class InterfaceJeu {
 	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the Game.getGame() interface.
 	private static JMenuBar barreMenu = new JMenuBar() ;//Reference to the menu bar of the Game.getGame() interface.
     private static JLayeredPane layeredPane =new JLayeredPane();
+    private static final Font maFont = new Font("Courier New", Font.PLAIN, 15);
 
 
 	 /**
@@ -492,15 +493,19 @@ public class InterfaceJeu {
      */
 
     public void afficherperso(Node node){
+        if (node.getImagePersoList().size()>5){
+            throw new IllegalArgumentException("Le jeu ne peut afficher que 5 persos à la fois ! Node concerné : "+node.getNom());
+        }
         ArrayList<String> imageperso = node.getImagePersoList();
         if (imageperso!=null){
             JPanel panel= new JPanel(new FlowLayout());
-            panel.setBounds(60, 350, 650, 225);
+            panel.setBounds(60, 350, 650, 270);
             panel.setOpaque(false);
             for (String  element : imageperso) {
                 ImageIcon imageIcon= new ImageIcon(element);
                 // Redimensionnement de l'image
-                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
+                // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
                 ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
                 JLabel label = new JLabel(imageRedimensionneeIcon);
                 panel.add(label);
@@ -531,25 +536,8 @@ public class InterfaceJeu {
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
  
-        //if (node instanceof ChooseNode){ 
-            panelText.setBounds(60, 50, 850, 300);
-            editorPane.setPreferredSize(new Dimension(850, 300));
-
-    //    }
-    //     if (node instanceof TextNode || node instanceof ChanceNode ||node instanceof TestNode){ 
-    //         panelText.setBounds(60, 50, 850, 300);
-    //         editorPane.setPreferredSize(new Dimension(840, 200));
-    //     }
-    //      if (node instanceof TerminalNode){ 
-    //         panelText.setBounds(80, 110, 800, 300);
-    //         editorPane.setPreferredSize(new Dimension(790, 300));
-    //     }
-    //      if (node instanceof FightNode){ 
-    //         panelText.setBounds(60, 110, 600, 100);
-    //         editorPane.setPreferredSize(new Dimension(590, 100));
-    //     }
-        
-        
+        panelText.setBounds(60, 50, 850, 300);
+        editorPane.setPreferredSize(new Dimension(850, 300));
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
          
@@ -740,10 +728,11 @@ public class InterfaceJeu {
         // Add the "Next" panel to the layered pane
 		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
         panelInner.setBackground(Color.yellow);
+        panelInner.setOpaque(false);
         
         
         JButton suivant = new JButton("C'est Parti !"); // Create a "Next" button
-        suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+        suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
         suivant.setBackground(new Color(240, 240,240));
 		suivant.setForeground(new Color(128, 64, 0));
         panelInner.add(suivant);
@@ -769,21 +758,41 @@ public class InterfaceJeu {
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
-        
+        afficherImageDansInterface(node.getImageName());
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
-        JPanel panelText= new JPanel();
-    
-        panelText.setBounds(60, 110, 600, 100);
+
+        this.afficherperso(node) ;
         
+        JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JEditorPane editorPane = new JEditorPane();
+ 
+        panelText.setBounds(60, 50, 850, 100);
+        editorPane.setPreferredSize(new Dimension(850, 100));
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("Choisissez les compétences et les cibles de vos personnages :", JLabel.CENTER);
+         
+
+        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        
         panelText.add(label);
-        panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+
+        
+        label.setOpaque(false);
+        panelText.setOpaque(false);
+        label.setFont(new Font("Courier new", Font.PLAIN, 20));
+        label.setForeground(Color.BLACK);
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+
+        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">Sélectionnez les compétences et les cibles de vos personnages !</div>");
+
         getFenetre().revalidate();
         getFenetre().repaint();
+        
+        panelText.add(editorPane);
         
         node.videActions(); //On vide la variable actions du FightNode
         selectionAction(node ,0); // on lance la sélection des actions
@@ -797,26 +806,56 @@ public class InterfaceJeu {
  */
     public void selectionAction(FightNode node, int perso) {
         
-    configPanel();
-    JScrollPane panelFight = new JScrollPane();
-    panelFight.setBounds(700, 200, 250, 300);
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        afficherImageDansInterface(node.getImageName());
+	    getFenetre().getContentPane().setLayout(null);
+	    cleanFenetre() ;
+
+        this.afficherperso(node) ;
         
-    JPanel contentPanel = new JPanel();
-   
-    int numberOfColumns = 1; // Vous pouvez ajuster le nombre de colonnes en fonction de vos besoins
-    contentPanel.setLayout(new GridLayout(0, numberOfColumns)); // 0 pour un nombre de lignes dynamique
-    panelFight.setViewportView(contentPanel);
+        JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JEditorPane editorPane = new JEditorPane();
+ 
+        panelText.setBounds(60, 50, 850, 100);
+        editorPane.setPreferredSize(new Dimension(850, 100));
+        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+        getFenetre().add(layeredPane);
+         
 
+        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        
+        panelText.add(label);
 
-    // Ajoutez le reste de votre code pour configurer le contenuPanel
+        
+        label.setOpaque(false);
+        panelText.setOpaque(false);
+        label.setFont(new Font("Courier new", Font.PLAIN, 20));
+        label.setForeground(Color.BLACK);
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
 
-        contentPanel.setBackground(Color.PINK);
+        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">Sélectionnez la compétence de "+Game.getGame().getGroupeJoueurVivant().get(perso).getName()+"</div>");
 
-        // Ajoute un écouteur pour gérer la molette de la souris au premier JScrollPane
+        getFenetre().revalidate();
+        getFenetre().repaint();
+        
+        panelText.add(editorPane);
+        JScrollPane panelFight = new JScrollPane();
+        panelFight.setBounds(700, 200, 250, 300);
+        
+        JPanel contentPanel = new JPanel();
+        int numberOfColumns = 1; 
+        contentPanel.setLayout(new GridLayout(0, numberOfColumns)); 
+        panelFight.setViewportView(contentPanel);
+        contentPanel.setBackground(Color.BLACK);
+
         contentPanel.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                // Défilement vertical en fonction de l'événement de la molette
                 JScrollBar verticalScrollBar = panelFight.getVerticalScrollBar();
                 verticalScrollBar.setValue(verticalScrollBar.getValue() - e.getUnitsToScroll());
             }
@@ -827,12 +866,16 @@ public class InterfaceJeu {
     
         ButtonGroup buttonGroup = new ButtonGroup();
         JLabel cmp = new JLabel(Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
-            contentPanel.add(cmp);
+        cmp.setFont(new Font("Courier New", Font.PLAIN, 15));
+        cmp.setForeground(Color.WHITE);
+        contentPanel.add(cmp);
         for (int j = 0; j < Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().size(); j++) {
-        JRadioButton radioButton = new JRadioButton("<html>"+Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName()+Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).affichageCoutMana());
-        radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
-        buttonGroup.add(radioButton);
-        contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
+            JRadioButton radioButton = new JRadioButton("<html>"+Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName()+Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).affichageCoutMana());
+            radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
+            radioButton.setFont(new Font("Courier New", Font.PLAIN, 15));
+            radioButton.setForeground(Color.WHITE);
+            buttonGroup.add(radioButton);
+            contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
         }
     
         JButton validateButton = new JButton("Valider");
@@ -877,21 +920,64 @@ public class InterfaceJeu {
      */
     public void selectionCible(FightNode node, int perso, Object [] cibleCompetence) {
         
-
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        //afficherImageDansInterface(node.getImageName());
         configPanel();
+            ImageIcon imageIcon= new ImageIcon(node.getImageName());
+            JLabel labelFond = new JLabel(imageIcon);
+            JPanel panel = new JPanel();
+            panel.add(labelFond);
+            panel.setOpaque(false);
+            panel.setBounds(0, 0, 1000, 1000);
+            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+	    getFenetre().getContentPane().setLayout(null);
+
+        this.afficherperso(node) ;
+        
+        JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JEditorPane editorPane = new JEditorPane();
+ 
+        panelText.setBounds(60, 50, 850, 100);
+        editorPane.setPreferredSize(new Dimension(850, 100));
+        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+        getFenetre().add(layeredPane);
+         
+
+        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        
+        panelText.add(label);
+
+        
+        label.setOpaque(false);
+        panelText.setOpaque(false);
+        label.setFont(new Font("Courier new", Font.PLAIN, 20));
+        label.setForeground(Color.BLACK);
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+
+        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">Sélectionnez la cible de "+Game.getGame().getGroupeJoueurVivant().get(perso).getName()+"</div>");
+
+        getFenetre().revalidate();
+        getFenetre().repaint();
         JScrollPane panelFight = new JScrollPane();
         panelFight.setBounds(700, 200, 250, 300);
+        getFenetre().add(panelFight);
+        getFenetre().setVisible(true);
         
         JPanel contentPanel = new JPanel();
    
-        int numberOfColumns = 1; // Vous pouvez ajuster le nombre de colonnes en fonction de vos besoins
+        int numberOfColumns = 1; 
         contentPanel.setLayout(new GridLayout(0, numberOfColumns)); // 0 pour un nombre de lignes dynamique
         panelFight.setViewportView(contentPanel);
+        contentPanel.setBackground(Color.BLACK);
 
-
-
-        contentPanel.setBackground(Color.PINK);
-
+        // Ajoute un écouteur pour gérer la molette de la souris au premier JScrollPane
         contentPanel.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
@@ -901,16 +987,21 @@ public class InterfaceJeu {
             }
         });
         
-        layeredPane.add(panelFight, JLayeredPane.POPUP_LAYER);
+        layeredPane.add(panelFight, JLayeredPane.DRAG_LAYER);
 
     
-        ButtonGroup buttonGroup = new ButtonGroup();  
+        ButtonGroup buttonGroup = new ButtonGroup();
         JLabel cmp = new JLabel("Cible du " + Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
+        cmp.setFont(maFont);
+        cmp.setForeground(Color.WHITE);
         contentPanel.add(cmp);
+        
         if (cibleCompetence[0] instanceof CompetenceDammage) {
             for (int j = 0; j < node.getOpponentsVivant().size(); j++) {
                 JRadioButton radioButton = new JRadioButton(node.getOpponentsVivant().get(j).getName());
                 radioButton.setActionCommand(node.getOpponentsVivant().get(j).getName());
+                radioButton.setFont(maFont);
+                radioButton.setForeground(Color.WHITE);
                 buttonGroup.add(radioButton);
                 contentPanel.add(radioButton);
             }
@@ -918,14 +1009,19 @@ public class InterfaceJeu {
             for (int j = 0; j < Game.getGame().getGroupeJoueurVivant().size(); j++) {
                 JRadioButton radioButton = new JRadioButton(Game.getGame().getGroupeJoueurVivant().get(j).getName());
                 radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(j).getName());
+                radioButton.setFont(maFont);
+                radioButton.setForeground(Color.WHITE);
                 buttonGroup.add(radioButton);
                 contentPanel.add(radioButton);
             }
         }
         JButton validateButton = new JButton("Valider");
-    
+        validateButton.setFont(maFont);
         contentPanel.add(validateButton);
-    
+        
+        getFenetre().revalidate();
+        getFenetre().repaint();
+
         validateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1053,7 +1149,7 @@ public class InterfaceJeu {
             JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
             panelText.add(label);
             panelText.setBackground(Color.CYAN); 
-            label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+            label.setFont(new Font("Courier New", Font.PLAIN, 17));
             getFenetre().revalidate();
             getFenetre().repaint();
             int action = 0 ;
@@ -1127,7 +1223,7 @@ public class InterfaceJeu {
         
         
             JButton suivant = new JButton("Suivant"); // Create a "Next" button
-            suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+            suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
             suivant.setBackground(new Color(240, 240,240));
 		    suivant.setForeground(new Color(128, 64, 0));
             panelInner.add(suivant);
@@ -1179,7 +1275,7 @@ public class InterfaceJeu {
         JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
         panelText.add(label);
         panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        label.setFont(new Font("Courier New", Font.PLAIN, 17));
         getFenetre().revalidate();
         getFenetre().repaint();
         
@@ -1248,7 +1344,7 @@ public class InterfaceJeu {
         JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
         panelText.add(label);
         panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        label.setFont(new Font("Courier New", Font.PLAIN, 17));
         getFenetre().revalidate();
         getFenetre().repaint();
         
@@ -1305,7 +1401,7 @@ public class InterfaceJeu {
         JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
         panelText.add(label);
         panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        label.setFont(new Font("Courier New", Font.PLAIN, 17));
         getFenetre().revalidate();
         getFenetre().repaint();
         
@@ -1357,7 +1453,7 @@ public class InterfaceJeu {
         
         
         JButton suivant = new JButton("Suivant"); // Create a "Next" button
-        suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+        suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
         suivant.setBackground(new Color(240, 240,240));
 		suivant.setForeground(new Color(128, 64, 0));
         panelInner.add(suivant);
@@ -1385,7 +1481,7 @@ public class InterfaceJeu {
         
         
         JButton suivant = new JButton("Suivant"); // Create a "Next" button
-        suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+        suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
         suivant.setBackground(new Color(240, 240,240));
 		suivant.setForeground(new Color(128, 64, 0));
         panelInner.add(suivant);
@@ -1469,7 +1565,7 @@ public class InterfaceJeu {
         
         
     //     JButton suivant = new JButton("Suivant"); // Create a "Next" button
-    //     suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+    //     suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
     //     suivant.setBackground(new Color(240, 240,240));
 	// 	suivant.setForeground(new Color(128, 64, 0));
     //     panelInner.add(suivant);

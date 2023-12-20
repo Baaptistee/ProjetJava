@@ -108,7 +108,7 @@ public class Game implements Serializable {
 
 	public void setCurrentNode(Node node){
 		this.currentNode = node ;
-		System.out.println("current node set ");
+		//System.out.println("current node set ");
 	}
 	
 	public ArrayList<PersonnageCombattant> getGroupeJoueurVivant() {

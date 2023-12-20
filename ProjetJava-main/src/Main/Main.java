@@ -307,11 +307,18 @@ public class Main {
 		opponents8.add(n21Stest);
 		opponents8.add(n22Stest);
 
-		InnerNode nodeTest = new FightNode("Prout", "prout prout", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin8);
+		InnerNode nodeTest = new FightNode("FightNode Test !", "Fight Node test !!", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin8);
+		ArrayList<String> cinqPersonnages = new ArrayList<String>();
+		nodeTest.setImageName("image/ForetJolie.png");
+		
 
-		n1.setImagePersoList(persoGroupeImagePath);
+		for (int i = 0; i < 5;i++){
+			cinqPersonnages.add("image/MC_Mage.png");
+		}
 
-		Game.getGame().setFirstNode(n1) ;
+		n1.setImagePersoList(cinqPersonnages);
+
+		Game.getGame().setFirstNode(nodeTest) ;
 		InterfaceJeu.ecranTitre();
 
 		/* 
