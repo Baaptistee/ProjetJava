@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +52,7 @@ public class InterfaceJeu {
 
 	public InterfaceJeu() {
 		
-		//configFenetre();
+		configFenetre();
 	}
 
      /**
@@ -130,6 +133,14 @@ public class InterfaceJeu {
      /**
      * Configures the Game.getGame() menu including options for inventory, story, and status.
      */
+
+    public static void showMenu(){
+        getBarreMenu().setVisible(true);
+    }
+
+    public static void hideMenu(){
+        getBarreMenu().setVisible(false);
+    }
 
     public static void configMenu() {
         JMenu inventaire = new JMenu("Inventaire");
@@ -216,7 +227,8 @@ public class InterfaceJeu {
         getFenetre().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; //sortir correctement de la fenetre
         getFenetre().setLocationRelativeTo(null); // centrer la fenetre sur l'ecran
         cleanFenetre();
-        getFenetre().remove(barreMenu);
+        getFenetre().remove(getBarreMenu());
+        hideMenu();
         layeredPane.removeAll();
         getFenetre().revalidate();
         getFenetre().repaint();
@@ -224,15 +236,30 @@ public class InterfaceJeu {
         configPanel();
 
         getFenetre().getContentPane().setLayout(null);
+
+        
+            configPanel();
+            ImageIcon imageIcon= new ImageIcon("image/ForetJolie.png");
+            JLabel labelFond = new JLabel(imageIcon);
+            JPanel panel = new JPanel();
+            panel.add(labelFond);
+            panel.setOpaque(false);
+            panel.setBounds(0, 0, 1000, 1000);
+            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            
+    
         JPanel panelText= new JPanel();
         
-        panelText.setBounds(80, 110, 850, 300);
+        panelText.setBounds(80, 200, 850, 300);
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("<html> <strong> Ecran titre !! </strong>", JLabel.CENTER);// Create a label for displaying the description of the node
+        JLabel label = new JLabel("<html> <strong>Titre du Jeu </strong>", JLabel.CENTER);// Create a label for displaying the description of the node
         panelText.add(label);
         panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+        panelText.setOpaque(false);
+        label.setFont(new Font("Courier New", Font.PLAIN, 100));
         getFenetre().revalidate();
         getFenetre().repaint();
 
@@ -241,20 +268,23 @@ public class InterfaceJeu {
         panelChoose.setBounds(120, 400, 770, 100);
         layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
 	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
-        panelChoose.setBackground(Color.RED); 
+        panelChoose.setBackground(Color.RED);
+        panelChoose.setOpaque(false); 
 
         // Create buttons for each option in the ChooseNode
             JButton btn1 = new JButton("Nouvelle Partie");
-            btn1.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-            btn1.setBackground(new Color(240, 240,240));
-		    btn1.setForeground(new Color(128, 64, 0));
+            btn1.setSize(150, 50);
+
+            btn1.setFont(new Font("Courier New", Font.PLAIN, 15));
+            btn1.setBackground(Color.WHITE);
+		    btn1.setForeground(Color.BLACK);
             panelChoose.add(btn1);
 
             // Add an ActionListener to handle button clicks
             btn1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    configMenu();
+                    showMenu();
                     Game.getGame().getFirstNode().display() ; 
                          
                 }
@@ -264,9 +294,11 @@ public class InterfaceJeu {
         if (dossierSauvegardes.exists()) {
         
         JButton btn2 = new JButton("Charger une partie");
-            btn2.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-            btn2.setBackground(new Color(240, 240,240));
-		    btn2.setForeground(new Color(128, 64, 0));
+        btn2.setSize(300, 100);
+    
+        btn2.setFont(new Font("Courier New", Font.PLAIN, 15));
+            btn2.setBackground(Color.WHITE);
+		    btn2.setForeground(Color.BLACK);
             panelChoose.add(btn2);
 
             // Add an ActionListener to handle button clicks
@@ -280,9 +312,10 @@ public class InterfaceJeu {
         }
 
         JButton btn3 = new JButton("Quitter le jeu");
-            btn3.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-            btn3.setBackground(new Color(240, 240,240));
-		    btn3.setForeground(new Color(128, 64, 0));
+        btn3.setSize(300, 100);
+        btn3.setFont(new Font("Courier New", Font.PLAIN, 15));
+            btn3.setBackground(Color.WHITE);
+		    btn3.setForeground(Color.BLACK);
             panelChoose.add(btn3);
 
             // Add an ActionListener to handle button clicks
@@ -308,21 +341,33 @@ public class InterfaceJeu {
 	    getFenetre().getContentPane().setLayout(null);
         getFenetre().revalidate();
         getFenetre().repaint();
+
+         configPanel();
+            ImageIcon imageIcon= new ImageIcon("image/ForetJolie.png");
+            JLabel labelFond = new JLabel(imageIcon);
+            JPanel panel = new JPanel();
+            panel.add(labelFond);
+            panel.setOpaque(false);
+            panel.setBounds(0, 0, 1000, 1000);
+            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
     
         JScrollPane panelSauvegarde = new JScrollPane();
         panelSauvegarde.setBounds(250, 110, 500, 500);
         JPanel contentPanel = new JPanel();
-   
+        contentPanel.setOpaque(false);
+        panelSauvegarde.setOpaque(false);
         int numberOfColumns = 1; // Vous pouvez ajuster le nombre de colonnes en fonction de vos besoins
         contentPanel.setLayout(new GridLayout(0, numberOfColumns)); // 0 pour un nombre de lignes dynamique
         panelSauvegarde.setViewportView(contentPanel);
 
         layeredPane.add(panelSauvegarde, JLayeredPane.POPUP_LAYER);
-        JLabel label = new JLabel("<html> <strong> Choisissez la partie à charger </strong>", JLabel.CENTER);// Create a label for displaying the description of the node
-        
+        JLabel label = new JLabel("<html> <div style=\"color: #ffffff;\"><strong> Choisissez la partie à charger </strong></div>", JLabel.CENTER);// Create a label for displaying the description of the node
         contentPanel.add(label);
-        contentPanel.setBackground(Color.CYAN); 
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+        contentPanel.setBackground(Color.BLACK); 
+        label.setFont(new Font("Courier New", Font.PLAIN, 25));
+        contentPanel.setOpaque(true);
 
         // Ajoute un écouteur pour gérer la molette de la souris au premier JScrollPane
         contentPanel.addMouseWheelListener(new MouseWheelListener() {
@@ -367,7 +412,9 @@ public class InterfaceJeu {
                 for (File fichier : listeFichier) {
 
                     JRadioButton radioButton = new JRadioButton(fichier.getName());
+                    radioButton.setFont(new Font("Courier new", Font.PLAIN, 15));
                     radioButton.setActionCommand(fichier.getName());
+                    radioButton.setForeground(Color.WHITE);
                     buttonGroup.add(radioButton);
                     contentPanel.add(radioButton);
                 }
@@ -380,6 +427,7 @@ public class InterfaceJeu {
 
 
         JButton validateButton = new JButton("Valider");
+        validateButton.setFont(new Font("Courier new", Font.PLAIN, 15));
         contentPanel.add(validateButton);
         validateButton.addActionListener(new ActionListener() {
             @Override
@@ -393,6 +441,7 @@ public class InterfaceJeu {
                                         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Sauvegardes/"+n))) {
                                             Game partieAcharger = (Game)ois.readObject();
                                             Game.setGame(partieAcharger) ;
+                                            showMenu();                                            
                                             Game.getGame().getCurrentNode().display();
                                             break ;
                                         } catch (IOException | ClassNotFoundException f) {
@@ -442,80 +491,138 @@ public class InterfaceJeu {
      * @param node The node to be displayed.
      */
 
-    
- public void afficherNodeBase(Node node) {
+    public void afficherperso(Node node){
+        ArrayList<String> imageperso = node.getImagePersoList();
+        if (imageperso!=null){
+            JPanel panel= new JPanel(new FlowLayout());
+            panel.setBounds(60, 350, 650, 225);
+            panel.setOpaque(false);
+            for (String  element : imageperso) {
+                ImageIcon imageIcon= new ImageIcon(element);
+                // Redimensionnement de l'image
+                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+                JLabel label = new JLabel(imageRedimensionneeIcon);
+                panel.add(label);
+                System.out.println("label");
+            }
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+            
+            getFenetre().revalidate();
+            getFenetre().repaint();
+        }
+    }
 
+
+ public void afficherNodeBase(Node node) {
         
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
         afficherImageDansInterface(node.getImageName());
-        
-        
-
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
+
+        this.afficherperso(node) ;
         
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
  
-        if (node instanceof ChooseNode){ 
-            panelText.setBounds(60, 110, 600, 300);
-            editorPane.setPreferredSize(new Dimension(600, 300));
-
-        }
-        if (node instanceof TextNode || node instanceof ChanceNode ||node instanceof TestNode){ 
-            panelText.setBounds(80, 110, 850, 300);
+        //if (node instanceof ChooseNode){ 
+            panelText.setBounds(60, 50, 850, 300);
             editorPane.setPreferredSize(new Dimension(850, 300));
-        }
-         if (node instanceof TerminalNode){ 
-            panelText.setBounds(80, 110, 800, 300);
-            editorPane.setPreferredSize(new Dimension(800, 300));
-        }
-         if (node instanceof FightNode){ 
-            panelText.setBounds(60, 110, 600, 100);
-            editorPane.setPreferredSize(new Dimension(600, 100));
-        }
+
+    //    }
+    //     if (node instanceof TextNode || node instanceof ChanceNode ||node instanceof TestNode){ 
+    //         panelText.setBounds(60, 50, 850, 300);
+    //         editorPane.setPreferredSize(new Dimension(840, 200));
+    //     }
+    //      if (node instanceof TerminalNode){ 
+    //         panelText.setBounds(80, 110, 800, 300);
+    //         editorPane.setPreferredSize(new Dimension(790, 300));
+    //     }
+    //      if (node instanceof FightNode){ 
+    //         panelText.setBounds(60, 110, 600, 100);
+    //         editorPane.setPreferredSize(new Dimension(590, 100));
+    //     }
         
         
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
+         
+
+        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        
         panelText.add(label);
-        panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+
+        
+        label.setOpaque(false);
+        panelText.setOpaque(false);
+        label.setFont(new Font("Courier new", Font.PLAIN, 20));
+        label.setForeground(Color.BLACK);
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+
         getFenetre().revalidate();
         getFenetre().repaint();
-        // JButton btn = new JButton("TEST POPUP");
-        // panelText.add(btn);
-        // POPUP(btn);
 
 
         editorPane.setOpaque(false);
         editorPane.setEditable(false);
-        editorPane.setContentType("text/html"); // Set content type to HTML
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
         
         panelText.add(editorPane);
 	
         char[] texts = node.getDescription().toCharArray(); // Convert the description text of the node to a character array
+        
         Timer timer = new Timer(10, new ActionListener() { // Create a timer to display the description character by character
         int index = 0; // Index to retrieve each character from the description
-        StringBuilder textBuilder = new StringBuilder();
-
+        StringBuilder textBuilder = new StringBuilder("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\"></div>");
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index < texts.length) { 
                 char nextChar = texts[index];
                     if ((nextChar == '/') && !(texts[index - 1] == '<')) {
                         textBuilder.append("<br>");
+                        String balise = "</div>";
+                        int position = textBuilder.indexOf(balise);
+
+                        // Vérifier si la balise a été trouvée
+                        if (position != -1) {
+                             // Insérer le texte juste avant la balise </font>
+                            textBuilder.insert(position, "<br>");
+
+                            // Afficher le résultat
+                        } else {
+                            throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                        }
+                        
+                        
                         editorPane.setText(textBuilder.toString());
                         index++;
-
                 
                 }
                 else{
-                    textBuilder.append(nextChar);
+                    String balise = "</div>";
+                    int position = textBuilder.indexOf(balise);
+
+                        // Vérifier si la balise a été trouvée
+                         if (position != -1) {
+
+                             // Insérer le texte juste avant la balise </font>
+                            textBuilder.insert(position, nextChar);
+
+                            // Afficher le résultat
+                        } else {
+                            throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                        }
                     editorPane.setText(textBuilder.toString());
                     index++;
                 }
@@ -524,26 +631,17 @@ public class InterfaceJeu {
                 ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
 
                 // Determine the type of the node and handle accordingly
-                if ( node instanceof ChooseNode){ 
-                    ChooseNodeButton(node);
-                }
-                if(node instanceof TextNode || node instanceof ChanceNode || node instanceof TestNode ){ 
-                    InnerNodeButton(node);
-                }
-                if(node instanceof FightNode){
-                    playFightNode(node);
-                }
-                if(node instanceof TerminalNode){
-                    TerminalNodeButton(node);
-                }
-            
             }
-        
+            
         }
+        
+        
     });
+    timer.start();
+    if(node instanceof FightNode){
+        playFightNode(node);
+    } else InnerNodeButton(node);
 
-
-    timer.start(); 
 
 }
 
@@ -553,29 +651,37 @@ public class InterfaceJeu {
     * @param node The current ChooseNode to display options for.
     */
 
-    public void ChooseNodeButton(Node node){
+    public void InnerNodeButton(Node node){
         configPanel();
-        ChooseNode chooseNode;// Cast the node to a ChooseNode
+        InnerNode chooseNode;// Cast the node to a ChooseNode
         
-        chooseNode=(ChooseNode)node;
+        chooseNode=(InnerNode)node;
 
         JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
         getFenetre().add(layeredPane);
-        panelChoose.setBounds(661, 109, 194, 323);
+        panelChoose.setBounds(710, 350, 200, 225);
         layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
 	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
+
         panelChoose.setBackground(Color.RED); 
+        panelChoose.setOpaque(false);
         
 
         // Create buttons for each option in the ChooseNode
         for (int i = 0; i < chooseNode.getOptions().size(); i++) {
             final int currentIndex = i;
-            JButton btn1 = new JButton(chooseNode.getOptions().get(i).getNom());
-            btn1.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-            btn1.setBackground(new Color(240, 240,240));
-		    btn1.setForeground(new Color(128, 64, 0));
+            String nomBouton = "";
+            if (node instanceof ChooseNode){
+                nomBouton=chooseNode.getOptions().get(i).getNom();
+            } else nomBouton = "Suivant";
+            JButton btn1 = new JButton(nomBouton);
+            Font maFont = new Font("Courier new", Font.PLAIN, 13);
+            
+            btn1.setFont(maFont);
+            btn1.setBackground(Color.WHITE);
+		    btn1.setForeground(Color.BLACK);
             panelChoose.add(btn1);
-
+            if (node instanceof ChooseNode){
             // Add an ActionListener to handle button clicks
             btn1.addActionListener(new ActionListener() {
                 @Override
@@ -584,51 +690,38 @@ public class InterfaceJeu {
                     chooseNode.getOptions().get(currentIndex).display(); // clique du bouton provoque affichage du prochain bode
                     ImageNode imageNode= new ImageNode(chooseNode.getOptions().get(currentIndex), node.getImageName());
                     imageNode.display();
-                    
-                    
-                    afficherperso(chooseNode.getImagePersoList());
-                    System.out.println("youpi");
-                    
-                   
-                    
-                 
                 }
             });
-            
+        } else boutonGoNext(btn1, chooseNode);
         getFenetre().revalidate();
         }
     }
 
-    /**
-    * Configures the interface to display the "Next" button for an inner node (InnerNode).
-    *
-    * @param node The current inner node.
-    */
-
-    public void InnerNodeButton(Node node){
-        configPanel();
-      
-        // Create a panel for the "Next" button
-        JPanel panelInner = new JPanel();
-        getFenetre().add(layeredPane);
-		panelInner.setBounds(711, 494, 144, 62);
-        
-        // Add the "Next" panel to the layered pane
-		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
-        panelInner.setBackground(Color.yellow);
-        
-        
-        JButton suivant = new JButton("Suivant"); // Create a "Next" button
-        suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-        suivant.setBackground(new Color(240, 240,240));
-		suivant.setForeground(new Color(128, 64, 0));
-        panelInner.add(suivant);
-        getFenetre().revalidate() ;
-        getFenetre().repaint() ;
-        
-		boutonGoNext(suivant, node);
-        
-    }   
+    public void boutonGoNext(JButton btn1, Node node){
+        btn1.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                        	node.goNext() ; // Code to execute when the button is clicked
+                            if(node instanceof TextNode){
+                                TextNode j= (TextNode) node;
+                                ImageNode imageNode= new ImageNode(j.getOptions().get(0), node.getImageName());
+                                imageNode.display();
+                            }
+                            if(node instanceof ChanceNode){
+                                ChanceNode x = (ChanceNode) node;
+                                x.goNext();
+                               
+                            }
+                            if (node instanceof TestNode){
+                                TestNode x = (TestNode) node;
+                                x.goNext();
+                              
+                            }
+                            
+                        }
+            });
+        getFenetre().revalidate();
+    }
 
     
     /**
@@ -1331,40 +1424,7 @@ public class InterfaceJeu {
         this.CloseFrame();
     }
 
-    /**
-    * Configures a "Next" button to display the next node when clicked.
-    *
-    * @param btn1 The "Next" button to configure.
-    * @param node The current node that will be followed by the next node when the button is clicked.
-    */
-
-    public void boutonGoNext(JButton btn1, Node node){
-        btn1.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                        	node.goNext() ; // Code to execute when the button is clicked
-                            if(node instanceof TextNode){
-                                TextNode j= (TextNode) node;
-                                ImageNode imageNode= new ImageNode(j.getOptions().get(0), node.getImageName());
-                                imageNode.display();
-                                afficherperso(node.getImagePersoList());
-                              
-                            }
-                            if(node instanceof ChanceNode){
-                                ChanceNode x = (ChanceNode) node;
-                                x.goNext();
-                               
-                            }
-                            if (node instanceof TestNode){
-                                TestNode x = (TestNode) node;
-                                x.goNext();
-                              
-                            }
-                            
-                        }
-            });
-        getFenetre().revalidate();
-    }
+    
 
     public void afficherImageDansInterface(String imageName) {
         if (imageName != null) {
@@ -1382,24 +1442,44 @@ public class InterfaceJeu {
         }
     }
 
-    public void afficherperso(ArrayList<String> imageperso){
-        JPanel panel= new JPanel(new FlowLayout());
-        panel.setBounds(200, 400, 500, 500);
-        if (imageperso!=null){
-        for (String  element : imageperso) {
-            ImageIcon imageIcon1= new ImageIcon(element);
-            JLabel label = new JLabel(imageIcon1);
-            panel.add(label);
-            panel.setOpaque(false);
-            layeredPane.add(panel, JLayeredPane.DRAG_LAYER);
-            getFenetre().add(layeredPane);
-            getFenetre().setVisible(true);
-            System.out.println("label");
-        }
-
-        }
-    }
+    
     
 
 
 }
+
+
+    /**
+    * Configures the interface to display the "Next" button for an inner node (InnerNode).
+    *
+    * @param node The current inner node.
+    */
+
+    // public void InnerNodeButton(Node node){
+    //     configPanel();
+      
+    //     // Create a panel for the "Next" button
+    //     JPanel panelInner = new JPanel();
+    //     getFenetre().add(layeredPane);
+	// 	panelInner.setBounds(710, 494, 144, 62);
+        
+    //     // Add the "Next" panel to the layered pane
+	// 	layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
+    //     panelInner.setBackground(Color.yellow);
+        
+        
+    //     JButton suivant = new JButton("Suivant"); // Create a "Next" button
+    //     suivant.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+    //     suivant.setBackground(new Color(240, 240,240));
+	// 	suivant.setForeground(new Color(128, 64, 0));
+    //     panelInner.add(suivant);
+    //     getFenetre().revalidate() ;
+    //     getFenetre().repaint() ;
+        
+	// 	boutonGoNext(suivant, node);
+        
+    // }   
+
+    
+
+    

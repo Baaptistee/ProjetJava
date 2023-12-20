@@ -51,6 +51,7 @@ public class Mage extends PersoGroupe {
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
 			instance = new Mage("Mage", "Description du Mage", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance.setImage("image/MC_Mage.png");
 		}
 		return instance ;
 	}

@@ -25,6 +25,13 @@ import univers.Objets.Objets;
 public class Main {
      public static void main(String[] args) {
 
+		ArrayList<String> persoGroupeImagePath = new ArrayList<>() ;
+		for (PersonnageCombattant persoGroupp : Game.getGame().getGroupeJoueur()){
+			if (persoGroupp.getImageLien()!=null){
+			persoGroupeImagePath.add(persoGroupp.getImageLien());
+			}
+		}
+
 		// Tutoriel : 
 		String joueur = Game.getGame().getNomJoueur() ;
 		ArrayList <String> optionn= new ArrayList<>();
@@ -37,7 +44,10 @@ public class Main {
 		InnerNode n4 = new TextNode("Se réveiller", "??? : Ah enfin tu te décides ... Tu sais pourtant très bien qu'aujourd'hui est un jour important./","image/mystery-2169794_1280.jpg");
 		InnerNode n5 = new TextNode("Leo : Heu t'es sur que ça va ?/Allô la lune ici Leo t'as oublié que la remise des diplômes c'était aujourd'hui ou quoi ?/"+joueur+" : La remise des diplômes ?/Leo : Non mais je rêve ! Tu sais le diplôme de magie pour lequel on sue sang et eau depuis qu'on est gosse ?/C'est enfin le grand jour !!//<em>Les deux garçons se dépêchent d'enfiler leurs tenues et de se diriger vers le hall de la cérémonie.</em>","image/mystery-2169794_1280.jpg");
 		InnerNode n6 = new TextNode("Leo : Woaaah c'est beaucoup plus impressionant en vrai !/ Jeune fille : Ah enfin vous êtes là vous, je pensais que vous n'arriveriez jamais !/Leo : Désolé Anna, C'est "+joueur+" il se l'est joué Belle au bois Dormant ce matin./"+joueur+" : La ferme Leo, j'ai juste eu du mal à dormir hier soir à cause de tes ronflements. /Leo : Dit le mec qui faisait trembler la chambre ce matin .../<em> Les interrompt</em>/Anna : C'est pas bientôt fini vous deux ? Taisez vous ça va bientôt commencer.","image/mystery-2169794_1280.jpg");
-		
+		n2.setImagePersoList(persoGroupeImagePath);
+		n3.setImagePersoList(persoGroupeImagePath);
+		n4.setImagePersoList(persoGroupeImagePath);
+		n5.setImagePersoList(persoGroupeImagePath);
 /********************************************************** DEBUT **************************************************************/
 		InnerNode n7 = new TextNode("Le crépuscule enveloppait le château de mystère, tandis que " + joueur + ", accompagné de son fidèle chevalier, du sage mage et de l'attentionné soigneur, décidait de fuir les murs imposants qui avaient été témoins de la tragédie royale. Les lourdes portes du château s'ouvrirent silencieusement, et l'équipe s'éclipsa dans l'obscurité. Guidés par l'ombre bienveillante de la nuit, " + joueur + " et ses compagnons chevauchèrent à travers les bois embrumés, laissant derrière eux les murmures inquiets du château endormi.","image/mystery-2169794_1280.jpg");
 		
@@ -299,7 +309,9 @@ public class Main {
 
 		InnerNode nodeTest = new FightNode("Prout", "prout prout", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin8);
 
-		Game.getGame().setFirstNode(nodeTest) ;
+		n1.setImagePersoList(persoGroupeImagePath);
+
+		Game.getGame().setFirstNode(n1) ;
 		InterfaceJeu.ecranTitre();
 
 		/* 

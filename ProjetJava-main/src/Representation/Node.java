@@ -127,6 +127,10 @@ public abstract class Node extends Object implements Event, Serializable {
         return this.imagepersoPath;
     }
 
+	public void setImagePersoList(ArrayList<String> im){
+		this.imagepersoPath=im ;
+	}
+
 
 	public String getImageName(){
 		return imageName;
@@ -305,7 +309,6 @@ public boolean equals(Object obj) {
 
 	public void display() {
 		this.isCheckPoint() ;
-		ImageIcon imageIcon = new ImageIcon(imageName);
 		Game.getGame().setCurrentNode(this);
 		getInterface().afficherNodeBase(this);
 	}
