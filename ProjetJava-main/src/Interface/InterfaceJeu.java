@@ -457,7 +457,7 @@ public class InterfaceJeu {
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
         
-        JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JPanel panelText= new JPanel();
         JEditorPane editorPane = new JEditorPane();
  
         if (node instanceof ChooseNode){ 
