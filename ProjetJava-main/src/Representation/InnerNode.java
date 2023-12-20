@@ -21,9 +21,8 @@ public abstract class InnerNode extends Node {
      * @param description The description of the inner node.
      * @param imageName The name of the associated image.
      * @param options The list of options available for the choice.
-     * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String name, String description, String imageName, ArrayList<Node> options) throws IllegalArgumentException {
+    public InnerNode(String name, String description, String imageName, ArrayList<Node> options){
         super(name, description, imageName);
         this.options = options;
     }
@@ -34,9 +33,8 @@ public abstract class InnerNode extends Node {
      * @param description The description of the inner node.
      * @param options The list of options available for the choice.
      * @param checkPoint Indicates whether the inner node is a checkpoint.
-     * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String name, String description, ArrayList<Node> options, boolean checkPoint) throws IllegalArgumentException {
+    public InnerNode(String name, String description, ArrayList<Node> options, boolean checkPoint){
         super(name, description, checkPoint);
     }
 
@@ -44,9 +42,8 @@ public abstract class InnerNode extends Node {
      * Constructor for an `InnerNode` without an explicit checkpoint.
      * @param name The name of the inner node.
      * @param description The description of the inner node.
-     * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String nom, String description) throws IllegalArgumentException {
+    public InnerNode(String nom, String description){
 		super(nom, description);
 	}
 
@@ -57,9 +54,8 @@ public abstract class InnerNode extends Node {
      * @param imageName The name of the associated image.
      * @param checkPoint Indicates whether the inner node is a checkpoint.
      * @param options The list of options available for the choice.
-     * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String nom, String description, String imageName, boolean checkPoint, ArrayList<Node> options) throws IllegalArgumentException {
+    public InnerNode(String nom, String description, String imageName, boolean checkPoint, ArrayList<Node> options){
         super(nom, description, imageName, checkPoint);
         this.options=options;
     }
@@ -69,9 +65,8 @@ public abstract class InnerNode extends Node {
      * @param name The name of the inner node.
      * @param description The description of the inner node.
      * @param imageName The name of the associated image.
-     * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String nom, String description, String imageName) throws IllegalArgumentException {
+    public InnerNode(String nom, String description, String imageName){
         super(nom, description, imageName);
     }
 
@@ -80,9 +75,8 @@ public abstract class InnerNode extends Node {
      * @param description The description of the inner node.
      * @param imageName The name of the associated image.
      * @param imagepersoPath The list of paths to images associated with characters.
-     * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String description, String imageName, ArrayList<String> imagepersoPath) throws IllegalArgumentException {
+    public InnerNode(String description, String imageName, ArrayList<String> imagepersoPath){
         super("Node" + (Node.getTotalNode() + 1), description, imageName, imagepersoPath);
     }
 
@@ -92,9 +86,8 @@ public abstract class InnerNode extends Node {
      * @param description The description of the inner node.
      * @param imageName The name of the associated image.
      * @param checkPoint Indicates whether the inner node is a checkpoint.
-     * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String nom, String description, String imageName, boolean checkPoint) throws IllegalArgumentException {
+    public InnerNode(String nom, String description, String imageName, boolean checkPoint){
         super(nom, description, imageName, checkPoint);
     }
   
@@ -106,7 +99,7 @@ public abstract class InnerNode extends Node {
      * @param options The list of options available for the choice.
      * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String nom, String description, boolean checkPoint, ArrayList<Node> options) throws IllegalArgumentException {
+    public InnerNode(String nom, String description, boolean checkPoint, ArrayList<Node> options){
         super(nom, description, checkPoint);
         this.options = options ;
     }
@@ -116,9 +109,8 @@ public abstract class InnerNode extends Node {
      * @param name The name of the inner node.
      * @param description The description of the inner node.
      * @param checkPoint Indicates whether the inner node is a checkpoint.
-     * @throws IllegalArgumentException If the provided options are null.
      */
-    public InnerNode(String nom, String description, boolean checkPoint) throws IllegalArgumentException {
+    public InnerNode(String nom, String description, boolean checkPoint){
     	super(nom, description, checkPoint) ;
     }
     

@@ -299,7 +299,7 @@ public class Main {
 
 		InnerNode nodeTest = new FightNode("Prout", "prout prout", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin8);
 
-		Game.getGame().setFirstNode(nodeTest) ;
+		Game.getGame().setFirstNode(n1) ;
 		InterfaceJeu.ecranTitre();
 
 		/* 

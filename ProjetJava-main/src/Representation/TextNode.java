@@ -11,64 +11,57 @@ public class TextNode extends InnerNode {
     /**
      * Constructor for a TextNode with specified parameters.
      *
-     * @param nom          The name of the text node.
-     * @param description  The description of the text node.
-     * @param imageName    The name of the associated image.
-     * @param checkPoint   Indicates whether the text node is a checkpoint.
-     * @param options      The list of available options for the text node.
-     * @throws IllegalArgumentException If the provided options are null.
+     * @param nom The name of the text node.
+     * @param description The description of the text node.
+     * @param imageName The name of the associated image.
+     * @param checkPoint Indicates whether the text node is a checkpoint.
+     * @param options The list of available options for the text node.
      */
-    public TextNode(String nom, String description, String imageName, boolean checkPoint, ArrayList<Node> options)
-            throws IllegalArgumentException {
+    public TextNode(String nom, String description, String imageName, boolean checkPoint, ArrayList<Node> options){
         super(nom, description, imageName, checkPoint, options);
     }
 
     /**
      * Constructor for a TextNode with specified parameters.
      *
-     * @param description  The description of the text node.
-     * @param imageName    The name of the associated image.
-     * @param checkPoint   Indicates whether the text node is a checkpoint.
-     * @throws IllegalArgumentException If the provided options are null.
+     * @param description The description of the text node.
+     * @param imageName The name of the associated image.
+     * @param checkPoint Indicates whether the text node is a checkpoint.
      */
-    public TextNode(String description, String imageName, boolean checkPoint) throws IllegalArgumentException {
+    public TextNode(String description, String imageName, boolean checkPoint){
         super(description, imageName, checkPoint);
     }
 
     /**
      * Constructor for a TextNode with specified parameters.
      *
-     * @param nom          The name of the text node.
-     * @param description  The description of the text node.
-     * @param imageName    The name of the associated image.
-     * @throws IllegalArgumentException If the provided options are null.
+     * @param nom The name of the text node.
+     * @param description The description of the text node.
+     * @param imageName The name of the associated image.
      */
-    public TextNode(String nom, String description, String imageName) throws IllegalArgumentException {
+    public TextNode(String nom, String description, String imageName){
         super(nom, description, imageName, false);
     }
 
     /**
      * Constructor for a TextNode with specified parameters.
      *
-     * @param description  The description of the text node.
-     * @param imageName    The name of the associated image.
-     * @throws IllegalArgumentException If the provided options are null.
+     * @param description The description of the text node.
+     * @param imageName The name of the associated image.
      */
-    public TextNode(String description, String imageName) throws IllegalArgumentException {
+    public TextNode(String description, String imageName){
         super("Node" + Node.getTotalNode() + 1, description, imageName, false);
     }
 
     /**
      * Constructor for a TextNode with specified parameters.
      *
-     * @param nom          The name of the text node.
-     * @param description  The description of the text node.
-     * @param checkPoint   Indicates whether the text node is a checkpoint.
-     * @param options      The list of available options for the text node.
-     * @throws IllegalArgumentException If the provided options are null.
+     * @param nom The name of the text node.
+     * @param description The description of the text node.
+     * @param checkPoint Indicates whether the text node is a checkpoint.
+     * @param options The list of available options for the text node.
      */
-    public TextNode(String nom, String description, boolean checkPoint, ArrayList<Node> options)
-            throws IllegalArgumentException {
+    public TextNode(String nom, String description, boolean checkPoint, ArrayList<Node> options){
         super(nom, description, checkPoint, options);
     }
 
@@ -80,7 +73,6 @@ public class TextNode extends InnerNode {
 
     /**
      * Returns a string representation of the TextNode.
-     *
      * @return A string representation of the TextNode.
      */
     @Override
@@ -91,7 +83,6 @@ public class TextNode extends InnerNode {
     /**
      * Indicates whether some other object is "equal to" this one.
      * Overrides the default equals method.
-     *
      * @param obj The reference object with which to compare.
      * @return True if this object is the same as the obj argument; false otherwise.
      */

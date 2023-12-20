@@ -4,15 +4,13 @@
  */
 
 package Representation;
-
 import java.util.ArrayList;
 import java.util.Objects;
-
 import univers.Collectibles;
 import univers.personnages.* ;
 import java.util.HashMap;
 import java.util.Map;
-//import java.util.Set;
+
 
 public class FightNode extends InnerNode {
 	

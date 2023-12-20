@@ -2,7 +2,6 @@ package Representation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import javax.swing.* ;
 import Event.Event;
 import Interface.* ;
 
@@ -11,7 +10,6 @@ public abstract class Node extends Object implements Event, Serializable {
 	private static int totalNode = 0; 
 	private static Node lastCheckPoint;
 	private static InterfaceJeu interfac = new InterfaceJeu() ; 
-
 	private String description ; 
 	private int idNode ; 
 	private String nom ; 
@@ -27,35 +25,30 @@ public abstract class Node extends Object implements Event, Serializable {
      * @param description The description of the Node.
      */
 
-	 public Node(String nom, String description, String imageName) throws IllegalArgumentException {
-		try {
+	 public Node(String nom, String description, String imageName){
 			if (nom == null) {
-				throw new IllegalArgumentException("Le nom ne peut pas être null");
+				throw new IllegalArgumentException("Le nom du node ne peut pas être null");
 			}
 			this.nom = nom;
 	
 			if (description == null) {
-				throw new IllegalArgumentException("La description ne peut pas être null");
+				throw new IllegalArgumentException("La description du node ne peut pas être null");
 			}
 			this.description = description;
 	
 			if (imageName == null) {
-				throw new IllegalArgumentException("Le nom de l'image ne peut pas être null");
+				throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
 			}
 			this.imageName = imageName;
-	
-		} catch (IllegalArgumentException e) {
-			System.err.println("Erreur : " + e.getMessage());
-		}
 	}
 	
 
-	public Node(String nom, String description) throws IllegalArgumentException {
+	public Node(String nom, String description){
 		if (nom == null) {
-			throw new IllegalArgumentException("Le nom ne peut pas être null");
+			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
 		}
 		if (description == null) {
-			throw new IllegalArgumentException("La description ne peut pas être null");
+			throw new IllegalArgumentException("La description du node ne peut pas être null");
 		}
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
 		this.description = description ;
@@ -64,13 +57,13 @@ public abstract class Node extends Object implements Event, Serializable {
 
 	public Node(String nom, String description, String imageName,ArrayList<String> imagepersoPath) throws IllegalArgumentException {
 		if (nom == null) {
-			throw new IllegalArgumentException("Le nom ne peut pas être null");
+			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
 		}
 		if (description == null) {
-			throw new IllegalArgumentException("La description ne peut pas être null");
+			throw new IllegalArgumentException("La description du node ne peut pas être null");
 		}
 		if (imageName == null) {
-			throw new IllegalArgumentException("Le nom de l'image ne peut pas être null");
+			throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
 		}
 		
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
@@ -90,13 +83,13 @@ public abstract class Node extends Object implements Event, Serializable {
 	public Node(String nom, String description,String imageName, boolean checkPoint) throws IllegalArgumentException {
 
 		if (nom == null) {
-			throw new IllegalArgumentException("Le nom ne peut pas être null");
+			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
 		}
 		if (description == null) {
-			throw new IllegalArgumentException("La description ne peut pas être null");
+			throw new IllegalArgumentException("La description du node ne peut pas être null");
 		}
 		if (imageName == null) {
-			throw new IllegalArgumentException("Le nom de l'image ne peut pas être null");
+			throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
 		}
 		
 		this.idNode = totalNode++ ;
@@ -110,17 +103,16 @@ public abstract class Node extends Object implements Event, Serializable {
 	public Node(String nom, String description, boolean checkPoint) throws IllegalArgumentException {
 
 		if (nom == null) {
-			throw new IllegalArgumentException("Le nom ne peut pas être null");
+			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
 		}
 		if (description == null) {
-			throw new IllegalArgumentException("La description ne peut pas être null");
+			throw new IllegalArgumentException("La description du node ne peut pas être null");
 		}
 		this.idNode = totalNode++ ;
 		this.description = description ;
 		this.nom = nom ;
 		this.checkPoint = checkPoint ;
 	}
-	//public abstract ArrayList<ImageIcon> ImagePersoList();
 
 
 	public ArrayList<String> getImagePersoList() {
@@ -305,7 +297,6 @@ public boolean equals(Object obj) {
 
 	public void display() {
 		this.isCheckPoint() ;
-		ImageIcon imageIcon = new ImageIcon(imageName);
 		Game.getGame().setCurrentNode(this);
 		getInterface().afficherNodeBase(this);
 	}
