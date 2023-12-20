@@ -1,8 +1,9 @@
 /**
  * The ChooseNode class represents a node for making a choice among different options.
- * It extends the Node class.
+ * It extends the InnerNode class.
+ *
+ * @see InnerNode
  */
-
 package Representation;
 
 import java.util.ArrayList;
@@ -12,19 +13,20 @@ import javax.swing.ImageIcon;
 /**
  * The ChooseNode class represents a node for making a choice among different options.
  * It extends the InnerNode class.
+ *
+
  */
 public class ChooseNode extends InnerNode {
 
     /**
      * Constructor for the ChooseNode class.
      *
-     * @param nom        The name of the choice node.
+     * @param nom         The name of the choice node.
      * @param description The description of the choice node.
      * @param imageName   The name of the associated image.
      * @param options     The available options for the choice.
-     * @throws IllegalArgumentException If any of the parameters are invalid (null or negative).
      */
-    public ChooseNode(String nom, String description, String imageName, ArrayList<Node> options) throws IllegalArgumentException {
+    public ChooseNode(String nom, String description, String imageName, ArrayList<Node> options) {
         super(nom, description, imageName, options);
     }
 
@@ -33,33 +35,33 @@ public class ChooseNode extends InnerNode {
      *
      * @param description The description of the choice node.
      * @param imageNode   The name of the associated image.
-     * @throws IllegalArgumentException If any of the parameters are invalid (null or negative).
      */
-    public ChooseNode(String description, String imageNode) throws IllegalArgumentException {
-        super("Node" + Node.getTotalNode() + 1, description, imageNode, false);
+    public ChooseNode(String description, String imageName) {
+        super("Node" + Node.getTotalNode() + 1, description, imageName, false);
     }
 
     /**
      * Constructor for the ChooseNode class.
      *
-     * @param nom        The name of the choice node.
+     * @param nom         The name of the choice node.
      * @param description The description of the choice node.
      * @param imageNode   The name of the associated image.
-     * @throws IllegalArgumentException If any of the parameters are invalid (null or negative).
      */
-    public ChooseNode(String nom, String description, String imageNode) throws IllegalArgumentException {
-        super(nom, description, imageNode, false);
+    public ChooseNode(String nom, String description, String imageName) {
+        super(nom, description, imageName, false);
     }
 
+    public ChooseNode(String nom, String description, String imageName, String soundNode, ArrayList<String> imagepersoPath ) {
+        super(nom, description, imageName,soundNode,imagepersoPath);
+    }
     /**
      * Constructor for the ChooseNode class.
      *
-     * @param description The description of the choice node.
-     * @param imageNode   The name of the associated image.
-     * @param imagepersoPath The list of image paths for the associated characters.
-     * @throws IllegalArgumentException If any of the parameters are invalid (null or negative).
+     * @param description      The description of the choice node.
+     * @param imageNode        The name of the associated image.
+     * @param imagepersoPath   The list of image paths for the associated characters.
      */
-    public ChooseNode(String description, String imageNode, ArrayList<String> imagepersoPath) throws IllegalArgumentException {
+    public ChooseNode(String description, String imageNode, ArrayList<String> imagepersoPath) {
         super(description, imageNode, imagepersoPath);
     }
 
@@ -67,6 +69,7 @@ public class ChooseNode extends InnerNode {
      * Gets the list of image icons for the associated characters.
      *
      * @return The list of image icons.
+     * @see ImageIcon
      */
     public ArrayList<ImageIcon> ImagePersoList() {
         ArrayList<ImageIcon> optionsImageList = new ArrayList<>();
@@ -87,6 +90,8 @@ public class ChooseNode extends InnerNode {
 
     /**
      * Overrides the display method to display the information of the ChooseNode.
+     *
+     * @see InnerNode#display()
      */
     @Override
     public void display() {
@@ -98,7 +103,7 @@ public class ChooseNode extends InnerNode {
      */
     @Override
     public void goNext() {
-       
+        // Implementation for advancing to the next step in the choice node.
     }
 
     /**
@@ -108,7 +113,7 @@ public class ChooseNode extends InnerNode {
      */
     @Override
     public String toString() {
-        return "Choose Node:" + super.toString();
+        return "Choose Node: " + super.toString();
     }
 
     /**

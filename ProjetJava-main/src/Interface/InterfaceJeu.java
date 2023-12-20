@@ -3,7 +3,8 @@
 */
 
 package Interface;
-import Representation.* ;
+import Representation.*;
+
 import univers.competences.CompetencesActives;
 import univers.personnages.PersoGroupe;
 //import univers.personnages.PersoGroupe;
@@ -36,6 +37,10 @@ import java.io.ObjectInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import Event.*;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 
 
@@ -528,12 +533,14 @@ public class InterfaceJeu {
         layeredPane.revalidate();
         layeredPane.repaint();
         afficherImageDansInterface(node.getImageName());
-	    getFenetre().getContentPane().setLayout(null);
-	    cleanFenetre() ;
+
+        afficherSoundDansInterface(node.getSoundName());
+	      getFenetre().getContentPane().setLayout(null);
+	      cleanFenetre() ;
 
         this.afficherperso(node) ;
         
-        JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JPanel panelText= new JPanel();
         JEditorPane editorPane = new JEditorPane();
  
         panelText.setBounds(60, 50, 850, 300);
@@ -1532,6 +1539,29 @@ public class InterfaceJeu {
             panel.setOpaque(false);
             panel.setBounds(0, 0, 1000, 1000);
             layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            
+        }
+    }
+  
+    public void afficherSoundDansInterface(String soundName) {
+        if (soundName != null) {
+            configPanel();
+            try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            // JLabel label = new JLabel(imageIcon);
+            // JPanel panel = new JPanel();
+            // panel.add(label);
+            // panel.setOpaque(false);
+            // panel.setBounds(0, 0, 1000, 1000);
+            // layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
             getFenetre().add(layeredPane);
             getFenetre().setVisible(true);
             

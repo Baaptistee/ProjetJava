@@ -1,8 +1,4 @@
 package Event;
-
-import javax.swing.ImageIcon;
-// import javax.swing.JFrame;
-// import javax.swing.JLabel;
 import Representation.Node;
 import Interface.InterfaceJeu;
 
@@ -14,37 +10,70 @@ public class ImageNode extends AbstractDecorator {
 
     private String imageName;
 
+    /**
+     * Constructs an ImageNode with the provided decorated event and image name.
+     * @param decoratedEvent The event to decorate.
+     * @param imageName The name of the image associated with the event.
+     */
+
     public ImageNode(Event decoratedEvent, String imageName) {
         super(decoratedEvent);
-        this.imageName=imageName;
+        if (imageName == null) {
+            throw new IllegalArgumentException("L'image du nom ne peut pas être null");
+        }
+        this.imageName = imageName;
     }
+
+    /**
+     * Gets the path of the associated image.
+     * @return The path of the image.
+     */
 
     public String getCheminImage() {
         return imageName;
     }
+
+     /**
+     * Displays the decorated event and adds image-related functionality.
+     */
+
     @Override
     public void display() {
-        // Afficher une image
         super.display();
         ajoutFonctionnalite();
     }
     
+    /**
+     * Adds image-related functionality to the event.
+     *
+     */
     private void ajoutFonctionnalite() {
         InterfaceJeu interfaceJeu = Node.getInterface();
         if (interfaceJeu != null) {
             interfaceJeu.afficherImageDansInterface(imageName);
             //System.out.println("Fonctionnalité ajoutée par le décorateur");
-    
-    
+
         } else {
-            System.out.println("Erreur : InterfaceJeu non disponible");
+            throw new IllegalArgumentException("L'interface ne peut pas être null");
         }
     }
+    
+     /**
+     * Chooses the next event based on the decorated event.
+     *
+     * @return The next event.
+     */
 
     @Override
     public Event chooseNext() {
         return super.chooseNext();
     }
+
+    /**
+     * Returns a string representation of the ImageNode.
+     *
+     * @return A string representation of the ImageNode.
+     */
 
     @Override
     public String toString(){

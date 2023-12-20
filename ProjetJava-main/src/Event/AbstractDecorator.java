@@ -1,6 +1,6 @@
 package Event;
 
-import java.util.ArrayList;
+
 
 /**
  * An abstract class that serves as a base for implementing decorators for the "Event" interface.
@@ -13,27 +13,41 @@ abstract class AbstractDecorator implements Event {
      * The decorated Event object that this decorator wraps.
      */
     private Event decorator;
-    private ArrayList<AbstractDecorator> options ;
-
+    
     /**
      * Constructs an AbstractDecorator with the provided Event object to decorate.
      *
      * @param decorator The Event object to be decorated.
      */
     public AbstractDecorator(Event decorator){
+        if (decorator == null) {
+            throw new IllegalArgumentException("Decorator cannot be null");
+        }
         this.decorator = decorator;
     }
+
+    /**
+     * Displays the decorated event.
+     */
    
     @Override
     public void display() {
-        // Implémentation de base de l'affichage
-       
         decorator.display();
-        //System.out.println("Displaying Abstract Node");
     }
+
+    /**
+     * Gets the decorated Event object.
+     * @return The decorated Event object.
+     */
+    
     public Event getDecorator(){
         return decorator;
     }
+
+     /**
+     * Chooses the next event based on the decorated event.
+     * @return The next event.
+     */
     
     @Override
     public Event chooseNext() {
