@@ -298,21 +298,27 @@ public class Main {
 		ArrayList <CompetencesActives> jeanJacquesCtest= new ArrayList<>();
 		jeanJacquesCtest.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
 		jeanJacquesCtest.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-		PersonnageAdversaire n19Stest = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 7, 10,resistancess,resistancess, jeanJacquesC,probaCompetences8);
+		PersonnageAdversaire n19Stest = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 30, 10,resistancess,resistancess, jeanJacquesC,probaCompetences8);
 		PersonnageAdversaire n20Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
-		PersonnageAdversaire n21Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
-		PersonnageAdversaire n22Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
+		//PersonnageAdversaire n21Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
+		//PersonnageAdversaire n22Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
+		n19Stest.setImage("image/Grenouille.png");
+		n20Stest.setImage("image/Grenouille.png");
+
 		opponents8.add(n19Stest);
 		opponents8.add(n20Stest);
-		opponents8.add(n21Stest);
-		opponents8.add(n22Stest);
+		//opponents8.add(n21Stest);
+		//opponents8.add(n22Stest);
 
 		InnerNode nodeTest = new FightNode("FightNode Test !", "Fight Node test !!", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin8);
 		ArrayList<String> cinqPersonnages = new ArrayList<String>();
 		nodeTest.setImageName("image/ForetJolie.png");
+		nodeTest.addOption(n1);
+		nodeTest.addOption(n2);
+
 		
 
-		for (int i = 0; i < 5;i++){
+		for (int i = 0; i < 4;i++){
 			cinqPersonnages.add("image/MC_Mage.png");
 		}
 

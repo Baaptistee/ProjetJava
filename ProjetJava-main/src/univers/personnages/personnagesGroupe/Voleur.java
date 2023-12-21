@@ -50,6 +50,8 @@ public class Voleur extends PersoGroupe{
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
 			instance = new Voleur("Voleur", "Description du voleur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance.setImage("image/MC_Mage.png");
+
 		}
 		return instance ;
 	}

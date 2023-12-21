@@ -11,17 +11,14 @@ import univers.personnages.PersonnageAdversaire;
 import univers.personnages.PersonnageCombattant;
 //import univers.* ;
 import univers.competences.CompetenceDammage;
-//import java.util.HashMap;
-//import java.util.Map;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.ArrayList;
 //import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -509,7 +506,6 @@ public class InterfaceJeu {
                 ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
                 JLabel label = new JLabel(imageRedimensionneeIcon);
                 panel.add(label);
-                System.out.println("label");
             }
             getFenetre().add(layeredPane);
             getFenetre().setVisible(true);
@@ -529,7 +525,6 @@ public class InterfaceJeu {
         layeredPane.repaint();
         afficherImageDansInterface(node.getImageName());
 	    getFenetre().getContentPane().setLayout(null);
-	    cleanFenetre() ;
 
         this.afficherperso(node) ;
         
@@ -578,7 +573,6 @@ public class InterfaceJeu {
             if (index < texts.length) { 
                 char nextChar = texts[index];
                     if ((nextChar == '/') && !(texts[index - 1] == '<')) {
-                        textBuilder.append("<br>");
                         String balise = "</div>";
                         int position = textBuilder.indexOf(balise);
 
@@ -617,8 +611,6 @@ public class InterfaceJeu {
             
             } else {
                 ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
-
-                // Determine the type of the node and handle accordingly
             }
             
         }
@@ -723,7 +715,10 @@ public class InterfaceJeu {
         // Create a panel for the "Next" button
         JPanel panelInner = new JPanel();
         getFenetre().add(layeredPane);
-		panelInner.setBounds(711, 494, 144, 62);
+		panelInner.setBounds(710, 494, 144, 62);
+
+        this.afficherPersoFight((FightNode)node);
+
         
         // Add the "Next" panel to the layered pane
 		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
@@ -733,8 +728,8 @@ public class InterfaceJeu {
         
         JButton suivant = new JButton("C'est Parti !"); // Create a "Next" button
         suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
-        suivant.setBackground(new Color(240, 240,240));
-		suivant.setForeground(new Color(128, 64, 0));
+        suivant.setBackground(Color.WHITE);
+		suivant.setForeground(Color.BLACK);
         panelInner.add(suivant);
         getFenetre().revalidate() ;
         suivant.addActionListener(new ActionListener() {
@@ -758,12 +753,9 @@ public class InterfaceJeu {
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
-        afficherImageDansInterface(node.getImageName());
+        //afficherImageDansInterface(node.getImageName());
 	    getFenetre().getContentPane().setLayout(null);
-	    cleanFenetre() ;
-
-        this.afficherperso(node) ;
-        
+	    cleanFenetre() ;        
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
  
@@ -804,6 +796,112 @@ public class InterfaceJeu {
  * @param node
  * @param perso // le personnage auquel on est dans le groupe
  */
+
+ public void afficherPersoFight(FightNode node){
+    
+    ArrayList<String> imagePathGroupList = new ArrayList<String>();
+    for (int i =0; i<Game.getGame().getGroupeJoueurVivant().size();i++){
+        imagePathGroupList.add(Game.getGame().getGroupeJoueurVivant().get(i).getImageLien());
+    }
+    
+    ArrayList<String> imagePathAdversaireList = new ArrayList<String>();
+    for (int i =0; i<node.getOpponentsVivant().size();i++){
+        imagePathAdversaireList.add(node.getOpponentsVivant().get(i).getImageLien());
+    }
+
+        if (imagePathGroupList!=null){
+            JPanel panelGroupe= new JPanel(new FlowLayout());
+            panelGroupe.setBounds(60, 475, 650, 150);
+            panelGroupe.setOpaque(false);
+            for (String  element : imagePathGroupList) {
+                ImageIcon imageIcon= new ImageIcon(element);
+                // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+                JLabel label = new JLabel(imageRedimensionneeIcon);
+                panelGroupe.add(label);
+            }
+
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            layeredPane.add(panelGroupe, JLayeredPane.POPUP_LAYER);
+            
+            getFenetre().revalidate();
+            getFenetre().repaint();
+        }
+
+        if (imagePathAdversaireList!=null){
+            JPanel panelAdversaire= new JPanel(new FlowLayout());
+            panelAdversaire.setBounds(60, 300, 650, 150);
+            panelAdversaire.setOpaque(false);
+            for (String  element : imagePathAdversaireList) {
+                ImageIcon imageIcon= new ImageIcon(element);
+                // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+                JLabel label = new JLabel(imageRedimensionneeIcon);
+                panelAdversaire.add(label);
+            }
+
+
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            layeredPane.add(panelAdversaire, JLayeredPane.POPUP_LAYER);
+            
+            getFenetre().revalidate();
+            getFenetre().repaint();
+        } 
+    
+ }
+
+ public void afficherPersoFight(FightNode node, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){
+    
+        if (imagePathGroupList!=null){
+            JPanel panelGroupe= new JPanel(new FlowLayout());
+            panelGroupe.setBounds(60, 475, 650, 150);
+            panelGroupe.setOpaque(false);
+            for (String  element : imagePathGroupList) {
+                ImageIcon imageIcon= new ImageIcon(element);
+                // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+                JLabel label = new JLabel(imageRedimensionneeIcon);
+                panelGroupe.add(label);
+            }
+
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            layeredPane.add(panelGroupe, JLayeredPane.POPUP_LAYER);
+            
+            getFenetre().revalidate();
+            getFenetre().repaint();
+        }
+
+        if (imagePathAdversaireList!=null){
+            JPanel panelAdversaire= new JPanel(new FlowLayout());
+            panelAdversaire.setBounds(60, 300, 650, 150);
+            panelAdversaire.setOpaque(false);
+            for (String  element : imagePathAdversaireList) {
+                ImageIcon imageIcon= new ImageIcon(element);
+                // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+                JLabel label = new JLabel(imageRedimensionneeIcon);
+                panelAdversaire.add(label);
+            }
+
+
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            layeredPane.add(panelAdversaire, JLayeredPane.POPUP_LAYER);
+            
+            getFenetre().revalidate();
+            getFenetre().repaint();
+        } 
+    
+ }
+
+
     public void selectionAction(FightNode node, int perso) {
         
         layeredPane.removeAll();
@@ -813,22 +911,16 @@ public class InterfaceJeu {
 	    getFenetre().getContentPane().setLayout(null);
 	    cleanFenetre() ;
 
-        this.afficherperso(node) ;
-        
+        this.afficherPersoFight(node); 
+
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
- 
         panelText.setBounds(60, 50, 850, 100);
         editorPane.setPreferredSize(new Dimension(850, 100));
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-         
-
         JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
-        
         panelText.add(label);
-
-        
         label.setOpaque(false);
         panelText.setOpaque(false);
         label.setFont(new Font("Courier new", Font.PLAIN, 20));
@@ -837,9 +929,7 @@ public class InterfaceJeu {
         editorPane.setEditable(false);
         editorPane.setContentType("text/html");
         editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
-
-        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">Sélectionnez la compétence de "+Game.getGame().getGroupeJoueurVivant().get(perso).getName()+"</div>");
-
+        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">Sélectionnez la compétence et la cible de "+Game.getGame().getGroupeJoueurVivant().get(perso).getName()+"</div>");
         getFenetre().revalidate();
         getFenetre().repaint();
         
@@ -920,56 +1010,11 @@ public class InterfaceJeu {
      */
     public void selectionCible(FightNode node, int perso, Object [] cibleCompetence) {
         
-        layeredPane.removeAll();
-        layeredPane.revalidate();
-        layeredPane.repaint();
-        //afficherImageDansInterface(node.getImageName());
-        configPanel();
-            ImageIcon imageIcon= new ImageIcon(node.getImageName());
-            JLabel labelFond = new JLabel(imageIcon);
-            JPanel panel = new JPanel();
-            panel.add(labelFond);
-            panel.setOpaque(false);
-            panel.setBounds(0, 0, 1000, 1000);
-            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
-            getFenetre().add(layeredPane);
-            getFenetre().setVisible(true);
-	    getFenetre().getContentPane().setLayout(null);
-
-        this.afficherperso(node) ;
         
-        JPanel panelText= new JPanel();// Create a panel for the text content of the node
-        JEditorPane editorPane = new JEditorPane();
- 
-        panelText.setBounds(60, 50, 850, 100);
-        editorPane.setPreferredSize(new Dimension(850, 100));
-        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
-        getFenetre().add(layeredPane);
-         
-
-        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
-        
-        panelText.add(label);
-
-        
-        label.setOpaque(false);
-        panelText.setOpaque(false);
-        label.setFont(new Font("Courier new", Font.PLAIN, 20));
-        label.setForeground(Color.BLACK);
-        editorPane.setOpaque(false);
-        editorPane.setEditable(false);
-        editorPane.setContentType("text/html");
-        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
-
-        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">Sélectionnez la cible de "+Game.getGame().getGroupeJoueurVivant().get(perso).getName()+"</div>");
-
-        getFenetre().revalidate();
-        getFenetre().repaint();
+        //*******************PANEL DE SELECTION************** */
         JScrollPane panelFight = new JScrollPane();
         panelFight.setBounds(700, 200, 250, 300);
-        getFenetre().add(panelFight);
-        getFenetre().setVisible(true);
-        
+        getFenetre().add(panelFight);        
         JPanel contentPanel = new JPanel();
    
         int numberOfColumns = 1; 
@@ -987,9 +1032,6 @@ public class InterfaceJeu {
             }
         });
         
-        layeredPane.add(panelFight, JLayeredPane.DRAG_LAYER);
-
-    
         ButtonGroup buttonGroup = new ButtonGroup();
         JLabel cmp = new JLabel("Cible du " + Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
         cmp.setFont(maFont);
@@ -1018,6 +1060,7 @@ public class InterfaceJeu {
         JButton validateButton = new JButton("Valider");
         validateButton.setFont(maFont);
         contentPanel.add(validateButton);
+
         
         getFenetre().revalidate();
         getFenetre().repaint();
@@ -1060,8 +1103,10 @@ public class InterfaceJeu {
             }  
         });
 
-        getFenetre().add(panelFight);
+        layeredPane.add(panelFight, JLayeredPane.DRAG_LAYER);
+
         getFenetre().setVisible(true);
+
     }
 
     /**
@@ -1085,7 +1130,6 @@ public class InterfaceJeu {
     public void faireActions(FightNode node) {
         
         // on transforme la map d'action en une arraylist
-
         Set<PersonnageCombattant> a = node.getAction().keySet();
         ArrayList<PersonnageCombattant> ordreDAction = new ArrayList<PersonnageCombattant>(a);
     // on trie la liste en fonction de la vitesse des personnages 
@@ -1095,6 +1139,18 @@ public class InterfaceJeu {
         String texteAction ="" ;
         // le nombre d'action du tour 
         int nombreAction = ordreDAction.size() ;
+
+        ArrayList<String> imagePathGroupList = new ArrayList<String>();
+        for (int i =0; i<Game.getGame().getGroupeJoueurVivant().size();i++){
+            imagePathGroupList.add(Game.getGame().getGroupeJoueurVivant().get(i).getImageLien());
+        }
+    
+        ArrayList<String> imagePathAdversaireList = new ArrayList<String>();
+        for (int i =0; i<node.getOpponentsVivant().size();i++){
+            imagePathAdversaireList.add(node.getOpponentsVivant().get(i).getImageLien());
+        }
+
+
         // boucle pou créer le texte avec toutes les actions 
         for (int i = 0; i < ordreDAction.size() ;i++) {
             PersonnageCombattant utilisateur = ordreDAction.get(i) ;
@@ -1118,7 +1174,7 @@ public class InterfaceJeu {
 
         // puis on lance la fonction afficher action qui permet d'afficher les actions 
         //System.out.println(texteAction);
-        afficherAction(node, texteAction, nombreAction, 0, 0);
+        afficherAction(node, texteAction, nombreAction, 0, 0, imagePathGroupList, imagePathAdversaireList);
     }
 
     /**
@@ -1130,28 +1186,54 @@ public class InterfaceJeu {
      * @param ligneAffichee
      * @param actionAffichee
      */
-    public void afficherAction(FightNode node, String texteAction, int nombreAction, int ligneAffichee, int actionAffichee){  
+    
+    
+    
+     public void afficherAction(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){  
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
 
-        
         if (nombreAction-actionAffichee> 0) {
-
+            afficherImageDansInterface(node.getImageName());
 	        getFenetre().getContentPane().setLayout(null);
-	        cleanFenetre() ;
-            JPanel panelText= new JPanel();
+
+            this.afficherPersoFight(node, imagePathGroupList, imagePathAdversaireList);
         
-            panelText.setBounds(80, 110, 850, 300);
+            JPanel panelText= new JPanel();// Create a panel for the text content of the node
+            JEditorPane editorPane = new JEditorPane();
+ 
+            panelText.setBounds(60, 50, 850, 230);
+            editorPane.setPreferredSize(new Dimension(850, 300));
             layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
             getFenetre().add(layeredPane);
-            JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
+         
+
+            JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        
             panelText.add(label);
-            panelText.setBackground(Color.CYAN); 
-            label.setFont(new Font("Courier New", Font.PLAIN, 17));
+
+        
+            label.setOpaque(false);
+            panelText.setOpaque(false);
+            label.setFont(new Font("Courier new", Font.PLAIN, 20));
+            label.setForeground(Color.BLACK);
+            editorPane.setOpaque(false);
+            editorPane.setEditable(false);
+            editorPane.setContentType("text/html");
+            editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+
             getFenetre().revalidate();
             getFenetre().repaint();
+
+
+            editorPane.setOpaque(false);
+            editorPane.setEditable(false);
+            editorPane.setContentType("text/html");
+            editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+        
+            panelText.add(editorPane);
             int action = 0 ;
             int debut = 0; 
             int ligne = 0 ;
@@ -1177,45 +1259,70 @@ public class InterfaceJeu {
             int action3 = action2 ;
             int nbAction = 0 ;
             int nbLigne = 0 ;
+            StringBuilder textBuilder = new StringBuilder("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\"></div>");
                 @Override
                     public void actionPerformed(ActionEvent e){
                         if (index < texts.length) { 
-                            if (nbLigne<12){
-                                char nextChar = texteAction.charAt(index); 
-                                if(nextChar =='/'){  
-                                    label.setText(label.getText() + "<br>");
-                                    index++;
-                                    nbLigne++ ;
-                                } else if(nextChar == '$') {
+                            if (nbLigne<10){
+                                char nextChar = texts[index];
+                                if ((nextChar == '/') && !(texts[index - 1] == '<')) {
+                                    String balise = "</div>";
+                                    int position = textBuilder.indexOf(balise);
+                                    // Vérifier si la balise a été trouvée
+                                    if (position != -1) {
+                                        // Insérer le texte juste avant la balise </font>
+                                        textBuilder.insert(position, "<br>");
+
+                                        // Afficher le résultat
+                                    } else {
+                                        throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                                    }
+                                editorPane.setText(textBuilder.toString());
+                                index++;
+                                nbLigne++ ;
+
+                                }  else if(nextChar == '$') {
                                     index++ ;
                                     nbAction++ ;
                                 } else {
-                                    label.setText(label.getText() + nextChar); 
-                                    index++; //on passe au caractere suivant de la chaine de description
+                                    String balise = "</div>";
+                                    int position = textBuilder.indexOf(balise);
+                                    // Vérifier si la balise a été trouvée
+                                    if (position != -1) {
+                                        // Insérer le texte juste avant la balise </font>
+                                        textBuilder.insert(position, nextChar);
+                                    } else {
+                                        throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                                    }
+                                    editorPane.setText(textBuilder.toString());
+                                    index++;
                                 }
                             } else {
                                 index = texts.length ;
                             }
                         } else {
                             ((Timer) e.getSource()).stop(); 
-                            ButtonSuivant(node, texteAction, nombreAction, action3 + nbAction, ligneAffichee+12);
+                            ButtonSuivant(node, texteAction, nombreAction, action3 + nbAction, ligneAffichee+10, imagePathGroupList,imagePathAdversaireList);
+
                         }
-        
+
                     }
-            });
-    timer.start();                  
+                });
+            timer.start();  
         } else {
             FightOver(node) ;
         }
     }
 
-    public void ButtonSuivant(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee){
+    public void ButtonSuivant(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){
         configPanel();
       
             // Create a panel for the "Next" button
             JPanel panelInner = new JPanel();
             getFenetre().add(layeredPane);
 		    panelInner.setBounds(711, 494, 144, 62);
+            panelInner.setOpaque(false);
+            
         
             // Add the "Next" panel to the layered pane
 		    layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
@@ -1223,24 +1330,17 @@ public class InterfaceJeu {
         
         
             JButton suivant = new JButton("Suivant"); // Create a "Next" button
-            suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
-            suivant.setBackground(new Color(240, 240,240));
-		    suivant.setForeground(new Color(128, 64, 0));
+            suivant.setFont(new Font("Courier New", Font.PLAIN, 15));
+            suivant.setBackground(Color.WHITE);
+		    suivant.setForeground(Color.BLACK);
             panelInner.add(suivant);
             getFenetre().revalidate() ;
-
-		    afficherProchaineAction(suivant, node, texteAction, nombreAction, actionAffichee, ligneAffichee) ;
-     }
-    
-      
-    public void afficherProchaineAction(JButton suivant, FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee) {
-        suivant.addActionListener(new ActionListener() {
+            suivant.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                            afficherAction(node, texteAction, nombreAction, actionAffichee, ligneAffichee);
+                            afficherAction(node, texteAction, nombreAction, actionAffichee, ligneAffichee, imagePathGroupList, imagePathAdversaireList);
                         }
             });
-
     } 
 
     /**
@@ -1265,125 +1365,265 @@ public class InterfaceJeu {
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
-        getFenetre().getContentPane().setLayout(null);
-	    cleanFenetre() ;
-        JPanel panelText= new JPanel();
+        afficherImageDansInterface(node.getImageName());
+	    getFenetre().getContentPane().setLayout(null);
+
+        this.afficherperso(node) ;
         
-        panelText.setBounds(80, 110, 850, 300);
+        JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JEditorPane editorPane = new JEditorPane();
+ 
+        panelText.setBounds(60, 50, 850, 300);
+        editorPane.setPreferredSize(new Dimension(850, 300));
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
+         
+
+        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        
         panelText.add(label);
-        panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Courier New", Font.PLAIN, 17));
+
+        
+        label.setOpaque(false);
+        panelText.setOpaque(false);
+        label.setFont(new Font("Courier new", Font.PLAIN, 20));
+        label.setForeground(Color.BLACK);
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+
         getFenetre().revalidate();
         getFenetre().repaint();
+
+
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
         
+        panelText.add(editorPane);
         String q = "Le groupe remporte la victoire !!/" ;
         Node nodeNext = node.getOptions().get(0) ;
         q+= node.gainXP() ;
         q += node.gainButin() ;
         String u = "" ;
 
-        ArrayList<String> gainNiveau = new ArrayList<String>() ;
-
+        Map<PersoGroupe, String> gainNiveau = new HashMap<>();
         for (int i = 0;i<Game.getGame().getGroupeJoueur().size();i++){
             u = ((PersoGroupe)Game.getGame().getGroupeJoueur().get(i)).gainExperience(node.getXp()) ;
             if (u!="nope"){
-                gainNiveau.add(u) ;
+                gainNiveau.put((PersoGroupe)Game.getGame().getGroupeJoueur().get(i),u) ;
             }
         }
-
+	
+        
         final Node nodeNext2 = nodeNext ;
-        final String texte = q ;
 
         char[] texts = q.toCharArray(); 
-        Timer timer = new Timer(10, new ActionListener() { 
-        int index = 0; 
 
-
+        Timer timer = new Timer(10, new ActionListener() { // Create a timer to display the description character by character
+        int index = 0; // Index to retrieve each character from the description
+        StringBuilder textBuilder = new StringBuilder("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\"></div>");
+        
         @Override
-            public void actionPerformed(ActionEvent e) {
-                if (index < texts.length) { 
-                    char nextChar = texte.charAt(index); 
-                    if(nextChar =='/'){  
-                        label.setText(label.getText() + "<br>");
+        public void actionPerformed(ActionEvent e) {
+            if (index < texts.length) { 
+                char nextChar = texts[index];
+                    if ((nextChar == '/') && !(texts[index - 1] == '<')) {
+                        String balise = "</div>";
+                        int position = textBuilder.indexOf(balise);
+
+                        // Vérifier si la balise a été trouvée
+                        if (position != -1) {
+                             // Insérer le texte juste avant la balise </font>
+                            textBuilder.insert(position, "<br>");
+
+                            // Afficher le résultat
+                        } else {
+                            throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                        }
+                        
+                        
+                        editorPane.setText(textBuilder.toString());
                         index++;
                 
-                    }
-                    else{
-                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
-                        index++; //on passe au caractere suivant de la chaine de description
-
-                    }
-                    } else {
-                        ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
-                        if (gainNiveau.size()!=0){
-                            gainDeNiveauButton(node,gainNiveau) ;
-                        } else {
-                            nextNodeButton(nodeNext2) ;
-                        }
-                    }
                 }
-            });
-            timer.start(); 
+                else{
+                    String balise = "</div>";
+                    int position = textBuilder.indexOf(balise);
+
+                        // Vérifier si la balise a été trouvée
+                         if (position != -1) {
+
+                             // Insérer le texte juste avant la balise </font>
+                            textBuilder.insert(position, nextChar);
+
+                            // Afficher le résultat
+                        } else {
+                            throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                        }
+                    editorPane.setText(textBuilder.toString());
+                    index++;
+                }
+            
+            } else {
+                ((Timer) e.getSource()).stop(); 
+                if (gainNiveau.size()!=0){
+                    gainDeNiveauButton(node,gainNiveau) ;
+                } else {
+                    nextNodeButton(nodeNext2) ;
+                }
+            }
+            
+        }
+        
+        
+    });
+    timer.start();
+        
     }
 
-    public void ecranGainNiveau(FightNode node, ArrayList<String> gainNiveau){
+    public void afficherPersoGainNiveau(String imagePerso){
+        if (imagePerso!=null){
+            JPanel panel= new JPanel(new FlowLayout());
+            panel.setBounds(100, 300, 650, 270);
+            panel.setOpaque(false);
+            ImageIcon imageIcon= new ImageIcon(imagePerso);
+            // Redimensionnement de l'image
+            // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+            java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH);
+            ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+            JLabel label = new JLabel(imageRedimensionneeIcon);
+            panel.add(label);
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+            
+            getFenetre().revalidate();
+            getFenetre().repaint();
+        }
+    }
+
+    
+    public void ecranGainNiveau(FightNode node, Map<PersoGroupe, String> gainNiveau){
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
-        getFenetre().getContentPane().setLayout(null);
-	    cleanFenetre() ;
-        JPanel panelText= new JPanel();
+        afficherImageDansInterface(node.getImageName());
+	    getFenetre().getContentPane().setLayout(null);
         
-        panelText.setBounds(80, 110, 850, 300);
+        JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JEditorPane editorPane = new JEditorPane();
+ 
+        panelText.setBounds(60, 50, 850, 300);
+        editorPane.setPreferredSize(new Dimension(850, 300));
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
+         
+
+        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        
         panelText.add(label);
-        panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Courier New", Font.PLAIN, 17));
+
+        
+        label.setOpaque(false);
+        panelText.setOpaque(false);
+        label.setFont(new Font("Courier new", Font.PLAIN, 20));
+        label.setForeground(Color.BLACK);
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+
         getFenetre().revalidate();
         getFenetre().repaint();
+
+
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+        String q = "PROBLÈME";
         
-        String q = gainNiveau.remove(0) ;
+        panelText.add(editorPane);
+        for(PersonnageCombattant perso : Game.getGame().getGroupeJoueur()){
+            if (gainNiveau.containsKey(perso)){
+                q = gainNiveau.remove(perso) ;
+                this.afficherPersoGainNiveau(perso.getImageLien());
+                break;
+            }
+        }
+
         Node nodeNext = node.getOptions().get(0) ;
         
         char[] texts = q.toCharArray(); 
         Timer timer = new Timer(10, new ActionListener() { 
         int index = 0; 
 
-        final Node nodeNext2 = nodeNext ;
-        final String texte = q ;
+        StringBuilder textBuilder = new StringBuilder("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\"></div>");
 
 
         @Override
-            public void actionPerformed(ActionEvent e) {
-                if (index < texts.length) { 
-                    char nextChar = texte.charAt(index); 
-                    if(nextChar =='/'){  
-                        label.setText(label.getText() + "<br>");
+        public void actionPerformed(ActionEvent e) {
+            if (index < texts.length) { 
+                char nextChar = texts[index];
+                    if ((nextChar == '/') && !(texts[index - 1] == '<')) {
+                        String balise = "</div>";
+                        int position = textBuilder.indexOf(balise);
+
+                        // Vérifier si la balise a été trouvée
+                        if (position != -1) {
+                             // Insérer le texte juste avant la balise </font>
+                            textBuilder.insert(position, "<br>");
+
+                            // Afficher le résultat
+                        } else {
+                            throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                        }
+                        
+                        
+                        editorPane.setText(textBuilder.toString());
                         index++;
                 
-                    }
-                    else{
-                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
-                        index++; //on passe au caractere suivant de la chaine de description
-
-                    }
-                    } else {
-                        ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
-                        if (gainNiveau.size()!=0){
-                            gainDeNiveauButton(node, gainNiveau);
-                        } else {
-                            nextNodeButton(nodeNext2) ;
-                        }
-                    }
                 }
-            });
-            timer.start(); 
+                else{   
+                    String balise = "</div>";
+                    int position = textBuilder.indexOf(balise);
+
+                        // Vérifier si la balise a été trouvée
+                         if (position != -1) {
+
+                             // Insérer le texte juste avant la balise </font>
+                            textBuilder.insert(position, nextChar);
+
+                            // Afficher le résultat
+                        } else {
+                            throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                        }
+                    editorPane.setText(textBuilder.toString());
+                    index++;
+                }
+            
+            } else {
+                ((Timer) e.getSource()).stop(); 
+                
+            }
+            
+        }
+        
+        
+    });
+    timer.start();
+    if (gainNiveau.size()!=0){
+                    gainDeNiveauButton(node,gainNiveau) ;
+                } else {
+                    nextNodeButton(nodeNext) ;
+                }
+
+
+        
     }
 
     public void Defaite(FightNode node) {
@@ -1391,105 +1631,152 @@ public class InterfaceJeu {
         layeredPane.removeAll();
         layeredPane.revalidate();
         layeredPane.repaint();
-        getFenetre().getContentPane().setLayout(null);
-	    cleanFenetre() ;
-        JPanel panelText= new JPanel();
+        afficherImageDansInterface(node.getImageName());
+	    getFenetre().getContentPane().setLayout(null);
+
+        this.afficherperso(node) ;
         
-        panelText.setBounds(80, 110, 850, 300);
+        JPanel panelText= new JPanel();// Create a panel for the text content of the node
+        JEditorPane editorPane = new JEditorPane();
+ 
+        panelText.setBounds(60, 50, 850, 300);
+        editorPane.setPreferredSize(new Dimension(850, 300));
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("<html>", JLabel.CENTER);// Create a label for displaying the description of the node
+         
+
+        JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
+        
         panelText.add(label);
-        panelText.setBackground(Color.CYAN); 
-        label.setFont(new Font("Courier New", Font.PLAIN, 17));
+
+        
+        label.setOpaque(false);
+        panelText.setOpaque(false);
+        label.setFont(new Font("Courier new", Font.PLAIN, 20));
+        label.setForeground(Color.BLACK);
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+
         getFenetre().revalidate();
         getFenetre().repaint();
+
+
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+        
+        panelText.add(editorPane);
         
         String q = "Le groupe a perdu ..." ;
-
-         
         char[] texts = q.toCharArray(); 
         Timer timer = new Timer(10, new ActionListener() { 
         int index = 0; 
         Node nodeNext = node.getOptions().get(1) ;
         final Node nodeNext2 = nodeNext ;
-        final String texte = q ;
+        StringBuilder textBuilder = new StringBuilder("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\"></div>");
+
 
         @Override
-            public void actionPerformed(ActionEvent e) {
-                if (index < texts.length) { 
-                    char nextChar = texte.charAt(index); 
-                    if(nextChar =='/'){  
-                        label.setText(label.getText() + "<br>");
+        public void actionPerformed(ActionEvent e) {
+            if (index < texts.length) { 
+                char nextChar = texts[index];
+                    if ((nextChar == '/') && !(texts[index - 1] == '<')) {
+                        String balise = "</div>";
+                        int position = textBuilder.indexOf(balise);
+
+                        // Vérifier si la balise a été trouvée
+                        if (position != -1) {
+                             // Insérer le texte juste avant la balise </font>
+                            textBuilder.insert(position, "<br>");
+
+                            // Afficher le résultat
+                        } else {
+                            throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                        }
+                        
+                        
+                        editorPane.setText(textBuilder.toString());
                         index++;
                 
-                    }
-                    else{
-                        label.setText(label.getText() + nextChar); // label.getText() récupère le texte actuellement affiche dans la frame. On ajoute le caractere suivant qui compose la chaine Descrition. ATTENTION setText() ne prend que des String(!=char)
-                        index++; //on passe au caractere suivant de la chaine de description
-
-                    }
-                    } else {
-                        ((Timer) e.getSource()).stop(); // Handle line breaks using HTML tag
-                            nextNodeButton(nodeNext2) ;
-                        
-                    }
                 }
-            });
-            timer.start(); 
+                else{   
+                    String balise = "</div>";
+                    int position = textBuilder.indexOf(balise);
+
+                        // Vérifier si la balise a été trouvée
+                         if (position != -1) {
+
+                             // Insérer le texte juste avant la balise </font>
+                            textBuilder.insert(position, nextChar);
+
+                            // Afficher le résultat
+                        } else {
+                            throw new IllegalStateException("Balise </font> non trouvée dans la chaîne !");
+                        }
+                    editorPane.setText(textBuilder.toString());
+                    index++;
+                }
+            
+            } else {
+                ((Timer) e.getSource()).stop(); 
+                    nextNodeButton(nodeNext2) ;
+                }
+            }    
+        });
+        timer.start();
     }
 
-    public void gainDeNiveauButton(FightNode node, ArrayList<String> gainNiveau){
+    public void gainDeNiveauButton(FightNode node, Map<PersoGroupe, String> gainNiveau){
         configPanel();
-      
-        // Create a panel for the "Next" button
         JPanel panelInner = new JPanel();
-        getFenetre().add(layeredPane);
-		panelInner.setBounds(711, 494, 144, 62);
+            getFenetre().add(layeredPane);
+		    panelInner.setBounds(711, 494, 144, 62);
+            panelInner.setOpaque(false);
+            
         
-        // Add the "Next" panel to the layered pane
-		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
-        panelInner.setBackground(Color.yellow);
+            // Add the "Next" panel to the layered pane
+		    layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
+            panelInner.setBackground(Color.yellow);
         
         
-        JButton suivant = new JButton("Suivant"); // Create a "Next" button
-        suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
-        suivant.setBackground(new Color(240, 240,240));
-		suivant.setForeground(new Color(128, 64, 0));
-        panelInner.add(suivant);
-        getFenetre().revalidate() ;
-
-        suivant.addActionListener(new ActionListener() {
-            @Override
-                public void actionPerformed(ActionEvent e) { 
+            JButton suivant = new JButton("Suivant"); // Create a "Next" button
+            suivant.setFont(new Font("Courier New", Font.PLAIN, 15));
+            suivant.setBackground(Color.WHITE);
+		    suivant.setForeground(Color.BLACK);
+            panelInner.add(suivant);
+            getFenetre().revalidate() ;
+            suivant.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
                         ecranGainNiveau(node,gainNiveau) ;
-                    }
+                        }
             });
     }
 
     public void nextNodeButton(Node nodeNext){
-        configPanel();
-      
-        // Create a panel for the "Next" button
         JPanel panelInner = new JPanel();
-        getFenetre().add(layeredPane);
-		panelInner.setBounds(711, 494, 144, 62);
+            getFenetre().add(layeredPane);
+		    panelInner.setBounds(711, 494, 144, 62);
+            panelInner.setOpaque(false);
+            
         
-        // Add the "Next" panel to the layered pane
-		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
-        panelInner.setBackground(Color.yellow);
+            // Add the "Next" panel to the layered pane
+		    layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
+            panelInner.setBackground(Color.yellow);
         
         
-        JButton suivant = new JButton("Suivant"); // Create a "Next" button
-        suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
-        suivant.setBackground(new Color(240, 240,240));
-		suivant.setForeground(new Color(128, 64, 0));
-        panelInner.add(suivant);
-        getFenetre().revalidate() ;
-
-        suivant.addActionListener(new ActionListener() {
-            @Override
-                public void actionPerformed(ActionEvent e) { 
+            JButton suivant = new JButton("Suivant"); // Create a "Next" button
+            suivant.setFont(new Font("Courier New", Font.PLAIN, 15));
+            suivant.setBackground(Color.WHITE);
+		    suivant.setForeground(Color.BLACK);
+            panelInner.add(suivant);
+            getFenetre().revalidate() ;
+            suivant.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
                     nodeNext.display();
                         }
             });
@@ -1575,7 +1862,30 @@ public class InterfaceJeu {
 	// 	boutonGoNext(suivant, node);
         
     // }   
+// ANCIENNN****************************************************************************
 
+                        // if (index < texts.length) { 
+                        //     if (nbLigne<12){
+                        //         char nextChar = texteAction.charAt(index); 
+                        //         if(nextChar =='/'){  
+                        //             label.setText(label.getText() + "<br>");
+                        //             index++;
+                        //             nbLigne++ ;
+                        //         } else if(nextChar == '$') {
+                        //             index++ ;
+                        //             nbAction++ ;
+                        //         } else {
+                        //             label.setText(label.getText() + nextChar); 
+                        //             index++; //on passe au caractere suivant de la chaine de description
+                        //         }
+                        //     } else {
+                        //         index = texts.length ;
+                        //     }
+                        // } else {
+                        //     ((Timer) e.getSource()).stop(); 
+                        //     ButtonSuivant(node, texteAction, nombreAction, action3 + nbAction, ligneAffichee+12);
+                        // }
+        
     
 
     

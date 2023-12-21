@@ -113,11 +113,11 @@ public class CompetenceSoin extends CompetencesActives {
 			if (this.isGroup()) {
 				for (int i = 0 ; i<utilisateur.getGroupe().size() ; i++) {
 					utilisateur.getGroupe().get(i).heal(a) ;
-					d += "/Tous les membres du groupe récupère " + a + " points de vie." ;
+					d += "/Tous les membres du groupe récupère " + a + " points de vie./" ;
 				}
 			} else {
 				cible.heal(a) ;
-				d += "/" + cible.getName() + " récupère " + a + " points de vie." ;
+				d += "/" + cible.getName() + " récupère " + a + " points de vie./" ;
 			}
 		}
 		return d ;
