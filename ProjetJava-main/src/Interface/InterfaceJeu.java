@@ -148,7 +148,7 @@ public class InterfaceJeu {
     
         JMenuItem precedent = new JMenuItem("Voir précédent");
         JMenuItem resumeH = new JMenuItem("Résumé de l'histoire");
-        JMenuItem stats = new JMenuItem("Statistiques");
+        JMenuItem stats = new JMenuItem("Statut");
         JMenuItem sauvegarder = new JMenuItem("Sauvegarder") ;
         JMenuItem sauvegarderEtQuitter = new JMenuItem("Sauvegarder et Quitter") ;
         JMenuItem quitter = new JMenuItem("Quitter") ;
@@ -158,6 +158,7 @@ public class InterfaceJeu {
         sauvegarder(sauvegarder);
         sauvegarderEtQuitter(sauvegarderEtQuitter);
         ecranTitre(ecranTitre) ;
+        statut(stats);
     
         systeme.add(sauvegarder);
         systeme.add(sauvegarderEtQuitter);
@@ -207,6 +208,91 @@ public class InterfaceJeu {
         });
     }
 
+    public static void statut(JMenuItem statut){
+        statut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
+                    ecranStatut();             
+                }
+
+            }
+        });
+    }
+
+    public static void ecranStatut() {
+        ArrayList<String> imagePathGroupList = new ArrayList<String>();
+        for (int i = 0; i < Game.getGame().getGroupeJoueur().size(); i++) {
+            imagePathGroupList.add(Game.getGame().getGroupeJoueur().get(i).getImageLien());
+        }
+    
+        if (imagePathGroupList != null) {
+            configPanel();
+            layeredPane.removeAll();
+            layeredPane.revalidate();
+            layeredPane.repaint();
+    
+            getFenetre().getContentPane().setLayout(null);
+            getFenetre().revalidate();
+            getFenetre().repaint();
+    
+            configPanel();
+            ImageIcon imageIcon = new ImageIcon("image/ForetJolie.png");
+            JLabel labelFond = new JLabel(imageIcon);
+            labelFond.setBounds(0, 0, 1000, 1000);
+            layeredPane.add(labelFond, JLayeredPane.DEFAULT_LAYER);
+    
+            addPanelWithImage(imagePathGroupList.get(0), 50, 100);
+            addTextPanel(Game.getGame().getGroupeJoueurVivant().get(0), 250, 100);
+            addTextPanel(Game.getGame().getGroupeJoueurVivant().get(1), 700, 400);
+            addTextPanel(Game.getGame().getGroupeJoueurVivant().get(2), 700, 100);
+            addTextPanel(Game.getGame().getGroupeJoueurVivant().get(3), 250, 400);
+
+    
+            addPanelWithImage(imagePathGroupList.get(1), 500, 400);
+            addPanelWithImage(imagePathGroupList.get(2), 500, 100);
+            addPanelWithImage(imagePathGroupList.get(2), 50, 400);
+    
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+        }
+    }
+    
+    private static void addPanelWithImage(String imagePath, int x, int y) {
+        JPanel panel = new JPanel();
+        panel.setBounds(x, y, 200, 200);
+        panel.setOpaque(false);
+        ImageIcon imageIcon = new ImageIcon(imagePath);
+        java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(190, 190, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+        JLabel label = new JLabel(imageRedimensionneeIcon);
+        panel.add(label);
+        layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+    }
+    
+    private static void addTextPanel(PersonnageCombattant personnage, int x, int y) {
+        JPanel panelText = new JPanel();
+        panelText.setBounds(x, y, 200, 200);
+        panelText.setOpaque(false);
+        panelText.setBackground(Color.CYAN);
+    
+        JEditorPane editorPane = new JEditorPane();
+        editorPane.setPreferredSize(new Dimension(200, 200));
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+                + personnage.getName() + "<br>"
+                + "Niveau : " + personnage.getLevel() + "<br>"
+                + "PV : " + personnage.getLifePoints() + "/" + personnage.getMaxLifePoints() + "<br>"
+                + "PM : " + personnage.getMana() + "/" + personnage.getMaxMana()
+                + "</div>");
+    
+        panelText.add(editorPane);
+        layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+    }
+
     public static void ecranTitre(JMenuItem ecranTitre){
         ecranTitre.addActionListener(new ActionListener() {
                         @Override
@@ -236,16 +322,16 @@ public class InterfaceJeu {
         getFenetre().getContentPane().setLayout(null);
 
         
-            configPanel();
-            ImageIcon imageIcon= new ImageIcon("image/ForetJolie.png");
-            JLabel labelFond = new JLabel(imageIcon);
-            JPanel panel = new JPanel();
-            panel.add(labelFond);
-            panel.setOpaque(false);
-            panel.setBounds(0, 0, 1000, 1000);
-            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
-            getFenetre().add(layeredPane);
-            getFenetre().setVisible(true);
+        configPanel();
+        ImageIcon imageIcon= new ImageIcon("image/ForetJolie.png");
+        JLabel labelFond = new JLabel(imageIcon);
+        JPanel panel = new JPanel();
+        panel.add(labelFond);
+        panel.setOpaque(false);
+        panel.setBounds(0, 0, 1000, 1000);
+        layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+        getFenetre().add(layeredPane);
+        getFenetre().setVisible(true);
             
     
         JPanel panelText= new JPanel();
@@ -934,6 +1020,9 @@ public class InterfaceJeu {
         getFenetre().repaint();
         
         panelText.add(editorPane);
+
+
+
         JScrollPane panelFight = new JScrollPane();
         panelFight.setBounds(700, 200, 250, 300);
         
@@ -1382,6 +1471,7 @@ public class InterfaceJeu {
         JLabel label = new JLabel("", JLabel.CENTER);// Create a label for displaying the description of the node
         
         panelText.add(label);
+        afficherPersoVictoire();
 
         
         label.setOpaque(false);
@@ -1483,11 +1573,40 @@ public class InterfaceJeu {
     timer.start();
         
     }
+    public void afficherPersoVictoire(){
+        ArrayList<String> imagePathGroupList = new ArrayList<String>();
+    for (int i =0; i<Game.getGame().getGroupeJoueurVivant().size();i++){
+        imagePathGroupList.add(Game.getGame().getGroupeJoueurVivant().get(i).getImageLien());
+    }
+
+        if (imagePathGroupList!=null){
+            JPanel panelGroupe= new JPanel(new FlowLayout());
+            panelGroupe.setBounds(60, 475, 650, 150);
+            panelGroupe.setOpaque(false);
+            for (String  element : imagePathGroupList) {
+                ImageIcon imageIcon= new ImageIcon(element);
+                // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+                JLabel label = new JLabel(imageRedimensionneeIcon);
+                panelGroupe.add(label);
+            }
+
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            layeredPane.add(panelGroupe, JLayeredPane.POPUP_LAYER);
+            
+            getFenetre().revalidate();
+            getFenetre().repaint();
+
+        }
+
+    }
 
     public void afficherPersoGainNiveau(String imagePerso){
         if (imagePerso!=null){
             JPanel panel= new JPanel(new FlowLayout());
-            panel.setBounds(100, 300, 650, 270);
+            panel.setBounds(100, 300, 650, 310);
             panel.setOpaque(false);
             ImageIcon imageIcon= new ImageIcon(imagePerso);
             // Redimensionnement de l'image

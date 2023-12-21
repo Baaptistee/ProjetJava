@@ -108,6 +108,7 @@ public class CompetenceSoin extends CompetencesActives {
 		if (utilisateur.getMana()<this.getCoutMana()) {
 			d = "Pas assez de mana, rien ne se passe" ;
 		} else {
+			utilisateur.setMana(utilisateur.getMana()-this.getCoutMana());
 			d = utilisateur.getName() + " utilise " + this.getName() + ".";
 			int a = this.getPowerHeal() + random.nextInt(getPowerHeal()/2) + utilisateur.getIntelligence() - 10 ;
 			if (this.isGroup()) {

@@ -187,6 +187,7 @@ public class CompetenceDammage extends CompetencesActives{
 			d = "Pas assez de mana, rien ne se passe" ;
 		} else {
 			d = utilisateur.getName() + " utilise " + this.getName() + "./";
+			utilisateur.setMana(utilisateur.getMana()-this.getCoutMana());
 			// on effectue l'action le nb de cout qu'est censée taper l'attaque 
 			for (int x=0 ; x<this.getNbHits() ; x++) {
 				// on parcoure le groupe en cas de dommages de groupe
