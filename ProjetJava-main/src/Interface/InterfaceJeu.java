@@ -438,6 +438,10 @@ public class InterfaceJeu {
         suivant.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
+                            configPanel();
+                            layeredPane.removeAll();
+                            layeredPane.revalidate();
+                            layeredPane.repaint();
                             Game.getGame().getCurrentNode().display();
                             System.out.println("test");	
                         }
@@ -731,35 +735,35 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         getFenetre().repaint();
 
 
-            try {
-            File audioFile = new File("sound/emotional-inspiring-epic-trailer-11258.wav");
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
+        //     try {
+        //     File audioFile = new File("sound/emotional-inspiring-epic-trailer-11258.wav");
+        //     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+        //     clip = AudioSystem.getClip();
+        //     clip.open(audioInputStream);
 
-            // Ajoutez un événement pour réinitialiser la position de lecture à 0 lorsque la lecture est terminée
-            clip.addLineListener(new LineListener() {
-                @Override
-                public void update(LineEvent event) {
-                    if (event.getType() == LineEvent.Type.STOP) {
-                        clip.setFramePosition(0);
-                        clip.start();
-                    }
-                }
-            });
+        //     // Ajoutez un événement pour réinitialiser la position de lecture à 0 lorsque la lecture est terminée
+        //     clip.addLineListener(new LineListener() {
+        //         @Override
+        //         public void update(LineEvent event) {
+        //             if (event.getType() == LineEvent.Type.STOP) {
+        //                 clip.setFramePosition(0);
+        //                 clip.start();
+        //             }
+        //         }
+        //     });
 
-            // Créez un thread séparé pour jouer en boucle
-            Thread loopThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    clip.start();
-                }
-            });
+        //     // Créez un thread séparé pour jouer en boucle
+        //     Thread loopThread = new Thread(new Runnable() {
+        //         @Override
+        //         public void run() {
+        //             clip.start();
+        //         }
+        //     });
 
-            loopThread.start();
-        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        }
+        //     loopThread.start();
+        // } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+        //     e.printStackTrace();
+        // }
 
         JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
         getFenetre().add(layeredPane);
@@ -783,6 +787,10 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     showMenu();
+                    configPanel();
+                    layeredPane.removeAll();
+                    layeredPane.revalidate();
+                    layeredPane.repaint();
                     Game.getGame().getFirstNode().display() ; 
                          
                 }
@@ -939,7 +947,11 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                                         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Sauvegardes/"+n))) {
                                             Game partieAcharger = (Game)ois.readObject();
                                             Game.setGame(partieAcharger) ;
-                                            showMenu();                                            
+                                            showMenu(); 
+                                            configPanel();
+                                            layeredPane.removeAll();
+                                            layeredPane.revalidate();
+                                            layeredPane.repaint();                                           
                                             Game.getGame().getCurrentNode().display();
                                             break ;
                                         } catch (IOException | ClassNotFoundException f) {
@@ -989,7 +1001,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * @param node The node to be displayed.
      */
 
-    public void afficherperso(Node node){
+    public static void afficherperso(Node node){
         if (node.getImagePersoList().size()>5){
             throw new IllegalArgumentException("Le jeu ne peut afficher que 5 persos à la fois ! Node concerné : "+node.getNom());
         }
@@ -1017,18 +1029,21 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     }
 
 
- public void afficherNodeBase(Node node) {
+ public static void afficherNodeBase(Node node) {
         
-        configPanel();
-        layeredPane.removeAll();
-        layeredPane.revalidate();
-        layeredPane.repaint();
-        afficherImageDansInterface(node.getImageName());
+        // configPanel();
+        // layeredPane.removeAll();
+        // layeredPane.revalidate();
+        // layeredPane.repaint();
+        
+        // afficherImageDansInterface(node.getImageName());
+
+
         Clip clip =afficherSoundDansInterface(node.getSoundName());
 
 	    getFenetre().getContentPane().setLayout(null);
 
-        this.afficherperso(node) ;
+        afficherperso(node) ;
         
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
@@ -1122,7 +1137,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     timer.start();
     if(node instanceof FightNode){
         playFightNode(node);
-    } else InnerNodeButton(node);
+    } else InnerNodeButton(node, clip);
 
 
 }
@@ -1133,7 +1148,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     * @param node The current ChooseNode to display options for.
     */
 
-    public void InnerNodeButton(Node node){
+    public static void InnerNodeButton(Node node, Clip clip){
         configPanel();
         InnerNode chooseNode;// Cast the node to a ChooseNode
         
@@ -1168,35 +1183,53 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             btn1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+                    configPanel();
+                    layeredPane.removeAll();
+                    layeredPane.revalidate();
+                    layeredPane.repaint();
                     chooseNode.getOptions().get(currentIndex).display(); // clique du bouton provoque affichage du prochain bode
-                    ImageNode imageNode= new ImageNode(chooseNode.getOptions().get(currentIndex), node.getImageName());
-                    imageNode.display();
+                    
                 }
             });
-        } else boutonGoNext(btn1, chooseNode);
+        } else boutonGoNext(btn1, chooseNode, clip);
         getFenetre().revalidate();
         }
     }
 
-    public void boutonGoNext(JButton btn1, Node node){
+    public static void boutonGoNext(JButton btn1, InnerNode node, Clip clip){
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                         	node.goNext() ; // Code to execute when the button is clicked
                             if(node instanceof TextNode){
                                 TextNode j= (TextNode) node;
-                                ImageNode imageNode= new ImageNode(j.getOptions().get(0), node.getImageName());
-                                imageNode.display();
+                                configPanel();
+                                    layeredPane.removeAll();
+                                layeredPane.revalidate();
+                                layeredPane.repaint();
+                                j.goNext().display();
+                               
                             }
                             if(node instanceof ChanceNode){
                                 ChanceNode x = (ChanceNode) node;
-                                x.goNext();
+                                configPanel();
+                                layeredPane.removeAll();
+                                layeredPane.revalidate();
+                                layeredPane.repaint();
+                                x.goNext().display();;
+                                
+                                                                
                                
                             }
                             if (node instanceof TestNode){
                                 TestNode x = (TestNode) node;
-                                x.goNext();
+                                
+                                configPanel();
+                                layeredPane.removeAll();
+                                layeredPane.revalidate();
+                                layeredPane.repaint();
+                                x.goNext().display();;
+                                
                               
                             }
                             
@@ -1633,7 +1666,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * la fonction pour exécuter les compétences et récupérer leur texte
      * @param node
      */
-    public void faireActions(FightNode node) {
+    public static void faireActions(FightNode node) {
         
         // on transforme la map d'action en une arraylist
         Set<PersonnageCombattant> a = node.getAction().keySet();
@@ -1705,7 +1738,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             afficherImageDansInterface(node.getImageName());
 	        getFenetre().getContentPane().setLayout(null);
 
-            this.afficherPersoFight(node, imagePathGroupList, imagePathAdversaireList);
+            afficherPersoFight(node, imagePathGroupList, imagePathAdversaireList);
         
             JPanel panelText= new JPanel();// Create a panel for the text content of the node
             JEditorPane editorPane = new JEditorPane();
@@ -1874,7 +1907,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         afficherImageDansInterface(node.getImageName());
 	    getFenetre().getContentPane().setLayout(null);
 
-        this.afficherperso(node) ;
+        afficherperso(node) ;
         
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
@@ -2087,7 +2120,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         for(PersonnageCombattant perso : Game.getGame().getGroupeJoueur()){
             if (gainNiveau.containsKey(perso)){
                 q = gainNiveau.remove(perso) ;
-                this.afficherPersoGainNiveau(perso.getImageLien());
+                afficherPersoGainNiveau(perso.getImageLien());
                 break;
             }
         }
@@ -2170,7 +2203,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         afficherImageDansInterface(node.getImageName());
 	    getFenetre().getContentPane().setLayout(null);
 
-        this.afficherperso(node) ;
+        afficherperso(node) ;
         
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
@@ -2313,7 +2346,11 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             suivant.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { 
-                    nodeNext.display();
+                        configPanel();
+                        layeredPane.removeAll();
+                        layeredPane.revalidate();
+                        layeredPane.repaint();
+                        nodeNext.display();
                         }
             });
     }
@@ -2340,7 +2377,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         panelTerminal.setBounds(711, 494, 144, 62);
         layeredPane.add(panelTerminal, JLayeredPane.POPUP_LAYER);
         panelTerminal.setBackground(Color.YELLOW);
-        this.CloseFrame();
+        CloseFrame();
     }
 
     

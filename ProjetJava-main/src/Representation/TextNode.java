@@ -73,9 +73,9 @@ public class TextNode extends InnerNode {
     }
 
   
-    public void goNext() {
+    public Node goNext() {
 		this.getOptions().get(0).setFormerNode(this);
-		//this.getOptions().get(0).display();
+		return this.getOptions().get(0) ;
 	}
 
     /**

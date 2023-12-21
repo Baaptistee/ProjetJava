@@ -100,7 +100,8 @@ public class ChooseNode extends InnerNode {
      * Overrides the goNext method for ChooseNode.
      */
     @Override
-    public void goNext() {
+    public Node goNext() {
+        return null ;
         // Implementation for advancing to the next step in the choice node.
     }
 

@@ -170,10 +170,10 @@ public class TestNode extends InnerNode {
      * Advances to the next node based on the test results.
      */
 	@Override
-	public void goNext() {
+	public Node goNext() {
 			Node a = this.select() ;
 			a.setFormerNode(this);
-			a.display();
+			return a ;
 			
 	}
 	/**

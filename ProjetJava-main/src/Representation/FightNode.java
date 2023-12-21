@@ -164,13 +164,14 @@ public class FightNode extends InnerNode {
 	
 
 	@Override
-	public void goNext() {
+	public Node goNext() {
 
 		if (this.isGroupEnVie(Game.getGame().getGroupeJoueur())) {
 			getInterface().Victoire(this) ;
 		} else {
 			getInterface().Defaite(this) ;
 		}	
+		return null ;
 	}
 	@Override
 	public String toString() {

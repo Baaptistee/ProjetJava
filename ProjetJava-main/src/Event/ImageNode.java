@@ -48,12 +48,10 @@ public class ImageNode extends AbstractDecorator {
      *
      */
     private void ajoutFonctionnalite() {
-        InterfaceJeu interfaceJeu = Node.getInterface();
-        if (interfaceJeu != null) {
-            interfaceJeu.afficherImageDansInterface(imageName);
-        } else {
-            throw new IllegalArgumentException("L'interface ne peut pas être null");
-        }
+            InterfaceJeu.afficherImageDansInterface(imageName);
+        // } else {
+        //     throw new IllegalArgumentException("L'interface ne peut pas être null");
+        // }
     }
     
      /**

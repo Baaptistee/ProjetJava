@@ -168,7 +168,7 @@ public abstract class InnerNode extends Node {
     /**
      * Abstract method representing the behavior of moving to the next node.
      */
-	public abstract void goNext() ;
+	public abstract Node goNext() ;
 
 	@Override
     /**

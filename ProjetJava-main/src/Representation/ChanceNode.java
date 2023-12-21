@@ -107,10 +107,10 @@ public class ChanceNode extends InnerNode {
     /**
      * Advances to the next node based on the chance outcome.
      */
-    public void goNext() {
+    public Node goNext() {
         Node selectedNode = this.select();
         selectedNode.setFormerNode(this);
-        selectedNode.display();
+        return selectedNode;
     }
 
     /**

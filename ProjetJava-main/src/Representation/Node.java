@@ -3,6 +3,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import Event.Event;
+import Event.ImageNode;
+import Event.SoundNode;
 import Interface.* ;
 
 public abstract class Node extends Object implements Event, Serializable {
@@ -17,7 +19,7 @@ public abstract class Node extends Object implements Event, Serializable {
 	private boolean checkPoint = false ;
 	private String imageName;
 	private String soundName;
-	private ArrayList <String> imagepersoPath;
+	private ArrayList <String> imagepersoPath = new ArrayList<String>();
 
 
 	/**
@@ -315,7 +317,7 @@ public String getImageName() {
      * Move to the next Node while updating the formerNode reference.
      */
 
-	public abstract void goNext() ;
+	public abstract Node goNext() ;
 
 	 /**
      * Check if the Node is a checkpoint and update the last checkpoint if needed.
@@ -366,7 +368,10 @@ public String getImageName() {
 public void display() {
     this.isCheckPoint();
     Game.getGame().setCurrentNode(this);
-    getInterface().afficherNodeBase(this);
+	ImageNode imageNode= new ImageNode(this, this.getImageName());
+    imageNode.display();
+	SoundNode soundNode = new SoundNode(this, "sound/success-1-6297.wav");
+    soundNode.display();
 }
 
 /**

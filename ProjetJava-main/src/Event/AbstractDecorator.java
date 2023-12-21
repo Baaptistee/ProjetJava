@@ -1,6 +1,11 @@
 package Event;
 
 import java.util.ArrayList;
+import Representation.* ;
+
+
+
+import Interface.InterfaceJeu;
 
 /**
  * An abstract class that serves as a base for implementing decorators for the "Event" interface.
@@ -27,9 +32,7 @@ abstract class AbstractDecorator implements Event {
     @Override
     public void display() {
         // Implémentation de base de l'affichage
-       
-        decorator.display();
-        //System.out.println("Displaying Abstract Node");
+        InterfaceJeu.afficherNodeBase((Node)decorator);
     }
     public Event getDecorator(){
         return decorator;

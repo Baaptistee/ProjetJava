@@ -9,8 +9,8 @@ public class TerminalNode extends Node {
 	}	
 	
 	@Override
-	public void goNext() {
-
+	public Node goNext() {
+		return null ;
 		// méthode vide pour l'instant mais qui sera utilisée plus tard quand implémentation de checkpoint et de 
 		// possibilité de recommencer 
 	}
