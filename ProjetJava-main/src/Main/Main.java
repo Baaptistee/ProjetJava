@@ -78,7 +78,7 @@ public class Main {
 		ArrayList<PersonnageCombattant> opponents1= new ArrayList<>();
 		n15S.setXp(250);
 		ArrayList<Collectibles> bytin1= new ArrayList<Collectibles>() ;
-		Collectibles potion = new Objets("Potion de soin") ;
+		Collectibles potion = new Objets("Potion trala de soin") ;
 		Collectibles banane = new Objets("Banane") ;
 		bytin1.add(banane) ;
 		bytin1.add(potion) ;
@@ -287,8 +287,10 @@ public class Main {
 		
 		ArrayList<PersonnageCombattant> opponents8= new ArrayList<PersonnageCombattant>();
 		ArrayList<Collectibles> bytin8= new ArrayList<Collectibles>() ;
-		Collectibles potion8 = new Objets("Potion de soin") ;
+		Collectibles potion8 = new Objets("Potion de mort") ;
 		Collectibles banane8 = new Objets("Banane") ;
+		
+
 		bytin1.add(banane8) ;
 		bytin1.add(potion8) ;
 		ArrayList <Eleme> resistancess2=new ArrayList<>();
@@ -324,7 +326,11 @@ public class Main {
 
 		n1.setImagePersoList(cinqPersonnages);
 
-		Game.getGame().setFirstNode(nodeTest) ;
+		Game.getGame().setFirstNode(n1) ;
+		Game.getGame().getInventaire().put(potion8, 2);
+		Game.getGame().getInventaire().put(banane8, 4);
+		Game.getGame().getInventaire().put(potion2, 9);
+		Game.getGame().getInventaire().put(potion, 3);
 		InterfaceJeu.ecranTitre();
 
 		/* 

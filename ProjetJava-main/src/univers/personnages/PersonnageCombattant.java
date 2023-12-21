@@ -399,7 +399,7 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	
 	public boolean testStat(int valeurTest, Statistiques stat){
-			if (valeurTest>0) {
+			if (valeurTest<0) {
 				throw new IllegalArgumentException("La valeur test doit être supérieure à zéro !");
 			}
 			if (stat == null){

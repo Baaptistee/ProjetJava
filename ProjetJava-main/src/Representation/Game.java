@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 //import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
@@ -24,7 +25,7 @@ public class Game implements Serializable {
 	private Node currentNode ;
 	private Node firstNode ;
 	private static Game instance;
-	private Map<Collectibles, Integer> inventaire ;
+	private Map<Collectibles, Integer> inventaire = new HashMap<>();
 	private String nomJoueur = "Baptiste";
 
 	private Game(){}
