@@ -184,6 +184,9 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param speed
 	 */
 	public void setSpeed(int speed) {
+		if (speed < 0) {
+			throw new IllegalArgumentException("La vitesse ne peut pas être négative");
+		}
 		this.speed = speed;
 	}
 	/** a getter for level 
@@ -198,11 +201,10 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param level
 	 */
 	public void setLevel(int level) {
-		
-			if(level<=0){
-				throw new IllegalArgumentException("Level ne peut être négatif ou 0");
-			}
-			this.level = level;
+		if (level <= 0) {
+			throw new IllegalArgumentException("Level ne peut être négatif ou 0");
+		}
+		this.level = level;
 	}
 	/** a getter for strength
 	 * 
@@ -216,10 +218,12 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param strengh
 	 */
 	public void setStrength(int strengh) {
+	
 			if(strengh<=0){
 				throw new IllegalArgumentException("Strengh ne peut être négatif ou 0");
 			}
 			this.strength = strengh;
+		
 	}
 	/** a getter for intelligence
 	 * 
@@ -237,6 +241,7 @@ public abstract class PersonnageCombattant extends Personnage {
 				throw new IllegalArgumentException("Intelligence ne peut être négatif ou 0");
 			}
 			this.intelligence = intelligence;
+		
 	}
 	/** a getter for dexterity
 	 * 
@@ -253,7 +258,7 @@ public abstract class PersonnageCombattant extends Personnage {
 				throw new IllegalArgumentException("Dexterity ne peut être négatif ou 0");
 			}
 			this.dexterity = dexterity;
-	}
+			}
 	/** a getter for endurance
 	 * 
 	 * @return
@@ -266,11 +271,12 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param endurance
 	 */
 	public void setEndurance(int endurance) {
+
 			if(endurance<=0){
 				throw new IllegalArgumentException("Endurance ne peut être négatif ou 0");
 			}
 			this.endurance = endurance;
-	}
+				}
 	/** a getter for Lifepoints
 	 * 
 	 * @return
@@ -301,7 +307,7 @@ public abstract class PersonnageCombattant extends Personnage {
 				throw new IllegalArgumentException("MaxLifepoints ne peut être négatif ou 0");
 			}
 			this.maxLifePoints = maxLifePoints;
-	}
+				}
 	/** a getter for the current mana
 	 * 
 	 * @return
@@ -314,13 +320,13 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param mana
 	 */
 	public void setMana(int mana) {
+		
 			if (mana < 0){
 				throw new IllegalArgumentException("mana ne peut être négatif ! ");
 			}
 			if (mana > maxMana){
 				this.mana = maxMana ;
 			} else this.mana = mana;
-
 	}
 	/** a getter for the maximum mana
 	 * 
@@ -334,12 +340,12 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param maxMana
 	 */
 	public void setMaxMana(int maxMana) {
+
 			if(maxMana<=0){
 				throw new IllegalArgumentException("MaxMana ne peut être négatif ou 0");
 			}
 			this.maxMana = maxMana;
-		
-	}
+			}
 	/** a getter for alive
 	 * 
 	 * @return
@@ -399,6 +405,7 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	
 	public boolean testStat(int valeurTest, Statistiques stat){
+	
 			if (valeurTest<0) {
 				throw new IllegalArgumentException("La valeur test doit être supérieure à zéro !");
 			}
@@ -440,6 +447,7 @@ public abstract class PersonnageCombattant extends Personnage {
 			default:
 				return false ;
 			}
+		
 	}
 	
 	
@@ -471,27 +479,33 @@ public abstract class PersonnageCombattant extends Personnage {
 	 * @param lanceur
 	 * @return
 	 */
-	public boolean esquive (int competenceAccuracy, PersonnageCombattant lanceur) {
-			if (lanceur==null){
-				throw new IllegalArgumentException("Lanceur ne peut être null") ;
-			}
-			if (competenceAccuracy<=0){
-				throw new IllegalArgumentException("competence Accuracy doit être suéprieur à zéro");
-			}
-			boolean t = false ;
-			Random random = new Random() ;
-			int a = competenceAccuracy + lanceur.getDexterity()/3 - this.getSpeed()/3 ;
-			if (random.nextInt(100) > a) {
-				t = true ;
-			}
-			return t ;
+	public boolean esquive(int competenceAccuracy, PersonnageCombattant lanceur) {
+		if (lanceur == null) {
+			throw new IllegalArgumentException("Lanceur ne peut être null");
+		}
+	
+		if (competenceAccuracy <= 0) {
+			throw new IllegalArgumentException("competence Accuracy doit être supérieur à zéro");
+		}
+	
+		boolean t = false;
+		Random random = new Random();
+		int a = competenceAccuracy + lanceur.getDexterity() / 3 - this.getSpeed() / 3;
+		
+		if (random.nextInt(100) > a) {
+			t = true;
+		}
+		
+		return t;
 	}
+	
 	/** a method to deal dammage to characters
 	 * 
 	 * @param dammage
 	 */
 	// une méthode pour faire subir des dégâts à nos personnages 
 	public void dammage(int dammage) {
+	
 			if (dammage<=0){
 				throw new IllegalArgumentException("dammage doit être supérieur à zéro") ;
 			}
@@ -502,6 +516,8 @@ public abstract class PersonnageCombattant extends Personnage {
 			}
 			this.setLifePoints(this.getLifePoints() - a) ;
 			this.setAlive(this.enVie()) ;
+	
+		
 	}
 	/** a method to heal characters 
 	 * 
@@ -513,6 +529,7 @@ public abstract class PersonnageCombattant extends Personnage {
 				throw new IllegalArgumentException("heal doit être supérieur à, zéro");
 			}
 		this.setLifePoints(this.getLifePoints() + heal) ;
+		
 	}
 	/** a function used to get the group of the characters
 	 * 

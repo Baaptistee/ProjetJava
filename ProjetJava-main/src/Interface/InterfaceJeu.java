@@ -25,6 +25,14 @@ import java.util.Date;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 //import java.util.List;
 import javax.swing.*;
 import java.awt.event.MouseWheelEvent;
@@ -45,6 +53,8 @@ public class InterfaceJeu {
 	private static JMenuBar barreMenu = new JMenuBar() ;//Reference to the menu bar of the Game.getGame() interface.
     private static JLayeredPane layeredPane =new JLayeredPane();
     private static final Font maFont = new Font("Courier New", Font.PLAIN, 15);
+    private static Clip clip;
+
 
 
 
@@ -720,6 +730,37 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         getFenetre().revalidate();
         getFenetre().repaint();
 
+
+            try {
+            File audioFile = new File("sound/emotional-inspiring-epic-trailer-11258.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+
+            // Ajoutez un événement pour réinitialiser la position de lecture à 0 lorsque la lecture est terminée
+            clip.addLineListener(new LineListener() {
+                @Override
+                public void update(LineEvent event) {
+                    if (event.getType() == LineEvent.Type.STOP) {
+                        clip.setFramePosition(0);
+                        clip.start();
+                    }
+                }
+            });
+
+            // Créez un thread séparé pour jouer en boucle
+            Thread loopThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    clip.start();
+                }
+            });
+
+            loopThread.start();
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
+
         JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
         getFenetre().add(layeredPane);
         panelChoose.setBounds(120, 400, 770, 100);
@@ -983,6 +1024,8 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         layeredPane.revalidate();
         layeredPane.repaint();
         afficherImageDansInterface(node.getImageName());
+        Clip clip =afficherSoundDansInterface(node.getSoundName());
+
 	    getFenetre().getContentPane().setLayout(null);
 
         this.afficherperso(node) ;
@@ -1167,7 +1210,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * La fonction pour lancer le fight node 
      * @param node
      */
-    public void playFightNode(Node node){
+    public static void playFightNode(Node node){
         FightNode node1 = (FightNode) node ;
         configPanel();
       
@@ -1176,7 +1219,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         getFenetre().add(layeredPane);
 		panelInner.setBounds(710, 494, 144, 62);
 
-        this.afficherPersoFight((FightNode)node);
+        afficherPersoFight((FightNode)node);
 
         
         // Add the "Next" panel to the layered pane
@@ -1207,7 +1250,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * La fonction qui se joue à chaque nouveau tour du combat
      * @param node
      */
-    public void playTourFightNode(FightNode node) {
+    public static void playTourFightNode(FightNode node) {
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -1247,6 +1290,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         
         node.videActions(); //On vide la variable actions du FightNode
         selectionAction(node ,0); // on lance la sélection des actions
+
         
     }
 
@@ -1313,7 +1357,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     
  }
 
- public void afficherPersoFight(FightNode node, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){
+ public static void afficherPersoFight(FightNode node, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){
     
         if (imagePathGroupList!=null){
             JPanel panelGroupe= new JPanel(new FlowLayout());
@@ -1361,7 +1405,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
  }
 
 
-    public void selectionAction(FightNode node, int perso) {
+    public static void selectionAction(FightNode node, int perso) {
         
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -1470,7 +1514,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * @param perso
      * @param cibleCompetence
      */
-    public void selectionCible(FightNode node, int perso, Object [] cibleCompetence) {
+    public static void selectionCible(FightNode node, int perso, Object [] cibleCompetence) {
         
         
         //*******************PANEL DE SELECTION************** */
@@ -1575,7 +1619,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * La fonction pour sélection des capacités ennemies 
      * @param node
      */
-    public void selectionAdverse(FightNode node) {
+    public static void selectionAdverse(FightNode node) {
         // pour chaque opponent on lui attribue une action
         for (int i = 0; i<node.getOpponentsVivant().size();i++) {
             CompetencesActives competence = ((PersonnageAdversaire)node.getOpponentsVivant().get(i)).selectionAttaque() ;
@@ -1651,7 +1695,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     
     
     
-     public void afficherAction(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){  
+     public static void afficherAction(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){  
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -1776,7 +1820,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         }
     }
 
-    public void ButtonSuivant(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){
+    public static void ButtonSuivant(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){
         configPanel();
       
             // Create a panel for the "Next" button
@@ -1809,7 +1853,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * on vérifie si le combat est terminé 
      * @param node
      */
-    public void FightOver(FightNode node){
+    public static void FightOver(FightNode node){
         if (node.isOver()){  // si le combat est terminé on passe au node suivant 
             node.goNext();
         } else {
@@ -1822,7 +1866,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * la fonction qui selon la valeur renvoyée par le fightNode va lancer le node suivant 
      * @param node
      */
-    public void Victoire(FightNode node) {
+    public static void Victoire(FightNode node) {
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -1946,7 +1990,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     timer.start();
         
     }
-    public void afficherPersoVictoire(){
+    public static void afficherPersoVictoire(){
         ArrayList<String> imagePathGroupList = new ArrayList<String>();
     for (int i =0; i<Game.getGame().getGroupeJoueurVivant().size();i++){
         imagePathGroupList.add(Game.getGame().getGroupeJoueurVivant().get(i).getImageLien());
@@ -1976,7 +2020,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
     }
 
-    public void afficherPersoGainNiveau(String imagePerso){
+    public static void afficherPersoGainNiveau(String imagePerso){
         if (imagePerso!=null){
             JPanel panel= new JPanel(new FlowLayout());
             panel.setBounds(100, 300, 650, 310);
@@ -1998,7 +2042,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     }
 
     
-    public void ecranGainNiveau(FightNode node, Map<PersoGroupe, String> gainNiveau){
+    public static void ecranGainNiveau(FightNode node, Map<PersoGroupe, String> gainNiveau){
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -2118,7 +2162,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         
     }
 
-    public void Defaite(FightNode node) {
+    public static void Defaite(FightNode node) {
         configPanel();
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -2221,7 +2265,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         timer.start();
     }
 
-    public void gainDeNiveauButton(FightNode node, Map<PersoGroupe, String> gainNiveau){
+    public static void gainDeNiveauButton(FightNode node, Map<PersoGroupe, String> gainNiveau){
         configPanel();
         JPanel panelInner = new JPanel();
             getFenetre().add(layeredPane);
@@ -2248,7 +2292,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             });
     }
 
-    public void nextNodeButton(Node nodeNext){
+    public static void nextNodeButton(Node nodeNext){
         JPanel panelInner = new JPanel();
             getFenetre().add(layeredPane);
 		    panelInner.setBounds(711, 494, 144, 62);
@@ -2276,7 +2320,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
     
     
-    public void CloseFrame(){
+    public static void CloseFrame(){
         Timer timer = new Timer(5000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -2289,7 +2333,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     
     }
 
-     public void TerminalNodeButton(Node node) {
+     public static void TerminalNodeButton(Node node) {
         configPanel();
         JPanel panelTerminal = new JPanel();
         getFenetre().add(layeredPane);
@@ -2301,7 +2345,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
     
 
-    public void afficherImageDansInterface(String imageName) {
+    public static void afficherImageDansInterface(String imageName) {
         if (imageName != null) {
             configPanel();
             ImageIcon imageIcon= new ImageIcon(imageName);
@@ -2315,6 +2359,38 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             getFenetre().setVisible(true);
             
         }
+    }
+
+    public static Clip afficherSoundDansInterface(String soundName) {
+       
+        if (soundName != null) {
+            configPanel();
+            try {
+                File file = new File(soundName);
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+                clip = AudioSystem.getClip();
+                clip.addLineListener(new LineListener() {
+                    @Override
+                    public void update(LineEvent event) {
+                        if (event.getType() == LineEvent.Type.STOP) {
+                            clip.close();
+                            System.out.println("Lecture terminée !");
+                        }
+                    }
+                });
+                clip.open(audioInputStream);
+                clip.start();
+                getFenetre().add(layeredPane);
+                getFenetre().setVisible(true);
+
+                return clip; 
+
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null; 
     }
 
     

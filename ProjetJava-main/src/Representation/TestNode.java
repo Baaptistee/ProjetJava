@@ -17,32 +17,28 @@ public class TestNode extends InnerNode {
     /**
      * Constructs a TestNode with the specified parameters.
      *
-     * @param nom                        The name of the TestNode.
-     * @param description                The description of the TestNode.
-     * @param imageName                  The name of the associated image.
-     * @param checkPoint                 Indicates whether the TestNode is a checkpoint.
-     * @param options                    The list of options available for the TestNode.
-     * @param statATester                The statistics to be tested.
-     * @param difficulteTest             The difficulty level of the test.
-     * @param nombreReussiteNecessaire   The number of successes required for the test.
-     * @throws IllegalArgumentException If any of the parameters are invalid (null or negative).
+     * @param nom The name of the TestNode.
+     * @param description The description of the TestNode.
+     * @param imageName The name of the associated image.
+     * @param checkPoint Indicates whether the TestNode is a checkpoint.
+     * @param options The list of options available for the TestNode.
+     * @param statATester The statistics to be tested.
+     * @param difficulteTest The difficulty level of the test.
+     * @param nombreReussiteNecessaire The number of successes required for the test.
      */
-    public TestNode(String nom, String description, String imageName, boolean checkPoint,
-                    ArrayList<Node> options, Statistiques statATester, Integer difficulteTest,
-                    int nombreReussiteNecessaire) throws IllegalArgumentException {
-
+    public TestNode(String nom, String description, String imageName, boolean checkPoint,ArrayList<Node> options, Statistiques statATester, Integer difficulteTest,int nombreReussiteNecessaire){
         super(nom, description, imageName, checkPoint, options);
 
         if (difficulteTest == null) {
-            throw new IllegalArgumentException("Difficulty level cannot be null for TestNode.");
+            throw new IllegalArgumentException("La difficulté du test ne peut pas être null. ");
         }
 
         if (statATester == null) {
-            throw new IllegalArgumentException("Statistiques cannot be null for TestNode.");
+            throw new IllegalArgumentException("La statistique à tester ne peut pas etre null. ");
         }
 
         if (nombreReussiteNecessaire < 0) {
-            throw new IllegalArgumentException("Number of successes required cannot be negative for TestNode.");
+            throw new IllegalArgumentException("Le nombre de réussite ne peut pas être null. ");
         }
 
         this.difficulteTest = difficulteTest;
@@ -53,29 +49,26 @@ public class TestNode extends InnerNode {
     /**
      * Constructs a TestNode with the specified parameters and generates a default name.
      *
-     * @param description                The description of the TestNode.
-     * @param checkPoint                 Indicates whether the TestNode is a checkpoint.
-     * @param statATester                The statistics to be tested.
-     * @param difficulteTest             The difficulty level of the test.
-     * @param nombreReussiteNecessaire   The number of successes required for the test.
-     * @throws IllegalArgumentException If any of the parameters are invalid (null or negative).
+     * @param description The description of the TestNode.
+     * @param checkPoint Indicates whether the TestNode is a checkpoint.
+     * @param statATester The statistics to be tested.
+     * @param difficulteTest The difficulty level of the test.
+     * @param nombreReussiteNecessaire The number of successes required for the test.
      */
-    public TestNode(String description, boolean checkPoint, Statistiques statATester,
-                    Integer difficulteTest, int nombreReussiteNecessaire) throws IllegalArgumentException {
+    public TestNode(String description, boolean checkPoint, Statistiques statATester,Integer difficulteTest, int nombreReussiteNecessaire){
         super("Node" + Node.getTotalNode() + 1, description, checkPoint);
 
         if (difficulteTest == null) {
-            throw new IllegalArgumentException("Difficulty level cannot be null for TestNode.");
+            throw new IllegalArgumentException("La difficulté du test ne peut pas être null. ");
         }
 
         if (statATester == null) {
-            throw new IllegalArgumentException("Statistiques cannot be null for TestNode.");
+            throw new IllegalArgumentException("La statistique à tester ne peut pas etre null. ");
         }
 
         if (nombreReussiteNecessaire < 0) {
-            throw new IllegalArgumentException("Number of successes required cannot be negative for TestNode.");
+            throw new IllegalArgumentException("Le nombre de réussite ne peut pas être null. ");
         }
-
         this.difficulteTest = difficulteTest;
         this.statATester = statATester;
         this.nombreReussiteNecessaire = nombreReussiteNecessaire;
@@ -96,6 +89,9 @@ public class TestNode extends InnerNode {
      * @param nombreReussiteNecessaire The number of successes required.
      */
     public void setNombreReussiteNecessaire(int nombreReussiteNecessaire) {
+        if(nombreReussiteNecessaire<=0){
+            throw new IllegalArgumentException("Le nombre de réussite necessaire ne peut pas être négatif");
+        }
         this.nombreReussiteNecessaire = nombreReussiteNecessaire;
     }
 
@@ -132,6 +128,9 @@ public class TestNode extends InnerNode {
      * @param difficulteTest The difficulty level of the test.
      */
     public void setDifficulteTest(int difficulteTest) {
+         if(difficulteTest<0){
+            throw new IllegalArgumentException("La difficulté du test ne peut pas être négatif");
+        }
         this.difficulteTest = difficulteTest;
     }
 
@@ -141,7 +140,9 @@ public class TestNode extends InnerNode {
      * @return The next node.
      */
     public Node select() {
-        try {
+        if (this.getOptions().isEmpty()) {
+            throw new IllegalStateException("La liste des options ne peut pas être vide");
+        }
             int totalReussite = 0;
 
             for (int i = 0; i < Game.getGame().getGroupeJoueur().size(); i++) {
@@ -149,20 +150,20 @@ public class TestNode extends InnerNode {
                     totalReussite++;
                 }
             }
-
             if (totalReussite >= this.getNombreReussiteNecessaire()) {
-                // Return the success node (index 0) if the test is successful
-                return this.getOptions().get(0);
+                if (this.getOptions().size() >= 1) {
+                    return this.getOptions().get(0);
+                } else {
+                    throw new IndexOutOfBoundsException("L'index de l'option est invalide");
+                }
             } else {
-                // Return the failure node (index 1) if the test is not successful
-                return this.getOptions().get(1);
+                if (this.getOptions().size() >= 2) {
+                    return this.getOptions().get(1);
+                } else {
+                    throw new IndexOutOfBoundsException("L'index de l'option est invalide");
+                }
             }
-        } catch (Exception e) {
-            // Handle the exception, you can print a message or log it
-            System.err.println("Error in select method: " + e.getMessage());
-            // Return a default Node or handle the error as needed
-            return null;
-        }
+        
     }
 
     /**

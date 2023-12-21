@@ -4,15 +4,13 @@
  */
 
 package Representation;
-
 import java.util.ArrayList;
 import java.util.Objects;
-
 import univers.Collectibles;
 import univers.personnages.* ;
 import java.util.HashMap;
 import java.util.Map;
-//import java.util.Set;
+
 
 public class FightNode extends InnerNode {
 	
@@ -58,6 +56,9 @@ public class FightNode extends InnerNode {
 	}
 
 	public void setOpponents(ArrayList<PersonnageCombattant> opponents) {
+		if( opponents.isEmpty()){
+			throw new IllegalStateException("La liste des adversaires est null");
+		}
 		this.opponents = opponents;
 	}
 
@@ -78,28 +79,6 @@ public class FightNode extends InnerNode {
 		this.butin = butin;
 	}
 
-	// @Override
-	// public String toString() {
-	// 	return "FightNode:"+super.toString();
-	// }
-	
-	//  @Override
-    // public boolean equals(Object obj) {
-    //     if (this == obj) {
-    //         return true;
-    //     }
-
-    //     if (obj == null || getClass() != obj.getClass()) {
-    //         return false;
-    //     }
-
-    //     FightNode fightNode = (FightNode) obj;
-    //     return super.equals(obj) &&
-    //            Objects.equals(this.getOpponents(), fightNode.getOpponents()) &&
-    //            Objects.equals(this.getXp(),fightNode.getXp()) &&
-    //            Objects.equals(this.getButin(), fightNode.getButin());
-    // }
-	
 	/**
      * Method to display the information of the fight node.
      */
