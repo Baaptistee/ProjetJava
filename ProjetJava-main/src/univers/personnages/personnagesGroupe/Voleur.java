@@ -31,8 +31,8 @@ public class Voleur extends PersoGroupe{
 	 * @param resistances
 	 * @param armePossible
 	 */
-	private Voleur (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
-		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances, armePossible) ;
+	private Voleur (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances){
+		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances) ;
 	}
 	
 	/** a getter for the instance Mage 
@@ -49,7 +49,7 @@ public class Voleur extends PersoGroupe{
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
-			instance = new Voleur("Voleur", "Description du voleur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance = new Voleur("Voleur", "Description du voleur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
 			instance.setImage("image/MC_Mage.png");
 
 		}

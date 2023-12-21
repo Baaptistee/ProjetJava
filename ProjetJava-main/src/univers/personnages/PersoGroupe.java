@@ -29,7 +29,6 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	/** an arrayList with the type of weapons the character can carry
 	 * 
 	 */
-	private ArrayList<WeaponType> armePossible ;
 	
 	/** the constructor of the class
 	 * 
@@ -45,14 +44,11 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	 * @param competences
 	 * @param faiblesses
 	 * @param resistances
-	 * @param armePossible
 	 */
-	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible) {
+	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances) {
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, faiblesses, resistances) ;
 		this.experience = 0 ;
-		if (armePossible==null){
-			this.armePossible = new ArrayList<>() ;
-		} else this.armePossible = armePossible ;
+		
 		if (competences==null){
 			this.competences=new ArrayList<>();
 		} else this.competences = competences ;
@@ -83,15 +79,13 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 		return weapon;
 	}
 
+	public void setWeapon(Weapon arme){
+		this.weapon=arme ;
+	}
 	/** a setter for the weapon 
 	 * 
 	 * @param weapon
 	 */
-	public void setWeapon(Weapon weapon) {
-		if (!this.armePossible.contains(weapon.getWeaponType())){
-			throw new IllegalArgumentException("Impossible pour ce personnage d'équiper cette arme !") ;
-		}
-		this.weapon = weapon;}
 	
 
 	/** a getter for the competences 
@@ -231,17 +225,7 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	 * 
 	 * @return
 	 */
-	public ArrayList<WeaponType> getArmePossible() {
-		return armePossible;
-	}
-
-	/** a setter for the possible weapons 
-	 * 
-	 * @param armePossible
-	 */
-	public void setArmePossible(ArrayList<WeaponType> armePossible) {
-		this.armePossible = armePossible;
-	}
+	
 
 	
 	/** a method to make our characters gain xp
@@ -286,7 +270,7 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	@Override
 	public String toString() {
 		return super.toString() + " [experience=" + experience + ", weapon=" + weapon + ", competences=" + competences
-				+ ", armePossible=" + armePossible + "]";
+				+ "]";
 	}
 
 	@Override

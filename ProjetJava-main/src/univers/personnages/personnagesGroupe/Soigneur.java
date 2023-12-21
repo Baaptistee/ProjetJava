@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
+import univers.armes.Weapon;
 //import univers.armes.Weapon;
 import univers.armes.WeaponType;
 import univers.competences.*;
@@ -32,8 +33,8 @@ public class Soigneur extends PersoGroupe{
 	 * @param resistances
 	 * @param armePossible
 	 */
-	private Soigneur  (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
-		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances, armePossible) ;
+	private Soigneur  (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances){
+		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances) ;
 	}
 	
 	/** a getter for the instance soigneur 
@@ -72,8 +73,10 @@ public class Soigneur extends PersoGroupe{
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
-			instance = new Soigneur("Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			Weapon arc = new Weapon(7, 100,"Apparaitra tu", "Un arc solide mais vetuste.", 1, 2, 2, 2, 4);
+			instance = new Soigneur("Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
 			instance.setImage("image/Soigneur.png");
+			instance.setWeapon(arc);
 
 		}
 		return instance ;

@@ -10,6 +10,8 @@ import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageAdversaire;
 import univers.personnages.PersonnageCombattant;
 import univers.Collectibles;
+import univers.Utilisable;
+
 //import univers.* ;
 import univers.competences.CompetenceDammage;
 import univers.competences.CompetenceSoin;
@@ -43,7 +45,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import Event.*;
 
 
 
@@ -225,6 +226,8 @@ public class InterfaceJeu {
             public void actionPerformed(ActionEvent e) {
                 if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
                     ecranStatut();             
+                } else {
+                    JOptionPane.showMessageDialog(null, "Désolé, impossible d'y accéder lors d'un combat !", "Désolé ...", JOptionPane.WARNING_MESSAGE);
                 }
 
             }
@@ -237,6 +240,8 @@ public class InterfaceJeu {
             public void actionPerformed(ActionEvent e) {
                 if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
                     ecranInventaire();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Désolé, impossible d'y accéder lors d'un combat !", "Désolé ...", JOptionPane.WARNING_MESSAGE);
                 }
 
             }
@@ -244,7 +249,8 @@ public class InterfaceJeu {
     }
 
     public static void ecranInventaire(){
-        configPanel();
+            System.out.println("test");
+            configPanel();
             layeredPane.removeAll();
             layeredPane.revalidate();
             layeredPane.repaint();
@@ -271,7 +277,7 @@ public class InterfaceJeu {
 
 
             JPanel panelText = new JPanel();
-            panelText.setBounds(450, 50, 400, 100);
+            panelText.setBounds(450, 50, 400, 70);
             panelText.setOpaque(false);
             panelText.setBackground(Color.CYAN);
 
@@ -304,12 +310,8 @@ public class InterfaceJeu {
     
     layeredPane.add(panelFight, JLayeredPane.POPUP_LAYER);
 
-
+    if (Game.getGame().getInventaire().size()!=0){
     ButtonGroup buttonGroup = new ButtonGroup();
-    // JLabel cmp = new JLabel("Liste des Compétences : ", JLabel.CENTER);
-    // cmp.setFont(new Font("Courier New", Font.PLAIN, 15));
-    // cmp.setForeground(Color.WHITE);
-    // contentPanel.add(cmp);
     Map<Collectibles, Integer> inventaire = Game.getGame().getInventaire();
     
     for (Collectibles objet : inventaire.keySet()) {
@@ -323,6 +325,7 @@ public class InterfaceJeu {
     JPanel panelText2 = new JPanel();
 
     JButton validateButton = new JButton("Obtenir plus d'info");
+    validateButton.setFont(maFont);
     contentPanel.add(validateButton);
     validateButton.addActionListener(new ActionListener() {
         @Override
@@ -337,19 +340,205 @@ public class InterfaceJeu {
                     if (objet!=null){
                         ecranInventaire();
                         afficherDetailObjet(panelText2, objet) ;
-                        System.out.println("Bouton cliqué !");
                         
                     }
                 }
             });
+    JButton utiliser = new JButton("Utiliser/Équiper");
+    utiliser.setFont(maFont);
+    contentPanel.add(utiliser);
+    utiliser.addActionListener(new ActionListener() {
+        @Override
+            public void actionPerformed(ActionEvent e) { 
+                   Collectibles objet = null ;
+                    String n = buttonGroup.getSelection().getActionCommand() ;
+                    for (Collectibles objet2 : inventaire.keySet()) {
+                        if (objet2.getName().equals(n)) {
+                            objet = objet2 ;
+                        } // on récupère la compétence (un radio button ne peut renvoyer qu'un String)
+                    }
+                    if (objet!=null){
+                        if (objet instanceof Utilisable){
+                            utiliserObjet((Utilisable)objet);
+                        } else {
+                            ecranInventaire();
+                            utilisation("Utilisation impossible pour cet objet !");
+                        }
+                        
+                    }
+                }
+            });
+        } else {
+            JLabel cmp = new JLabel("Désolé l'inventaire est vide !", JLabel.CENTER);
+            cmp.setFont(new Font("Courier New", Font.PLAIN, 15));
+            cmp.setForeground(Color.WHITE);
+            contentPanel.add(cmp);
+        }
         
-    ButtonRetour();
     ButtonFermer();
     panelText.add(editorPane);
     layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
 
 
     }
+
+    public static void ButtonRetourInventaire(){
+        JPanel panelInner = new JPanel();
+		panelInner.setBounds(650, 600, 144, 62);
+        
+        // Add the "Next" panel to the layered pane
+		layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
+        panelInner.setBackground(Color.yellow);
+        panelInner.setOpaque(false);
+        
+        
+        JButton suivant = new JButton("Retour"); // Create a "Next" button
+        suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
+        suivant.setBackground(Color.WHITE);
+		suivant.setForeground(Color.BLACK);
+        panelInner.add(suivant);
+        getFenetre().revalidate() ;
+        suivant.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
+                            ecranInventaire();
+                        }
+            });
+    }
+
+    public static void utiliserObjet(Utilisable objet){
+        configPanel();
+            layeredPane.removeAll();
+            layeredPane.revalidate();
+            layeredPane.repaint();
+    
+            getFenetre().getContentPane().setLayout(null);
+            getFenetre().revalidate();
+            getFenetre().repaint();
+    
+            configPanel();
+            ImageIcon imageIconFon = new ImageIcon("image/ForetJolie.png");
+            JLabel labelFond = new JLabel(imageIconFon);
+            labelFond.setBounds(0, 0, 1000, 1000);
+            layeredPane.add(labelFond, JLayeredPane.DEFAULT_LAYER);
+
+            JPanel panel = new JPanel();
+             panel.setBounds(50, 50, 400, 250);
+            panel.setOpaque(false);
+            ImageIcon imageIcon = new ImageIcon("image/inventaire.png");
+            java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(225, 225, java.awt.Image.SCALE_SMOOTH);
+            ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+            JLabel label = new JLabel(imageRedimensionneeIcon);
+            panel.add(label);
+            layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+
+
+            JPanel panelText = new JPanel();
+            panelText.setBounds(450, 50, 400, 70);
+            panelText.setOpaque(false);
+            panelText.setBackground(Color.CYAN);
+
+            JEditorPane editorPane = new JEditorPane();
+            editorPane.setPreferredSize(new Dimension(400, 100));
+            editorPane.setOpaque(false);
+            editorPane.setEditable(false);
+            editorPane.setContentType("text/html");
+            editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+            editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+            + "Sélectionnez le membre du groupe sur lequel équiper/utiliser l'objet : "
+            + "</div>");
+    panelText.add(editorPane);
+    layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
+    
+    JPanel panelText2 = new JPanel();
+    afficherDetailObjet(panelText2, objet);   
+    JScrollPane panelFight = new JScrollPane();
+    panelFight.setBounds(450, 170, 400, 410);
+    
+    JPanel contentPanel = new JPanel();
+    int numberOfColumns = 1; 
+    contentPanel.setLayout(new GridLayout(0, numberOfColumns)); 
+    panelFight.setViewportView(contentPanel);
+    contentPanel.setBackground(Color.BLACK);
+
+    contentPanel.addMouseWheelListener(new MouseWheelListener() {
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            JScrollBar verticalScrollBar = panelFight.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getValue() - e.getUnitsToScroll());
+        }
+    });
+    
+    layeredPane.add(panelFight, JLayeredPane.POPUP_LAYER);
+
+
+    ButtonGroup buttonGroup = new ButtonGroup();
+    
+    for (PersonnageCombattant perso : Game.getGame().getGroupeJoueur()) {
+        JRadioButton radioButton = new JRadioButton("<html>"+"<strong>"+perso.getName()+"</strong>"+ " PV : "+perso.getLifePoints()+"/"+perso.getMaxLifePoints()+ " PM : "+perso.getMana()+"/"+perso.getMaxMana());
+        radioButton.setActionCommand(perso.getName());
+        radioButton.setFont(new Font("Courier New", Font.PLAIN, 15));
+        radioButton.setForeground(Color.WHITE);
+        buttonGroup.add(radioButton);
+        contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
+    }
+
+    JButton validateButton = new JButton("Utiliser/Équiper");
+    validateButton.setFont(maFont);
+    contentPanel.add(validateButton);
+    validateButton.addActionListener(new ActionListener() {
+        @Override
+            public void actionPerformed(ActionEvent e) { 
+                   PersonnageCombattant perso = null ;
+                    String n = buttonGroup.getSelection().getActionCommand() ;
+                    for (PersonnageCombattant perso2 : Game.getGame().getGroupeJoueur()) {
+                        if (perso2.getName().equals(n)) {
+                            perso = perso2 ;
+                        } 
+                    }
+                    if (objet!=null){
+                        if (Game.getGame().getInventaire().get(objet)==1){
+                            String d = (objet).utilisation(perso);
+                            ecranInventaire();
+                            utilisation(d);
+                        } else {
+                            String d = (objet).utilisation(perso);
+                            utiliserObjet(objet);
+                            utilisation(d);
+                        }
+                    }
+                }
+            });
+        ButtonFermer();
+        ButtonRetourInventaire();
+    }
+
+    public static void utilisation(String text){
+        JPanel panel = new JPanel();
+        panel.setBounds(50, 450, 400, 250);
+        panel.setOpaque(false);
+        panel.setBackground(Color.CYAN);
+        panel.setVisible(true);
+                        
+        JEditorPane editorPane = new JEditorPane();
+        editorPane.setPreferredSize(new Dimension(400, 250));
+        editorPane.setOpaque(false);
+        editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
+        
+    
+        // editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+        // + "</div>");
+        panel.add(editorPane);
+        layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+        
+        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+        + text
+        + "</div>");
+        
+    }
+
 
     public static void afficherDetailObjet(JPanel panel, Collectibles objet){
         panel.removeAll();
@@ -368,7 +557,8 @@ public class InterfaceJeu {
         editorPane.setContentType("text/html");
         editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
         editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
-        + "Détail de l'objet : " + objet.getName() + "<br>"
+        + "Nom : " + objet.getName() + "<br>"
+        + "Description : "+ objet.getName()+"<br>"
         + "</div>");
     
         // editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
@@ -1494,7 +1684,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
     
         ButtonGroup buttonGroup = new ButtonGroup();
-        JLabel cmp = new JLabel(Game.getGame().getGroupeJoueurVivant().get(perso).getName(), JLabel.CENTER);
+        JLabel cmp = new JLabel(Game.getGame().getGroupeJoueurVivant().get(perso).getName() + " PM : "+Game.getGame().getGroupeJoueurVivant().get(perso).getMana()+"/"+Game.getGame().getGroupeJoueurVivant().get(perso).getMaxMana(), JLabel.CENTER);
         cmp.setFont(new Font("Courier New", Font.PLAIN, 15));
         cmp.setForeground(Color.WHITE);
         contentPanel.add(cmp);

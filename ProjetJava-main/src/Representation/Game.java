@@ -94,6 +94,27 @@ public class Game implements Serializable {
 		return this.inventaire;
 	}
 
+	public void ajoutInventaire(Collectibles objet){
+		if (inventaire.containsKey(objet)){
+			int u = inventaire.remove(objet);
+			inventaire.put(objet, u+1);
+		} else {
+			inventaire.put(objet, 1);
+		}
+	}
+
+	public void enleverInventaire(Collectibles objet){
+		if(!inventaire.containsKey(objet)){
+			throw new IllegalArgumentException("L'objet n'est pas dans l'inventaire");
+		}
+		if (inventaire.get(objet)==1){
+			inventaire.remove(objet);
+		} else {
+			int u = inventaire.remove(objet);
+			inventaire.put(objet, u-1);
+		}
+	}
+
 
 	public Node getCurrentNode(){
 		return this.currentNode ;

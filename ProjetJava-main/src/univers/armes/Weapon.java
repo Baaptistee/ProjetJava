@@ -2,16 +2,21 @@ package univers.armes;
 
 import java.util.Objects;
 
+import Representation.Game;
 import univers.Collectibles;
 // import java.util.ArrayList;
 import univers.Eleme;
+import univers.Utilisable;
+import univers.personnages.PersoGroupe;
+import univers.personnages.PersonnageCombattant;
+
 // import univers.personnages.*;
 //import univers.personnages.PersoGroupe;
 import java.io.Serializable;
 
 /** A Weapon object represents the weapon a character carries, it has certains bonus and caracteristics associated to it
  */
-public class Weapon implements Collectibles, Serializable{
+public class Weapon implements Utilisable, Serializable{
 	/** the bonus the weapon gives to dammage 
 	 */
 	private int dammage ;
@@ -106,19 +111,7 @@ public class Weapon implements Collectibles, Serializable{
 	public void setDammage(int dammage) {
 		this.dammage = dammage;
 	}	
-	/*public boolean isBroken() {
-		return broken;
-	}
-	public void setBroken(boolean broken) {
-		this.broken = broken;
-	}
-	public int getDurability() {
-		return durability;
-	}
-	public void setDurability(int durability) {
-		this.durability = durability;
-	}
-	*/
+	
 	/* getter for Name 
 	 * 
 	 */
@@ -244,6 +237,18 @@ public class Weapon implements Collectibles, Serializable{
 	 */
 	public void setBonusSpeed(int bonusSpeed) {
 		this.bonusSpeed = bonusSpeed;
+	}
+	@Override
+	public String utilisation(PersonnageCombattant perso){
+		String d = "";
+        PersoGroupe perso1 = (PersoGroupe) perso;
+		if(perso1.getWeapon()!=null){
+			Game.getGame().ajoutInventaire(perso1.getWeapon());
+		}
+        Game.getGame().enleverInventaire(this);
+		perso1.setWeapon(this);
+		d = perso.getName()+" s'équipe de "+this.getName()+" !";
+        return d ;
 	}
 
 	@Override

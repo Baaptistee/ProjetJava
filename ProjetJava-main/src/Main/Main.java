@@ -20,6 +20,8 @@ import univers.personnages.PersonnageAdversaire;
 import univers.personnages.PersonnageCombattant;
 import univers.Statistiques;
 import univers.Objets.Objets;
+import univers.Objets.ObjetsDeSoin;
+import univers.armes.Weapon;
 
 
 public class Main {
@@ -326,12 +328,20 @@ public class Main {
 
 		n1.setImagePersoList(cinqPersonnages);
 
+		Weapon arc = new Weapon(7, 100,"ARME TEST", "Un arc solide mais vetuste.", 1, 2, 2, 2, 4);
+
+		// Game.getGame().getInventaire().put(potion8, 2);
+		// ObjetsDeSoin potionDeSointest = new ObjetsDeSoin("Potion de soin TEST", 6, 8);
+		// Game.getGame().getInventaire().put(potionDeSointest, 4);
+		// Game.getGame().getInventaire().put(potion2, 9);
+		// Game.getGame().getInventaire().put(potion, 3);
+		// Game.getGame().getInventaire().put(arc, 1);
+		
 		Game.getGame().setFirstNode(n1) ;
-		Game.getGame().getInventaire().put(potion8, 2);
-		Game.getGame().getInventaire().put(banane8, 4);
-		Game.getGame().getInventaire().put(potion2, 9);
-		Game.getGame().getInventaire().put(potion, 3);
+
 		InterfaceJeu.ecranTitre();
+
+		
 
 		/* 
 		// instance of InnerNode 

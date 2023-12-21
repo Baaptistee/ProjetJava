@@ -32,8 +32,8 @@ public class Mage extends PersoGroupe {
 	 * @param resistances
 	 * @param armePossible
 	 */
-	private Mage (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<WeaponType> armePossible){
-		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances, armePossible) ;
+	private Mage (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances){
+		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances) ;
 	}
 	
 	/** a getter for the instance Mage 
@@ -50,7 +50,7 @@ public class Mage extends PersoGroupe {
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
-			instance = new Mage("Mage", "Description du Mage", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances, armePo) ;
+			instance = new Mage("Mage", "Description du Chevalier", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
 			instance.setImage("image/MC_Mage.png");
 		}
 		return instance ;
