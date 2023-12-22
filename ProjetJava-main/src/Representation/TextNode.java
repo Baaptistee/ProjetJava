@@ -35,16 +35,7 @@ public class TextNode extends InnerNode {
         super(nom, description, imageName);
     }
 
-    /**
-     * Constructor for a TextNode with specified parameters.
-     *
-     * @param description  The description of the text node.
-     * @param imageName    The name of the associated image.
-     * @throws IllegalArgumentException If the provided options are null.
-     */
-    public TextNode(String description, String imageName) throws IllegalArgumentException {
-        super("Node" + Node.getTotalNode() + 1, description);
-    }
+  
 
 
   
