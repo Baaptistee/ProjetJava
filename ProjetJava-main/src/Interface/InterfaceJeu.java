@@ -580,10 +580,10 @@ public class InterfaceJeu {
             layeredPane.add(labelFond, JLayeredPane.DEFAULT_LAYER);
     
             addPanelWithImage(imagePathGroupList.get(0), 50, 100);
-            addTextPanel(Game.getGame().getGroupeJoueurVivant().get(0), 250, 100);
-            addTextPanel(Game.getGame().getGroupeJoueurVivant().get(1), 700, 400);
-            addTextPanel(Game.getGame().getGroupeJoueurVivant().get(2), 700, 100);
-            addTextPanel(Game.getGame().getGroupeJoueurVivant().get(3), 250, 400);
+            addTextPanel(Game.getGame().getGroupeJoueur().get(0), 250, 100);
+            addTextPanel(Game.getGame().getGroupeJoueur().get(1), 700, 400);
+            addTextPanel(Game.getGame().getGroupeJoueur().get(2), 700, 100);
+            addTextPanel(Game.getGame().getGroupeJoueur().get(3), 250, 400);
 
     
             addPanelWithImage(imagePathGroupList.get(1), 500, 400);
@@ -692,17 +692,33 @@ public class InterfaceJeu {
     editorPane.setEditable(false);
     editorPane.setContentType("text/html");
     editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
-    editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+    if (personnage.getWeapon()==null){
+        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
             + personnage.getName() + "<br>"
             + "Niveau : " + personnage.getLevel() + "<br>"
             + "PV : " + personnage.getLifePoints() + "/" + personnage.getMaxLifePoints() + "<br>"
             + "PM : " + personnage.getMana() + "/" + personnage.getMaxMana() + "<br>"
-            + "Force : "+ personnage.getStrength()+ "<br>"
-            + "Intelligence : " + personnage.getIntelligence()+ "<br>"
-            + "Vitesse : " + personnage.getSpeed()+ "<br>"
-            + "Endurance : " + personnage.getEndurance() +  "<br>"
-            + "Dextérité : "+ personnage.getDexterity()
+            + "Force : "+ personnage.getBaseStrength()+ "<br>"
+            + "Intelligence : " + personnage.getBaseIntelligence()+ "<br>"
+            + "Vitesse : " + personnage.getBaseSpeed()+ "<br>"
+            + "Endurance : " + personnage.getBaseEndurance() +  "<br>"
+            + "Dextérité : "+ personnage.getBaseDexterity()
             + "</div>");
+    } else {
+        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+            + personnage.getName() + "<br>"
+            + "Niveau : " + personnage.getLevel() + "<br>"
+            + "Arme équipée : "+personnage.getWeapon().getName() + "<br>"
+            + "PV : " + personnage.getLifePoints() + "/" + personnage.getMaxLifePoints() + "<br>"
+            + "PM : " + personnage.getMana() + "/" + personnage.getMaxMana() + "<br>"
+            + "Force : "+ personnage.getBaseStrength()+ "(+"+personnage.getWeapon().getBonusStrength()+")"+ "<br>"
+            + "Intelligence : " + personnage.getBaseIntelligence()+ "(+"+personnage.getWeapon().getBonusIntelligence()+")"+ "<br>"
+            + "Vitesse : " + personnage.getBaseSpeed()+ "(+"+personnage.getWeapon().getBonusSpeed()+")"+ "<br>"
+            + "Endurance : " + personnage.getBaseEndurance() + "(+"+personnage.getWeapon().getBonusEndurance()+")"+  "<br>"
+            + "Dextérité : "+ personnage.getBaseDexterity()+ "(+"+personnage.getWeapon().getBonusDexterity()+")"
+            + "</div>");
+    }
+    
 
     JScrollPane panelFight = new JScrollPane();
     panelFight.setBounds(450, 300, 400, 250);
@@ -1357,14 +1373,14 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
         JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
         getFenetre().add(layeredPane);
-        panelChoose.setBounds(710, 350, 200, 225);
+        panelChoose.setBounds(710, 350, 250, 260);
         layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
-	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
+	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
         panelChoose.setBackground(Color.RED); 
         panelChoose.setOpaque(false);
         
-
+        if (chooseNode instanceof ChooseNode){
         // Create buttons for each option in the ChooseNode
         for (int i = 0; i < chooseNode.getOptions().size(); i++) {
             final int currentIndex = i;
@@ -1394,6 +1410,19 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             });
         } else boutonGoNext(btn1, chooseNode, clip);
         getFenetre().revalidate();
+        }
+        } else {
+            String nomBouton = "Suivant";
+            JButton btn1 = new JButton(nomBouton);
+            Font maFont = new Font("Courier new", Font.PLAIN, 13);
+            
+            btn1.setFont(maFont);
+            btn1.setBackground(Color.WHITE);
+		    btn1.setForeground(Color.BLACK);
+            panelChoose.add(btn1);
+            
+            boutonGoNext(btn1, chooseNode, clip);
+            getFenetre().revalidate();
         }
     }
 
@@ -2216,6 +2245,12 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             u = ((PersoGroupe)Game.getGame().getGroupeJoueur().get(i)).gainExperience(node.getXp()) ;
             if (u!="nope"){
                 gainNiveau.put((PersoGroupe)Game.getGame().getGroupeJoueur().get(i),u) ;
+            }
+        }
+        for(PersonnageCombattant persogroupe : Game.getGame().getGroupeJoueur()){
+            if (!persogroupe.isAlive()){
+                persogroupe.setAlive(false);
+                persogroupe.setLifePoints(1);
             }
         }
 	

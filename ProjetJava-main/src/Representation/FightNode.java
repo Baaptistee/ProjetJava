@@ -117,6 +117,7 @@ public class FightNode extends InnerNode {
 			this.getOpponents().get(i).setGroupe(opponents);
 			this.getOpponents().get(i).setMana(this.getOpponents().get(i).getMaxMana()) ;
 			this.getOpponents().get(i).setLifePoints(this.getOpponents().get(i).getMaxLifePoints());
+			this.getOpponents().get(i).setAlive(true);
 		}
 		super.display();
 	}

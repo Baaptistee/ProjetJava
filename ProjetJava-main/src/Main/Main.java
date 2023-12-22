@@ -302,10 +302,10 @@ public class Main {
 		resistancess.add(Eleme.LUMIERE);
 		int [] probaCompetences8={7,3};
 		ArrayList <CompetencesActives> jeanJacquesCtest= new ArrayList<>();
-		jeanJacquesCtest.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
-		jeanJacquesCtest.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-		PersonnageAdversaire n19Stest = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 30, 10,resistancess,resistancess, jeanJacquesC,probaCompetences8);
-		PersonnageAdversaire n20Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
+		jeanJacquesCtest.add(new CompetenceDammage("la mort", "rttt", 1, 100,150,1, Eleme.FOUDRE, false, true));
+		jeanJacquesCtest.add(new CompetenceDammage("la mort 2", "2rttt", 0, 100,150,1, Eleme.FOUDRE, false, true));
+		PersonnageAdversaire n19Stest = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 5, 10,resistancess,resistancess, jeanJacquesCtest,probaCompetences8);
+		PersonnageAdversaire n20Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 5, 10,resistancess ,resistancess, jeanJacquesCtest, probaCompetences8);
 		//PersonnageAdversaire n21Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
 		//PersonnageAdversaire n22Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
 		n19Stest.setImage("image/Grenouille.png");
@@ -339,7 +339,7 @@ public class Main {
 		// Game.getGame().getInventaire().put(potion, 3);
 		// Game.getGame().getInventaire().put(arc, 1);
 		
-		Game.getGame().setFirstNode(nodeTest) ;
+		Game.getGame().setFirstNode(n15) ;
 		
 		//InterfaceJeu.afficherImageDansInterface("tatata");
 

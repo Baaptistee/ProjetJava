@@ -8,7 +8,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import univers.Eleme;
-import univers.competences.CompetenceDammage;
 import univers.competences.CompetencesActives;
 import univers.Statistiques;
 import univers.personnages.PersonnageCombattant;
@@ -62,14 +61,23 @@ public class  PersonnageCombatantTest extends PersonnageCombattant {
 		 assertFalse(perso1.equals(perso2));
 		 assertFalse(perso1.equals(new Object()));
 	}
+	
+    @Test
+	public void testTestStatFacile() {
+		assertTrue(testStat(1, Statistiques.DEXTERITY));
+		assertTrue(testStat(1, Statistiques.ENDURANCE));
+		assertTrue(testStat(1, Statistiques.SPEED));
+		assertTrue(testStat(1, Statistiques.INTELLIGENCE));
+		assertTrue(testStat(1, Statistiques.STRENGTH));
+	}
 
-	@Test
-	public void testTestStat() {
-		assertTrue(testStat(8, Statistiques.DEXTERITY));
-		assertTrue(testStat(15, Statistiques.ENDURANCE));
-		assertTrue(testStat(20, Statistiques.SPEED));
-		assertTrue(testStat(8, Statistiques.INTELLIGENCE));
-		assertTrue(testStat(10, Statistiques.STRENGTH));
+    @Test
+	public void testTestStatImpossible() {
+		assertFalse(testStat(100, Statistiques.DEXTERITY));
+		assertFalse(testStat(100, Statistiques.ENDURANCE));
+		assertFalse(testStat(100, Statistiques.SPEED));
+		assertFalse(testStat(100, Statistiques.INTELLIGENCE));
+		assertFalse(testStat(100, Statistiques.STRENGTH));
 	}
 
 	@Test

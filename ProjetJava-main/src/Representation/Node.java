@@ -83,6 +83,9 @@ public abstract class Node extends Object implements Event, Serializable {
 		}
 		if (imageName == null) {
 			throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
+		} 
+		if (nom.length()>25){
+			throw new IllegalArgumentException("Le nom ne peut pas être de plus de 25 caractères");
 		}
 		
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
@@ -113,6 +116,9 @@ public abstract class Node extends Object implements Event, Serializable {
 		if (imageName == null) {
 			throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
 		}
+		if (nom.length()>25){
+			throw new IllegalArgumentException("Le nom ne peut pas être de plus de 25 caractères");
+		}
 		
 		this.idNode = totalNode++ ;
 		this.description = description ;
@@ -136,6 +142,9 @@ public abstract class Node extends Object implements Event, Serializable {
 		}
 		if (description == null) {
 			throw new IllegalArgumentException("La description du node ne peut pas être null");
+		}
+		if (nom.length()>25){
+			throw new IllegalArgumentException("Le nom ne peut pas être de plus de 25 caractères");
 		}
 		this.idNode = totalNode++ ;
 		this.description = description ;
@@ -214,6 +223,9 @@ public String getImageName() {
 	public void setNom(String newNom) {
 		if( newNom==null){
 			throw new IllegalArgumentException("Le nom est null");
+		}
+		if (nom.length()>25){
+			throw new IllegalArgumentException("Le nom ne peut pas être de plus de 25 caractères");
 		}
 		this.nom = newNom ; 
 	}

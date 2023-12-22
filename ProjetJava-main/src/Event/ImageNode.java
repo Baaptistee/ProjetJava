@@ -19,7 +19,7 @@ public class ImageNode extends AbstractDecorator {
     public ImageNode(Event decoratedEvent, String imageName) {
         super(decoratedEvent);
         if (imageName == null) {
-            throw new IllegalArgumentException("L'image du nom ne peut pas être null");
+            //throw new IllegalArgumentException("L'image du nom ne peut pas être null");
         }
         this.imageName = imageName;
     }
