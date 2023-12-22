@@ -37,7 +37,7 @@ public class ChooseNode extends InnerNode {
      * @param imageNode The name of the associated image.
      */
     public ChooseNode(String description, String imageName) {
-        super("Node" + Node.getTotalNode() + 1, description, imageName, false);
+        super("Node" + Node.getTotalNode() + 1, description, imageName);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ChooseNode extends InnerNode {
      * @param imageNode The name of the associated image.
      */
     public ChooseNode(String nom, String description, String imageName) {
-        super(nom, description, imageName, false);
+        super(nom, description, imageName);
     }
 
    

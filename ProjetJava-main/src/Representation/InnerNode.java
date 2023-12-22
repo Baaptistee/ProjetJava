@@ -59,10 +59,6 @@ public abstract class InnerNode extends Node {
         super("Node" + (Node.getTotalNode() + 1), description, imageName, imagepersoPath);
     }
 
-    public InnerNode(String nom, String description, String imageName, ArrayList<Node> options) {
-        super(nom, description, imageName);
-         this.options=options;
-    }
   
     
     /**
