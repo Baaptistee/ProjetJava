@@ -6,6 +6,8 @@
 package Representation;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import Interface.InterfaceJeu;
 import univers.Collectibles;
 import univers.personnages.* ;
 import java.util.HashMap;
@@ -16,7 +18,7 @@ public class FightNode extends InnerNode {
 	
 	private ArrayList<PersonnageCombattant> opponents ; //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
 	private int xp ;
-	private ArrayList<Collectibles> butin ;
+	private Map<Collectibles, Integer> butin ;
 	private Map<PersonnageCombattant, Object[]> actions ;
 
 
@@ -33,7 +35,7 @@ public class FightNode extends InnerNode {
 		super("Node" + Node.getTotalNode()+1, description,imageName, false) ;
 	}
 
-	public FightNode(String nom, String description,String imageName, ArrayList<PersonnageCombattant> opponents, int xp, ArrayList<Collectibles> butin){
+	public FightNode(String nom, String description,String imageName, ArrayList<PersonnageCombattant> opponents, int xp, Map<Collectibles, Integer> butin){
 				super(nom, description, imageName) ;
 				this.opponents=opponents;
 				this.xp = xp;
@@ -71,11 +73,11 @@ public class FightNode extends InnerNode {
 		this.xp = xp;
 	}
 
-	public ArrayList<Collectibles> getButin() {
+	public Map<Collectibles, Integer> getButin() {
 		return butin;
 	}
 
-	public void setButin(ArrayList<Collectibles> butin) {
+	public void setButin(Map<Collectibles, Integer> butin) {
 		this.butin = butin;
 	}
 
@@ -147,10 +149,13 @@ public class FightNode extends InnerNode {
 
 	public String gainButin(){
 		String d = "" ;
-		if (butin.size()!=0){
-			for(int i = 0; i<butin.size();i++){
-				d += "Le groupe remporte un(e) " + butin.get(i).getName() + " !/";
-			}
+		if (!this.butin.isEmpty()){
+			for (Collectibles objet : this.butin.keySet()) {
+                d += "Le groupe remporte "+ butin.get(objet)+ " " + objet.getName() + " !/";
+				for(int i =0; i<this.butin.get(objet);i++){
+                    Game.getGame().ajoutInventaire(objet);
+                }
+            }
 		}
 		return d ;
 	}
@@ -167,9 +172,9 @@ public class FightNode extends InnerNode {
 	public Node goNext() {
 
 		if (this.isGroupEnVie(Game.getGame().getGroupeJoueur())) {
-			getInterface().Victoire(this) ;
+			InterfaceJeu.Victoire(this) ;
 		} else {
-			getInterface().Defaite(this) ;
+			InterfaceJeu.Defaite(this) ;
 		}	
 		return null ;
 	}

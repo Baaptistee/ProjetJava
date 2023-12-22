@@ -1,7 +1,9 @@
 package Main;
 //import Event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 //import java.util.Map;
+import java.util.Map;
 
 //import javax.swing.ImageIcon;
 
@@ -79,11 +81,11 @@ public class Main {
 
 		ArrayList<PersonnageCombattant> opponents1= new ArrayList<>();
 		n15S.setXp(250);
-		ArrayList<Collectibles> bytin1= new ArrayList<Collectibles>() ;
+		Map<Collectibles, Integer> bytin1= new HashMap() ;
 		Collectibles potion = new Objets("Potion trala de soin") ;
 		Collectibles banane = new Objets("Banane") ;
-		bytin1.add(banane) ;
-		bytin1.add(potion) ;
+		bytin1.put(banane, 7) ;
+		bytin1.put(potion, 9) ;
 		n15S.setButin(bytin1);
 		ArrayList <Eleme> resistancess=new ArrayList<>();
 		resistancess.add(Eleme.FEU);
@@ -135,9 +137,9 @@ public class Main {
 		
 		ArrayList<PersonnageCombattant> opponents= new ArrayList<>();
 		n16.setXp(150);
-		ArrayList<Collectibles> bytin= new ArrayList<Collectibles>() ;
-		bytin.add(banane) ;
-		bytin.add(potion) ;
+		Map<Collectibles, Integer> bytin= new HashMap() ;
+		bytin.put(banane, 4) ;
+		bytin.put(potion, 3) ;
 		n16.setButin(bytin);
 		opponents.add(n19S);
 		opponents.add(n20S);
@@ -169,11 +171,11 @@ public class Main {
 
 		ArrayList<PersonnageCombattant> opponents2= new ArrayList<>();
 		n31.setXp(150);
-		ArrayList<Collectibles> bytin2= new ArrayList<Collectibles>() ;
+		Map<Collectibles, Integer> bytin2= new HashMap() ;
 		Collectibles potion2 = new Objets("Potion de soin") ;
 		Collectibles banane2 = new Objets("Banane") ;
-		bytin2.add(banane2) ;
-		bytin2.add(potion2) ;
+		bytin2.put(banane2, 3) ;
+		bytin2.put(potion2, 4) ;
 		n31.setButin(bytin);
 	
 		ArrayList <Eleme> resistances2=new ArrayList<>();
@@ -288,13 +290,13 @@ public class Main {
 		
 		
 		ArrayList<PersonnageCombattant> opponents8= new ArrayList<PersonnageCombattant>();
-		ArrayList<Collectibles> bytin8= new ArrayList<Collectibles>() ;
+		Map<Collectibles, Integer> bytin8= new HashMap() ;
 		Collectibles potion8 = new Objets("Potion de mort") ;
 		Collectibles banane8 = new Objets("Banane") ;
 		
 
-		bytin1.add(banane8) ;
-		bytin1.add(potion8) ;
+		bytin1.put(banane8, 3) ;
+		bytin1.put(potion8, 6) ;
 		ArrayList <Eleme> resistancess2=new ArrayList<>();
 		resistancess.add(Eleme.FEU);
 		resistancess.add(Eleme.LUMIERE);
@@ -314,7 +316,7 @@ public class Main {
 		//opponents8.add(n21Stest);
 		//opponents8.add(n22Stest);
 
-		InnerNode nodeTest = new FightNode("FightNode Test !", "Fight Node test !!", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin8);
+		InnerNode nodeTest = new FightNode("FightNode Test !", "Fight Node test !!", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin1);
 		ArrayList<String> cinqPersonnages = new ArrayList<String>();
 		nodeTest.setImageName("image/ForetJolie.png");
 		nodeTest.addOption(n1);
@@ -337,7 +339,9 @@ public class Main {
 		// Game.getGame().getInventaire().put(potion, 3);
 		// Game.getGame().getInventaire().put(arc, 1);
 		
-		Game.getGame().setFirstNode(n1) ;
+		Game.getGame().setFirstNode(nodeTest) ;
+		
+		//InterfaceJeu.afficherImageDansInterface("tatata");
 
 		InterfaceJeu.ecranTitre();
 

@@ -26,14 +26,13 @@ public class SoundNode extends AbstractDecorator {
     public void display() {
         super.display();
         ajoutFonctionnaliteSound();
-        System.out.println("Lecture du son");
         
     }
 
     private void ajoutFonctionnaliteSound() {
         InterfaceJeu interfaceJeu = Node.getInterface();
         if (interfaceJeu != null) {
-            interfaceJeu.afficherSoundDansInterface(soundName);
+            InterfaceJeu.afficherSoundDansInterface(soundName);
         } else {
             throw new IllegalArgumentException("L'interface ne peut pas être null");
         }

@@ -6,28 +6,22 @@ package Interface;
 import Representation.* ;
 import univers.competences.CompetencesActives;
 import univers.personnages.PersoGroupe;
-//import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageAdversaire;
 import univers.personnages.PersonnageCombattant;
 import univers.Collectibles;
 import univers.Utilisable;
-
-//import univers.* ;
 import univers.competences.CompetenceDammage;
 import univers.competences.CompetenceSoin;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -35,7 +29,6 @@ import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-//import java.util.List;
 import javax.swing.*;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
@@ -47,7 +40,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 
-
+/**
+ * La classe dédiée à tout ce qui concerne l'affichage dans l'interface de jeu 
+ */
 public class InterfaceJeu {
 	
 	private static JFrame fenetre = new JFrame(); // Reference to the main frame of the Game.getGame() interface.
@@ -121,40 +116,23 @@ public class InterfaceJeu {
 	    getFenetre().repaint();
     }
 
-     
-    public static void POPUP(JButton chooseButton){
-     
-        configPanel();
-        JPanel panelPopUp = new JPanel();
-        panelPopUp.setBounds(50, 50, 300, 200);
-        panelPopUp.setBackground(Color.white);
-        panelPopUp.setVisible(false);
-        layeredPane.add(panelPopUp, JLayeredPane.DRAG_LAYER);
-        getFenetre().add(layeredPane);
-        chooseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (panelPopUp.isVisible()) {
-                    panelPopUp.setVisible(false);
-                } else {
-                    panelPopUp.setVisible(true);
-                }
-            }
-        });
-    }
-
-     /**
-     * Configures the Game.getGame() menu including options for inventory, story, and status.
+    
+    /**
+     * Une fonction pour afficher le menu
      */
-
     public static void showMenu(){
         getBarreMenu().setVisible(true);
     }
-
+    /**
+     * Une fonction pour cacher le menu
+     */
     public static void hideMenu(){
         getBarreMenu().setVisible(false);
     }
 
+    /**
+     * Une fonction pour configurer le menu
+     */
     public static void configMenu() {
         JMenu inventaire = new JMenu("Inventaire");
         JMenu statut = new JMenu("Statut");
@@ -167,12 +145,61 @@ public class InterfaceJeu {
         JMenuItem ecranTitre = new JMenuItem("Ecran Titre") ;
         JMenuItem inventairessmenu = new JMenuItem("Inventaire");
 
-        quitter(quitter) ;
-        sauvegarder(sauvegarder);
-        sauvegarderEtQuitter(sauvegarderEtQuitter);
-        ecranTitre(ecranTitre) ;
-        statut(stats);
-        inventaire(inventairessmenu);
+        quitter.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
+                            getFenetre().dispose(); // Fermer la fenêtre
+
+                        }
+            });
+
+        sauvegarder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game.getGame().sauvegarde() ;
+            }
+        });
+
+        sauvegarderEtQuitter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game.getGame().sauvegarde() ;
+                if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
+                getFenetre().dispose(); // Fermer la fenêtre
+                }
+
+            }
+        });
+
+        ecranTitre.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { 
+                            ecranTitre() ;      
+                        }
+            });
+        stats.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
+                    ecranStatut();             
+                } else {
+                    JOptionPane.showMessageDialog(null, "Désolé, impossible d'y accéder lors d'un combat !", "Désolé ...", JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
+        });
+       
+        inventairessmenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
+                    ecranInventaire();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Désolé, impossible d'y accéder lors d'un combat !", "Désolé ...", JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
+        });
     
         systeme.add(sauvegarder);
         systeme.add(sauvegarderEtQuitter);
@@ -188,66 +215,9 @@ public class InterfaceJeu {
        
     }
 
-    public static void quitter(JMenuItem quitter){
-        quitter.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) { 
-                            getFenetre().dispose(); // Fermer la fenêtre
-
-                        }
-            });
-    }
-
-    public static void sauvegarder(JMenuItem sauvegarder) {
-        sauvegarder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Game.getGame().sauvegarde() ;
-            }
-        });
-    }
-
-    public static void sauvegarderEtQuitter(JMenuItem sauvegarderEtQuitter){
-        sauvegarderEtQuitter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Game.getGame().sauvegarde() ;
-                if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
-                getFenetre().dispose(); // Fermer la fenêtre
-                }
-
-            }
-        });
-    }
-
-    public static void statut(JMenuItem statut){
-        statut.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
-                    ecranStatut();             
-                } else {
-                    JOptionPane.showMessageDialog(null, "Désolé, impossible d'y accéder lors d'un combat !", "Désolé ...", JOptionPane.WARNING_MESSAGE);
-                }
-
-            }
-        });
-    }
-
-    public static void inventaire(JMenuItem statut){
-        statut.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!(Game.getGame().getCurrentNode() instanceof FightNode)){
-                    ecranInventaire();
-                }else {
-                    JOptionPane.showMessageDialog(null, "Désolé, impossible d'y accéder lors d'un combat !", "Désolé ...", JOptionPane.WARNING_MESSAGE);
-                }
-
-            }
-        });
-    }
-
+    /**
+     * La fonction pour afficher l'inventaire 
+     */
     public static void ecranInventaire(){
             System.out.println("test");
             configPanel();
@@ -382,6 +352,9 @@ public class InterfaceJeu {
 
     }
 
+    /**
+     * le bouton pour revenir à l'inventaire
+     */
     public static void ButtonRetourInventaire(){
         JPanel panelInner = new JPanel();
 		panelInner.setBounds(650, 600, 144, 62);
@@ -406,6 +379,10 @@ public class InterfaceJeu {
             });
     }
 
+    /**
+     * La fonction pour sélectionner la cible d'un objet
+     * @param objet
+     */
     public static void utiliserObjet(Utilisable objet){
         configPanel();
             layeredPane.removeAll();
@@ -513,6 +490,10 @@ public class InterfaceJeu {
         ButtonRetourInventaire();
     }
 
+    /**
+     * La fonction qui utilise l'objet
+     * @param text
+     */
     public static void utilisation(String text){
         JPanel panel = new JPanel();
         panel.setBounds(50, 450, 400, 250);
@@ -539,7 +520,11 @@ public class InterfaceJeu {
         
     }
 
-
+    /**
+     * pour afficher plus d'info sur un objet en particulier 
+     * @param panel
+     * @param objet
+     */
     public static void afficherDetailObjet(JPanel panel, Collectibles objet){
         panel.removeAll();
         panel.revalidate();
@@ -569,7 +554,9 @@ public class InterfaceJeu {
 
     
     
-
+    /**
+     * pour afficher l'écran statut du menu 
+     */
     public static void ecranStatut() {
         ArrayList<String> imagePathGroupList = new ArrayList<String>();
         for (int i = 0; i < Game.getGame().getGroupeJoueur().size(); i++) {
@@ -608,7 +595,9 @@ public class InterfaceJeu {
             getFenetre().setVisible(true);
         }
     }
-    
+    /**
+     * Bouton pour fermer l'écran et revenir au jeu 
+     */
     public static void ButtonFermer(){
         JPanel panelInner = new JPanel();
 		panelInner.setBounds(800, 600, 144, 62);
@@ -639,6 +628,9 @@ public class InterfaceJeu {
 
     }
 
+    /**
+     * Bouton pour revenir en arrière dans le menu statut
+     */
     public static void ButtonRetour(){
         JPanel panelInner = new JPanel();
 		panelInner.setBounds(650, 600, 144, 62);
@@ -662,7 +654,10 @@ public class InterfaceJeu {
                         }
             });
     }
-
+    /**
+     * Pour afficher les détails d'un personnage en particulier 
+     * @param personnage
+     */
     public static void ecranDetail(PersoGroupe personnage){
         layeredPane.removeAll();
         layeredPane.revalidate();
@@ -771,6 +766,12 @@ public class InterfaceJeu {
     layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
 }
 
+/**
+ * Pour afficher les détails d'une compétence 
+ * @param competence
+ * @param panel
+ * @param personnage
+ */
 private static void afficherDetailCompetence(CompetencesActives competence, JPanel panel, PersoGroupe personnage){
     
     panel.removeAll();
@@ -818,7 +819,12 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
 }
 
-
+/**
+ * pour ajouter au panel une image 
+ * @param imagePath
+ * @param x
+ * @param y
+ */
     private static void addPanelWithImage(String imagePath, int x, int y) {
         JPanel panel = new JPanel();
         panel.setBounds(x, y, 200, 200);
@@ -831,6 +837,12 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
     }
     
+    /**
+     * ajouter un texte au panel
+     * @param personnage
+     * @param x
+     * @param y
+     */
     private static void addTextPanel(PersonnageCombattant personnage, int x, int y) {
         JPanel panelText = new JPanel();
         panelText.setBounds(x, y, 200, 200);
@@ -870,18 +882,10 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
     }
 
-    public static void ecranTitre(JMenuItem ecranTitre){
-        ecranTitre.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) { 
-                            ecranTitre() ;      
-                        }
-            });
-    }
-     /**
-     * Configures the Game.getGame() frame including its size, location, and visibility.
+   
+    /**
+     * Pour afficher l'écrant titre du jeu 
      */
-
     public static void ecranTitre(){
         SwingUtilities.invokeLater(()-> {
         getFenetre().setSize(1000, 1000); //taille fenetre
@@ -898,17 +902,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
         getFenetre().getContentPane().setLayout(null);
 
-        
-        configPanel();
-        ImageIcon imageIcon= new ImageIcon("image/ForetJolie.png");
-        JLabel labelFond = new JLabel(imageIcon);
-        JPanel panel = new JPanel();
-        panel.add(labelFond);
-        panel.setOpaque(false);
-        panel.setBounds(0, 0, 1000, 1000);
-        layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
-        getFenetre().add(layeredPane);
-        getFenetre().setVisible(true);
+        afficherImageDansInterface("image/ForetJolie.png");
             
     
         JPanel panelText= new JPanel();
@@ -925,37 +919,37 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         getFenetre().repaint();
 
 
-        //     try {
-        //     File audioFile = new File("sound/emotional-inspiring-epic-trailer-11258.wav");
-        //     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-        //     clip = AudioSystem.getClip();
-        //     clip.open(audioInputStream);
+            try {
+            File audioFile = new File("sound/emotional-inspiring-epic-trailer-11258.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
 
-        //     // Ajoutez un événement pour réinitialiser la position de lecture à 0 lorsque la lecture est terminée
-        //     clip.addLineListener(new LineListener() {
-        //         @Override
-        //         public void update(LineEvent event) {
-        //             if (event.getType() == LineEvent.Type.STOP) {
-        //                 clip.setFramePosition(0);
-        //                 clip.start();
-        //             }
-        //         }
-        //     });
+            // Ajoutez un événement pour réinitialiser la position de lecture à 0 lorsque la lecture est terminée
+            clip.addLineListener(new LineListener() {
+                @Override
+                public void update(LineEvent event) {
+                    if (event.getType() == LineEvent.Type.STOP) {
+                        clip.setFramePosition(0);
+                        clip.start();
+                    }
+                }
+            });
 
-        //     // Créez un thread séparé pour jouer en boucle
-        //     Thread loopThread = new Thread(new Runnable() {
-        //         @Override
-        //         public void run() {
-        //             clip.start();
-        //         }
-        //     });
+            // Créez un thread séparé pour jouer en boucle
+            Thread loopThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    clip.start();
+                }
+            });
 
-        //     loopThread.start();
-        // } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-        //     e.printStackTrace();
-        // }
+            loopThread.start();
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
 
-        JPanel panelChoose= new JPanel(); // Create a panel to hold the ChooseNode buttons
+        JPanel panelChoose= new JPanel(); 
         getFenetre().add(layeredPane);
         panelChoose.setBounds(120, 400, 770, 100);
         layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
@@ -1026,6 +1020,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         });
     }
 
+    /**
+     * pour afficher l'écran de sélection des sauvegardes
+     */
     public static void ecranSauvegarde(){
         
         SwingUtilities.invokeLater(()-> {
@@ -1038,16 +1035,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         getFenetre().revalidate();
         getFenetre().repaint();
 
-         configPanel();
-            ImageIcon imageIcon= new ImageIcon("image/ForetJolie.png");
-            JLabel labelFond = new JLabel(imageIcon);
-            JPanel panel = new JPanel();
-            panel.add(labelFond);
-            panel.setOpaque(false);
-            panel.setBounds(0, 0, 1000, 1000);
-            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
-            getFenetre().add(layeredPane);
-            getFenetre().setVisible(true);
+        afficherImageDansInterface("image/ForetJolie.png");
     
         JScrollPane panelSauvegarde = new JScrollPane();
         panelSauvegarde.setBounds(250, 110, 500, 500);
@@ -1128,7 +1116,8 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         validateButton.addActionListener(new ActionListener() {
             @Override
                 public void actionPerformed(ActionEvent e) { 
-                        String n = buttonGroup.getSelection().getActionCommand() ;
+                    if (buttonGroup.getSelection()!=null){
+                    String n = buttonGroup.getSelection().getActionCommand() ;
                         if (dossier.isDirectory()) {
                             File[] fichiers = dossier.listFiles();
                             if (fichiers != null) {
@@ -1155,10 +1144,12 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                                 System.out.println("Le chemin spécifié ne correspond pas à un dossier existant.");
                             }
                         }
+                    
                         
                         layeredPane.remove(panelSauvegarde);
                         layeredPane.revalidate();
                         layeredPane.repaint();
+                    }
                     }
                     
                 });        
@@ -1171,7 +1162,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         
     }
     
-
+    /**
+     * pour configurer la fenêtre (appelé une fois au début du jeu)
+     */
     public static void configFenetre() {
 
         getFenetre().setSize(1000, 1000); //taille fenetre
@@ -1182,32 +1175,54 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
     
     }
+    /**
+     * configurer le panel
+     * 
+     */
     public static void configPanel(){
         layeredPane.setBounds(0, 0, 1000, 1000);
     }
 
-    /**
-     * Displays a base node in the Game.getGame() interface.
-     * @param node The node to be displayed.
-     */
 
+     /**
+      * Pour afficher les persos d'un node 
+      * @param node
+      */
     public static void afficherperso(Node node){
+        if (node==null){
+            throw new IllegalArgumentException("Node ne peut être null");
+        }
         if (node.getImagePersoList().size()>5){
             throw new IllegalArgumentException("Le jeu ne peut afficher que 5 persos à la fois ! Node concerné : "+node.getNom());
         }
         ArrayList<String> imageperso = node.getImagePersoList();
         if (imageperso!=null){
+            
             JPanel panel= new JPanel(new FlowLayout());
             panel.setBounds(60, 350, 650, 270);
             panel.setOpaque(false);
             for (String  element : imageperso) {
-                ImageIcon imageIcon= new ImageIcon(element);
-                // Redimensionnement de l'image
-                // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
-                java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
-                ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
-                JLabel label = new JLabel(imageRedimensionneeIcon);
-                panel.add(label);
+                try {
+                configPanel();
+                ImageIcon imageIcon = new ImageIcon(element);
+                
+                // Vérifier le statut du chargement de l'image
+                int loadStatus = imageIcon.getImageLoadStatus();
+                if (loadStatus == MediaTracker.COMPLETE) {
+                    // Redimensionnement de l'image
+                    // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                    java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
+                    ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+                    JLabel label = new JLabel(imageRedimensionneeIcon);
+                    panel.add(label);
+                } else {
+                    throw new Exception("Échec du chargement de l'image "+element);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            }
+                
             }
             getFenetre().add(layeredPane);
             getFenetre().setVisible(true);
@@ -1218,17 +1233,14 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         }
     }
 
-
+/**
+ * Pour afficher nos nodes
+ * @param node
+ */
  public static void afficherNodeBase(Node node) {
-        
-        // configPanel();
-        // layeredPane.removeAll();
-        // layeredPane.revalidate();
-        // layeredPane.repaint();
-        
-        // afficherImageDansInterface(node.getImageName());
-
-
+        if (node == null){
+            throw new IllegalArgumentException("Node ne peut être null (afficherNodeBase)");
+        }
         Clip clip =afficherSoundDansInterface(node.getSoundName());
 
 	    getFenetre().getContentPane().setLayout(null);
@@ -1333,8 +1345,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 }
 
     /**
-    * Configures the interface to display buttons for a ChooseNode and handles the button actions.
-    *
+    * La fonction pour afficher les boutons correspondant au type de node
     * @param node The current ChooseNode to display options for.
     */
 
@@ -1386,6 +1397,12 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         }
     }
 
+    /**
+     * pour ajouter action goNext à un bouton
+     * @param btn1
+     * @param node
+     * @param clip
+     */
     public static void boutonGoNext(JButton btn1, InnerNode node, Clip clip){
         btn1.addActionListener(new ActionListener() {
                         @Override
@@ -1517,12 +1534,11 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         
     }
 
-/**
- * La fonction pour sélectionner la compétence du personnage 
- * @param node
- * @param perso // le personnage auquel on est dans le groupe
- */
 
+/**
+ * La fonction pour afficher les persos du FightNode
+ * @param node
+ */
  public static void afficherPersoFight(FightNode node){
     
     ArrayList<String> imagePathGroupList = new ArrayList<String>();
@@ -1540,12 +1556,22 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             panelGroupe.setBounds(60, 475, 650, 150);
             panelGroupe.setOpaque(false);
             for (String  element : imagePathGroupList) {
+                try {
                 ImageIcon imageIcon= new ImageIcon(element);
+                int loadStatus = imageIcon.getImageLoadStatus();
+                if (loadStatus == MediaTracker.COMPLETE) {
                 // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
                 java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
                 ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
                 JLabel label = new JLabel(imageRedimensionneeIcon);
                 panelGroupe.add(label);
+                } else {
+                    throw new Exception("Échec du chargement de l'image "+element);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            }
             }
 
             getFenetre().add(layeredPane);
@@ -1561,12 +1587,23 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             panelAdversaire.setBounds(60, 300, 650, 150);
             panelAdversaire.setOpaque(false);
             for (String  element : imagePathAdversaireList) {
+                try {
+
                 ImageIcon imageIcon= new ImageIcon(element);
+                int loadStatus = imageIcon.getImageLoadStatus();
+                if (loadStatus == MediaTracker.COMPLETE) {
                 // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
                 java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
                 ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
                 JLabel label = new JLabel(imageRedimensionneeIcon);
                 panelAdversaire.add(label);
+                } else {
+                    throw new Exception("Échec du chargement de l'image "+element);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            }
             }
 
 
@@ -1580,6 +1617,12 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     
  }
 
+ /**
+  * Fonction pour afficher les persos du fightNode
+  * @param node
+  * @param imagePathGroupList
+  * @param imagePathAdversaireList
+  */
  public static void afficherPersoFight(FightNode node, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){
     
         if (imagePathGroupList!=null){
@@ -1587,12 +1630,22 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             panelGroupe.setBounds(60, 475, 650, 150);
             panelGroupe.setOpaque(false);
             for (String  element : imagePathGroupList) {
+                try{
                 ImageIcon imageIcon= new ImageIcon(element);
+                int loadStatus = imageIcon.getImageLoadStatus();
+                if (loadStatus == MediaTracker.COMPLETE) {
                 // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
                 java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
                 ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
                 JLabel label = new JLabel(imageRedimensionneeIcon);
                 panelGroupe.add(label);
+                } else {
+                    throw new Exception("Échec du chargement de l'image "+element);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            }
             }
 
             getFenetre().add(layeredPane);
@@ -1627,7 +1680,11 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     
  }
 
-
+/**
+ * La fonction pour sélectionner la compétence du personnage 
+ * @param node
+ * @param perso // le personnage auquel on est dans le groupe
+ */
     public static void selectionAction(FightNode node, int perso) {
         
         layeredPane.removeAll();
@@ -1702,7 +1759,8 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         validateButton.addActionListener(new ActionListener() {
             @Override
                 public void actionPerformed(ActionEvent e) { 
-                       CompetencesActives competence = null ;
+                    if(buttonGroup.getSelection()!=null){   
+                    CompetencesActives competence = null ;
                         String n = buttonGroup.getSelection().getActionCommand() ;
                         for (int i = 0 ; i<Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().size();i++) {
                             if (Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(i).getName().equals(n)) {
@@ -1724,6 +1782,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                         layeredPane.remove(panelFight);
                         layeredPane.revalidate();
                         layeredPane.repaint();
+                    }
                     }
                     
                 });        
@@ -1769,7 +1828,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         
         if (cibleCompetence[0] instanceof CompetenceDammage) {
             for (int j = 0; j < node.getOpponentsVivant().size(); j++) {
-                JRadioButton radioButton = new JRadioButton(node.getOpponentsVivant().get(j).getName());
+                JRadioButton radioButton = new JRadioButton("<html> <strong> "+node.getOpponentsVivant().get(j).getName()+ "</strong> PV : "+node.getOpponentsVivant().get(j).getLifePoints()+"/"+node.getOpponentsVivant().get(j).getMaxLifePoints());
                 radioButton.setActionCommand(node.getOpponentsVivant().get(j).getName());
                 radioButton.setFont(maFont);
                 radioButton.setForeground(Color.WHITE);
@@ -1778,7 +1837,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             }
         } else {
             for (int j = 0; j < Game.getGame().getGroupeJoueurVivant().size(); j++) {
-                JRadioButton radioButton = new JRadioButton(Game.getGame().getGroupeJoueurVivant().get(j).getName());
+                JRadioButton radioButton = new JRadioButton("<html> <strong> "+ Game.getGame().getGroupeJoueurVivant().get(j).getName()+" </strong>PV : "+Game.getGame().getGroupeJoueurVivant().get(j).getLifePoints()+"/"+Game.getGame().getGroupeJoueurVivant().get(j).getMaxLifePoints());
                 radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(j).getName());
                 radioButton.setFont(maFont);
                 radioButton.setForeground(Color.WHITE);
@@ -1797,6 +1856,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         validateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (buttonGroup.getSelection()!=null){
                 PersonnageCombattant cible = null;
                 String n = buttonGroup.getSelection().getActionCommand();
                 
@@ -1829,7 +1889,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                         layeredPane.repaint();
                     selectionAdverse(node);      
                 } 
-            }  
+            }  }
         });
 
         layeredPane.add(panelFight, JLayeredPane.DRAG_LAYER);
@@ -1844,6 +1904,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      */
     public static void selectionAdverse(FightNode node) {
         // pour chaque opponent on lui attribue une action
+        if (node.getOpponentsVivant().size()==0){
+            throw new IllegalStateException("Si il n'y a plus d'opponents vivant cette fonction n'aurait pas du être lancée");
+        }
         for (int i = 0; i<node.getOpponentsVivant().size();i++) {
             CompetencesActives competence = ((PersonnageAdversaire)node.getOpponentsVivant().get(i)).selectionAttaque() ;
             Object[] competenceCible = {competence, ((PersonnageAdversaire)node.getOpponentsVivant().get(i)).selectionCible(competence)} ;
@@ -1857,7 +1920,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * @param node
      */
     public static void faireActions(FightNode node) {
-        
+        if (node.getAction().size()==0){
+            throw new IllegalStateException("impossible que actions soit vide si cette fonction est appelée") ;
+        }
         // on transforme la map d'action en une arraylist
         Set<PersonnageCombattant> a = node.getAction().keySet();
         ArrayList<PersonnageCombattant> ordreDAction = new ArrayList<PersonnageCombattant>(a);
@@ -1908,16 +1973,13 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
     /**
      * La fonction pour afficher le résultat du tour
-     * Les actions sont affichées 12 lignes par 12
+     * Les actions sont affichées 10 lignes par 10
      * @param node
      * @param texteAction
      * @param nombreAction
      * @param ligneAffichee
      * @param actionAffichee
      */
-    
-    
-    
      public static void afficherAction(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){  
         configPanel();
         layeredPane.removeAll();
@@ -2043,6 +2105,16 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         }
     }
 
+    /**
+     * fonction pour affcher prochaine action 
+     * @param node
+     * @param texteAction
+     * @param nombreAction
+     * @param actionAffichee
+     * @param ligneAffichee
+     * @param imagePathGroupList
+     * @param imagePathAdversaireList
+     */
     public static void ButtonSuivant(FightNode node, String texteAction, int nombreAction, int actionAffichee, int ligneAffichee, ArrayList<String> imagePathGroupList, ArrayList<String> imagePathAdversaireList){
         configPanel();
       
@@ -2086,7 +2158,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     }
 
     /**
-     * la fonction qui selon la valeur renvoyée par le fightNode va lancer le node suivant 
+     * la fonction pour l'écran de victoire
      * @param node
      */
     public static void Victoire(FightNode node) {
@@ -2213,6 +2285,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     timer.start();
         
     }
+    /**
+     * Pour afficher le groupe en cas de victoire 
+     */
     public static void afficherPersoVictoire(){
         ArrayList<String> imagePathGroupList = new ArrayList<String>();
     for (int i =0; i<Game.getGame().getGroupeJoueurVivant().size();i++){
@@ -2224,12 +2299,21 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             panelGroupe.setBounds(60, 475, 650, 150);
             panelGroupe.setOpaque(false);
             for (String  element : imagePathGroupList) {
+                try{
                 ImageIcon imageIcon= new ImageIcon(element);
-                // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                int loadStatus = imageIcon.getImageLoadStatus();
+                if (loadStatus == MediaTracker.COMPLETE) {// On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
                 java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
                 ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
                 JLabel label = new JLabel(imageRedimensionneeIcon);
                 panelGroupe.add(label);
+                } else {
+                    throw new Exception("Échec du chargement de l'image "+element);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            }
             }
 
             getFenetre().add(layeredPane);
@@ -2243,13 +2327,19 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
     }
 
+    /**
+     * afficher un perso en grand pour sa montée de niveau
+     * @param imagePerso
+     */
     public static void afficherPersoGainNiveau(String imagePerso){
         if (imagePerso!=null){
             JPanel panel= new JPanel(new FlowLayout());
             panel.setBounds(100, 300, 650, 310);
             panel.setOpaque(false);
-            ImageIcon imageIcon= new ImageIcon(imagePerso);
-            // Redimensionnement de l'image
+            try{
+                ImageIcon imageIcon= new ImageIcon(imagePerso);
+                int loadStatus = imageIcon.getImageLoadStatus();
+                if (loadStatus == MediaTracker.COMPLETE) {           // Redimensionnement de l'image
             // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
             java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH);
             ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
@@ -2258,13 +2348,25 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             getFenetre().add(layeredPane);
             getFenetre().setVisible(true);
             layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+
+            } else {
+                    throw new Exception("Échec du chargement de l'image "+imagePerso);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            }
             
             getFenetre().revalidate();
             getFenetre().repaint();
         }
     }
 
-    
+    /**
+     * POur afficher l'écran de gain de niveau
+     * @param node
+     * @param gainNiveau
+     */
     public static void ecranGainNiveau(FightNode node, Map<PersoGroupe, String> gainNiveau){
         configPanel();
         layeredPane.removeAll();
@@ -2385,6 +2487,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         
     }
 
+    /** Écran de défaite
+     * 
+     */
     public static void Defaite(FightNode node) {
         configPanel();
         layeredPane.removeAll();
@@ -2392,9 +2497,13 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         layeredPane.repaint();
         afficherImageDansInterface(node.getImageName());
 	    getFenetre().getContentPane().setLayout(null);
-
-        afficherperso(node) ;
         
+        ArrayList<String> imagePathAdversaireList = new ArrayList<String>();
+    for (int i =0; i<node.getOpponentsVivant().size();i++){
+        imagePathAdversaireList.add(node.getOpponentsVivant().get(i).getImageLien());
+    }
+        afficherPersoFight(node, null, imagePathAdversaireList);
+
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
  
@@ -2487,7 +2596,11 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         });
         timer.start();
     }
-
+    /**
+     * Bouton pour écran passage de niveau 
+     * @param node
+     * @param gainNiveau
+     */
     public static void gainDeNiveauButton(FightNode node, Map<PersoGroupe, String> gainNiveau){
         configPanel();
         JPanel panelInner = new JPanel();
@@ -2514,7 +2627,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                         }
             });
     }
-
+    /**
+     * Bouton pour aller au node nodeNext
+     */
     public static void nextNodeButton(Node nodeNext){
         JPanel panelInner = new JPanel();
             getFenetre().add(layeredPane);
@@ -2546,7 +2661,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     }
 
     
-    
+    /**
+     * Fonction pour fermer la fenêtre au bout d'un certain timer
+     */
     public static void CloseFrame(){
         Timer timer = new Timer(5000, new ActionListener() {
             @Override
@@ -2560,7 +2677,11 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     
     }
 
-     public static void TerminalNodeButton(Node node) {
+    /**
+     * Bouton pour TerminalNode 
+     * @param node
+     */
+    public static void TerminalNodeButton(Node node) {
         configPanel();
         JPanel panelTerminal = new JPanel();
         getFenetre().add(layeredPane);
@@ -2570,24 +2691,42 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         CloseFrame();
     }
 
-    
-
+    /**
+     * 
+     * @param imageName
+     */
     public static void afficherImageDansInterface(String imageName) {
         if (imageName != null) {
-            configPanel();
-            ImageIcon imageIcon= new ImageIcon(imageName);
-            JLabel label = new JLabel(imageIcon);
-            JPanel panel = new JPanel();
-            panel.add(label);
-            panel.setOpaque(false);
-            panel.setBounds(0, 0, 1000, 1000);
-            layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
-            getFenetre().add(layeredPane);
-            getFenetre().setVisible(true);
-            
+            try {
+                configPanel();
+                ImageIcon imageIcon = new ImageIcon(imageName);
+                
+                // Vérifier le statut du chargement de l'image
+                int loadStatus = imageIcon.getImageLoadStatus();
+                if (loadStatus == MediaTracker.COMPLETE) {
+                    
+                    JLabel label = new JLabel(imageIcon);
+                    JPanel panel = new JPanel();
+                    panel.add(label);
+                    panel.setOpaque(false);
+                    panel.setBounds(0, 0, 1000, 1000);
+                    layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+                    getFenetre().add(layeredPane);
+                    getFenetre().setVisible(true);
+                } else {
+                    throw new Exception("Échec du chargement de l'image "+imageName);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            }
         }
     }
-
+    /**
+     * Fonction pour lancer les sons dans l'interface
+     * @param soundName
+     * @return
+     */
     public static Clip afficherSoundDansInterface(String soundName) {
        
         if (soundName != null) {
@@ -2601,7 +2740,6 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                     public void update(LineEvent event) {
                         if (event.getType() == LineEvent.Type.STOP) {
                             clip.close();
-                            System.out.println("Lecture terminée !");
                         }
                     }
                 });
@@ -2619,68 +2757,4 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
         return null; 
     }
-
-    
-    
-
-
 }
-
-
-    /**
-    * Configures the interface to display the "Next" button for an inner node (InnerNode).
-    *
-    * @param node The current inner node.
-    */
-
-    // public void InnerNodeButton(Node node){
-    //     configPanel();
-      
-    //     // Create a panel for the "Next" button
-    //     JPanel panelInner = new JPanel();
-    //     getFenetre().add(layeredPane);
-	// 	panelInner.setBounds(710, 494, 144, 62);
-        
-    //     // Add the "Next" panel to the layered pane
-	// 	layeredPane.add(panelInner, JLayeredPane.POPUP_LAYER);
-    //     panelInner.setBackground(Color.yellow);
-        
-        
-    //     JButton suivant = new JButton("Suivant"); // Create a "Next" button
-    //     suivant.setFont(new Font("Courier New", Font.PLAIN, 11));
-    //     suivant.setBackground(new Color(240, 240,240));
-	// 	suivant.setForeground(new Color(128, 64, 0));
-    //     panelInner.add(suivant);
-    //     getFenetre().revalidate() ;
-    //     getFenetre().repaint() ;
-        
-	// 	boutonGoNext(suivant, node);
-        
-    // }   
-// ANCIENNN****************************************************************************
-
-                        // if (index < texts.length) { 
-                        //     if (nbLigne<12){
-                        //         char nextChar = texteAction.charAt(index); 
-                        //         if(nextChar =='/'){  
-                        //             label.setText(label.getText() + "<br>");
-                        //             index++;
-                        //             nbLigne++ ;
-                        //         } else if(nextChar == '$') {
-                        //             index++ ;
-                        //             nbAction++ ;
-                        //         } else {
-                        //             label.setText(label.getText() + nextChar); 
-                        //             index++; //on passe au caractere suivant de la chaine de description
-                        //         }
-                        //     } else {
-                        //         index = texts.length ;
-                        //     }
-                        // } else {
-                        //     ((Timer) e.getSource()).stop(); 
-                        //     ButtonSuivant(node, texteAction, nombreAction, action3 + nbAction, ligneAffichee+12);
-                        // }
-        
-    
-
-    

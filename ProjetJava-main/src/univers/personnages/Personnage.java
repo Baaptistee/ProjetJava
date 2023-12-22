@@ -37,6 +37,9 @@ public class Personnage implements Serializable{
             if (name==null){
                 throw new IllegalArgumentException("Le nom ne peut pas être null (Personnage)!");
             }
+            if (name.length()>=13){
+                throw new IllegalArgumentException("Le nom des persos est maximum de 12 caractères !"+name);
+            }
             totalPerso++ ;
     	    this.persoId = totalPerso ;
     	    this.name=name;
@@ -80,6 +83,9 @@ public class Personnage implements Serializable{
     public void setName(String name){
         if (name == null){
             throw new IllegalArgumentException("Le nom ne peut être null") ;
+        }
+        if (name.length()>=13){
+                throw new IllegalArgumentException("Le nom des persos est maximum de 12 caractères !"+name);
         }
         this.name=name;
     }
