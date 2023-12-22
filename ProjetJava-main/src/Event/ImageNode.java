@@ -1,5 +1,4 @@
 package Event;
-import Representation.Node;
 import Interface.InterfaceJeu;
 
 /**

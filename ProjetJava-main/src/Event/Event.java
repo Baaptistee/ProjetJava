@@ -1,10 +1,9 @@
 package Event;
+
 /**
- * An interface representing an event in a software system. Classes that implement this interface
- * are expected to provide methods for displaying information about the event.
+ * Une interface pour des event destinés à affecter l'interface (son et image)
  */
-// Event.java
-public interface Event {
+ public interface Event {
     void display();
     Event chooseNext();
 }
