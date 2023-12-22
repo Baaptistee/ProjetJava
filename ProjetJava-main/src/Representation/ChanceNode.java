@@ -32,6 +32,12 @@ public class ChanceNode extends InnerNode {
     public ChanceNode(String nom, String description, ArrayList<Node> options, String imageName, ArrayList<Integer> probability) {
         super(nom, description, imageName, options);
         this.probability = probability;
+        probaOptionBienInstanciees();
+    }
+
+    public ChanceNode(String nom, String description,String imageName, ArrayList<Integer> probability) {
+        super(nom, description, imageName);
+        this.probability = probability;
     }
 
     /**
@@ -42,7 +48,7 @@ public class ChanceNode extends InnerNode {
      * @param probability The probability of each possible node.
      */
     public ChanceNode(String nom, String description, ArrayList<Integer> probability) {
-        super(nom, description, false);
+        super(nom, description);
         this.probability = probability;
     }
 
@@ -53,7 +59,7 @@ public class ChanceNode extends InnerNode {
      * @param probability  The probability of each possible node.
      */
     public ChanceNode(String description, ArrayList<Integer> probability) {
-        super("Node" + Node.getTotalNode() + 1, description, false);
+        super("Node" + Node.getTotalNode() + 1, description);
         this.probability = probability;
     }
 
@@ -76,6 +82,8 @@ public class ChanceNode extends InnerNode {
             throw new IllegalStateException("La liste des probabilité est null");
         }
         this.probability = probability;
+        probaOptionBienInstanciees();
+
     }
 
     /**
@@ -101,6 +109,12 @@ public class ChanceNode extends InnerNode {
             return this.getOptions().get(0);
         } else {
             return this.getOptions().get(1);
+        }
+    }
+
+    public void probaOptionBienInstanciees(){
+        if (probability.size()!=this.getOptions().size()){
+            throw new IllegalStateException("Pas le même nombre de probabilités que d'options !");
         }
     }
 

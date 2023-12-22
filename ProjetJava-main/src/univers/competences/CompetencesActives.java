@@ -2,6 +2,7 @@ package univers.competences;
 
 import java.util.Objects;
 
+import Representation.FightNode;
 import univers.personnages.PersonnageCombattant;
 /** A class for all the cative competences (the ones that can be chose during a fightNode)
  * 
@@ -84,7 +85,7 @@ public abstract class CompetencesActives extends Competences {
 	 * @param cible la cible
 	 * @return renvoie un String qui sera ensuite à afficher dans le fightNode 
 	 */
-	public abstract String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible) ;
+	public abstract String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible, FightNode node) ;
 	public abstract boolean isGroup() ;
 
 

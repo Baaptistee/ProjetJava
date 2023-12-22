@@ -42,293 +42,342 @@ public class Main {
 		optionn.add("image/MC Mage.png");
 		optionn.add("image/Soigneur.png");
 /********************************************************** INTRODUCTION ***************************************************************/
-		InnerNode n1 = new TextNode("??? : "+joueur+"... ! / Réveille-toi !!","image/mystery-2169794_1280.jpg");
-		InnerNode n2 = new ChooseNode("Continuer à dormir", "??? : Aller dêpeche toi on va être en retard !","image/mystery-2169794_1280.jpg") ;
-		InnerNode n3 = new ChooseNode("Continuer à dormir","??? : "+ joueur.toUpperCase()+" !!!!/ RÉVEILLE TOI !!","image/mystery-2169794_1280.jpg");
-		InnerNode n4 = new TextNode("Se réveiller", "??? : Ah enfin tu te décides ... Tu sais pourtant très bien qu'aujourd'hui est un jour important./","image/mystery-2169794_1280.jpg");
-		InnerNode n5 = new TextNode("Leo : Heu t'es sur que ça va ?/Allô la lune ici Leo t'as oublié que la remise des diplômes c'était aujourd'hui ou quoi ?/"+joueur+" : La remise des diplômes ?/Leo : Non mais je rêve ! Tu sais le diplôme de magie pour lequel on sue sang et eau depuis qu'on est gosse ?/C'est enfin le grand jour !!//<em>Les deux garçons se dépêchent d'enfiler leurs tenues et de se diriger vers le hall de la cérémonie.</em>","image/mystery-2169794_1280.jpg");
-		InnerNode n6 = new TextNode("Leo : Woaaah c'est beaucoup plus impressionant en vrai !/ Jeune fille : Ah enfin vous êtes là vous, je pensais que vous n'arriveriez jamais !/Leo : Désolé Anna, C'est "+joueur+" il se l'est joué Belle au bois Dormant ce matin./"+joueur+" : La ferme Leo, j'ai juste eu du mal à dormir hier soir à cause de tes ronflements. /Leo : Dit le mec qui faisait trembler la chambre ce matin .../<em> Les interrompt</em>/Anna : C'est pas bientôt fini vous deux ? Taisez vous ça va bientôt commencer.","image/mystery-2169794_1280.jpg");
-		n2.setImagePersoList(persoGroupeImagePath);
-		n3.setImagePersoList(persoGroupeImagePath);
-		n4.setImagePersoList(persoGroupeImagePath);
-		n5.setImagePersoList(persoGroupeImagePath);
-// /********************************************************** DEBUT **************************************************************/
-// 		InnerNode n7 = new TextNode("Le crépuscule enveloppait le château de mystère, tandis que " + joueur + ", accompagné de son fidèle chevalier, du sage mage et de l'attentionné soigneur, décidait de fuir les murs imposants qui avaient été témoins de la tragédie royale. Les lourdes portes du château s'ouvrirent silencieusement, et l'équipe s'éclipsa dans l'obscurité. Guidés par l'ombre bienveillante de la nuit, " + joueur + " et ses compagnons chevauchèrent à travers les bois embrumés, laissant derrière eux les murmures inquiets du château endormi.","image/mystery-2169794_1280.jpg");
+		InnerNode n1 = new TextNode("Dans le royaume enchanté de FantaisieLalalande, le château majestueux se dressait, dominant la paisible contrée. Au sommet de la hiérarchie royale régnait le roi bien-aimé et son épouse, la princesse adorée de tous. Le prince, jeune et ambitieux, partageait avec sa femme des jours heureux au sein de ce lieu empreint de magie et de splendeur.","image/Chatea.jpg");
+		InnerNode n2 = new TextNode("Cependant, une ombre sombre s'abattit soudainement sur cette félicité. Un matin, le château fut secoué par la terrible nouvelle : le roi gisait sans vie dans ses appartements, le sang maculant les murs et les tapisseries. Le choc ébranla la cour et plongea FantaisieLalalande dans une atmosphère de mystère et de suspicion.","image/Chatea.jpg");
+		InnerNode n3 = new TextNode("La nouvelle se répandit comme une traînée de poudre, et rapidement, les regards accusateurs se tournèrent vers le prince. Les murmures des courtisans et des citoyens circulaient dans les couloirs du château comme une sinistre mélodie.	Le prince, accablé par le deuil et la calomnie, se retrouva confronté à des soupçons persistants. Alors même qu'il pleurait la perte de son père, des murmures s'élevaient, jetant une ombre sur son innocence. Les récents désaccords entre le prince et le roi étaient amplifiés, jetant une lumière sinistre sur leur relation.","image/Chatea.jpg") ;
+		InnerNode n4 = new TextNode("Un jour, alors que le prince errait dans les jardins du château, il entendit des murmures sournois provenant des courtisans :/"+"\"Le prince doit être le coupable. Pourquoi d'autre aurait-il tant de querelles avec le roi ?/" + "\"Le pouvoir l'a corrompu, c'est évident. Il était prêt à tout pour monter sur le trône." + "\"Le roi n'aurait jamais été retrouvé mort si le prince ne l'avait pas tué. C'est une évidence !\"","image/Chatea.jpg");
+		InnerNode n5 = new TextNode("Ces insinuations atteignirent leur apogée lorsque la garde royale, sous le commandement de conseillers ambitieux, se mit en chasse du prince, le déclarant suspect numéro un dans la mort du roi. Pris au dépourvu, le prince se retrouva dans une situation désespérée. Face à l'injustice et à la menace qui pesaient sur sa vie, le prince prit une décision audacieuse. Dans le secret de la nuit, il rassembla un groupe hétéroclite de compagnons loyaux : un voleur rusé, un soigneur compatissant et un mage mystérieux. Ensemble, ils s'échappèrent du château, fuyant les gardes déterminés et la colère du peuple.","image/Chatea.jpg");
+		InnerNode n6 = new TextNode("Leur quête était simple mais périlleuse : trouver la vérité derrière la mort du roi et prouver l'innocence du prince.","image/Chatea.jpg");
+		InnerNode n7 = new ChooseNode("Êtes-vous pret à demarrer l'aventure","image/Chatea.jpg");
+		InnerNode n8 = new TextNode("Je suis prêt(e)","C'est parti !","image/Chatea.jpg");
+		Node n9= new TerminalNode("Je ne suis pas prêt(e)","A la prochaine !","image/Chatea.jpg");
+
+
+
+
+		// n2.setImagePersoList(persoGroupeImagePath);
+		// n3.setImagePersoList(persoGroupeImagePath);
+		// n4.setImagePersoList(persoGroupeImagePath);
+		//n5.setImagePersoList(persoGroupeImagePath);
+/********************************************************** DEBUT **************************************************************/
+		
+		InnerNode n11 = new ChooseNode("La nuit était sombre, le prince et ses compagnons fuyaient le château en quête de réponses. Ils atteignirent une clairière éclairée par la lueur de la lune. Là, le groupe se figea, cherchant une solution."+ "Le voleur brisa le silence.\"Cher compagnons, il nous faut des forces. Les Chevaliers et les Soigneurs sont les plus proches. Que choisissons-nous ?\"","image/Chatea.jpg");
+		InnerNode n12 = new TextNode("Chez Chevalier", "Le groupe, ayant choisi de se diriger vers le Chevalier, se rendit dans le domaine derrière le château royal. Les arbres formaient une allée menant à la demeure du Chevalier, éclairée par la lueur des torches dans l'obscurité.Le voleur observa attentivement, cherchant d'éventuels pièges. Le mage, silencieux, contempla le ciel étoilé.Devant les grandes portes du domaine, le prince s'adressa à ses compagnons : \"Convainquons le père du Chevalier de notre innocence. Son influence pourrait être cruciale\"./Le groupe pénétra dans le domaine, prêt à confronter le père du Chevalier pour obtenir son soutien dans leur quête pour rétablir la vérité.","image/mystery-2169794_1280.jpg");
+		InnerNode n13 = new TextNode("Chez Soigneur", "C'est à plusieurs lieues d'ici ? Il y a des cheveux YAHHH, direction le désert arabica.","image/mystery-2169794_1280.jpg");
+
+/************************************************************* SOIGNEUR *******************************************************************/
+		InnerNode n15S = new TextNode("Le groupe s'aventura plus loin du château, suivant un sentier sinueux qui les mena finalement à la demeure du Soigneur.Le Soigneur habitait une petite maison entourée de jardins verdoyants. Des herbes aromatiques poussaient en abondance, embaumant l'air d'un parfum apaisant.L'intérieur de la maison était simple mais confortable. Des étagères étaient remplies de potions et d'herbes médicinales. Une ambiance paisible régnait, rompue seulement par le crépitement du feu dans la cheminée.","");
+		InnerNode n16S= new TextNode("Alors que le groupe prenait place, la Soeur du Soigneur parut hésitante. \"Il y a quelque chose que vous devez savoir à propos du duc et de la reine. C'est une histoire délicate, mais la vérité doit éclater.\" Elle révéla alors l'information sur l'aventure entre le duc et la reine, laissant le groupe abasourdi par la complexité des intrigues qui entouraient la cour royale.","image/mystery-2169794_1280.jpg");
+		InnerNode n17S= new TextNode("Soudain, des bruits de bottes retentirent à l'extérieur. La garde royale était sur le point d'entrer dans la maison./ \"Au nom du royaume, vous êtes tous en état d'arrestation pour conspiration contre la couronne !\"/Le Mage, rapide d'esprit, chuchota au groupe :\"Il faut s'échapper pour enquêter chez le duc. C'est notre seule chance de prouver l'innocence du prince.\"","image/mystery-2169794_1280.jpg");
+		InnerNode n18S = new ChooseNode("Ils s'échappèrent précipitamment par un chemin secret qui menait à deux portes différents. L'équipe divisée, ils demandèrent tous en chœur. Quelle porte prendre, " + joueur + "?","image/mystery-2169794_1280.jpg");
+		InnerNode n19S = new TextNode("Droite", "À pas de loup, ils se précipitèrent dans la foret. " + joueur + ": SPLACH!!/" + joueur + " était tombé, le garde des environs l'avait entendu et se précipita à notre rencontre","image/mystery-2169794_1280.jpg");
+		ArrayList<Integer> probabilityy = new ArrayList<Integer>();
+		probabilityy.add(7);
+		probabilityy.add(3);
+		InnerNode n20S = new TestNode("Gauche","Test de force pour l'ouverture de la porte","image/mystery-2169794_1280.jpg", Statistiques.STRENGTH, 4, 2);
+		InnerNode n21S = new TextNode("S'echaper Go duc ","image/mystery-2169794_1280.jpg");
+		InnerNode n22S = new TextNode("Sortie dans la forêt","image/mystery-2169794_1280.jpg");
+		
+		//Passage du desert
+		ArrayList <Integer> probability = new ArrayList<Integer>();
+		probability.add(4);
+		probability.add(6);
+		InnerNode n13S = new ChanceNode("Description désert", probability);
+		InnerNode n14S = new TextNode("Une tempête de sable approche, vous avez tout juste le temps de passer un test de force pour voir si vous pouvez résister ou au contraire vous devrez fuir.","image/mystery-2169794_1280.jpg");
+
+		// FIGHT NODE n15S
+		FightNode n15 = new FightNode("Attention au loin, les dangereux de la tribu du désert approchent... YAH YAH affrontons-les","image/knight-3274300_1280.jpg");
+
+		ArrayList<PersonnageCombattant> opponents1= new ArrayList<>();
+		n15.setXp(250);
+		Map<Collectibles, Integer> bytin1= new HashMap<>() ;
+		Collectibles potion = new Objets("Potion trala de soin") ;
+		Collectibles banane = new Objets("Banane") ;
+		bytin1.put(banane, 4) ;
+		bytin1.put(potion, 4) ;
+		n15.setButin(bytin1);
+		ArrayList <Eleme> resistancess=new ArrayList<>();
+		resistancess.add(Eleme.FEU);
+		resistancess.add(Eleme.LUMIERE);
+		int [] probaCompetences={7,3};
+		ArrayList <CompetencesActives> jeanJacquesC= new ArrayList<>();
+		jeanJacquesC.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
+		jeanJacquesC.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
+		//PersonnageAdversaire n19S = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 7, 10,resistancess,resistancess, jeanJacquesC,probaCompetences);
+		//PersonnageAdversaire n20S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		PersonnageAdversaire n21 = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		PersonnageAdversaire n22 = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
+		//opponents1.add(n19S);
+		//opponents1.add(n20S);
+		opponents1.add(n21);
+		opponents1.add(n22);
+		n15.setOpponents(opponents1);
+
+
+		//InnerNode n17S = new TestNode("Test de résistance à la tempête de sable", false, Statistiques.ENDURANCE, 3, 1);
+		//InnerNode n18S = new TextNode("Le groupe a échoué. Il n'est pas capable de résister à la tempête. Il faut fuir.","image/mystery-2169794_1280.jpg");
+		InnerNode n23 = new TextNode("Le groupe a réussi le test !","image/mystery-2169794_1280.jpg");
+		InnerNode n24S = new TextNode("Pas le temps de fuir, il est trop tard, la tempête est là. / Mage : Je vais ouvrir une porte magique dans une autre dimension.","image/mystery-2169794_1280.jpg");
+		InnerNode n25S = new TextNode("Affrontement tempête de sable","image/mystery-2169794_1280.jpg");
+		InnerNode n28S = new TextNode("Mage : Bon, on n'ira pas chez toi. C'est plus prudent ici. Prise de décision","image/mystery-2169794_1280.jpg");
+		InnerNode n29S = new ChooseNode("choix", "choix de formule pour aller chez le duc","image/mystery-2169794_1280.jpg");
+		InnerNode n30S = new TextNode("ABADUDUS EXTREMADUS", "Hmm, ce n'est pas la bonne formule.","image/mystery-2169794_1280.jpg");
+		InnerNode n31S = new TextNode("ABABBUDOUS RAMALOXUS", "Hmm, ce n'est pas la bonne formule.","image/mystery-2169794_1280.jpg");
+		InnerNode n32S = new TextNode("ABUDUS AJACABADUS", "Bravo, c'était la bonne.","image/mystery-2169794_1280.jpg");
+		InnerNode n33S = new TextNode("Vous avez fait le mauvais choix. Réessayez.","image/mystery-2169794_1280.jpg");
+		TextNode n27S = new TextNode("Go chez Soigneur","image/mystery-2169794_1280.jpg");
+		InnerNode n34S = new TextNode("DÉBAT","image/mystery-2169794_1280.jpg");
 		
 
 
-		
-// 		InnerNode n8 = new ChooseNode("La lueur pâle de la lune éclairait leur chemin alors qu'ils traversaient la forêt, cherchant refuge dans l'incertitude du destin qui les attendait. Ils ne savaient pas où leurs pas les conduiraient, mais le besoin pressant de s'éloigner du château empreint de trahison les guidait. Ils devaient prendre une décision:","image/mystery-2169794_1280.jpg",optionn);
-// 		InnerNode n9 = new TextNode("Chez Mage", "","image/mystery-2169794_1280.jpg");
-// 		InnerNode n10 = new TextNode("Chez Chevalier", "Guidés par l'ombre bienveillante de la nuit, " + joueur + " et ses compagnons chevauchèrent à travers les bois embrumés, laissant derrière eux les murmures inquiets du château endormi. Le domaine du père du chevalier émergea des ombres. Une imposante silhouette de château se dressait contre le ciel nocturne, éclairée par la douce lueur des lanternes. La cour intérieure, encadrée par des murailles de pierre solides, accueillit les fugitifs avec l'assurance de la loyauté. Le portail grinça légèrement lorsqu'ils entrèrent, mais le silence qui enveloppait le domaine indiquait que leur arrivée n'avait pas été remarquée. " + joueur + ", le chevalier, le mage et le soigneur se dirigèrent vers la résidence principale, où le père du chevalier les attendait, ignorant encore les événements qui avaient secoué le royaume.","image/mystery-2169794_1280.jpg");
-// 		InnerNode n11 = new TextNode("Chez Soigneur", "C'est à plusieurs lieues d'ici ? Il y a des cheveux YAHHH, direction le désert arabica.","image/mystery-2169794_1280.jpg");
 
 
-// /************************************************************* MAGE *******************************************************************/
-
-
-// /************************************************************* SOIGNEUR *******************************************************************/
-		
-// 		//Passage du desert
-// 		ArrayList <Integer> probability = new ArrayList<Integer>();
-// 		probability.add(4);
-// 		probability.add(6);
-// 		InnerNode n13S = new ChanceNode("Description désert", probability);
-// 		InnerNode n14S = new TextNode("Une tempête de sable approche, vous avez tout juste le temps de passer un test de force pour voir si vous pouvez résister ou au contraire vous devrez fuir.","image/mystery-2169794_1280.jpg");
-
-// 		// FIGHT NODE n15S
-// 		FightNode n15S = new FightNode("Attention au loin, les dangereux de la tribu du désert approchent... YAH YAH affrontons-les","image/knight-3274300_1280.jpg");
-
-// 		ArrayList<PersonnageCombattant> opponents1= new ArrayList<>();
-// 		n15S.setXp(250);
-// 		Map<Collectibles, Integer> bytin1= new HashMap() ;
-// 		Collectibles potion = new Objets("Potion trala de soin") ;
-// 		Collectibles banane = new Objets("Banane") ;
-// 		bytin1.put(banane, 7) ;
-// 		bytin1.put(potion, 9) ;
-// 		n15S.setButin(bytin1);
-// 		ArrayList <Eleme> resistancess=new ArrayList<>();
-// 		resistancess.add(Eleme.FEU);
-// 		resistancess.add(Eleme.LUMIERE);
-// 		int [] probaCompetences={7,3};
-// 		ArrayList <CompetencesActives> jeanJacquesC= new ArrayList<>();
-// 		jeanJacquesC.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
-// 		jeanJacquesC.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-// 		PersonnageAdversaire n19S = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 7, 10,resistancess,resistancess, jeanJacquesC,probaCompetences);
-// 		PersonnageAdversaire n20S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
-// 		PersonnageAdversaire n21S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
-// 		PersonnageAdversaire n22S = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences);
-// 		opponents1.add(n19S);
-// 		opponents1.add(n20S);
-// 		opponents1.add(n21S);
-// 		opponents1.add(n22S);
-// 		n15S.setOpponents(opponents1);
-
-
-// 		InnerNode n17S = new TestNode("Test de résistance à la tempête de sable", false, Statistiques.ENDURANCE, 3, 1);
-// 		InnerNode n18S = new TextNode("Le groupe a échoué. Il n'est pas capable de résister à la tempête. Il faut fuir.","image/mystery-2169794_1280.jpg");
-// 		InnerNode n23S = new TextNode("Le groupe a réussi le test !","image/mystery-2169794_1280.jpg");
-// 		InnerNode n24S = new TextNode("Pas le temps de fuir, il est trop tard, la tempête est là. / Mage : Je vais ouvrir une porte magique dans une autre dimension.","image/mystery-2169794_1280.jpg");
-// 		InnerNode n25S = new TextNode("Affrontement tempête de sable","image/mystery-2169794_1280.jpg");
-// 		InnerNode n28S = new TextNode("Mage : Bon, on n'ira pas chez toi. C'est plus prudent ici. Prise de décision","image/mystery-2169794_1280.jpg");
-// 		InnerNode n29S = new ChooseNode("choix", "choix de formule pour aller chez le duc","image/mystery-2169794_1280.jpg");
-// 		InnerNode n30S = new TextNode("ABADUDUS EXTREMADUS", "Hmm, ce n'est pas la bonne formule.","image/mystery-2169794_1280.jpg");
-// 		InnerNode n31S = new TextNode("ABABBUDOUS RAMALOXUS", "Hmm, ce n'est pas la bonne formule.","image/mystery-2169794_1280.jpg");
-// 		InnerNode n32S = new TextNode("ABUDUS AJACABADUS", "Bravo, c'était la bonne.","image/mystery-2169794_1280.jpg");
-// 		InnerNode n33S = new TextNode("Vous avez fait le mauvais choix. Réessayez.","image/mystery-2169794_1280.jpg");
-// 		TextNode n27S = new TextNode("Go chez Soigneur","image/mystery-2169794_1280.jpg");
-// 		InnerNode n34S = new TextNode("DÉBAT","image/mystery-2169794_1280.jpg");
-		
+/******************************************************** CHEVALIER ***********************************************************/
+		InnerNode n15C = new TextNode("Le père du Chevalier expliqua tristement la situation. \"Le roi avait des dettes de jeu, causant des conflits à la cour, surtout avec le duc, son meilleur ami.\"Des rumeurs couraient, affirmant que le roi pillait le royaume et que le château était condamné à la ruine. ","image/DansVille.png");
+		InnerNode n16C= new TextNode("Un débat houleux s'ensuivit :/Le Chevalier : \"Le roi n'aurait jamais fait ça. Il a toujours été un souverain juste et bienveillant.\"/Le Mage : \"Il est peut-être temps de considérer les faits. Si le royaume est en danger, nous devons agir.\"Le Voleur : \"Cherchons la vérité avant de prendre des décisions irréversibles.\"/La mère du Chevalier arriva avec un air préoccupé. \"L'autre fois, j'ai entendu une dispute très grave dans le château. Le roi, ivre, menaçait de mort le duc. Il est possible qu'il ait commis des actes regrettables.\"Le Prince : \"Cela pourrait expliquer les tensions entre le roi et le duc. Le duc aurait des raisons de vouloir la mort du roi pour sa propre protection. Nous devons explorer toutes les possibilités avant de tirer des conclusions.\"", "image/DansVille.png");
+		InnerNode n17C= new TextNode("Soudain, des bruits de bottes retentirent à l'extérieur. La garde royale était sur le point d'entrer dans le château./ \"Au nom du royaume, vous êtes tous en état d'arrestation pour conspiration contre la couronne !\"/Le Voleur, rapide d'esprit, chuchota au groupe : \"Il faut s'échapper pour enquêter chez le duc. C'est notre seule chance de prouver l'innocence du prince.\"","image/DansVille.png");
+		InnerNode n18C = new ChooseNode("Ils s'échappèrent précipitamment par un chemin secret qui menait à deux chemins différents. L'équipe divisée, ils demandèrent tous en chœur. Prince: Vers lequel allons-nous, " + joueur + "?","image/mystery-2169794_1280.jpg");
+		InnerNode n19C = new TextNode("droite", "À pas de loup, ils se précipitèrent dans ce chemin secret sinueux. " + joueur + ": SPLACH!!/" + joueur + " était tombé, le garde des environs l'avait entendu et se précipita à notre rencontre","image/mystery-2169794_1280.jpg");
+		ArrayList<Integer> probabilityii = new ArrayList<Integer>();
+		probabilityy.add(7);
+		probabilityy.add(3);
+		InnerNode n20C = new ChanceNode("Gauche", "Go Go Go on trace","image/mystery-2169794_1280.jpg",probabilityii);
+		InnerNode n21C = new TextNode("Impasse, c'est là où on fait demi-tour et on prend le chemin de droite","image/mystery-2169794_1280.jpg");
+		InnerNode n22C = new TextNode("Sortie dans la forêt","image/ForetJolie.png");
+		// FightNode n23C = new FightNode("Attention, Deux gardes se précipitent vers vous","image/knight-3274300_1280.jpg");
+		// ArrayList<PersonnageCombattant> opponents= new ArrayList<>();
+		// n23C.setXp(150);
+		// ArrayList<Collectibles> bytin= new ArrayList<Collectibles>() ;
+		// bytin.add(banane) ;
+		// bytin.add(potion) ;
+		// n23C.setButin(bytin);
+		// opponents.add(n19S);
+		// opponents.add(n20S);
+		// n23C.setOpponents(opponents);
+		InnerNode n33= new TextNode("Go chez le DUCDUC","image/mystery-2169794_1280.jpg");
 
 
 
-
-// /******************************************************** CHEVALIER ***********************************************************/
-// 		InnerNode n12 = new TextNode("Dans le hall majestueux du domaine du chevalier, le père écouta avec une attention grave le récit du prince et de son équipe. Les yeux du vieil homme reflétaient l'inquiétude mêlée d'une détermination à défendre l'honneur de son fils et la quête de justice du prince. Cependant, à peine avaient-ils commencé à élaborer leurs plans que les lourds bruits de sabots résonnèrent à l'extérieur. Les échos de la cavalerie du roi, armée jusqu'aux dents, annonçaient l'arrivée imminente de la garde royale.","image/mystery-2169794_1280.jpg");
-// 		InnerNode n13 = new ChooseNode("Ils s'échappèrent précipitamment par un chemin secret qui menait à deux chemins différents. L'équipe divisée, ils demandèrent tous en chœur. Prince: Vers lequel allons-nous, " + joueur + "?","image/mystery-2169794_1280.jpg");
-// 		InnerNode n14 = new TextNode("droite", "À pas de loup, ils se précipitèrent dans ce chemin secret sinueux. " + joueur + ": SPLACH!!/" + joueur + " était tombé, le garde des environs l'avait entendu et se précipita à notre rencontre","image/mystery-2169794_1280.jpg");
-// 		ArrayList<Integer> probabilityy = new ArrayList<Integer>();
-// 		probabilityy.add(5);
-// 		probabilityy.add(5);
-// 		InnerNode n15 = new ChanceNode("Gauche", "Go Go Go on trace", probabilityy);
-// 		InnerNode n155 = new TextNode("Impasse, c'est là où on fait demi-tour et on prend le chemin de droite","image/mystery-2169794_1280.jpg");
-// 		InnerNode n1555 = new TextNode("Sortie dans la forêt","image/mystery-2169794_1280.jpg");
-// 		FightNode n16 = new FightNode("Attention, Deux gardes se précipitent vers vous","image/knight-3274300_1280.jpg");
-		
-// 		ArrayList<PersonnageCombattant> opponents= new ArrayList<>();
-// 		n16.setXp(150);
-// 		Map<Collectibles, Integer> bytin= new HashMap() ;
-// 		bytin.put(banane, 4) ;
-// 		bytin.put(potion, 3) ;
-// 		n16.setButin(bytin);
-// 		opponents.add(n19S);
-// 		opponents.add(n20S);
-// 		n16.setOpponents(opponents);
 
 		
-// 		InnerNode n19 = new TextNode("Forêt, forêt, il pleut, c'est la merde, on a peur, on a froid, comment on va vivre, MAMANNN","image/mystery-2169794_1280.jpg");
-// 		InnerNode n20 = new ChooseNode("Grrr, on croise une personne bien chelou au plus profond de cette forêt. Elle a l'air gentille mais chelou aussi","image/mystery-2169794_1280.jpg");
-// 		InnerNode n21 = new TextNode("J'y vais", "On suit la dame dans sa maison, patati patata","image/mystery-2169794_1280.jpg");
-// 		InnerNode n22 = new TextNode("Pas confiance", "Continue à courir","image/mystery-2169794_1280.jpg");
+		InnerNode n19 = new TextNode("Forêt, forêt, il pleut, c'est la merde, on a peur, on a froid, comment on va vivre, MAMANNN","image/mystery-2169794_1280.jpg");
+		InnerNode n20 = new ChooseNode("Grrr, on croise une personne bien chelou au plus profond de cette forêt. Elle a l'air gentille mais chelou aussi","image/mystery-2169794_1280.jpg");
+		InnerNode n211 = new TextNode("J'y vais", "On suit la dame dans sa maison, patati patata","image/mystery-2169794_1280.jpg");
+		InnerNode n222 = new TextNode("Pas confiance", "Continue à courir","image/mystery-2169794_1280.jpg");
 
 	
-// 		ArrayList <Integer> probabilityyi = new ArrayList<Integer>();
-// 		probabilityyi.add(6);
-// 		probabilityyi.add(2);
-// 		probabilityyi.add(2);
+		ArrayList <Integer> probabilityyi = new ArrayList<Integer>();
+		probabilityyi.add(6);
+		probabilityyi.add(2);
+		probabilityyi.add(2);
 	
-// 		InnerNode n24B = new ChanceNode("C'est la détresse", probabilityyi);
-// 		InnerNode n25 = new TextNode("Elle nous amène dans sa maison","image/mystery-2169794_1280.jpg");
-// 		InnerNode n26 = new ChooseNode("Elle propose à boire et à manger ces spécialités","image/mystery-2169794_1280.jpg");
-// 		InnerNode n27 = new TextNode("Pain aux épices aux yeux de biche", "Pain aux épices aux yeux de biche","image/mystery-2169794_1280.jpg");
-// 		InnerNode n28 = new TextNode("Velouté de vers de terre", "Velouté de vers de terre","image/mystery-2169794_1280.jpg");
-// 		InnerNode n29 = new TextNode("Bouilli de grenouille", "Vous vous étouffez","image/mystery-2169794_1280.jpg");
-// 		InnerNode n30 = new TextNode("Eau", "Eau","image/mystery-2169794_1280.jpg");
-// 		InnerNode n25B = new TextNode("Je m'enfuis dans la forêt","image/mystery-2169794_1280.jpg");
-// 		InnerNode n26B = new TextNode("Je trouve une cachette","image/mystery-2169794_1280.jpg");
-// 		InnerNode n27B = new TextNode("Elle nous a vus, go fight avec elle","image/mystery-2169794_1280.jpg");
-// 		FightNode n31 = new FightNode("La sorcière vous attaque","ihtvyj");
+		InnerNode n24B = new ChanceNode("C'est la détresse", probabilityyi);
+		InnerNode n25 = new TextNode("Elle nous amène dans sa maison","image/mystery-2169794_1280.jpg");
+		InnerNode n26 = new ChooseNode("Elle propose à boire et à manger ces spécialités","image/mystery-2169794_1280.jpg");
+		InnerNode n27 = new TextNode("Pain aux épices", "Pain aux épices aux yeux de biche","image/mystery-2169794_1280.jpg");
+		InnerNode n28 = new TextNode("Velouté de vers de terre", "Velouté de vers de terre","image/mystery-2169794_1280.jpg");
+		InnerNode n29 = new TextNode("Bouilli de grenouille", "Vous vous étouffez","image/mystery-2169794_1280.jpg");
+		InnerNode n30 = new TextNode("Eau", "Eau","image/mystery-2169794_1280.jpg");
+		InnerNode n25B = new TextNode("Je m'enfuis dans la forêt","image/mystery-2169794_1280.jpg");
+		InnerNode n26B = new TextNode("Je trouve une cachette","image/mystery-2169794_1280.jpg");
+		InnerNode n27B = new TextNode("Elle nous a vus, go fight avec elle","image/mystery-2169794_1280.jpg");
+		FightNode n31 = new FightNode("La sorcière vous attaque","ihtvyj");
 
-// 		ArrayList<PersonnageCombattant> opponents2= new ArrayList<>();
-// 		n31.setXp(150);
-// 		Map<Collectibles, Integer> bytin2= new HashMap() ;
-// 		Collectibles potion2 = new Objets("Potion de soin") ;
-// 		Collectibles banane2 = new Objets("Banane") ;
-// 		bytin2.put(banane2, 3) ;
-// 		bytin2.put(potion2, 4) ;
-// 		n31.setButin(bytin);
+		ArrayList<PersonnageCombattant> opponents2= new ArrayList<>();
+		n31.setXp(150);
+		ArrayList<Collectibles> bytin2= new ArrayList<Collectibles>() ;
+		Collectibles potion2 = new Objets("Potion de soin") ;
+		Collectibles banane2 = new Objets("Banane") ;
+		bytin2.add(banane2) ;
+		bytin2.add(potion2) ;
+		// n31.setButin(bytin);
 	
-// 		ArrayList <Eleme> resistances2=new ArrayList<>();
-// 		resistances2.add(Eleme.FEU);
-// 		resistances2.add(Eleme.LUMIERE);
-// 		int [] probaCompetences2={6,4};
-// 		ArrayList <CompetencesActives> sorciere= new ArrayList<>();
-// 		sorciere.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
-// 		sorciere.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-// 		PersonnageAdversaire n32 = new PersonnageAdversaire("sorciere", "fesf", 5, 4, 5, 3, 3, 7, 10,resistances2,resistances2, sorciere,probaCompetences2);
-// 		opponents2.add(n32);
-// 		n31.setOpponents(opponents2);
+		ArrayList <Eleme> resistances2=new ArrayList<>();
+		resistances2.add(Eleme.FEU);
+		resistances2.add(Eleme.LUMIERE);
+		int [] probaCompetences2={6,4};
+		ArrayList <CompetencesActives> sorciere= new ArrayList<>();
+		sorciere.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
+		sorciere.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
+		PersonnageAdversaire n32 = new PersonnageAdversaire("sorciere", "fesf", 5, 4, 5, 3, 3, 7, 10,resistances2,resistances2, sorciere,probaCompetences2);
+		opponents2.add(n32);
+		n31.setOpponents(opponents2);
 		
 		
-// 		InnerNode n33= new TextNode("Go chez le DUCDUC","image/mystery-2169794_1280.jpg");
+		
 		
 
 		//Introduction
 		n1.addOption(n2);
-		n2.addOption(n4);
-		n2.addOption(n3);
+		n2.addOption(n15S);
 		n3.addOption(n4);
-		n3.addOption(n2);
 		n4.addOption(n5);
 		n5.addOption(n6);
+		n6.addOption(n7);
+		n7.addOption(n8);
+		n7.addOption(n9);
 
-// 		//Debut
-// 		n6.addOption(n7);
-// 		n7.addOption(n8);
-// 		n8.addOption(n9);
-// 		n8.addOption(n10);
-// 		n8.addOption(n11);
+		//Debut
+		n8.addOption(n11);
+		n11.addOption(n12);
+		n11.addOption(n13);
+		
 
-// 		//Soigneur
-// 		n11.addOption(n13S);
-// 		n13S.addOption(n14S);
-// 		n13S.addOption(n15S);
-// 		n14S.addOption(n17S);
-// 		n15S.addOption(n27S);
-// 		n17S.addOption(n18S);
-// 		n17S.addOption(n23S);
+		//Soigneur
+		n13.addOption(n15S);
+		n15S.addOption(n16S);
+		n16S.addOption(n17S);
+		n17S.addOption(n18S);
+		n18S.addOption(n19S);
+		n18S.addOption(n20S);
+		n20S.addOption(n21S);
+		n20S.addOption(n22S);
+		//n20S.addOption(n23C);
+
+
+
+
+
+		//n13.addOption(n14S);
+		
+
+		//Reussite tempete
+		//n23S.addOption(n25S);
+		n25S.addOption(n27S);
+		n27S.addOption(n34S);
+		n34S.addOption(n33);
+
+		//Echec tempete
+		n18S.addOption(n24S);
+		n24S.addOption(n28S);
+		n28S.addOption(n34S);
+		n34S.addOption(n29S);
+		n29S.addOption(n30S);
+		n29S.addOption(n31S);
+		n29S.addOption(n32S);
+		n30S.addOption(n33S);
+		n31S.addOption(n33S);
+		n33S.addOption(n29S);
+		n32S.addOption(n33);
+
+
+
+		//chevalier
+		n12.addOption(n15C);
+		n15C.addOption(n16C);
+		n16C.addOption(n17C);
+		n17C.addOption(n18C);
+		n18C.addOption(n19C);
+		n18C.addOption(n20C);
+		n20C.addOption(n21C);
+		n20C.addOption(n22C);
+		//n19C.addOption(n23C);
+		//n23C.addOption(n33);
+		//n21C.addOption(n23C);
+		n22C.addOption(n33);
+		n22C.addOption(n33);
+
+
+
+
+		// n10.addOption(n12);
+		// n12.addOption(n13);
+		// n13.addOption(n14);
+		// n13.addOption(n15);
+		// n15.addOption(n155);
+		// n15.addOption(n1555);
+		// n155.addOption(n19);
+		// n1555.addOption(n19);
+
+		// // Fight Node Garde n16
+		// n14.addOption(n16);
+		// n16.addOption(n19);
+
+		//sorciere 
+		n19.addOption(n20);
+		n20.addOption(n211);
+		n20.addOption(n222);
+
+		//chance Node
+		//n22.addOption(n24B);
+		n24B.addOption(n25B);
+		n24B.addOption(n26B);
+		n24B.addOption(n27B);
+		//Go ducc
+		n25B.addOption(n33);
+		n26B.addOption(n33);
+		n27B.addOption(n31);
+
+		
+		//n21.addOption(n25);
+		n25.addOption(n26);
+		n26.addOption(n27);
+		n26.addOption(n28);
+		n26.addOption(n29);
+		n26.addOption(n30);
+
+		//fightNode sorciere
+		n27.addOption(n31);
+		n28.addOption(n31);
+		n29.addOption(n31);
+		n30.addOption(n31);
+		//Go ducc
+		n31.addOption(n33);
+
+
+		
+		
 		
 		
 
-// 		//Reussite tempete
-// 		n23S.addOption(n25S);
-// 		n25S.addOption(n27S);
-// 		n27S.addOption(n34S);
-// 		n34S.addOption(n33);
-
-// 		//Echec tempete
-// 		n18S.addOption(n24S);
-// 		n24S.addOption(n28S);
-// 		n28S.addOption(n34S);
-// 		n34S.addOption(n29S);
-// 		n29S.addOption(n30S);
-// 		n29S.addOption(n31S);
-// 		n29S.addOption(n32S);
-// 		n30S.addOption(n33S);
-// 		n31S.addOption(n33S);
-// 		n33S.addOption(n29S);
-// 		n32S.addOption(n33);
-
-
-
-// 		//chevalier
-// 		n10.addOption(n12);
-// 		n12.addOption(n13);
-// 		n13.addOption(n14);
-// 		n13.addOption(n15);
-// 		n15.addOption(n155);
-// 		n15.addOption(n1555);
-// 		n155.addOption(n19);
-// 		n1555.addOption(n19);
-
-// 		// Fight Node Garde n16
-// 		n14.addOption(n16);
-// 		n16.addOption(n19);
-
-// 		//sorciere 
-// 		n19.addOption(n20);
-// 		n20.addOption(n21);
-// 		n20.addOption(n22);
-
-// 		//chance Node
-// 		n22.addOption(n24B);
-// 		n24B.addOption(n25B);
-// 		n24B.addOption(n26B);
-// 		n24B.addOption(n27B);
-// 		//Go ducc
-// 		n25B.addOption(n33);
-// 		n26B.addOption(n33);
-// 		n27B.addOption(n31);
-
 		
-// 		n21.addOption(n25);
-// 		n25.addOption(n26);
-// 		n26.addOption(n27);
-// 		n26.addOption(n28);
-// 		n26.addOption(n29);
-// 		n26.addOption(n30);
 
-// 		//fightNode sorciere
-// 		n27.addOption(n31);
-// 		n28.addOption(n31);
-// 		n29.addOption(n31);
-// 		n30.addOption(n31);
-// 		//Go ducc
-// 		n31.addOption(n33);
 
 
 		
 		
-		// ArrayList<PersonnageCombattant> opponents8= new ArrayList<PersonnageCombattant>();
-		// Map<Collectibles, Integer> bytin8= new HashMap() ;
-		// Collectibles potion8 = new Objets("Potion de mort") ;
-		// Collectibles banane8 = new Objets("Banane") ;
+		ArrayList<PersonnageCombattant> opponents8= new ArrayList<PersonnageCombattant>();
+		Map<Collectibles, Integer> bytin8= new HashMap() ;
+		Collectibles potion8 = new Objets("Potion de mort") ;
+		Collectibles banane8 = new Objets("Banane") ;
 		
 
-		// bytin1.put(banane8, 3) ;
-		// bytin1.put(potion8, 6) ;
-		// ArrayList <Eleme> resistancess2=new ArrayList<>();
-		// resistancess.add(Eleme.FEU);
-		// resistancess.add(Eleme.LUMIERE);
-		// int [] probaCompetences8={7,3};
-		// ArrayList <CompetencesActives> jeanJacquesCtest= new ArrayList<>();
-		// jeanJacquesCtest.add(new CompetenceDammage("la mort", "rttt", 1, 100,150,1, Eleme.FOUDRE, false, true));
-		// jeanJacquesCtest.add(new CompetenceDammage("la mort 2", "2rttt", 0, 100,150,1, Eleme.FOUDRE, false, true));
-		// PersonnageAdversaire n19Stest = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 5, 10,resistancess,resistancess, jeanJacquesCtest,probaCompetences8);
-		// PersonnageAdversaire n20Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 5, 10,resistancess ,resistancess, jeanJacquesCtest, probaCompetences8);
-		// //PersonnageAdversaire n21Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
-		// //PersonnageAdversaire n22Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
-		// n19Stest.setImage("image/Grenouille.png");
-		// n20Stest.setImage("image/Grenouille.png");
+		bytin1.put(banane8, 3) ;
+		bytin1.put(potion8, 6) ;
+		ArrayList <Eleme> resistancess2=new ArrayList<>();
+		resistancess.add(Eleme.FEU);
+		resistancess.add(Eleme.LUMIERE);
+		int [] probaCompetences8={7,3};
+		ArrayList <CompetencesActives> jeanJacquesCtest= new ArrayList<>();
+		jeanJacquesCtest.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
+		jeanJacquesCtest.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
+		PersonnageAdversaire n19Stest = new PersonnageAdversaire("Jean Jacques", "fesf", 5, 4, 2, 3, 3, 20, 10,resistancess,resistancess, jeanJacquesCtest,probaCompetences8);
+		PersonnageAdversaire n20Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,resistancess ,resistancess, jeanJacquesCtest, probaCompetences8);
+		//PersonnageAdversaire n21Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
+		//PersonnageAdversaire n22Stest = new PersonnageAdversaire("Jean Paul", "fecdfsf", 2, 4, 4, 3, 3, 7, 10,resistancess ,resistancess, jeanJacquesC, probaCompetences8);
+		n19Stest.setImage("image/Grenouille.png");
+		n20Stest.setImage("image/Grenouille.png");
 
-		// opponents8.add(n19Stest);
-		// opponents8.add(n20Stest);
-		// //opponents8.add(n21Stest);
-		// //opponents8.add(n22Stest);
+		opponents8.add(n19Stest);
+		opponents8.add(n20Stest);
+		//opponents8.add(n21Stest);
+		//opponents8.add(n22Stest);
 
-		// InnerNode nodeTest = new FightNode("FightNode Test !", "Fight Node test !!", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin1);
-		// ArrayList<String> cinqPersonnages = new ArrayList<String>();
-		// nodeTest.setImageName("image/ForetJolie.png");
-		// nodeTest.addOption(n1);
-		// nodeTest.addOption(n2);
+		InnerNode nodeTest = new FightNode("FightNode Test !", "Fight Node test !!", "image/mystery-2169794_1280.jpg", opponents8, 250, bytin1);
+		ArrayList<String> cinqPersonnages = new ArrayList<String>();
+		nodeTest.setImageName("image/ForetJolie.png");
+		SoinNode soinNode = new SoinNode("Node de soin", "Vos joueurs devraient être soignés je vous invite à aller voir dans le superbe menu statut codé par un mec très bg !");
+
+		nodeTest.addOption(soinNode);
+		nodeTest.addOption(n2);
 
 		
 
-		// for (int i = 0; i < 4;i++){
-		// 	cinqPersonnages.add("image/MC_Mage.png");
-		// }
+		for (int i = 0; i < 4;i++){
+			cinqPersonnages.add("image/MC_Mage.png");
+		}
 
-		// n1.setImagePersoList(cinqPersonnages);
+		n1.setImagePersoList(cinqPersonnages);
 
 		Weapon arc = new Weapon(7, 100,"ARME TEST", "Un arc solide mais vetuste.", 1, 2, 2, 2, 4);
 
@@ -338,8 +387,18 @@ public class Main {
 		// Game.getGame().getInventaire().put(potion2, 9);
 		// Game.getGame().getInventaire().put(potion, 3);
 		// Game.getGame().getInventaire().put(arc, 1);
-		
-		Game.getGame().setFirstNode(n1) ;
+
+		ObjetNode objeNode = new ObjetNode("Node test", "Le groupe gagne une potion de test de merde");
+		Map<Collectibles, Integer> trucAAjouter = new HashMap<Collectibles, Integer>();
+		trucAAjouter.put(potion, 2);
+		objeNode.setObjets(trucAAjouter);
+		ObjetConditionNode conditionNode = new ObjetConditionNode("Node test", "Le prochain node sera déterminé à partir de vos objets hihi", potion);
+		conditionNode.addOption(nodeTest);
+		conditionNode.addOption(n1);
+		objeNode.addOption(conditionNode);
+
+
+		Game.getGame().setFirstNode(nodeTest) ;
 		
 		//InterfaceJeu.afficherImageDansInterface("tatata");
 

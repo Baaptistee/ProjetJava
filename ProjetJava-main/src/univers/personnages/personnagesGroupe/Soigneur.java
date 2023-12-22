@@ -6,7 +6,6 @@ import java.util.Random;
 import univers.Eleme;
 import univers.armes.Weapon;
 //import univers.armes.Weapon;
-import univers.armes.WeaponType;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
 /** a character of the group, the healer 
@@ -72,7 +71,6 @@ public class Soigneur extends PersoGroupe{
 			competence.add(c8) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
-			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
 			Weapon arc = new Weapon(7, 100,"Apparaitra tu", "Un arc solide mais vetuste.", 1, 2, 2, 2, 4);
 			instance = new Soigneur("Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
 			instance.setImage("image/Soigneur.png");

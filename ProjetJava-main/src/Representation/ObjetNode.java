@@ -21,13 +21,21 @@ public class ObjetNode extends TextNode{
      * @param checkPoint Indicates whether the ObjetNode is a checkpoint.
      * @param option The list of options available for the ObjetNode.
      */
-    public ObjetNode(String nom, String description, boolean checkPoint, ArrayList<Node> option){
-        super(nom, description, checkPoint, option);
+    public ObjetNode(String nom, String description){
+        super(nom, description);
+    }
+public ObjetNode(String nom, String description, Map<Collectibles, Integer> objets){
+        super(nom, description);
+        this.objets=objets ;
+    }
+    
+
+    public Map<Collectibles, Integer> getObjets(){
+        return this.getObjets();
     }
 
-    public ObjetNode(String nom, String description, boolean checkPoint, ArrayList<Node> option, Map<Collectibles, Integer> objets){
-        super(nom, description, checkPoint, option);
-        this.objets=objets ;
+    public void setObjets(Map<Collectibles, Integer> objets){
+        this.objets=objets;
     }
 
     /**
@@ -35,9 +43,6 @@ public class ObjetNode extends TextNode{
      */
     @Override
     public void display() {
-        if (Game.getGame().getGroupeJoueur().isEmpty()) {
-            throw new IllegalStateException("Le groupe de joueur est vide");
-        }
             for (Collectibles objet : this.objets.keySet()) {
                 for(int i =0; i<this.objets.get(objet);i++){
                     Game.getGame().ajoutInventaire(objet);

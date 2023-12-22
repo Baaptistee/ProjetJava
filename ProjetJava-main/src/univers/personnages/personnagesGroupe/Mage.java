@@ -7,7 +7,6 @@ import java.util.Random;
 
 import univers.Eleme;
 //import univers.armes.Weapon;
-import univers.armes.WeaponType;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
 
@@ -49,7 +48,6 @@ public class Mage extends PersoGroupe {
 			competence.add(c1) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
-			ArrayList<WeaponType> armePo = new ArrayList<WeaponType>() ;
 			instance = new Mage("Mage", "Description du Chevalier", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
 			instance.setImage("image/MC_Mage.png");
 		}

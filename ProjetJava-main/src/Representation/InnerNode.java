@@ -27,16 +27,7 @@ public abstract class InnerNode extends Node {
         this.options = options;
     }
 
-    /**
-     * Constructor for an `InnerNode` with an optional checkpoint.
-     * @param name The name of the inner node.
-     * @param description The description of the inner node.
-     * @param options The list of options available for the choice.
-     * @param checkPoint Indicates whether the inner node is a checkpoint.
-     */
-    public InnerNode(String name, String description, ArrayList<Node> options, boolean checkPoint){
-        super(name, description, checkPoint);
-    }
+    
 
     /**
      * Constructor for an `InnerNode` without an explicit checkpoint.
@@ -47,18 +38,6 @@ public abstract class InnerNode extends Node {
 		super(nom, description);
 	}
 
-    /**
-     * Constructor for an `InnerNode` with an optional checkpoint.
-     * @param name The name of the inner node.
-     * @param description The description of the inner node.
-     * @param imageName The name of the associated image.
-     * @param checkPoint Indicates whether the inner node is a checkpoint.
-     * @param options The list of options available for the choice.
-     */
-    public InnerNode(String nom, String description, String imageName, boolean checkPoint, ArrayList<Node> options){
-        super(nom, description, imageName, checkPoint);
-        this.options=options;
-    }
     
     /**
      * Constructor for an `InnerNode` without an explicit checkpoint.
@@ -80,39 +59,11 @@ public abstract class InnerNode extends Node {
         super("Node" + (Node.getTotalNode() + 1), description, imageName, imagepersoPath);
     }
 
-    /**
-     * Constructor for an `InnerNode` with an optional checkpoint.
-     * @param name The name of the inner node.
-     * @param description The description of the inner node.
-     * @param imageName The name of the associated image.
-     * @param checkPoint Indicates whether the inner node is a checkpoint.
-     */
-    public InnerNode(String nom, String description, String imageName, boolean checkPoint){
-        super(nom, description, imageName, checkPoint);
+    public InnerNode(String nom, String description, String imageName, ArrayList<Node> options) {
+        super(nom, description, imageName);
+         this.options=options;
     }
   
-    /**
-     * Constructor for an `InnerNode` with an optional checkpoint.
-     * @param name The name of the inner node.
-     * @param description The description of the inner node.
-     * @param checkPoint Indicates whether the inner node is a checkpoint.
-     * @param options The list of options available for the choice.
-     * @throws IllegalArgumentException If the provided options are null.
-     */
-    public InnerNode(String nom, String description, boolean checkPoint, ArrayList<Node> options){
-        super(nom, description, checkPoint);
-        this.options = options ;
-    }
-
-    /**
-     * Constructor for an `InnerNode` without an explicit checkpoint.
-     * @param name The name of the inner node.
-     * @param description The description of the inner node.
-     * @param checkPoint Indicates whether the inner node is a checkpoint.
-     */
-    public InnerNode(String nom, String description, boolean checkPoint){
-    	super(nom, description, checkPoint) ;
-    }
     
     /**
      * Get the list of available options for the choice.

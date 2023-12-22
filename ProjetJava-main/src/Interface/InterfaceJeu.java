@@ -225,15 +225,7 @@ public class InterfaceJeu {
             layeredPane.revalidate();
             layeredPane.repaint();
     
-            getFenetre().getContentPane().setLayout(null);
-            getFenetre().revalidate();
-            getFenetre().repaint();
-    
-            configPanel();
-            ImageIcon imageIconFon = new ImageIcon("image/ForetJolie.png");
-            JLabel labelFond = new JLabel(imageIconFon);
-            labelFond.setBounds(0, 0, 1000, 1000);
-            layeredPane.add(labelFond, JLayeredPane.DEFAULT_LAYER);
+            afficherImageDansInterface("image/ForetJolie.png");
 
             JPanel panel = new JPanel();
              panel.setBounds(50, 50, 400, 250);
@@ -289,6 +281,7 @@ public class InterfaceJeu {
         radioButton.setActionCommand(objet.getName());
         radioButton.setFont(new Font("Courier New", Font.PLAIN, 15));
         radioButton.setForeground(Color.WHITE);
+        radioButton.setBackground(Color.BLACK);
         buttonGroup.add(radioButton);
         contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
     }
@@ -393,11 +386,8 @@ public class InterfaceJeu {
             getFenetre().revalidate();
             getFenetre().repaint();
     
-            configPanel();
-            ImageIcon imageIconFon = new ImageIcon("image/ForetJolie.png");
-            JLabel labelFond = new JLabel(imageIconFon);
-            labelFond.setBounds(0, 0, 1000, 1000);
-            layeredPane.add(labelFond, JLayeredPane.DEFAULT_LAYER);
+                    afficherImageDansInterface("image/ForetJolie.png");
+
 
             JPanel panel = new JPanel();
              panel.setBounds(50, 50, 400, 250);
@@ -456,6 +446,8 @@ public class InterfaceJeu {
         radioButton.setActionCommand(perso.getName());
         radioButton.setFont(new Font("Courier New", Font.PLAIN, 15));
         radioButton.setForeground(Color.WHITE);
+        radioButton.setBackground(Color.BLACK);
+
         buttonGroup.add(radioButton);
         contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
     }
@@ -573,11 +565,7 @@ public class InterfaceJeu {
             getFenetre().revalidate();
             getFenetre().repaint();
     
-            configPanel();
-            ImageIcon imageIcon = new ImageIcon("image/ForetJolie.png");
-            JLabel labelFond = new JLabel(imageIcon);
-            labelFond.setBounds(0, 0, 1000, 1000);
-            layeredPane.add(labelFond, JLayeredPane.DEFAULT_LAYER);
+        afficherImageDansInterface("image/ForetJolie.png");
     
             addPanelWithImage(imagePathGroupList.get(0), 50, 100);
             addTextPanel(Game.getGame().getGroupeJoueur().get(0), 250, 100);
@@ -663,13 +651,8 @@ public class InterfaceJeu {
         layeredPane.revalidate();
         layeredPane.repaint();
 
-        getFenetre().getContentPane().setLayout(null);
-        getFenetre().revalidate();
-        getFenetre().repaint();
-        ImageIcon imageIconFond = new ImageIcon("image/ForetJolie.png");
-        JLabel labelFond = new JLabel(imageIconFond);
-        labelFond.setBounds(0, 0, 1000, 1000);
-        layeredPane.add(labelFond, JLayeredPane.DEFAULT_LAYER);
+    afficherImageDansInterface("image/ForetJolie.png");
+
 
     JPanel panel = new JPanel();
     panel.setBounds(50, 50, 400, 250);
@@ -750,6 +733,7 @@ public class InterfaceJeu {
         radioButton.setActionCommand(personnage.getCompetences().get(j).getName());
         radioButton.setFont(new Font("Courier New", Font.PLAIN, 15));
         radioButton.setForeground(Color.WHITE);
+        radioButton.setBackground(Color.BLACK);
         buttonGroup.add(radioButton);
         contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
     }
@@ -926,11 +910,11 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         panelText.setBounds(80, 200, 850, 300);
         layeredPane.add(panelText, JLayeredPane.POPUP_LAYER);
         getFenetre().add(layeredPane);
-        JLabel label = new JLabel("<html> <strong>Titre du Jeu </strong>", JLabel.CENTER);// Create a label for displaying the description of the node
+        JLabel label = new JLabel("<html> <strong>Enquêtes et Trahisons</strong>", JLabel.CENTER);// Create a label for displaying the description of the node
         panelText.add(label);
         panelText.setBackground(Color.CYAN); 
         panelText.setOpaque(false);
-        label.setFont(new Font("Courier New", Font.PLAIN, 100));
+        label.setFont(new Font("Courier New", Font.PLAIN, 65));
         getFenetre().revalidate();
         getFenetre().repaint();
 
@@ -1115,6 +1099,8 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                     radioButton.setFont(new Font("Courier new", Font.PLAIN, 15));
                     radioButton.setActionCommand(fichier.getName());
                     radioButton.setForeground(Color.WHITE);
+                    radioButton.setBackground(Color.BLACK);
+
                     buttonGroup.add(radioButton);
                     contentPanel.add(radioButton);
                 }
@@ -1436,39 +1422,11 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         btn1.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                        	node.goNext() ; // Code to execute when the button is clicked
-                            if(node instanceof TextNode){
-                                TextNode j= (TextNode) node;
-                                configPanel();
-                                    layeredPane.removeAll();
-                                layeredPane.revalidate();
-                                layeredPane.repaint();
-                                j.goNext().display();
-                               
-                            }
-                            if(node instanceof ChanceNode){
-                                ChanceNode x = (ChanceNode) node;
                                 configPanel();
                                 layeredPane.removeAll();
                                 layeredPane.revalidate();
                                 layeredPane.repaint();
-                                x.goNext().display();;
-                                
-                                                                
-                               
-                            }
-                            if (node instanceof TestNode){
-                                TestNode x = (TestNode) node;
-                                
-                                configPanel();
-                                layeredPane.removeAll();
-                                layeredPane.revalidate();
-                                layeredPane.repaint();
-                                x.goNext().display();;
-                                
-                              
-                            }
-                            
+                                node.goNext().display();;      
                         }
             });
         getFenetre().revalidate();
@@ -1779,6 +1737,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(perso).getCompetences().get(j).getName());
             radioButton.setFont(new Font("Courier New", Font.PLAIN, 15));
             radioButton.setForeground(Color.WHITE);
+            radioButton.setBackground(Color.BLACK);
             buttonGroup.add(radioButton);
             contentPanel.add(radioButton); // on crée un radio button pour chacune des compétences du personnage
         }
@@ -1799,12 +1758,17 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                         if (competence.isGroup()) { // si la compétence est une de groupe on apsse directement à la sélection suivante
                             Object[] cibleComp = {competence,null} ;
                             node.putAction(Game.getGame().getGroupeJoueurVivant().get(perso), cibleComp);
-                            if (perso + 1 == Game.getGame().getGroupeJoueurVivant().size()) { // on s'arrête si on a fini tous les persos
-                                selectionAdverse(node) ;
-                            } else {
-                                selectionAction(node, perso+1);
+                            if (perso + 1 < Game.getGame().getGroupeJoueurVivant().size()) {
+                                // i use getFenetre() and note layeredpane because it doesn't delet panelfight
+                                
+                                selectionAction(node, perso +1 );
+                             } else {
+                                // i use getFenetre() and note layeredpane because it doesn't delet panelfight
+                                
+                                selectionAdverse(node);   
                             }
                         } else {
+                            
                             Object[] cibleCompetence = {competence, null};   
                             selectionCible(node, perso, cibleCompetence) ; // on va sélectionner la cible de la compétence                             
                         }
@@ -1861,6 +1825,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                 radioButton.setActionCommand(node.getOpponentsVivant().get(j).getName());
                 radioButton.setFont(maFont);
                 radioButton.setForeground(Color.WHITE);
+                radioButton.setBackground(Color.BLACK);
                 buttonGroup.add(radioButton);
                 contentPanel.add(radioButton);
             }
@@ -1870,6 +1835,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                 radioButton.setActionCommand(Game.getGame().getGroupeJoueurVivant().get(j).getName());
                 radioButton.setFont(maFont);
                 radioButton.setForeground(Color.WHITE);
+                radioButton.setBackground(Color.BLACK);
                 buttonGroup.add(radioButton);
                 contentPanel.add(radioButton);
             }
@@ -1907,16 +1873,10 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                 node.putAction(Game.getGame().getGroupeJoueurVivant().get(perso), cibleCompetence) ;
                 if (perso + 1 < Game.getGame().getGroupeJoueurVivant().size()) {
                     // i use getFenetre() and note layeredpane because it doesn't delet panelfight
-                        getFenetre().remove(panelFight);
-                        layeredPane.revalidate();
-                        layeredPane.repaint();
-                    selectionAction(node, perso +1 );
+                        selectionAction(node, perso +1 );
                 } else {
                     // i use getFenetre() and note layeredpane because it doesn't delet panelfight
-                        getFenetre().remove(panelFight);
-                        layeredPane.revalidate();
-                        layeredPane.repaint();
-                    selectionAdverse(node);      
+                        selectionAdverse(node);      
                 } 
             }  }
         });
@@ -1956,7 +1916,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         Set<PersonnageCombattant> a = node.getAction().keySet();
         ArrayList<PersonnageCombattant> ordreDAction = new ArrayList<PersonnageCombattant>(a);
     // on trie la liste en fonction de la vitesse des personnages 
-        Collections.sort(ordreDAction, Comparator.comparingInt(PersonnageCombattant::getSpeed));
+        Collections.sort(ordreDAction, Comparator.comparingInt(PersonnageCombattant::getSpeed).reversed());
 
         String txt = "" ;
         String texteAction ="" ;
@@ -1984,7 +1944,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
             PersonnageCombattant cible = (PersonnageCombattant)node.getAction().get(ordreDAction.get(i))[1] ;
             CompetencesActives competence = (CompetencesActives)node.getAction().get(ordreDAction.get(i))[0] ;
         
-            txt = (competence.utilisation(utilisateur, cible));
+            txt = (competence.utilisation(utilisateur, cible, node));
             
             if (txt == "nope"){ // la fonction competence d'utilisation renvoie "nope" si rien ne se passe 
                 texteAction += "$" ;
@@ -2731,7 +2691,6 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
      * @param imageName
      */
     public static void afficherImageDansInterface(String imageName) {
-        if (imageName != null) {
             try {
                 configPanel();
                 ImageIcon imageIcon = new ImageIcon(imageName);
@@ -2752,10 +2711,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                     throw new Exception("Échec du chargement de l'image "+imageName);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
             }
-        }
+        
     }
     /**
      * Fonction pour lancer les sons dans l'interface

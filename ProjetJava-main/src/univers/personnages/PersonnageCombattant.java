@@ -290,6 +290,9 @@ public abstract class PersonnageCombattant extends Personnage {
 	 */
 	public void setLifePoints(int lifePoints) {
 		this.lifePoints = lifePoints;
+		if (this.lifePoints>this.maxLifePoints){
+			this.lifePoints=this.maxLifePoints;
+		}
 	}
 	/** a getter for max lifePOints
 	 * 

@@ -16,10 +16,10 @@ import java.util.Map;
 
 public class FightNode extends InnerNode {
 	
-	private ArrayList<PersonnageCombattant> opponents ; //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
+	private ArrayList<PersonnageCombattant> opponents = new ArrayList<>(); //The opponents field represents a collection of combatant characters that the player may face in a combat scenario.
 	private int xp ;
-	private Map<Collectibles, Integer> butin ;
-	private Map<PersonnageCombattant, Object[]> actions ;
+	private Map<Collectibles, Integer> butin = new HashMap<Collectibles,Integer>();
+	private Map<PersonnageCombattant, Object[]> actions = new HashMap<>();
 
 
     /**
@@ -32,7 +32,7 @@ public class FightNode extends InnerNode {
 				super(nom, description, imageName) ;
 	}
 	public FightNode(String description, String imageName){
-		super("Node" + Node.getTotalNode()+1, description,imageName, false) ;
+		super("Node" + Node.getTotalNode()+1, description,imageName) ;
 	}
 
 	public FightNode(String nom, String description,String imageName, ArrayList<PersonnageCombattant> opponents, int xp, Map<Collectibles, Integer> butin){
@@ -78,6 +78,9 @@ public class FightNode extends InnerNode {
 	}
 
 	public void setButin(Map<Collectibles, Integer> butin) {
+		if (butin ==null){
+			throw new IllegalArgumentException("Le butin ne peut être null "+this.getNom());
+		}
 		this.butin = butin;
 	}
 
@@ -85,6 +88,9 @@ public class FightNode extends InnerNode {
      * Method to display the information of the fight node.
      */
 	public boolean isGroupEnVie(ArrayList<PersonnageCombattant> groupe ){
+		if (groupe ==null){
+			throw new IllegalArgumentException("Le groupe à tester ne peut être null !");
+		}
 		boolean retour = false ;
 		for (int i = 0 ; i < groupe.size(); i++) {
 			if (groupe.get(i).enVie()) {
@@ -133,6 +139,9 @@ public class FightNode extends InnerNode {
 	}
 
 	public void putAction(PersonnageCombattant utilisateur, Object[] competenceCible){
+		if (utilisateur==null){
+			throw new IllegalArgumentException("L'utilisateur ne peut pas être null");
+		}
 		if (this.actions == null){
 			this.actions  = new HashMap<>();
 		}
@@ -141,6 +150,9 @@ public class FightNode extends InnerNode {
 	}
 
 	public void removeAction(PersonnageCombattant utilisateur) {
+		if (utilisateur==null){
+			throw new IllegalArgumentException("L'utilisateur ne peut pas être null");
+		}
 		this.actions.remove(utilisateur) ;
 	}
 

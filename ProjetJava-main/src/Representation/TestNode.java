@@ -26,8 +26,8 @@ public class TestNode extends InnerNode {
      * @param difficulteTest The difficulty level of the test.
      * @param nombreReussiteNecessaire The number of successes required for the test.
      */
-    public TestNode(String nom, String description, String imageName, boolean checkPoint,ArrayList<Node> options, Statistiques statATester, Integer difficulteTest,int nombreReussiteNecessaire){
-        super(nom, description, imageName, checkPoint, options);
+    public TestNode(String nom, String description, String imageName,ArrayList<Node> options, Statistiques statATester, Integer difficulteTest,int nombreReussiteNecessaire){
+        super(nom, description, imageName, options);
 
         if (difficulteTest == null) {
             throw new IllegalArgumentException("La difficulté du test ne peut pas être null. ");
@@ -46,6 +46,25 @@ public class TestNode extends InnerNode {
         this.nombreReussiteNecessaire = nombreReussiteNecessaire;
     }
 
+    public TestNode(String nom,String description,String imageName, Statistiques statATester,Integer difficulteTest, int nombreReussiteNecessaire){
+        super(nom, description,imageName);
+
+        if (difficulteTest == null) {
+            throw new IllegalArgumentException("La difficulté du test ne peut pas être null. ");
+        }
+
+        if (statATester == null) {
+            throw new IllegalArgumentException("La statistique à tester ne peut pas etre null. ");
+        }
+
+        if (nombreReussiteNecessaire < 0) {
+            throw new IllegalArgumentException("Le nombre de réussite ne peut pas être null. ");
+        }
+        this.difficulteTest = difficulteTest;
+        this.statATester = statATester;
+        this.nombreReussiteNecessaire = nombreReussiteNecessaire;
+    }
+
     /**
      * Constructs a TestNode with the specified parameters and generates a default name.
      *
@@ -55,8 +74,8 @@ public class TestNode extends InnerNode {
      * @param difficulteTest The difficulty level of the test.
      * @param nombreReussiteNecessaire The number of successes required for the test.
      */
-    public TestNode(String description, boolean checkPoint, Statistiques statATester,Integer difficulteTest, int nombreReussiteNecessaire){
-        super("Node" + Node.getTotalNode() + 1, description, checkPoint);
+    public TestNode(String description, Statistiques statATester,Integer difficulteTest, int nombreReussiteNecessaire){
+        super("Node" + Node.getTotalNode() + 1, description);
 
         if (difficulteTest == null) {
             throw new IllegalArgumentException("La difficulté du test ne peut pas être null. ");

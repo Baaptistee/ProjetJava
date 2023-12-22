@@ -67,7 +67,6 @@ public class Weapon implements Utilisable, Serializable{
 	
 	private int prix ; 
 	
-	private WeaponType weaponType ;
 	
 	/** The constructor of the class 
 	 * 
@@ -215,16 +214,7 @@ public class Weapon implements Utilisable, Serializable{
 	/* getter for weaponType 
 	 * 
 	 */
-	public WeaponType getWeaponType() {
-		return weaponType;
-	}
-	/** setter for weaponType
-	 * 
-	 * @param weaponType the new weaponType wanted for the weapon 
-	 */
-	public void setWeaponType(WeaponType weaponType) {
-		this.weaponType = weaponType;
-	}
+	
 	/* getter for bonusSpeed  
 	 * 
 	 */
@@ -269,7 +259,7 @@ public class Weapon implements Utilisable, Serializable{
 			return false ;
 		} else {
 			Weapon perso = (Weapon)obj ;
-			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getAccuracy(), perso.getAccuracy()) && Objects.equals(this.getBonusDexterity(), perso.getBonusDexterity()) && Objects.equals(this.getBonusEndurance(), perso.getBonusEndurance()) && Objects.equals(this.getBonusIntelligence(), perso.getBonusIntelligence()) && Objects.equals(this.getBonusSpeed() , perso.getBonusSpeed()) && Objects.equals(this.getBonusStrength(), perso.getBonusStrength()) && Objects.equals(this.getDammage(), perso.getDammage()) && Objects.equals(this.getElement(), perso.getElement()) && Objects.equals(this.getPrix(), perso.getPrix()) && Objects.equals(this.getWeaponType(), perso.getWeaponType())) {
+			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getAccuracy(), perso.getAccuracy()) && Objects.equals(this.getBonusDexterity(), perso.getBonusDexterity()) && Objects.equals(this.getBonusEndurance(), perso.getBonusEndurance()) && Objects.equals(this.getBonusIntelligence(), perso.getBonusIntelligence()) && Objects.equals(this.getBonusSpeed() , perso.getBonusSpeed()) && Objects.equals(this.getBonusStrength(), perso.getBonusStrength()) && Objects.equals(this.getDammage(), perso.getDammage()) && Objects.equals(this.getElement(), perso.getElement()) && Objects.equals(this.getPrix(), perso.getPrix())) {
 				return true ;
 			} else {
 				return false ;

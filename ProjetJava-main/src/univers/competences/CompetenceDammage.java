@@ -3,7 +3,10 @@ package univers.competences;
 import java.util.Objects;
 import java.util.Random;
 
+import Representation.FightNode;
+import Representation.Game;
 import univers.Eleme;
+import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageCombattant;
 /** a class for the dammaging competence 
  * 
@@ -172,10 +175,17 @@ public class CompetenceDammage extends CompetencesActives{
 	 * 	
 	 */
 	@Override
-	public String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible) {
+	public String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible, FightNode node) {
 		Random random = new Random() ;
 		String d ;
 		int b ;
+		if (this.isGroup()){
+			if(utilisateur instanceof PersoGroupe){
+				cible = node.getOpponents().get(0);
+			} else {
+				cible = Game.getGame().getGroupeJoueur().get(0);
+			}
+		}
 		// on teste si l'utilisateur a assez de mana 
 		if (cible.getGroupeVivant().size()==0){
 			d = "nope" ;
@@ -192,6 +202,7 @@ public class CompetenceDammage extends CompetencesActives{
 			for (int x=0 ; x<this.getNbHits() ; x++) {
 				// on parcoure le groupe en cas de dommages de groupe
 				if (this.isGroup()) {
+					
 					for(int i = 0 ; i < cible.getGroupe().size() ; i++) {
 						//on appelle la méthode esquive qui permet de savoir si le personnage a esquivé l'attaque 
 						if (cible.getGroupeVivant().get(i).esquive(this.getAccuracy(), utilisateur)) {

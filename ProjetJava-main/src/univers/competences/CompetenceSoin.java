@@ -3,6 +3,9 @@ package univers.competences ;
 import java.util.Objects;
 import java.util.Random;
 
+import Representation.FightNode;
+import Representation.Game;
+import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageCombattant;
 
 /** A class for the competences that have a healing effect
@@ -98,8 +101,17 @@ public class CompetenceSoin extends CompetencesActives {
 	 * @param the user of the competence 
 	 * @param the target of the competence 
 	 */
-	public String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible) {
+	public String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible, FightNode node) {
 		try {
+
+		if (this.isGroup()){
+			if(utilisateur instanceof PersoGroupe){
+				cible = Game.getGame().getGroupeJoueur().get(0);
+			} else {
+				cible = node.getOpponents().get(0);
+			}
+		}
+
 		if (utilisateur==null){
 			throw new IllegalArgumentException("utilisateur null !!");
 		}

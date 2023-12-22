@@ -16,8 +16,8 @@ public class SoinNode extends TextNode {
      * @param checkPoint Indicates whether the SoinNode is a checkpoint.
      * @param option The list of options available for the SoinNode.
      */
-    public SoinNode(String nom, String description, boolean checkPoint, ArrayList<Node> option){
-        super(nom, description, checkPoint, option);
+    public SoinNode(String nom, String description){
+        super(nom, description);
     }
 
     /**

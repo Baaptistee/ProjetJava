@@ -10,13 +10,11 @@ import Interface.* ;
 public abstract class Node extends Object implements Event, Serializable {
 	
 	private static int totalNode = 0; 
-	private static Node lastCheckPoint;
 	private static InterfaceJeu interfac = new InterfaceJeu() ; 
 	private String description ; 
 	private int idNode ; 
 	private String nom ; 
 	private Node formerNode ; 
-	private boolean checkPoint = false ;
 	private String imageName;
 	private String soundName;
 	private ArrayList <String> imagepersoPath = new ArrayList<String>();
@@ -61,6 +59,11 @@ public abstract class Node extends Object implements Event, Serializable {
 		if (description == null) {
 			throw new IllegalArgumentException("La description du node ne peut pas être null");
 		}
+		if (nom.length()>25){
+			System.out.println("Attention il y a plus de 25 caractères !! "+nom);
+
+         	nom = nom.substring(0, Math.min(nom.length(), 25));
+		}
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
 		this.description = description ;
 		this.nom = nom ;
@@ -85,7 +88,9 @@ public abstract class Node extends Object implements Event, Serializable {
 			throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
 		} 
 		if (nom.length()>25){
-			throw new IllegalArgumentException("Le nom ne peut pas être de plus de 25 caractères");
+			System.out.println("Attention il y a plus de 25 caractères !! "+nom);
+
+         	nom = nom.substring(0, Math.min(nom.length(), 25));
 		}
 		
 		this.idNode = totalNode++ ; // Incrementing for a unique ID with each Node creation
@@ -95,62 +100,6 @@ public abstract class Node extends Object implements Event, Serializable {
 		this.imagepersoPath=imagepersoPath;
 	}
 
-
-	
-	/**
-     * Constructor for the Node with an optional checkpoint.
-     * @param name The name of the Node.
-     * @param description The description of the Node.
-	 * @param imageName The name of the associated image.
-     * @param isCheckpoint Indicates whether the Node is a checkpoint.
-     */
-
-	public Node(String nom, String description,String imageName, boolean checkPoint){
-
-		if (nom == null) {
-			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
-		}
-		if (description == null) {
-			throw new IllegalArgumentException("La description du node ne peut pas être null");
-		}
-		if (imageName == null) {
-			throw new IllegalArgumentException("Le nom de l'image du node ne peut pas être null");
-		}
-		if (nom.length()>25){
-			throw new IllegalArgumentException("Le nom ne peut pas être de plus de 25 caractères");
-		}
-		
-		this.idNode = totalNode++ ;
-		this.description = description ;
-		this.nom = nom ;
-		this.checkPoint = checkPoint ;
-		this.imageName=imageName; 
-	}
-
-	/**
-     * Constructor for the Node with an optional checkpoint.
-     * @param name The name of the Node.
-     * @param description The description of the Node.
-     * @param isCheckpoint Indicates whether the Node is a checkpoint.
-     */
-	
-
-	public Node(String nom, String description, boolean checkPoint){
-
-		if (nom == null) {
-			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
-		}
-		if (description == null) {
-			throw new IllegalArgumentException("La description du node ne peut pas être null");
-		}
-		if (nom.length()>25){
-			throw new IllegalArgumentException("Le nom ne peut pas être de plus de 25 caractères");
-		}
-		this.idNode = totalNode++ ;
-		this.description = description ;
-		this.nom = nom ;
-		this.checkPoint = checkPoint ;
-	}
 
 
 	/**
@@ -224,8 +173,10 @@ public String getImageName() {
 		if( newNom==null){
 			throw new IllegalArgumentException("Le nom est null");
 		}
-		if (nom.length()>25){
-			throw new IllegalArgumentException("Le nom ne peut pas être de plus de 25 caractères");
+		if (newNom.length()>25){
+			System.out.println("Attention il y a plus de 25 caractères !! "+nom);
+
+         	newNom = newNom.substring(0, Math.min(nom.length(), 25));
 		}
 		this.nom = newNom ; 
 	}
@@ -271,50 +222,6 @@ public String getImageName() {
 		this.formerNode = formerNode ;
 	}
 
-
-	/**
-     * Get the checkpoint status of the Node.
-     * @return `true` if the Node is a checkpoint, `false` otherwise.
-     */
-
-	public boolean getCheckPoint() {
-		return this.checkPoint ;
-	}
-	
-	 /**
-     * Set the checkpoint status of the Node.
-     * @param x `true` to mark the Node as a checkpoint, `false` otherwise.
-     */
-
-	public void setCheckPoint(boolean x) {
-		this.checkPoint = x ;
-	}
-	
-	/**
-     * Mark the Node as a checkpoint.
-     */
-
-	public void checkPointTrue() {
-		this.checkPoint = true ;
-	}
-
-	/**
-     * Set the last checkpoint Node.
-     * @param x The last checkpoint Node to set.
-     */
-
-	public static void setLastCheckpoint(Node x) {
-		lastCheckPoint = x ;
-	}
-
-	/**
-     * Get the last checkpoint Node.
-     * @return The last checkpoint Node.
-     */
-
-	public static Node getLastCheckPoint() {
-		return lastCheckPoint ;
-	}
 	
 	/**
      * Get the Game.getGame() interface instance.
@@ -331,15 +238,7 @@ public String getImageName() {
 
 	public abstract Node goNext() ;
 
-	 /**
-     * Check if the Node is a checkpoint and update the last checkpoint if needed.
-     */
-
-	public void isCheckPoint() {
-		if (this.getCheckPoint()) { 
-        	setLastCheckpoint(this) ;
-        }
-	}
+	
 	
 		/**
 	 * Returns a string representation of the Node, including its name and description.
@@ -368,8 +267,7 @@ public String getImageName() {
 			return Objects.equals(this.getDescription(), node.getDescription()) &&
 					Objects.equals(this.getNom(), node.getNom()) &&
 					Objects.equals(this.getID(), node.getID()) &&
-					Objects.equals(this.getFormerNode(), node.getFormerNode()) &&
-					Objects.equals(this.getCheckPoint(), node.getCheckPoint());
+					Objects.equals(this.getFormerNode(), node.getFormerNode()) ;
 		}
 	}
 
@@ -378,7 +276,6 @@ public String getImageName() {
  * checks if it is a checkpoint to update the last checkpoint if needed.
  */
 public void display() {
-    this.isCheckPoint();
     Game.getGame().setCurrentNode(this);
 	ImageNode imageNode= new ImageNode(this, this.getImageName());
     imageNode.display();
