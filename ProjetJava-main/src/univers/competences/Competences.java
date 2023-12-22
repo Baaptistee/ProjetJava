@@ -3,22 +3,18 @@ package univers.competences;
 import java.io.Serializable;
 import java.util.Objects;
 
-/** A class that is used to represents competences
- * they will be a distinction beteen passive and active competences later 
+/**
+ * Une classe pour les compétences 
  */
 public abstract class Competences implements Serializable{
-	/** The description of the competence
-	 * 
-	 */
+	
 	private String description ;
-	/** The name of the competence 
-	 * 
-	 */
 	private String name ; 
-	/** The constructor of the class 
-	 * 
-	 * @param name
-	 * @param description
+	
+	/**
+	 * Le constucteur de la classe 
+	 * @param name le nom de la classe 
+	 * @param description la description de la classe 
 	 */
 	public Competences(String name, String description) {
 		try { if (name==null){
@@ -31,53 +27,66 @@ public abstract class Competences implements Serializable{
 	}
 	}
 	
-	/** the default constructeur
-	 * 
+	/**
+	 * Le constructeur par défaut 
 	 */
 	public Competences() {
 		this.description = null ;
 		this.name = null ;
 	}
 	
+	/**
+	 * un constructeur avec juste le nom 
+	 * @param nom le nom 
+	 */
 	public Competences(String nom) {
 		this.name = nom ;
 }
 
-	/** a Getter for the description
-	 * 
-	 * @return
+	/**
+	 * Un getter pour la description 
+	 * @return la description
 	 */
 	public String getDescription() {
 		return description;
 	}
-	/** a setter for description
-	 * 
-	 * @param description
+	
+	/**
+	 * Un setter pour la description
+	 * @param description la nouvelle description
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	/** a Getter for the name
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour le nom 
+	 * @return le nom 
 	 */
 	public String getName() {
 		return name;
 	}
-	/** a setter for name 
-	 * 
-	 * @param name
+	
+	/**
+	 * Un setter pour le nom
+	 * @param name le nouveau nom 
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 
+	/**
+	 * Une méthode pour transformer en String 
+	 */
 	@Override
 	public String toString() {
 		return "[description=" + description + ", name=" + name + "] ";
 	}
 
+	/**
+	 * Méthode pour comparer à un objet et vois si ils sont égaux 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -1,6 +1,5 @@
 /**
- * The ChanceNode class represents a node that introduces a chance-based decision among different options.
- * It extends the InnerNode class.
+ * La Classe chanceNode est pour des nodes dont le node suivant sera déterminé de manière aléatoire 
  *
  * @see InnerNode
  */
@@ -10,24 +9,21 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-/**
- * The ChanceNode class represents a node that introduces a chance-based decision among different options.
- * It extends the InnerNode class.
- *
- * @see InnerNode
- */
+
 public class ChanceNode extends InnerNode {
 
+    /**
+     * les probabilités pour chaque option du node 
+     */
     private ArrayList<Integer> probability;
 
     /**
-     * Constructs a ChanceNode with a name, description, options, image name, and probability for each option.
-     *
-     * @param nom The name of the ChanceNode.
-     * @param description The description of the ChanceNode.
-     * @param options The available options for the chance node.
-     * @param imageName The name of the associated image.
-     * @param probability The probability of each possible node.
+     * Constructeur de la classe 
+     * @param nom Le nom du chanceNode 
+     * @param description La description du chanceNode 
+     * @param options Les différentes options du chanceNode
+     * @param imageName Le lien de l'image de fond
+     * @param probability la probabilité de chacune des options
      */
     public ChanceNode(String nom, String description, ArrayList<Node> options, String imageName, ArrayList<Integer> probability) {
         super(nom, description, imageName, options);
@@ -35,17 +31,24 @@ public class ChanceNode extends InnerNode {
         probaOptionBienInstanciees();
     }
 
+    /**
+     * Un autre constructeur
+     * @param nom le nom du chanceNode
+     * @param description La description du constructeur
+     * @param imageName le lien de l'image de fond
+     * @param probability les probabilités associées à chacune des options
+     */
     public ChanceNode(String nom, String description,String imageName, ArrayList<Integer> probability) {
         super(nom, description, imageName);
         this.probability = probability;
     }
 
     /**
-     * Constructs a ChanceNode with a name, description, and probability for each option.
+     * Un autre constructeur 
      *
-     * @param nom The name of the ChanceNode.
-     * @param description The description of the ChanceNode.
-     * @param probability The probability of each possible node.
+     * @param nom le nom du chanceNode
+     * @param description la description du ChanceNode.
+     * @param probability la probabilité de chaque node possible
      */
     public ChanceNode(String nom, String description, ArrayList<Integer> probability) {
         super(nom, description);
@@ -53,10 +56,10 @@ public class ChanceNode extends InnerNode {
     }
 
     /**
-     * Constructs a ChanceNode with a default name, description, and probability for each option.
+     * un autre constructeur 
      *
-     * @param description  The description of the ChanceNode.
-     * @param probability  The probability of each possible node.
+     * @param description  la description du node 
+     * @param probability  la probabilité de chacune des options
      */
     public ChanceNode(String description, ArrayList<Integer> probability) {
         super("Node" + Node.getTotalNode() + 1, description);
@@ -64,18 +67,17 @@ public class ChanceNode extends InnerNode {
     }
 
     /**
-     * Gets the probability of each possible node.
+     * un getter pour les probabilités 
      *
-     * @return The list of probabilities.
+     * @return la arrayList avec nos probabilités 
      */
     public ArrayList<Integer> getProbability() {
         return probability;
     }
 
     /**
-     * Sets the probability of each possible node.
-     *
-     * @param probability The list of probabilities to set.
+     * un setter pour les proabbilités 
+     * @param probability la nouvelle liste de probabilités
      */
     public void setProbability(ArrayList<Integer> probability) {
         if(probability.isEmpty()){
@@ -87,14 +89,15 @@ public class ChanceNode extends InnerNode {
     }
 
     /**
-     * Selects a node based on a random outcome.
+     * Sélectionne node à l'aide de la librairie randomé
      *
-     * @return The selected node.
+     * @return Le node sélectionné
      */
     public Node select() {
         if (this.getOptions().isEmpty()) {
             throw new IllegalStateException("La liste des options ne peut pas être vide");
         }
+        probaOptionBienInstanciees();
         Random random = new Random();
         int randomNum = random.nextInt(10);
 
@@ -112,6 +115,9 @@ public class ChanceNode extends InnerNode {
         }
     }
 
+    /**
+     * une fonction pour vérifier que les proba et les options sont bien instanciées (de même taille)
+     */
     public void probaOptionBienInstanciees(){
         if (probability.size()!=this.getOptions().size()){
             throw new IllegalStateException("Pas le même nombre de probabilités que d'options !");
@@ -119,7 +125,8 @@ public class ChanceNode extends InnerNode {
     }
 
     /**
-     * Advances to the next node based on the chance outcome.
+     * La fonction pour retourner le node suivant
+     * @return le node suivant 
      */
     public Node goNext() {
         Node selectedNode = this.select();
@@ -128,9 +135,9 @@ public class ChanceNode extends InnerNode {
     }
 
     /**
-     * Overrides the toString method to provide a string representation of the ChanceNode.
+     * un override de la méthode toString
      *
-     * @return A string representation of the ChanceNode.
+     * @returnle string qui va représenter le chanceNode
      */
     @Override
     public String toString() {
@@ -138,10 +145,10 @@ public class ChanceNode extends InnerNode {
     }
 
     /**
-     * Overrides the equals method to compare two ChanceNode objects for equality.
+     *la méthode équals pour le chanceNode 
      *
-     * @param obj The object to compare with.
-     * @return True if the objects are equal, false otherwise.
+     * @param obj L'objet auquel il est comparé
+     * @return Vrai si ce sont les mêmes objets et faux sinon
      */
     @Override
     public boolean equals(Object obj) {

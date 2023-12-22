@@ -19,6 +19,9 @@ import univers.personnages.*;
 import univers.personnages.personnagesGroupe.* ;
 import univers.*;
 
+/**
+ * la classe qui sert à stimuler notre jeu et à sauvegarder 
+ */
 public class Game implements Serializable {
 	
 	private ArrayList<PersonnageCombattant> groupeJoueur ;
@@ -28,8 +31,15 @@ public class Game implements Serializable {
 	private Map<Collectibles, Integer> inventaire = new HashMap<>();
 	private String nomJoueur = "Baptiste";
 
+	/**
+	 * constructeur privé
+	 */
 	private Game(){}
 	
+	/**
+	 * une méthode qui renvoie le groupe de joueur
+	 * @return le groupe de joueur 
+	 */
 	public ArrayList<PersonnageCombattant> getGroupeJoueur() {
 		if (this.groupeJoueur==null) {
 			this.groupeJoueur = new ArrayList<PersonnageCombattant>() ;
@@ -41,7 +51,10 @@ public class Game implements Serializable {
 		return groupeJoueur;
 	}
 
-
+	/**
+	 * une méthode pour get l'instance de jeu
+	 * @return l'instance de jeu
+	 */
 	public static Game getGame(){
 		if (instance == null){
 			instance = new Game() ;
@@ -49,14 +62,25 @@ public class Game implements Serializable {
 		return instance ;
 	}
 
+	/**
+	 * un getter pour le nom du joueur
+	 * @return le nom du joueur 
+	 */
 	public String getNomJoueur(){
 		return this.nomJoueur;
 	}
 
+	/**
+	 * un setter pour l'instance
+	 * @param newGame le nouveau jeu 
+	 */
 	public static void setGame(Game newGame){
 		instance = newGame ;
 	}
 
+	/**
+	 * une méthode pour commencer une nouvelle partie
+	 */
 	public static void newGame(){
 		instance = null ;
 		Chevalier.newChevalier();
@@ -65,6 +89,9 @@ public class Game implements Serializable {
 		Voleur.newVoleur();
 	}
 
+	/**
+	 * une méthode pour sauvegarder le jeu
+	 */
 	public void sauvegarde() {
 		if (!(this.currentNode instanceof FightNode)){
 			File dossierSauvegardes = new File("Sauvegardes");
@@ -90,10 +117,18 @@ public class Game implements Serializable {
 		}
 	}
 
+	/**
+	 * un getter pour l'inventaire 
+	 * @return l'inventaire
+	 */
 	public Map<Collectibles,Integer> getInventaire(){
 		return this.inventaire;
 	}
 
+	/**
+	 * une méthode pour ajouter un objet à l'inventaire
+	 * @param objet l'objet à ajouter
+	 */
 	public void ajoutInventaire(Collectibles objet){
 		if (inventaire.containsKey(objet)){
 			int u = inventaire.remove(objet);
@@ -103,6 +138,10 @@ public class Game implements Serializable {
 		}
 	}
 
+	/**
+	 * une méthode pour enlever un objet de l'inventaire
+	 * @param objet l'objet à enlever
+	 */
 	public void enleverInventaire(Collectibles objet){
 		if(!inventaire.containsKey(objet)){
 			throw new IllegalArgumentException("L'objet n'est pas dans l'inventaire");
@@ -115,24 +154,41 @@ public class Game implements Serializable {
 		}
 	}
 
-
+	/**
+	 * une méthode pour obtenir le node actuel
+	 * @return le node actuel
+	 */
 	public Node getCurrentNode(){
 		return this.currentNode ;
 	}
 
+	/**
+	 * une méthode pour obtenir le Premier Node
+	 * @return le premier Node 
+	 */
 	public Node getFirstNode(){
 		return this.firstNode ;
 	}
 
+	/**
+	 * Une méthode pour set le premier Node 
+	 * @param node le nouveau premier Node 
+	 */
 	public void setFirstNode(Node node){
 		this.firstNode=node ;
 	}
 
+	/**
+	 * Une méthode pour set le node actuel
+	 * @param node le node actuel 
+	 */
 	public void setCurrentNode(Node node){
 		this.currentNode = node ;
-		//System.out.println("current node set ");
 	}
-	
+	/**
+	 * une méthode pour get le groupe de joueur vivant 
+	 * @return le groupe de joueur vivant
+	 */
 	public ArrayList<PersonnageCombattant> getGroupeJoueurVivant() {
 		ArrayList<PersonnageCombattant> joueurEnVie = new ArrayList<PersonnageCombattant>() ;
 
@@ -144,6 +200,9 @@ public class Game implements Serializable {
 		return joueurEnVie ;
 	}
 	
+	/**
+	 * une méthode pour configurer le jeu 
+	 */
 	public void configGame() {
 		InterfaceJeu.configFenetre() ;
 	}

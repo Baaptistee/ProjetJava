@@ -8,46 +8,31 @@ import Representation.Game;
 import univers.Eleme;
 import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageCombattant;
-/** a class for the dammaging competence 
- * 
+
+/**
+ * La classe pour les compétences infligeant des dégats 
  */
 public class CompetenceDammage extends CompetencesActives{
-	/** the accuracy of the competence 
-	 * 
-	 * 
-	 */
+	
+	
 	private int accuracy ;
-	/** the power of the competence 
-	 * 
-	 */
 	private int power ;
-	/** the variable used to represent if the competence a group damaging one 
-	 * 
-	 */
 	private boolean groupDammage ;
-	/** the numbers of hits the competence does 
-	 * 
-	 */
 	private int nbHits ;
-	/** the element of the competence 
-	 * 
-	 */
 	private Eleme element ;
-	/** is the capacity physical or magical 
-	 * 
-	 */
 	private boolean physical ; // on fait la convention qu'une attaque non physique est donc magique
-	/** the constructor of the class
+	
+	/** Le constructeur de la classe 
 	 * 
-	 * @param nom
-	 * @param description
-	 * @param coutMana
-	 * @param accuracy
-	 * @param power
-	 * @param nbHits
-	 * @param element
-	 * @param groupDammage
-	 * @param physical
+	 * @param nom Le nom de la compétence 
+	 * @param description la description de la compétence 
+	 * @param coutMana le coût Mana 
+	 * @param accuracy la précision 
+	 * @param power la puissance de la capacacité 
+	 * @param nbHits Les nombres de coups 
+	 * @param element l'element de l'attaque 
+	 * @param groupDammage si les dommages sont de groupe ou pas 
+	 * @param physical si la capacité est physique ou pas 
 	 */
 	public CompetenceDammage(String nom, String description, int coutMana, int accuracy, int power, int nbHits, Eleme element, boolean groupDammage, boolean physical){
 		super(nom, description, coutMana) ;
@@ -58,102 +43,115 @@ public class CompetenceDammage extends CompetencesActives{
 		this.element = element ;
 		this.physical = physical ;
 	}
-	public CompetenceDammage(String nom) {
-		super(nom);
-	}
-	/** a getter for accuracy
-	 * 
-	 * @return
+
+	
+	/**
+	 * Le getter pour la précision 
+	 * @return la précision
 	 */
 	public int getAccuracy() {
 		return accuracy;
 	}
-	/** a setter for accuracy
-	 * 
-	 * @param accuracy
+	/**
+	 * le setter pour la précision
+	 * @param accuracy la nouvelle précision 
 	 */
 	public void setAccuracy(int accuracy) {
 		this.accuracy = accuracy;
 	}
 	
-	/** a getter for power 
-	 * 
-	 * @return
+	/**
+	 * Un getter pour la puissance  
+	 * @return la puissance de l'attaque 
 	 */
 	public int getPower() {
 		return power;
 	}
 	
-	/** a setter for power 
-	 * 
-	 * @param power
+	/**
+	 * Le setter de la puissance 
+	 * @param power la nouvelle puissance 
 	 */
 	public void setPower(int power) {
 		this.power = power;
 	}
-	/** a getter for groupDammage
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour le dommage de groupe 
+	 * @return si la capacité est de groupe ou pas 
 	 */
 	public boolean isGroup() {
 		return groupDammage;
 	}
-	/** a setter for groupdammage 
-	 * 
-	 * @param groupDammage
+	
+	/**
+	 * Un setter pour si la capacité est de groupe ou pas 
+	 * @param groupDammage si la capacité est de groupe 
 	 */
 	public void setGroup(boolean groupDammage) {
 		this.groupDammage = groupDammage;
 	}
-	/** a getter for the nbHits
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour le nombre de coups 
+	 * @return le nombre de coup 
 	 */
 	public int getNbHits() {
 		return nbHits;
 	}
-	/** A setter for the nbHits 
-	 * 
-	 * @param nbHits
+	
+	/**
+	 * Un setter pour le nombre de hit 
+	 * @param nbHits le nouveau nombre de hit 
 	 */
 	public void setNbHits(int nbHits) {
 		this.nbHits = nbHits;
 	}
-	/** a getter for Element 
-	 * 
-	 * @return
+	
+	/**
+	 * le getter l'élément de la capacité 
+	 * @return l'élément de la capacité 
 	 */
 	public Eleme getElement() {
 		return element;
 	}
-	/** a setter for Element 
-	 * 
-	 * @param element
+	
+	/**
+	 * Un setter pour l'élément de la capacité 
+	 * @param element le nouvel élément 
 	 */
 	public void setElement(Eleme element) {
 		this.element = element;
 	}
-	/** a getter for physical
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour si la compétence est physique ou magique 
+	 * @return si la fonction est physique ou magique
 	 */
 	public boolean isPhysical() {
 		return physical;
 	}
-	/** a setter for physical
-	 * 
-	 * @param physical
+	
+	/**
+	 * Un setter pour si la compétence est physique ou magique 
+	 * @param physical le nouveau si la compétence est magique ou pas 
 	 */
 	public void setPhysical(boolean physical) {
 		this.physical = physical;
 	}
 	
+	/**
+	 * La fonction pour transformer en String 
+	 */
 	@Override
 	public String toString() {
 		return "CompetenceDammage " + super.toString() + " [accuracy=" + accuracy + ", power=" + power + ", groupDammage=" + groupDammage
 				+ ", nbHits=" + nbHits + ", element=" + element + ", physical=" + physical + "]";
 	}
 	
+	/**
+	 * La fonction pour comparer et vois si c'est égal à un autre objet 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -168,11 +166,13 @@ public class CompetenceDammage extends CompetencesActives{
 				this.getCoutMana() == other.getCoutMana() && 
 				Objects.equals(this.getDescription(), other.getDescription()) && Objects.equals(this.getName(), other.getName());
 	}
-	/**a rewrite of the utilisation of the competence 
-	 * The competence will not work if the user doesn't have the mana for it 
-	 * @param
-	 * @param 
-	 * 	
+	
+	
+	/**
+	 * Une fonction pour utiliser la compétence
+	 * @param utilisateur l'utilisateur de la compétence 
+	 * @param cible la cible de la compétence
+	 * @param node le node actuel 
 	 */
 	@Override
 	public String utilisation(PersonnageCombattant utilisateur, PersonnageCombattant cible, FightNode node) {

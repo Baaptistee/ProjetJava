@@ -5,8 +5,7 @@ import java.util.Objects;
 import univers.Statistiques;
 
 /**
- * The TestNode class represents a node in the game that involves testing player statistics.
- * It extends the InnerNode class.
+ * La classe TestNode représente les nodes dont le node suivant sera déterminé à partir d'un test sur le statistiques des personnages du groupe
  */
 public class TestNode extends InnerNode {
 
@@ -15,16 +14,14 @@ public class TestNode extends InnerNode {
     private int nombreReussiteNecessaire;
 
     /**
-     * Constructs a TestNode with the specified parameters.
-     *
-     * @param nom The name of the TestNode.
-     * @param description The description of the TestNode.
-     * @param imageName The name of the associated image.
-     * @param checkPoint Indicates whether the TestNode is a checkpoint.
-     * @param options The list of options available for the TestNode.
-     * @param statATester The statistics to be tested.
-     * @param difficulteTest The difficulty level of the test.
-     * @param nombreReussiteNecessaire The number of successes required for the test.
+     * Un constructeur pour la classe 
+     * @param nom Le nom du testNode
+     * @param description La description du testNode 
+     * @param imageName le path de l'image associée
+     * @param options La liste des possibilités pour les testNode 
+     * @param statATester La statistique à tester 
+     * @param difficulteTest la difficulté du test 
+     * @param nombreReussiteNecessaire le nombre de succès parmi les personnages du groupe nécessaire pour le réussir 
      */
     public TestNode(String nom, String description, String imageName,ArrayList<Node> options, Statistiques statATester, Integer difficulteTest,int nombreReussiteNecessaire){
         super(nom, description, imageName, options);
@@ -45,7 +42,15 @@ public class TestNode extends InnerNode {
         this.statATester = statATester;
         this.nombreReussiteNecessaire = nombreReussiteNecessaire;
     }
-
+    /**
+     * Un constructeur pour la classe 
+     * @param nom Le nom du testNode
+     * @param description La description du testNode 
+     * @param imageName le path de l'image associée
+     * @param statATester La statistique à tester 
+     * @param difficulteTest la difficulté du test 
+     * @param nombreReussiteNecessaire le nombre de succès parmi les personnages du groupe nécessaire pour le réussir 
+     */
     public TestNode(String nom,String description,String imageName, Statistiques statATester,Integer difficulteTest, int nombreReussiteNecessaire){
         super(nom, description,imageName);
 
@@ -66,13 +71,12 @@ public class TestNode extends InnerNode {
     }
 
     /**
-     * Constructs a TestNode with the specified parameters and generates a default name.
-     *
-     * @param description The description of the TestNode.
-     * @param checkPoint Indicates whether the TestNode is a checkpoint.
-     * @param statATester The statistics to be tested.
-     * @param difficulteTest The difficulty level of the test.
-     * @param nombreReussiteNecessaire The number of successes required for the test.
+     * Un constructeur pour la classe 
+     * @param description La description du testNode 
+     * @param imageName le path de l'image associée
+     * @param statATester La statistique à tester 
+     * @param difficulteTest la difficulté du test 
+     * @param nombreReussiteNecessaire le nombre de succès parmi les personnages du groupe nécessaire pour le réussir 
      */
     public TestNode(String description, Statistiques statATester,Integer difficulteTest, int nombreReussiteNecessaire){
         super("Node" + Node.getTotalNode() + 1, description);
@@ -94,18 +98,16 @@ public class TestNode extends InnerNode {
     }
 
     /**
-     * Gets the number of successes required for the test.
-     *
-     * @return The number of successes required.
+     * un getter pour le nombre de réussites nécessaire 
+     * @return le nombre de réussites nécessaires 
      */
     public int getNombreReussiteNecessaire() {
         return nombreReussiteNecessaire;
     }
 
     /**
-     * Sets the number of successes required for the test.
-     *
-     * @param nombreReussiteNecessaire The number of successes required.
+     * Un setter pour le nombre de réussites nécessaires 
+     * @param nombreReussiteNecessaire le nouveau nombre de réussites nécessaires
      */
     public void setNombreReussiteNecessaire(int nombreReussiteNecessaire) {
         if(nombreReussiteNecessaire<=0){
@@ -115,36 +117,32 @@ public class TestNode extends InnerNode {
     }
 
     /**
-     * Gets the statistics to be tested.
-     *
-     * @return The statistics to be tested.
+     * un getter pour la statistique à tester
+     * @return la statistique à tester 
      */
     public Statistiques getStatATester() {
         return statATester;
     }
 
     /**
-     * Sets the statistics to be tested.
-     *
-     * @param statATester The statistics to be tested.
+     * Un setter pour la statistique à tester 
+     * @param statATester la nouvelle statistique à tester 
      */
     public void setStatATester(Statistiques statATester) {
         this.statATester = statATester;
     }
 
     /**
-     * Gets the difficulty level of the test.
-     *
-     * @return The difficulty level of the test.
+     * Un getter pour la difficulté du test
+     * @return la difficulté du test 
      */
     public int getDifficulteTest() {
         return difficulteTest;
     }
 
     /**
-     * Sets the difficulty level of the test.
-     *
-     * @param difficulteTest The difficulty level of the test.
+     * Un setter pour la difficulté du test
+     * @param difficulteTest la nouvelle disfficulté du test 
      */
     public void setDifficulteTest(int difficulteTest) {
          if(difficulteTest<0){
@@ -154,9 +152,8 @@ public class TestNode extends InnerNode {
     }
 
     /**
-     * Selects the next node based on the test results.
-     *
-     * @return The next node.
+     * une méthode pour sélectionner le node suivant 
+     * @return le node suivant 
      */
     public Node select() {
         if (this.getOptions().isEmpty()) {
@@ -186,7 +183,8 @@ public class TestNode extends InnerNode {
     }
 
     /**
-     * Advances to the next node based on the test results.
+     * la méthode pour obtenir le node suivant
+     * @return le node suivant 
      */
 	@Override
 	public Node goNext() {
@@ -196,9 +194,8 @@ public class TestNode extends InnerNode {
 			
 	}
 	/**
-     * Returns a string representation of the TestNode.
-     *
-     * @return A string representation of the TestNode.
+     * Une méthode pour obtenir l'équivalent en string du node 
+     * @return le string du node 
      */
     @Override
     public String toString() {
@@ -206,10 +203,9 @@ public class TestNode extends InnerNode {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this one.
-     *
-     * @param obj The reference object with which to compare.
-     * @return true if this object is the same as the obj argument; false otherwise.
+     * Une méthode pour savoir si l'objet est égal à un autre 
+     * @param obj l'objet à comparer
+     * @return si le node est égal ou pas 
      */
     @Override
     public boolean equals(Object obj) {

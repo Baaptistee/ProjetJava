@@ -1,26 +1,22 @@
-/**
- * The `InnerNode` class represents an inner node in a hierarchical structure, extending the `Node` class.
- * It provides the functionality to create nodes with multiple options for choices.
- */
+
 package Representation;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Represents an inner node in the game's narrative structure.
- * Extends the Node class to inherit basic node functionality.
+ * Une classe abstract qui hérite de la classe Node et qui représente les Nodes qui auront un noeud ensuite
  */
 public abstract class InnerNode extends Node {
 	
     private ArrayList<Node> options = new ArrayList<>();
 
     /**
-     * Constructor for an `InnerNode` without a checkpoint.
-     * @param name The name of the inner node.
-     * @param description The description of the inner node.
-     * @param imageName The name of the associated image.
-     * @param options The list of options available for the choice.
+     * Un constructeur pour la classe innerNode
+     * @param name Le nom de l'innerNode
+     * @param description La description de l'innerNode 
+     * @param imageName Le path de l'image
+     * @param options la liste des options
      */
     public InnerNode(String name, String description, String imageName, ArrayList<Node> options){
         super(name, description, imageName);
@@ -30,9 +26,9 @@ public abstract class InnerNode extends Node {
     
 
     /**
-     * Constructor for an `InnerNode` without an explicit checkpoint.
-     * @param name The name of the inner node.
-     * @param description The description of the inner node.
+     * Un constructeur pour la classe innerNode
+     * @param name Le nom de l'innerNode
+     * @param description La description de l'innerNode 
      */
     public InnerNode(String nom, String description){
 		super(nom, description);
@@ -41,9 +37,9 @@ public abstract class InnerNode extends Node {
     
     /**
      * Constructor for an `InnerNode` without an explicit checkpoint.
-     * @param name The name of the inner node.
-     * @param description The description of the inner node.
-     * @param imageName The name of the associated image.
+     * @param name Le nom de l'innerNode
+     * @param description La description de l'innerNode 
+     * @param imageName Le path de l'image
      */
     public InnerNode(String nom, String description, String imageName){
         super(nom, description, imageName);
@@ -51,9 +47,9 @@ public abstract class InnerNode extends Node {
    
     /**
      * Constructor for an `InnerNode` without an explicit checkpoint.
-     * @param description The description of the inner node.
-     * @param imageName The name of the associated image.
-     * @param imagepersoPath The list of paths to images associated with characters.
+     * @param description La description de l'innerNode 
+     * @param imageName Le path de l'image
+     * @param imagepersoPath la liste des paths des personnages à afficher 
      */
     public InnerNode(String description, String imageName, ArrayList<String> imagepersoPath){
         super("Node" + (Node.getTotalNode() + 1), description, imageName, imagepersoPath);
@@ -62,25 +58,24 @@ public abstract class InnerNode extends Node {
   
     
     /**
-     * Get the list of available options for the choice.
-     * @return The list of options.
+     * un getter pour les options associées 
+     * @return les options du node 
      */
 	public ArrayList <Node> getOptions() {
 		return options ;
 	}
 
     /**
-     * Set the list of available options for the choice.
-     * @param options The list of options to set.
+     * un setter pour les options
+     * @param options
      */
 	public void setOptions(ArrayList <Node> options){
 		this.options=options;
 	}
 
     /**
-     * Add an option to the list of available options.
-     * @param optionSupp The option to add.
-     * @throws IllegalArgumentException If the provided option is null.
+     * Pour ajouter une option
+     * @param optionSupp l'option à ajouter 
      */
      public void addOption(Node optionSupp){
             if (optionSupp != null) {
@@ -91,9 +86,8 @@ public abstract class InnerNode extends Node {
     }
 
     /**
-     * Remove an option from the list of available options.
-     * @param suppOption The option to remove.
-     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     * Méthode pour supprimer une option
+     * @param suppOption l'option à supprimer 
      */
      public void suppOption(Node suppOption){
         int index = this.getOptions().indexOf(suppOption);
@@ -104,8 +98,8 @@ public abstract class InnerNode extends Node {
             }
     }
 
-	 /**
-     * Overrides the display method to display the information of the choice node.
+	/**
+     * Override la méthode display
      */
     @Override
     public String toString() {
@@ -113,15 +107,15 @@ public abstract class InnerNode extends Node {
     }
 
     /**
-     * Abstract method representing the behavior of moving to the next node.
+     * méthode abstract qui renvoie le node suivant
      */
 	public abstract Node goNext() ;
 
 	@Override
     /**
-     * Checks if two InnerNode objects are equal.
-     * @param obj The object to compare.
-     * @return True if the objects are equal, false otherwise.
+     * la méthode pour vérifier si le node est égal à un autre
+     * @param l'objet à comparer 
+     * @return si le node est égal ou pas 
      */
     public boolean equals(Object obj) {
         if (this == obj) {

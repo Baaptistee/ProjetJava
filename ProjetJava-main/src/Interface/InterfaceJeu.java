@@ -1341,9 +1341,63 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     timer.start();
     if(node instanceof FightNode){
         playFightNode(node);
-    } else InnerNodeButton(node, clip);
+    } if(node instanceof TerminalNode){
+        ecranTerminal();
+    }else InnerNodeButton(node, clip);
 
 
+}
+/**
+ * Méthode pour ajouter les boutons des terminalNode 
+ * @parm node le node concerné 
+ */
+public static void ecranTerminal(){
+    JPanel panelChoose= new JPanel(); 
+        getFenetre().add(layeredPane);
+        panelChoose.setBounds(120, 400, 770, 100);
+        layeredPane.add(panelChoose, JLayeredPane.POPUP_LAYER);
+	    panelChoose.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
+        panelChoose.setBackground(Color.RED);
+        panelChoose.setOpaque(false); 
+
+            JButton btn1 = new JButton("Retourner à l'écran titre");
+            btn1.setSize(150, 50);
+
+            btn1.setFont(new Font("Courier New", Font.PLAIN, 15));
+            btn1.setBackground(Color.WHITE);
+		    btn1.setForeground(Color.BLACK);
+            panelChoose.add(btn1);
+
+            btn1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showMenu();
+                    configPanel();
+                    layeredPane.removeAll();
+                    layeredPane.revalidate();
+                    layeredPane.repaint();
+                    ecranTitre(); 
+                         
+                }
+            });
+
+        JButton btn3 = new JButton("Quitter le jeu");
+        btn3.setSize(300, 100);
+        btn3.setFont(new Font("Courier New", Font.PLAIN, 15));
+            btn3.setBackground(Color.WHITE);
+		    btn3.setForeground(Color.BLACK);
+            panelChoose.add(btn3);
+
+            // Add an ActionListener to handle button clicks
+            btn3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    getFenetre().dispose(); // Fermer la fenêtre
+                }
+            });
+
+        getFenetre().add(layeredPane) ;
+        
 }
 
     /**

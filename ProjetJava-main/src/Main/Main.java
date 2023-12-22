@@ -242,7 +242,7 @@ public class Main {
 		//n23S.addOption(n25S);
 		n25S.addOption(n27S);
 		n27S.addOption(n34S);
-		n34S.addOption(n33);
+		//n34S.addOption(n33);
 
 		//Echec tempete
 		n18S.addOption(n24S);
@@ -255,7 +255,7 @@ public class Main {
 		n30S.addOption(n33S);
 		n31S.addOption(n33S);
 		n33S.addOption(n29S);
-		n32S.addOption(n33);
+		//n32S.addOption(n33);
 
 
 
@@ -313,8 +313,8 @@ public class Main {
 		n24B.addOption(n26B);
 		n24B.addOption(n27B);
 		//Go ducc
-		n25B.addOption(n33);
-		n26B.addOption(n33);
+		//n25B.addOption(n33);
+		//n26B.addOption(n33);
 		n27B.addOption(n31);
 
 		
@@ -375,7 +375,7 @@ public class Main {
 		InnerNode nodeTest = new FightNode("FightNode Test !", "Fight Node test !!", "", opponents8, 250, bytin1);
 		ArrayList<String> cinqPersonnages = new ArrayList<String>();
 		nodeTest.setImageName("image/ForetJolie.png");
-		SoinNode soinNode = new SoinNode("Node de soin", "Vos joueurs devraient être soignés je vous invite à aller voir dans le superbe menu statut codé par un mec très bg !");
+		SoinNode soinNode = new SoinNode("Node de soin", "Vos joueurs devraient être soignés je vous invite à aller voir dans le superbe menu statut codé par un mec très bg !", "image/ForetJolie.png");
 
 		nodeTest.addOption(soinNode);
 		nodeTest.addOption(n2);
@@ -421,7 +421,7 @@ public class Main {
 		// Game.getGame().getInventaire().put(potion, 3);
 		// Game.getGame().getInventaire().put(arc, 1);
 
-		ObjetNode objeNode = new ObjetNode("Node test", "Le groupe gagne une potion de test de merde");
+		ObjetNode objeNode = new ObjetNode("Node test", "Le groupe gagne une potion de test de merde", "image/ForetJolie.png");
 		Map<Collectibles, Integer> trucAAjouter = new HashMap<Collectibles, Integer>();
 		trucAAjouter.put(potion, 2);
 		objeNode.setObjets(trucAAjouter);
@@ -431,10 +431,9 @@ public class Main {
 		objeNode.addOption(conditionNode);
 
 
-		Game.getGame().setFirstNode(n1) ;
-		
-		//InterfaceJeu.afficherImageDansInterface("tatata");
+		TerminalNode terminalNode = new TerminalNode("test", "Désolé la partie s'arrête là pour vous .../Voulez vous retourner à l'écran titre ou quitter le jeu ?", "image/ForetJolie.png");
 
+		Game.getGame().setFirstNode(terminalNode) ;
 		InterfaceJeu.ecranTitre();
 
 		

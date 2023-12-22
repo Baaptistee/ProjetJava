@@ -1,5 +1,8 @@
 package Representation;
 
+/**
+ * Une classe pour les Terminal Node de fin de partie ! (prématurée ou non)
+ */
 public class TerminalNode extends Node {
 	
 	public TerminalNode(String nom, String description,String imageName) {

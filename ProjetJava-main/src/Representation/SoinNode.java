@@ -1,27 +1,22 @@
 package Representation;
 
-import java.util.ArrayList;
-
 /**
- * The SoinNode class represents a node in the game that provides healing to the players.
- * It extends the TextNode class.
+ * La classe SoinNode représente un Node dans lequel le groupe va être entièrement soigné
  */
 public class SoinNode extends TextNode {
 
     /**
-     * Constructs a SoinNode with the specified parameters.
-     *
-     * @param nom The name of the SoinNode.
-     * @param description The description of the SoinNode.
-     * @param checkPoint Indicates whether the SoinNode is a checkpoint.
-     * @param option The list of options available for the SoinNode.
+     * Un constructeur pour la classe 
+     * @param nom le nom du node
+     * @param description la description du node 
+     * @param imageName le path de l'image 
      */
-    public SoinNode(String nom, String description){
-        super(nom, description);
+    public SoinNode(String nom, String description, String imageName){
+        super(nom, description, imageName);
     }
 
     /**
-     * Overrides the display method to provide healing to the players.
+     * Un override de la méthode display pour lancer le node 
      */
     @Override
     public void display() {

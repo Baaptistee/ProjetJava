@@ -1,89 +1,44 @@
 package univers.armes;
 
 import java.util.Objects;
-
 import Representation.Game;
-import univers.Collectibles;
-// import java.util.ArrayList;
-import univers.Eleme;
 import univers.Utilisable;
 import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageCombattant;
 
-// import univers.personnages.*;
-//import univers.personnages.PersoGroupe;
 import java.io.Serializable;
 
-/** A Weapon object represents the weapon a character carries, it has certains bonus and caracteristics associated to it
+/**
+ * Une classe pour les armes du jeu 
  */
 public class Weapon implements Utilisable, Serializable{
-	/** the bonus the weapon gives to dammage 
-	 */
+	
 	private int dammage ;
-	
-	/** The accuracy of the weapon
-	 * 
-	 */
 	private int accuracy ;
-	//private int durability ;
-	/** The name of the weapon
-	 * 
-	 */
 	private String name ; 
-	
-	/** the description of the weapon
-	 * 
-	 */
 	private String description ; 
-	//private boolean broken ;
-	/**The bonus given by the weapon to strength
-	 * 
-	 */
 	private int bonusStrength ;
-	/** The bonus given by the weapon to Intelligence 
-	 * 
-	 */
 	private int bonusIntelligence ;
-	/** The bonus given by the weapon to Dexterity 
-	 * 
-	 */
 	private int bonusDexterity ;
-	/** The bonus given by the weapon to Endurance 
-	 * 
-	 */
 	private int bonusEndurance ;
-	/** The bonus given by the weapon to Speed 
-	 * 
-	 */
-	private int bonusSpeed ;
-	/** The element of the weapon
-	 * 
-	 */
-	private Eleme element ;
-	/** The type of the weapon
-	 * 
-	 */
-	private boolean vendable ;
-	
-	private int prix ; 
+	private int bonusSpeed ;	
 	
 	
-	/** The constructor of the class 
-	 * 
-	 * @param dammage
-	 * @param accuracy
-	 * @param name
-	 * @param description
-	 * @param bonusStrength
-	 * @param bonusIntelligence
-	 * @param bonusDexterity
-	 * @param bonusEndurance
-	 * @param bonusSpeed
+	/** 
+	 * Le constrcuteur de la classe 
+	 * @param dammage Les dommages de l'arme 
+	 * @param accuracy la précision de l'arme 
+	 * @param name le nom de l'arme 
+	 * @param description la description de l'arme, 
+	 * @param bonusStrength le bonus de force 
+	 * @param bonusIntelligence le bonus d'intelligence 
+	 * @param bonusDexterity le bonus de dextérité 
+	 * @param bonusEndurance le bonus d'endurance
+	 * @param bonusSpeed le bonus de vitesse 
 	 */
 	public Weapon(int dammage, int accuracy, /*int durability, */ String name, String description, int bonusStrength, int bonusIntelligence, int bonusDexterity, int bonusEndurance, int bonusSpeed){
 		this.dammage = dammage ;
 		this.accuracy = accuracy  ;
-		//this.durability = durability ;
 		this.name = name ;
 		this.description = description ;
 		this.bonusStrength = bonusStrength ;
@@ -91,143 +46,151 @@ public class Weapon implements Utilisable, Serializable{
 		this.bonusEndurance = bonusEndurance ;
 		this.bonusIntelligence = bonusIntelligence ;
 		this.bonusSpeed = bonusSpeed ;
-		//this.broken = false ;
 	}
 	
-	/* getter for Element 
-	 * @return
-	 */
-	public Eleme getElement() {
-		return element;
-	}
-	/** setter for Element
-	 * 
-	 * @param element the new Element wanted for the weapon 
-	 */
-	public void setElement(Eleme element) {
-		this.element = element;
-	}
 	public void setDammage(int dammage) {
 		this.dammage = dammage;
 	}	
 	
-	/* getter for Name 
-	 * 
+	/**
+	 * Un getter pour le nom
+	 * @return le nom 
 	 */
 	@Override
 	public String getName() {
 		return name;
 	}
-	/** setter for Name
-	 * 
-	 * @param name the new Name wanted for the weapon 
+	/** 
+	 * setter pour le nom 
+	 * @param name le nouveau nom de l'arme 
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	/* getter for description 
-	 * @return
+	
+	/**
+	 * un getter pour la description
+	 * @return la description
 	 */
 	@Override
 	public String getDescription() {
 		return description;
 	}
-	/** setter for description
-	 * 
-	 * @param description the new description wanted for the weapon 
+	/**
+	 * un setter pour la descirption 
+	 * @param description la nouvelle description
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	/* getter for dammage 
-	 * @return
+	
+	/**
+	 * Un getter pour les dammages 
+	 * @return les dammages 
 	 */
 	public int getDammage() {
 		return dammage;
 	}
-	/* getter for accuracy 
-	 * @return 
+	
+	/**
+	 * Un getter pour la précision 
+	 * @return la précision de l'arme 
 	 */
 	public int getAccuracy() {
 		return accuracy;
 	}
-	/** setter for accuracy
-	 * 
-	 * @param accuracy the new accuracy wanted for the weapon 
+	
+	/**
+	 * un setter pour la précision de l'arme 
+	 * @param accuracy la nouvelle préicison 
 	 */
 	public void setAccuracy(int accuracy) {
 		this.accuracy = accuracy;
 	}
-	/* getter for bonusStrength 
-	 * @return
+	/**
+	 * Un getter pour le bonus de force 
+	 * @return le bonus de force 
 	 */
 	public int getBonusStrength() {
 		return bonusStrength;
 	}
-	/** setter for bonusStrength
-	 * 
-	 * @param bonusStrength the new bonusStrength wanted for the weapon 
+	
+	/**
+	 * un setter pour le bonus de force 
+	 * @param bonusStrength le nouveau bonus de force 
 	 */
 	public void setBonusStrength(int bonusStrength) {
 		this.bonusStrength = bonusStrength;
 	}
-	/* getter for bonusIntelligence 
-	 * 
-	 */
 	
+	/**
+	 * un getter pour le bonus d'intelligence 
+	 * @return le bonus d'intelligence 
+	 */
 	public int getBonusIntelligence() {
 		return bonusIntelligence;
 	}
-	/** setter for bonusIntelligence
-	 * 
-	 * @param bonusIntelligence the new bonusIntelligence wanted for the weapon 
+	
+	/**
+	 * Un setter pour le bonus d'intelligence 
+	 * @param bonusIntelligence le nouveau bonus d'intelligence 
 	 */
 	public void setBonusIntelligence(int bonusIntelligence) {
 		this.bonusIntelligence = bonusIntelligence;
 	}
-	/* getter for bonusDexterity 
-	 * @return
+	
+	/**
+	 * Un getter pour le bonus de dextérité 
+	 * @return le bonus de dextérité 
 	 */
 	public int getBonusDexterity() {
 		return bonusDexterity;
 	}
-	/** setter for bonusDexterity
-	 * 
-	 * @param bonusDexterity the new bonusDexterity wanted for the weapon 
+	
+	/**
+	 * un setter pour le bonus de dextérité 
+	 * @param bonusDexterity le nouveau bonus de dextérité 
 	 */
 	public void setBonusDexterity(int bonusDexterity) {
 		this.bonusDexterity = bonusDexterity;
 	}
-	/* getter for bonusEndurance 
-	 * @return
+	
+	/**
+	 * Un getter pour le bonus d'endurance 
+	 * @return bonus d'endurance 
 	 */
 	public int getBonusEndurance() {
 		return bonusEndurance;
 	}
-	/** setter for bonusEndurance
-	 * 
-	 * @param bonusEndurance the new bonusEndurance wanted for the weapon 
+	
+	/**
+	 * Un setter pour le bonus d'endurance 
+	 * @param bonusEndurance le nouveau bonus d'endurance 
 	 */
 	public void setBonusEndurance(int bonusEndurance) {
 		this.bonusEndurance = bonusEndurance;
 	}
-	/* getter for weaponType 
-	 * 
-	 */
 	
-	/* getter for bonusSpeed  
-	 * 
+	/**
+	 * Un gettter pour le bonus de vitesse
+	 * @return le bonus de vitesse 
 	 */
 	public int getBonusSpeed() {
 		return bonusSpeed;
 	}
-	/** setter for bonusSpeed
-	 * 
-	 * @param bonusSpeed the new bonusSpeed wanted for the weapon 
+	
+	/**
+	 * un setter pour le bonus de vitesse
+	 * @param bonusSpeed le nouveau bonus de vitesse 
 	 */
 	public void setBonusSpeed(int bonusSpeed) {
 		this.bonusSpeed = bonusSpeed;
 	}
+	/**
+	 * La méthode utilisation implémentée par l'interface utilisable 
+	 * @param perso le perso sur qui utiliser l'arme
+	 * @return le texte à afficher sur l'interface 
+	 */
 	@Override
 	public String utilisation(PersonnageCombattant perso){
 		String d = "";
@@ -241,16 +204,9 @@ public class Weapon implements Utilisable, Serializable{
         return d ;
 	}
 
-	@Override
-	public boolean isVendable() {
-		return this.vendable;
-	}
-
-	@Override
-	public int getPrix() {
-		return this.prix;
-	}
-
+	/**
+	 * La méthode pour le comparer à un autre objet 
+	 */
 	@Override
     public boolean equals(Object obj) {
 		if (this == obj) {
@@ -259,7 +215,7 @@ public class Weapon implements Utilisable, Serializable{
 			return false ;
 		} else {
 			Weapon perso = (Weapon)obj ;
-			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getAccuracy(), perso.getAccuracy()) && Objects.equals(this.getBonusDexterity(), perso.getBonusDexterity()) && Objects.equals(this.getBonusEndurance(), perso.getBonusEndurance()) && Objects.equals(this.getBonusIntelligence(), perso.getBonusIntelligence()) && Objects.equals(this.getBonusSpeed() , perso.getBonusSpeed()) && Objects.equals(this.getBonusStrength(), perso.getBonusStrength()) && Objects.equals(this.getDammage(), perso.getDammage()) && Objects.equals(this.getElement(), perso.getElement()) && Objects.equals(this.getPrix(), perso.getPrix())) {
+			if (Objects.equals(this.getName(), perso.getName()) && Objects.equals(this.getDescription(), perso.getDescription()) && Objects.equals(this.getAccuracy(), perso.getAccuracy()) && Objects.equals(this.getBonusDexterity(), perso.getBonusDexterity()) && Objects.equals(this.getBonusEndurance(), perso.getBonusEndurance()) && Objects.equals(this.getBonusIntelligence(), perso.getBonusIntelligence()) && Objects.equals(this.getBonusSpeed() , perso.getBonusSpeed()) && Objects.equals(this.getBonusStrength(), perso.getBonusStrength()) && Objects.equals(this.getDammage(), perso.getDammage())) {
 				return true ;
 			} else {
 				return false ;

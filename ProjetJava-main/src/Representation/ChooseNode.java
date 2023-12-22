@@ -1,51 +1,42 @@
-/**
- * The ChooseNode class represents a node for making a choice among different options.
- * It extends the InnerNode class.
- *
- * @see InnerNode
- */
+
 package Representation;
 
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 
 /**
- * The ChooseNode class represents a node for making a choice among different options.
- * It extends the InnerNode class.
- *
-
+ * La classe chooseNode est pour les Nodes ou le choix du node suivant est laissé au joueur 
  */
 public class ChooseNode extends InnerNode {
 
     /**
-     * Constructor for the ChooseNode class.
+     * un constructeur pour la classe choosenode
      *
-     * @param nom The name of the choice node.
-     * @param description The description of the choice node.
-     * @param imageName The name of the associated image.
-     * @param options The available options for the choice.
+     * @param nom le nom du chooseNode
+     * @param description La description du chooseNode
+     * @param imageName le path de l'image 
+     * @param options les choix possibles 
      */
     public ChooseNode(String nom, String description, String imageName, ArrayList<Node> options) {
         super(nom, description, imageName, options);
     }
 
     /**
-     * Constructor for the ChooseNode class.
+     * un constructeur pour la classe choosenode
      *
-     * @param description The description of the choice node.
-     * @param imageNode The name of the associated image.
+     * @param description la description du node 
+     * @param imageNode l'image path du node 
      */
     public ChooseNode(String description, String imageName) {
         super("Node" + Node.getTotalNode() + 1, description, imageName);
     }
 
     /**
-     * Constructor for the ChooseNode class.
+     * un constructeur pour la classe choosenode
      *
      * @param nom The name of the choice node.
-     * @param description The description of the choice node.
-     * @param imageNode The name of the associated image.
+     * @param description la description du node 
+     * @param imageNode l'image path du node 
      */
     public ChooseNode(String nom, String description, String imageName) {
         super(nom, description, imageName);
@@ -53,62 +44,30 @@ public class ChooseNode extends InnerNode {
 
    
     /**
-     * Constructor for the ChooseNode class.
+     * un constructeur pour la classe choosenode
      *
-     * @param description The description of the choice node.
-     * @param imageNode The name of the associated image.
-     * @param imagepersoPath The list of image paths for the associated characters.
+     * @param description la description du node 
+     * @param imageNode l'image path du node 
+     * @param imagepersoPath La liste des images 
      */
     public ChooseNode(String description, String imageNode, ArrayList<String> imagepersoPath) {
         super(description, imageNode, imagepersoPath);
     }
 
-    /**
-     * Gets the list of image icons for the associated characters.
-     *
-     * @return The list of image icons.
-     * @see ImageIcon
-     */
-    public ArrayList<ImageIcon> ImagePersoList() {
-        ArrayList<ImageIcon> optionsImageList = new ArrayList<>();
-
-        for (Node optionNode : getOptions()) {
-            if (optionNode instanceof ChooseNode) {
-                ArrayList<String> imagePaths = ((ChooseNode) optionNode).getImagePersoList();
-
-                for (String imagePath : imagePaths) {
-                    ImageIcon imageIcon = new ImageIcon(imagePath);
-                    optionsImageList.add(imageIcon);
-                }
-            }
-        }
-
-        return optionsImageList;
-    }
 
     /**
-     * Overrides the display method to display the information of the ChooseNode.
-     *
-     * @see InnerNode#display()
-     */
-    @Override
-    public void display() {
-        super.display();
-    }
-
-    /**
-     * Overrides the goNext method for ChooseNode.
+     * Override de la méthode goNext 
+     * Cette méthode n'est censée jamais être appelée, l'action de sélection du node suivant se faisant directement sur l'interface 
      */
     @Override
     public Node goNext() {
         return null ;
-        // Implementation for advancing to the next step in the choice node.
     }
 
     /**
-     * Overrides the toString method to provide a string representation of the ChooseNode.
+     * Override de la méthode to String 
      *
-     * @return A string representation of the ChooseNode.
+     * @return La représentation string du chooseNode
      */
     @Override
     public String toString() {
@@ -116,10 +75,10 @@ public class ChooseNode extends InnerNode {
     }
 
     /**
-     * Overrides the equals method to compare two ChooseNode objects for equality.
+     * L'override de la méthode equals 
      *
-     * @param obj The object to compare with.
-     * @return True if the objects are equal, false otherwise.
+     * @param obj l'objet auquel s'est comparé
+     * @return true si les deux objets sont similaires 
      */
     @Override
     public boolean equals(Object obj) {

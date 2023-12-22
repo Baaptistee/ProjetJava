@@ -2,20 +2,18 @@ package Representation;
 
 import java.util.ArrayList;
 
-/** 
- * A class representing a node that has only one possible transition node.
- * It serves as a transition node between, for example, a ChanceNode and a FightNode.
+/**
+ * Une classe pour les Nodes les plus simples avec une seule option
  */
 public class TextNode extends InnerNode {
 
     /**
-     * Constructor for a TextNode with specified parameters.
+     * Un constructeur 
      *
-     * @param nom          The name of the text node.
-     * @param description  The description of the text node.
-     * @param imageName    The name of the associated image.
-     * @param checkPoint   Indicates whether the text node is a checkpoint.
-     * @param options      The list of available options for the text node.
+     * @param nom          Le nom du textNode 
+     * @param description  La description du textNode 
+     * @param imageName    Le nom de l'image associé 
+     * @param options      La liste des options du node 
      */
     public TextNode(String nom, String description, String imageName, ArrayList<Node> options){
         super(nom, description, imageName, options);
@@ -23,13 +21,12 @@ public class TextNode extends InnerNode {
 
     
 
-    /**
-     * Constructor for a TextNode with specified parameters.
+     /**
+     * Un constructeur 
      *
-     * @param nom          The name of the text node.
-     * @param description  The description of the text node.
-     * @param imageName    The name of the associated image.
-     * @throws IllegalArgumentException If the provided options are null.
+     * @param nom          Le nom du textNode 
+     * @param description  La description du textNode 
+     * @param imageName    Le nom de l'image associé 
      */
     public TextNode(String nom, String description, String imageName) {
         super(nom, description, imageName);
@@ -38,16 +35,20 @@ public class TextNode extends InnerNode {
   
 
 
-  
+    /**
+     * La méthode pour aller au node suivant 
+     * @return le node siuvant 
+     */
+    @Override
     public Node goNext() {
 		this.getOptions().get(0).setFormerNode(this);
 		return this.getOptions().get(0) ;
 	}
 
     /**
-     * Returns a string representation of the TextNode.
+     * renvoie une représentation en string du node 
      *
-     * @return A string representation of the TextNode.
+     * @return le string du node 
      */
     @Override
     public String toString() {
@@ -55,11 +56,10 @@ public class TextNode extends InnerNode {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this one.
-     * Overrides the default equals method.
+     * Indique si le node est égal à un objet 
      *
-     * @param obj The reference object with which to compare.
-     * @return True if this object is the same as the obj argument; false otherwise.
+     * @param obj l'objet à comparer .
+     * @return si le node et l'objet sont equals 
      */
     @Override
     public boolean equals(Object obj) {

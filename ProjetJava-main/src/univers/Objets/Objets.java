@@ -11,8 +11,6 @@ public class Objets implements Collectibles, Serializable{
 	
 	
 
-	private int prix ;
-	private boolean vendable ;
 	private String name ;
 	private String description ;
 	
@@ -30,19 +28,11 @@ public class Objets implements Collectibles, Serializable{
 		return this.description ;
 	}
 	
-	@Override
-	public boolean isVendable() {
-		return this.vendable ;
-	}
 	
-	@Override
-	public int getPrix() {
-		return this.prix ;
-	}
 	
 	@Override
 	public String toString() {
-		return "Objets [prix=" + prix + ", vendable=" + vendable + ", name=" + name + ", description=" + description
+		return "Objets [, name=" + name + ", description=" + description
 				+ "]";
 	}
 
@@ -56,8 +46,7 @@ public class Objets implements Collectibles, Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Objets other = (Objets) obj;
-		return Objects.equals(description, other.description) && Objects.equals(name, other.name) && prix == other.prix
-				&& vendable == other.vendable;
+		return Objects.equals(description, other.description) && Objects.equals(name, other.name) ;
 	}
 	
 }

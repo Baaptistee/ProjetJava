@@ -7,6 +7,10 @@ import Event.ImageNode;
 import Event.SoundNode;
 import Interface.* ;
 
+
+/**
+ * La classe Node pour représenter les noeuds de notre jeu
+ */
 public abstract class Node extends Object implements Event, Serializable {
 	
 	private static int totalNode = 0; 
@@ -21,12 +25,11 @@ public abstract class Node extends Object implements Event, Serializable {
 
 
 	/**
-     * Constructor for the Node with essential attributes.
-     * @param nom The name of the Node.
-     * @param description The description of the Node.
-     * @param imageName The name of the associated image.
-     */
-
+	 * un constructeur pour la classe Node 
+	 * @param nom le nom du Node
+	 * @param description La desciption du node
+	 * @param imageName le path de l'image de fond 
+	 */
 	 public Node(String nom, String description, String imageName){
 			if (nom == null) {
 				throw new IllegalArgumentException("Le nom du node ne peut pas être null");
@@ -47,11 +50,10 @@ public abstract class Node extends Object implements Event, Serializable {
 
 
 	/**
-	* Constructor for the Node with essential attributes.
-     * @param nom The name of the Node.
-     * @param description The description of the Node.
-     */
-
+	 * un constructeur pour la classe Node 
+	 * @param nom le nom du Node
+	 * @param description La desciption du node
+	 */
 	public Node(String nom, String description){
 		if (nom == null) {
 			throw new IllegalArgumentException("Le nom du node ne peut pas être null");
@@ -70,11 +72,11 @@ public abstract class Node extends Object implements Event, Serializable {
 	}
 
 	/**
-     * Constructor for the Node with essential attributes.
-     * @param nom The name of the Node.
-     * @param description The description of the Node.
-     * @param imageName The name of the associated image.
-	 * @param imagepersoPath The name of the associated image.
+	 * un constructeur pour la classe Node 
+	 * @param nom le nom du Node
+	 * @param description La desciption du node
+	 * @param imageName le path de l'image de fond 
+	 * @param imagepersoPath La liste des path des persos à afficher dans le node 
      */
 
 	public Node(String nom, String description, String imageName,ArrayList<String> imagepersoPath) {
@@ -102,23 +104,34 @@ public abstract class Node extends Object implements Event, Serializable {
 
 
 
-	/**
- * Get the list of image paths for associated characters.
- *
- * @return The list of image paths.
+/**
+ * Un getter pour les path des persos à afficher 
+ * @return les path des persos
  */
 public ArrayList<String> getImagePersoList() {
     return this.imagepersoPath;
 }
 
+/**
+ * un getter pour le soundName
+ * @return le soundName
+ */
 public String getSoundName(){
 	return soundName;
 }
 
+/**
+ * un setter pour le path de l'image de fond
+ * @param imageName la nouvelle image de fond
+ */
 public void setImageName(String imageName){
 	this.imageName=imageName;
 }
 
+/**
+ * Un setter pour les path des personnages à afficher 
+ * @param im la liste des path des persos à afficher
+ */
 public void setImagePersoList(ArrayList<String> im){
 	if (im.size()>5){
 		throw new IllegalArgumentException("Le jeu ne peut afficher que 5 persos à la fois ! Node concerné : "+this.nom);
@@ -127,19 +140,17 @@ public void setImagePersoList(ArrayList<String> im){
 }
 
 /**
- * Get the name of the associated image.
- *
- * @return The name of the image.
+ * un getter pour le path de l'image de fond
+ * @return le path de l'image de fond
  */
 public String getImageName() {
     return imageName;
 }
 
 	/**
-     * Set the description of the Node.
-     * @param newDescription The new description to set.
-     */
-
+	 * Un setter pour la description du jeu
+	 * @param newDescription la nouvelle descrption
+	 */
 	public void setDescription(String newDescription) {
 		if( newDescription==null){
 			throw new IllegalArgumentException("La description est null");
@@ -148,25 +159,23 @@ public String getImageName() {
 		
 	}
 	/**
-	 * Get the total number of nodes created.
-	 *
-	 * @return The total number of nodes.
+	 * un getter pour le nombre de node créés
+	 * @return le nombre total de node
 	 */
 	public static int getTotalNode() {
 		return totalNode;
 	}
-	 /**
-     * Get the description of the Node.
-     * @return The description of the Node.
-     */
-
+	/**
+	 * un getter pour la desciption 
+	 * @return la description
+	 */
 	public String getDescription() {
 		return this.description ;
 	}
 
 	/**
-     * Set the name of the Node.
-     * @param newNom The new name to set.
+     * Setter pour le nom du node
+     * @param newNom le nouveau nom set
      */
 
 	public void setNom(String newNom) {
@@ -181,11 +190,10 @@ public String getImageName() {
 		this.nom = newNom ; 
 	}
 	
-	  /**
-     * Get the name of the Node.
-     * @return The name or title of the Node.
-     */ 
-
+	/**
+	 * un getter pour le nom
+	 * @return le nom
+	 */
 	public String getNom() {
 		
 		return this.nom ;
@@ -193,30 +201,26 @@ public String getImageName() {
 
 
 	/**
-     * Get the unique identifier (ID) of the Node.
-     * @return The ID of the Node.
-     */
-
+	 * un getter pour l'id Unique du Node
+	 * @return l'id unique du node 
+	 */
 	public int getID() {
 		
 		return this.idNode;
 	}
 
-	 /**
-     * Get the former Node, which is the Node that precedes this one.
-     * @return The former Node.
-     */
-
+	/**
+	 * un getter pour le Node précédent
+	 * @return le node Précedent
+	 */
 	public Node getFormerNode() {
-		
 		return this.formerNode ;
 		}
 	
-	 /**
-     * Set the former Node, which is the Node that precedes this one.
-     * @param formerNode The former Node to set.
-     */
-
+	/**
+	 * Un setter pour le node précédent
+	 * @param formerNode le node précédent
+	 */
 	public void setFormerNode (Node formerNode) {
 		
 		this.formerNode = formerNode ;
@@ -224,26 +228,23 @@ public String getImageName() {
 
 	
 	/**
-     * Get the Game.getGame() interface instance.
-     * @return The Game.getGame() interface.
-     */
-
+	 * un getter pour l'interface de jeu
+	 * @return l'interface de jeu
+	 */
 	public static InterfaceJeu getInterface() {
 		return interfac ;
 	}
 	
 	/**
-     * Move to the next Node while updating the formerNode reference.
-     */
-
+	 * une méthode abstract pour avancer au prochain node
+	 * @return le prochain node 
+	 */
 	public abstract Node goNext() ;
 
 	
 	
-		/**
-	 * Returns a string representation of the Node, including its name and description.
-	 *
-	 * @return A string representation of the Node.
+	/**
+	 * une méthode pour obtenir un String représentant le node
 	 */
 	@Override
 	public String toString() {
@@ -251,10 +252,9 @@ public String getImageName() {
 	}
 
 	/**
-	 * Indicates whether some other object is "equal to" this one.
-	 *
-	 * @param obj The reference object with which to compare.
-	 * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+	 * Une méthode pour savoir si le npde est égal à un autre 
+	 * @param l'objet à comparer 
+	 * @return si le node est égal
 	 */
 	@Override
 	public boolean equals(Object obj) {
