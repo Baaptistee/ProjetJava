@@ -8,26 +8,22 @@ import Representation.Game;
 import univers.personnages.PersoGroupe;
 import univers.personnages.PersonnageCombattant;
 
-/** A class for the competences that have a healing effect
- * 
+/**
+ * La classe pour les compétences de soin 
  */
 public class CompetenceSoin extends CompetencesActives {
 	
-	/**The heal power of the capacity
-	 * 
-	 */
+	
 	private int powerHeal ; 
-	/** the variable that represents if the capacity heal the group of just one character 
-	 * 
-	 */
 	private boolean groupHeal ;
-	/** the constructor of the class
-	 * 
-	 * @param nom
-	 * @param description
-	 * @param coutMana
-	 * @param powerHeal
-	 * @param groupHeal
+
+	/**
+	 * Le constructeur de la classe 
+	 * @param nom le nom de la classe 
+	 * @param description la description de la classe 
+	 * @param coutMana le cout en Mana 
+	 * @param powerHeal la puissance de soin 
+	 * @param groupHeal si la compétence soigne de le groupe ou pas 
 	 */
 	public CompetenceSoin(String nom, String description, int coutMana, int powerHeal, boolean groupHeal){
 		super(nom, description, coutMana) ;
@@ -41,16 +37,18 @@ public class CompetenceSoin extends CompetencesActives {
 		System.out.println(e.getMessage()) ;
 	}
 	}
-	/** a getter for powerHeal
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour la puissance de soin 
+	 * @return la puissance de soin 
 	 */
 	public int getPowerHeal() {
 		return powerHeal;
 	}
-	/** a setter for powerHeal
-	 * 
-	 * @param powerHeal
+	
+	/**
+	 * un setter pour la puissance de soin 
+	 * @param powerHeal la nouvelle puissance de soin 
 	 */
 	public void setPowerHeal(int powerHeal) {
 		try {
@@ -62,27 +60,37 @@ public class CompetenceSoin extends CompetencesActives {
 			System.out.println(e.getMessage());
 		}
 	}
-	/** a getter for groupHeal
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour si la compétence soigne le groupe
+	 * @return si la compétence soigne le groupe 
 	 */
 	public boolean isGroup() {
 		return groupHeal;
 	}
-	/** a getter for groupHeal
-	 * 
-	 * @param groupHeal
+	
+	/**
+	 * Un setter pour si la compétence soigne le groupe 
+	 * @param si la compétence soigne le groupe 
 	 */
 	public void setGroup(boolean groupHeal) {
 		this.groupHeal = groupHeal;
 	}
 	
+	/**
+	 * une méthode pour transformer en String 
+	 * @return la compétence en String 
+	 */
 	@Override
 	public String toString() {
 		return "CompetenceSoin " + super.toString() + "[powerHeal=" + powerHeal + ", groupHeal=" + groupHeal + "]";
 	}
 	
-	
+	/**
+	 * 
+	 * @param obj l'objet à comparer 
+	 * @return si les objets sont égaux 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

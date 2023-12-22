@@ -14,29 +14,29 @@ public class Voleur extends PersoGroupe{
 	 * 
 	 */
 	private static Voleur instance ;
-	/** the constructor is in private because it's a singleton
-	 * 
-	 * @param nom
-	 * @param description
-	 * @param dexterite
-	 * @param strengh
-	 * @param intelligence
-	 * @param endurance
-	 * @param speed
-	 * @param maxMana
-	 * @param maxLifePoints
-	 * @param competences
-	 * @param faiblesses
-	 * @param resistances
-	 * @param armePossible
+	
+	/** 
+	 * Le constructeur en privé car c'est une classe singleton 
+	 * @param nom le nom du personnage 
+	 * @param description la description du personnage 
+	 * @param dexterite la dexterité de base du personnage 
+	 * @param strengh la force du personnage 
+	 * @param intelligence l'intelligence du perso
+	 * @param endurance l'endurance du perso
+	 * @param speed la vitesse du perso 
+	 * @param maxMana le mana Maximum du personnage 
+	 * @param maxLifePoints les Points de vie maximum du perso 
+	 * @param competences La liste des compétences de base du perso 
+	 * @param faiblesses les faiblesses du perso 
+	 * @param resistances les resistances du perso 
 	 */
 	private Voleur (String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances){
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, competences, faiblesses, resistances) ;
 	}
 	
-	/** a getter for the instance Mage 
-	 * 
-	 * @return
+	/**
+	 * Un getter pour l'instance Voleur 
+	 * @return l'instance Voleur
 	 */
 	public static Voleur getVoleur() {
 		if (instance == null) {
@@ -53,21 +53,27 @@ public class Voleur extends PersoGroupe{
 		}
 		return instance ;
 	}
-
+	/**
+	 * Fonction pour recommencer un nouveau Voleur en cas de nouvelle partie par exemple
+	 */
 	public static void newVoleur(){
 		instance = null ;
 	}
 
+	/**
+	 * Pour convertir le personnage en String 
+	 * @return La conversion en String 
+	 */
 	@Override
 	public String toString() {
 		return "Voleur " + super.toString();
 	}
 
-	/** a function for when the character  gains a level
-	 * 
+	/**
+	 * La méthode equals pour vérifier si l'objet comparé est égal
+	 * @param obj l'objet comparé
+	 * @return si l'objet est le même ou pas 
 	 */
-	
-	// qu'une seule vérification dans le equals car classe est un singleton
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -76,6 +82,9 @@ public class Voleur extends PersoGroupe{
 				return false ;
 		}
 		
+	/**
+	 * La fonction pour quand le personnage gagne un niveau 
+	 */
 	public String gainNiveau() {
 		Random random = new Random() ;
 		this.setLevel(getLevel()+1);

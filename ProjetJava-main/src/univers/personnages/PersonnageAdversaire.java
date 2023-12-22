@@ -3,19 +3,12 @@ package univers.personnages;
 import univers.Eleme;
 import univers.competences.CompetenceDammage;
 import univers.competences.CompetenceSoin;
-//import java.util.ArrayList;
-//import univers.armes.*;
-//import univers.competences.Competences;
 import univers.competences.CompetencesActives;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
-//import java.util.HashMap;
 import java.util.Map;
-//import univers.personnages.*;
-
 import Representation.Game;
 
 /** 
@@ -23,34 +16,26 @@ import Representation.Game;
  * 
  */
 public class PersonnageAdversaire extends PersonnageCombattant {
-	/**
-	 * les competences du personnages
-	 */
-	private ArrayList<CompetencesActives> competences ; // un tableau avec les compétences utilisables par le personnage ainsi que la probabilité que celui-ci l'utilise 
-	/** 
-	 * la proba associée à chacune de ces compétences 
-	 */
+	
+	private ArrayList<CompetencesActives> competences ; 
 	private int[] probaCompetences ;
-	/**
-	 * le groupe de ce personnage combattant
-	 */
 	private ArrayList<PersonnageCombattant> groupe ;
 	
 	/**
 	 * le constructeur de la classe
-	 * @param nom
-	 * @param description
-	 * @param dexterite
-	 * @param force
-	 * @param intelligence
-	 * @param endurance
-	 * @param speed
-	 * @param maxLifePoints
-	 * @param maxMana
-	 * @param faiblesses
-	 * @param resistances
-	 * @param competences
-	 * @param probaCompetences
+	 * @param nom le nom du perso 
+	 * @param description sa description
+	 * @param dexterite la dexterite 
+	 * @param force sa force 
+	 * @param intelligence son intelligence 
+	 * @param endurancen son endurance 
+	 * @param speed sa vitesse 
+	 * @param maxLifePoints son MAximum de points de vie 
+	 * @param maxMana son maximum de mana 
+	 * @param faiblesses ses faiblesses 
+	 * @param resistances ses résistances 
+	 * @param competences ses compétences 
+	 * @param probaCompetences les probabilités de ses compétences 
 	 */
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences) {
 		super(nom, description, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
@@ -59,6 +44,23 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		competenceBienInstanciees();
 	}
 
+	/**
+	 * le constructeur de la classe
+	 * @param nom le nom du perso 
+	 * @param description sa description
+	 * @param dexterite la dexterite 
+	 * @param force sa force 
+	 * @param intelligence son intelligence 
+	 * @param endurancen son endurance 
+	 * @param speed sa vitesse 
+	 * @param maxLifePoints son MAximum de points de vie 
+	 * @param maxMana son maximum de mana 
+	 * @param faiblesses ses faiblesses 
+	 * @param resistances ses résistances 
+	 * @param competences ses compétences 
+	 * @param probaCompetences les probabilités de ses compétences 
+	 * @param image L'image path du perso 
+	 */
 	public PersonnageAdversaire(String nom, String description, int dexterite, int force, int intelligence, int endurance, int speed,  int maxLifePoints, int maxMana, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances, ArrayList<CompetencesActives> competences, int[] probaCompetences, String image) {
 		
 		super(nom, description, image, dexterite, force, intelligence, endurance, speed, maxMana, maxLifePoints, resistances, faiblesses) ;
@@ -67,16 +69,17 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		competenceBienInstanciees();
 
 	}
+
 	/**
 	 * un getter pour les compétences 
-	 * @return
+	 * @return les compétences 
 	 */
 	public ArrayList<CompetencesActives> getCompetences() {
 		return competences;
 	}
 	/**
 	 * un setter pour les compétences 
-	 * @param competences
+	 * @param competences les nouvelles compétences 
 	 */
 	public void setCompetences(ArrayList<CompetencesActives> competences) {
 			this.competences = competences;
@@ -85,23 +88,32 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 	
 	/**
 	 * un getter pour la proba des compétences
-	 * @return
+	 * @return les proba des compétences 
 	 */
 	public int[] getProbaCompetences() {
 		return probaCompetences;
 	}
-	
+	/**
+	 * Un setter pour les proba compétence
+	 * @param probaCompetences les nouvelles proba compétence 
+	 */
 	public void setProbaCompetences(int[] probaCompetences) {
 			this.probaCompetences = probaCompetences;
 			competenceBienInstanciees();
 	}
+
 	/** 
 	 * un getter pour le groupe
+	 * @return le groupe 
 	 */
 	public ArrayList<PersonnageCombattant> getGroupe() {
 		return groupe;
 	}
 
+	/**
+	 * Un getter pour le groupe vivant 
+	 * @return le groupe Vivant 
+	 */
 	public ArrayList<PersonnageCombattant> getGroupeVivant() {
 		ArrayList<PersonnageCombattant> groupeVivant = new ArrayList<PersonnageCombattant>() ;
 		for (int i = 0 ; i < this.getGroupe().size() ; i++){
@@ -115,7 +127,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 
 	/**
 	 * un setter pour le groupe 
-	 * @param groupe
+	 * @param groupe le nouveau groupe 
 	 */
 	public void setGroupe(ArrayList<PersonnageCombattant> groupe) {
 		this.groupe = groupe;
@@ -141,7 +153,7 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 
 	/**
 	 * une fonction pour sélectionner de manière "aléatoire" une compétence
-	 * @return
+	 * @return l'attaque sélectionée
 	 */
 	public CompetencesActives selectionAttaque() {
 			competenceBienInstanciees();
@@ -193,8 +205,8 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 
 	/** 
 	 * une fonction pour sélectionner la cible de cette attaque 
-	 * @param competence
-	 * @return
+	 * @param competence la compétence utilisée 
+	 * @return la cible 
 	 */
 	// une fonction pour la sélection aléatoire de la cible 
 	public PersonnageCombattant selectionCible(CompetencesActives competence) {
@@ -237,6 +249,11 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 
 	}
 	
+	/**
+	 * Une fonction pour sélectionner à la fois l'attaque et la cible et l'ajouter dans une Map 
+	 * @param actions la mapAction
+	 * @return la map action
+	 */
 	public Map<PersonnageCombattant, Object[]> selectionTout(Map<PersonnageCombattant, Object[]> actions){
 		// on ajoute l'action du personnage que si il est envie 
 		if (this.enVie()) {
@@ -250,11 +267,20 @@ public class PersonnageAdversaire extends PersonnageCombattant {
 		return  actions;
 	}
 
+	/**
+	 * Pour convertir le personnage en String 
+	 * @return La conversion en String 
+	 */
 	@Override
 	public String toString() {
 		return "PersonnageAdversaire " + super.toString() // A refaire il manque compétences mais je suis sur autre chose là
 				+ Arrays.toString(probaCompetences) + ", groupe=" + groupe + "]";
 	}
+	/**
+	 * La méthode equals pour vérifier si l'objet comparé est égal
+	 * @param obj l'objet comparé
+	 * @return si l'objet est le même ou pas 
+	 */
 	@Override
     public boolean equals(Object obj) {
 		if (this == obj) {

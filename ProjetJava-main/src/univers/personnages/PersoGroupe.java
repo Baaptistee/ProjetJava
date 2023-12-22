@@ -1,49 +1,33 @@
 package univers.personnages;
-
-//import java.util.Random;
 import univers.competences.*;
 import univers.Eleme;
 import univers.armes.*;
-
-//import java.io.Serializable;
 import java.util.* ;
-
 import Representation.Game;
-/** a class for the personnage of our group
- * 
+
+/**
+ * Une classe abstraite pour représenter les personnages du groupe 
  */
 public abstract class PersoGroupe extends PersonnageCombattant{
-	/** the current exp of the character 
-	 * 
-	 */
+	
 	private int experience ;
-	/** the weapon the character is holding 
-	 * 
-	 */
 	private Weapon weapon ;
-	/** the competences of the character
-	 * 
-	 */
 	private ArrayList<CompetencesActives> competences ;
 	
-	/** an arrayList with the type of weapons the character can carry
-	 * 
-	 */
-	
-	/** the constructor of the class
-	 * 
-	 * @param nom
-	 * @param description
-	 * @param dexterite
-	 * @param strengh
-	 * @param intelligence
-	 * @param endurance
-	 * @param speed
-	 * @param maxMana
-	 * @param maxLifePoints
-	 * @param competences
-	 * @param faiblesses
-	 * @param resistances
+	/** 
+	 * Le constructeur en privé car c'est une classe singleton 
+	 * @param nom le nom du personnage 
+	 * @param description la description du personnage 
+	 * @param dexterite la dexterité de base du personnage 
+	 * @param strengh la force du personnage 
+	 * @param intelligence l'intelligence du perso
+	 * @param endurance l'endurance du perso
+	 * @param speed la vitesse du perso 
+	 * @param maxMana le mana Maximum du personnage 
+	 * @param maxLifePoints les Points de vie maximum du perso 
+	 * @param competences La liste des compétences de base du perso 
+	 * @param faiblesses les faiblesses du perso 
+	 * @param resistances les resistances du perso 
 	 */
 	public PersoGroupe(String nom, String description, int dexterite, int strengh, int intelligence, int endurance, int speed, int maxMana, int maxLifePoints, ArrayList<CompetencesActives> competences, ArrayList<Eleme> faiblesses, ArrayList<Eleme> resistances) {
 		super(nom, description, dexterite, strengh, intelligence, endurance, speed, maxMana, maxLifePoints, faiblesses, resistances) ;
@@ -54,60 +38,61 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 		} else this.competences = competences ;
 	}
 	
-	/** a getter for the experience 
-	 * 
-	 * @return
+	/**
+	 * Un getter pour l'expérience 
+	 * @return l'expérience du perso 
 	 */
 	public int getExperience() {
 		return experience;
 	}
 
-	/** a setter for the experience 
-	 * 
-	 * @param experience
+	/**
+	 * Un setter pour l'expérience 
+	 * @param experience l'expérience du perso
 	 */
 	public void setExperience(int experience) {
 			if (experience < 0){
 				throw new IllegalArgumentException("Experience ne peut être inferieure à zéro") ;
 			} else this.experience = experience;
 	}
-	/** a getter for the weapon
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour l'arme du perso 
+	 * @return l'arme du perso 
 	 */
 	public Weapon getWeapon() {
 		return weapon;
 	}
 
+	/**
+	 * Un setter pour l'arme 
+	 * @param arme la nouvelle arme 
+	 */
 	public void setWeapon(Weapon arme){
 		this.weapon=arme ;
 	}
-	/** a setter for the weapon 
-	 * 
-	 * @param weapon
-	 */
 	
-
-	/** a getter for the competences 
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour les compétences 
+	 * @return les compétences 
 	 */
 	public ArrayList<CompetencesActives> getCompetences() {
 		return this.competences;
 	}
 
-	/** a setter for the competences 
-	 * 
-	 * @param competences
+	/**
+	 * Un setter pour les compétences des personnages 
+	 * @param competences les nouvelles compétences 
 	 */
 	public void setCompetences(ArrayList<CompetencesActives> competences) {
 		this.competences = competences;
 	}
 
-	/** a getter for Intelligence with the bonus of the weapon
-	 * 
+	/**
+	 * Un getter pour l'intelligence avec le bonus de l'arme 
+	 * @return l'intelligence avec le bonus de l'arme 
 	 */
-	// les getters qui intègrent le bonus procuré par l'arme 
 	@Override 
 	public int getIntelligence() {
 		if (weapon != null) {
@@ -116,10 +101,11 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 			return super.getIntelligence() ;
 		}
 	}
-	/** a getter for Strength with the bonus of ythe weapon
-	 * 
+	
+	/**
+	 * Un getter pour la force avec le bonus de l'arme 
+	 * @return la force avec le bonus de l'arme 
 	 */
-	// les getter pour les statistiques comprenant les bonus 
 	@Override 
 	public int getStrength() {
 		if (weapon != null) {
@@ -128,8 +114,10 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 			return super.getStrength() ;
 		}
 	}
-	/** a getter for dexterity with the bonus of the weapon
-	 * 
+	
+	/**
+	 * Un getter pour la dextérité avec le bonus de l'arme 
+	 * @return la dextérité avec le bonus de l'arme 
 	 */
 	@Override 
 	public int getDexterity() {
@@ -139,8 +127,9 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 			return super.getDexterity() ;
 		}
 	}
-	/** a getter for the endurance with the weapon's bonus 
-	 * 
+	/**
+	 * Un getter pour l'endurance avec le bonus de l'arme 
+	 * @return l'endurance avec le bonus de l'arme 
 	 */
 	@Override 
 	public int getEndurance() {
@@ -152,7 +141,8 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 	}
 	
 	/**
-	 * a getter for the speed with the bonus 
+	 * Un getter pour la vitesse  avec le bonus de l'arme 
+	 * @return la vitesse avec le bonus de l'arme 
 	 */
 	@Override
 	public int getSpeed() {
@@ -162,54 +152,64 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 			return super.getIntelligence() ;
 		}
 	}
+	
 	/**
-	 * a getter for base speed
-	 * @return
+	 * Un getter pour la vitesse de base 
+	 * @return la vitesse de base 
 	 */
 	public int getBaseSpeed() {
 		return super.getSpeed() ;
 	}
-	/** a getter for base Strength
-	 * 
-	 * @return
-	 */
-	// des getter pour les statistiques de base 
+	/**
+	 * Un getter pour la force de base 
+	 * @return la force de base 
+	 */ 
 	public int getBaseStrength() {
 		return super.getStrength() ;
 	}
-	/** a getter for base INtelligence 
-	 * 
-	 * @return
+	/**
+	 * Un getter pour l'intelligence de base 
+	 * @return l'intelligence de base 
 	 */
 	public int getBaseIntelligence() {
 		return super.getIntelligence() ;
 	}
-	/** a getter for base Dexterity
-	 * 
-	 * @return
+	/**
+	 * Un getter pour la dextérité de base 
+	 * @return la dextérité de base 
 	 */
 	public int getBaseDexterity() {
 		return super.getDexterity() ;
 	}
 	
-	/** a getter for base Endurance 
-	 * 
+	/**
+	 * Un getter pour l'endurance de base 
+	 * @return l'endurance de base 
 	 */
-	
 	public int getBaseEndurance() {
 		return super.getEndurance() ;
 	}
-	/** a getter for the group
-	 * 
+	
+	/**
+	 * un getter pour le groupe du perso
+	 * @return le groupe du perso
 	 */
 	public ArrayList<PersonnageCombattant> getGroupe() {
 		return Game.getGame().getGroupeJoueur();
 	}
 
-	//Méthode vide car on en a besoin pour des personnages Adverses quand ils sont considérés comme des persos combattant qui est abstraite
+	/**
+	 * Méthode pour set le groupe du perso
+	 * (inutile pour les personnages de groupe mais partagée avec les personnageCombattant)
+	 * @param newGroup le nouveau groupe
+	 */
 	public void setGroupe(ArrayList<PersonnageCombattant> newGroup) {};
 
 
+	/**
+	 * une méthode pour obtenir le groupe encore en vie 
+	 * @return le groupe encore en vie 
+	 */
 	public ArrayList<PersonnageCombattant> getGroupeVivant() {
 		ArrayList<PersonnageCombattant> groupeVivant = new ArrayList<PersonnageCombattant>() ;
 		for (int i = 0 ; i < this.getGroupe().size() ; i++){
@@ -220,19 +220,14 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 		return groupeVivant;
 	}
 
-
-	/** a getter for the possible weapons
-	 * 
-	 * @return
-	 */
 	
 
 	
-	/** a method to make our characters gain xp
-	 * 
-	 * @param xp
+	/**
+	 * Une méthode pour faire gagner de l'xp à nos personnages 
+	 * @param xp l'xp gagnée
+	 * @return le texte à afficher si les personnages ont gagné de l'expérience 
 	 */
-	// une fonction qui gère le gain d'XP
 	public String gainExperience(int xp) {
 			if (xp<=0){
 				throw new IllegalArgumentException("Expérience peut pas être inférieure à zéro") ;
@@ -252,6 +247,11 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 
 	}
 
+	/**
+	 * Une fonction pour savoir si le personnage gagne un niveau
+	 * @param xp l'xp gagnée 
+	 * @return si le personnage gagne un niveau ou pas 
+	 */
 	public boolean isLevelUp(int xp){
 		boolean retour = false ;
 		if (this.getExperience() >= this.getLevel()*10 + 90) {
@@ -260,19 +260,26 @@ public abstract class PersoGroupe extends PersonnageCombattant{
 		return retour ;
 	}
 	
-	/** a abstract method to make our character win levels
-	 * 
-	 * @return
+	/**
+	 * Une méthode pour le gain de niveau du personnage 
+	 * @return le texte à afficher dans l'interface
 	 */
 	public abstract String gainNiveau() ;
 	
-	
+	/**
+	 * Une méthode pour convertir en string notre classe 
+	 * @return le string du personnage 
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + " [experience=" + experience + ", weapon=" + weapon + ", competences=" + competences
 				+ "]";
 	}
-
+	/**
+	 * La méthode equals pour vérifier si l'objet comparé est égal
+	 * @param obj l'objet comparé
+	 * @return si l'objet est le même ou pas 
+	 */
 	@Override
 	    public boolean equals(Object obj) {
 			if (this == obj) {

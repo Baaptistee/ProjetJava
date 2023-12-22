@@ -3,85 +3,42 @@ package univers.personnages;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
-
 import univers.Eleme;
 import univers.Statistiques;
-//import univers.competences.Competences;
 import univers.competences.CompetencesActives;
-//import univers.personnages.personnagesGroupe.*;
-/** an abstract class to represent all of our fighting characters (allies or ennemies)
- * 
+
+/**
+ * Une classe pour les Personnages combattants (qui apparaissent dans le FighTNode )
  */
 public abstract class PersonnageCombattant extends Personnage {
-	/** the level of the character
-	 * used for progression in the specific class "PersoGroupe" and mainly for tension when it comes to ennemies
-	 */
-	private int level ; 
-	/** the strangth of the character 
-	 * 
-	 */
-	private int strength ;
-	/** the intelligence of the character 
-	 * 
-	 */
-	private int intelligence ;
-	/** the dexterity of the character 
-	 * 
-	 */
-	private int dexterity ;
-	/** the speed of the character 
-	 * 
-	 */
-	private int speed ; 
-	/** the lifePoints of the character 
-	 * 
-	 */
-	private int lifePoints ;
-	/** the maxLifePOints of the character 
-	 * 
-	 */
-	private int maxLifePoints ;
-	/** is the character alive 
-	 * 
-	 */
-	private boolean alive ;
-	/** the endurance of the character 
-	 * 
-	 */
-	private int endurance ;
-	/** the current mana of the character 
-	 * 
-	 */
-	private int mana ;
-	/** the maximum mana of the character 
-	 * 
-	 */
-	private int maxMana ;
-	/** the weaknesses of the character 
-	 * 
-	 */
-	private ArrayList<Eleme> faiblesses ; 
-	/** the resistances of the character 
-	 * 
-	 */
-	private ArrayList<Eleme> resistances ;
-
-	//private static ArrayList<PersonnageCombattant> groupeJoueur ;
-
 	
-	/** the constructor for the class 
-	 * 
-	 * @param nom
-	 * @param description
-	 * @param dexterite
-	 * @param force
-	 * @param intelligence
-	 * @param endurance
-	 * @param speed
-	 * @param maxMana
-	 * @param maxLifePoints
-	 * @param faiblesse
-	 * @param resistances
+	private int level ; 
+	private int strength ;
+	private int intelligence ;
+	private int dexterity ;
+	private int speed ; 
+	private int lifePoints ;
+	private int maxLifePoints ;
+	private boolean alive ;
+	private int endurance ;
+	private int mana ;
+	private int maxMana ;
+	private ArrayList<Eleme> faiblesses ; 
+	private ArrayList<Eleme> resistances ;
+	
+	/**
+	 * le constructeur de la classe
+	 * @param nom le nom du perso 
+	 * @param description sa description
+	 * @param dexterite la dexterite 
+	 * @param force sa force 
+	 * @param intelligence son intelligence 
+	 * @param endurancen son endurance 
+	 * @param speed sa vitesse 
+	 * @param maxLifePoints son MAximum de points de vie 
+	 * @param maxMana son maximum de mana 
+	 * @param faiblesses ses faiblesses 
+	 * @param resistances ses résistances 
 	 */
 	public PersonnageCombattant(String nom, String description, Integer dexterite, Integer force, Integer intelligence, Integer endurance, Integer speed, Integer maxMana, Integer maxLifePoints, ArrayList<Eleme> faiblesse, ArrayList<Eleme> resistances) {
 		super(nom, description) ;
@@ -128,6 +85,21 @@ public abstract class PersonnageCombattant extends Personnage {
 		} else this.resistances = resistances ;
 	}
 
+	/**
+	 * le constructeur de la classe
+	 * @param nom le nom du perso 
+	 * @param description sa description
+	 * @param imagePath l'image path de l'image du perso 
+	 * @param dexterite la dexterite 
+	 * @param force sa force 
+	 * @param intelligence son intelligence 
+	 * @param endurancen son endurance 
+	 * @param speed sa vitesse 
+	 * @param maxLifePoints son MAximum de points de vie 
+	 * @param maxMana son maximum de mana 
+	 * @param faiblesses ses faiblesses 
+	 * @param resistances ses résistances 
+	 */
 	public PersonnageCombattant(String nom, String description, String imagePath, Integer dexterite, Integer force, Integer intelligence, Integer endurance, Integer speed, Integer maxMana, Integer maxLifePoints, ArrayList<Eleme> faiblesse, ArrayList<Eleme> resistances) {
 		super(nom, description, imagePath) ;
 		if (dexterite == null || dexterite<=0){
@@ -172,16 +144,18 @@ public abstract class PersonnageCombattant extends Personnage {
 			this.resistances = new ArrayList<Eleme>();
 		} else this.resistances = resistances ;
 	}
-	/** a getter for the speed
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour la vitesse 
+	 * @return la vitesse 
 	 */
 	public int getSpeed() {
 		return speed;
 	}
-	/** a setter for speed
-	 * 
-	 * @param speed
+	
+	/**
+	 * Un setter pour la vitesse 
+	 * @return la vitesse 
 	 */
 	public void setSpeed(int speed) {
 		if (speed < 0) {
@@ -189,16 +163,18 @@ public abstract class PersonnageCombattant extends Personnage {
 		}
 		this.speed = speed;
 	}
-	/** a getter for level 
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour le niveau 
+	 * @return le niveau 
 	 */
 	public int getLevel() {
 		return level;
 	}
-	/** a setter for level 
-	 * 
-	 * @param level
+	
+	/**
+	 * Un setter pour le niveau 
+	 * @return le niveau 
 	 */
 	public void setLevel(int level) {
 		if (level <= 0) {
@@ -206,16 +182,16 @@ public abstract class PersonnageCombattant extends Personnage {
 		}
 		this.level = level;
 	}
-	/** a getter for strength
-	 * 
-	 * @return
+	/**
+	 * Un getter pour la force 
+	 * @return la force 
 	 */
 	public int getStrength() {
 		return strength;
 	}
-	/** a setter for strength
-	 * 
-	 * @param strengh
+	/**
+	 * Un setter pour la force 
+	 * @return la force 
 	 */
 	public void setStrength(int strengh) {
 	
@@ -225,16 +201,16 @@ public abstract class PersonnageCombattant extends Personnage {
 			this.strength = strengh;
 		
 	}
-	/** a getter for intelligence
-	 * 
-	 * @return
+	/**
+	 * Un getter pour l'intelligence 
+	 * @return l'intelligence 
 	 */
 	public int getIntelligence() {
 		return intelligence;
 	}
-	/** a setter for intelligence
-	 * 
-	 * @param intelligence
+	/**
+	 * Un setter pour l'intelligence 
+	 * @return l'intelligence 
 	 */
 	public void setIntelligence(int intelligence) {
 			if(intelligence<=0){
@@ -243,15 +219,16 @@ public abstract class PersonnageCombattant extends Personnage {
 			this.intelligence = intelligence;
 		
 	}
-	/** a getter for dexterity
-	 * 
-	 * @return
+	/**
+	 * Un getter pour la dextérité 
+	 * @return la dextérité 
 	 */
 	public int getDexterity() {
 		return dexterity;
 	}
-	/* a setter for dexterity
-	 * 
+	/**
+	 * Un setter pour la dextérité 
+	 * @return la dextérité 
 	 */
 	public void setDexterity(int dexterity) {
 			if(dexterity<=0){
@@ -259,16 +236,16 @@ public abstract class PersonnageCombattant extends Personnage {
 			}
 			this.dexterity = dexterity;
 			}
-	/** a getter for endurance
-	 * 
-	 * @return
+	/**
+	 * Un getter pour l'endurance 
+	 * @return l'endurance 
 	 */
 	public int getEndurance() {
 		return endurance;
 	}
-	/** a setter for endurance
-	 * 
-	 * @param endurance
+	/**
+	 * Un setter pour l'endurance 
+	 * @return l'endurance 
 	 */
 	public void setEndurance(int endurance) {
 
@@ -277,16 +254,16 @@ public abstract class PersonnageCombattant extends Personnage {
 			}
 			this.endurance = endurance;
 				}
-	/** a getter for Lifepoints
-	 * 
-	 * @return
+	/**
+	 * Un getter pour les points de vie 
+	 * @return les points de vie 
 	 */
 	public int getLifePoints() {
 		return lifePoints;
 	}
-	/** a setter for lifepoints
-	 * 
-	 * @param lifePoints
+	/**
+	 * Un setter pour les points de vie  
+	 * @return les points de vie  
 	 */
 	public void setLifePoints(int lifePoints) {
 		this.lifePoints = lifePoints;
@@ -294,16 +271,16 @@ public abstract class PersonnageCombattant extends Personnage {
 			this.lifePoints=this.maxLifePoints;
 		}
 	}
-	/** a getter for max lifePOints
-	 * 
-	 * @return
+	/**
+	 * Un getter pour les points de vie MAX  
+	 * @return les points de vie MAX 
 	 */
 	public int getMaxLifePoints() {
 		return maxLifePoints;
 	}
-	/** a setter for maxlifepoints
-	 * 
-	 * @param maxLifePoints
+	/**
+	 * Un setter pour les points de vie MAX 
+	 * @return les points de vie MAX 
 	 */
 	public void setMaxLifePoints(int maxLifePoints) {
 			if(maxLifePoints<=0){
@@ -311,16 +288,16 @@ public abstract class PersonnageCombattant extends Personnage {
 			}
 			this.maxLifePoints = maxLifePoints;
 				}
-	/** a getter for the current mana
-	 * 
-	 * @return
+	/**
+	 * Un getter pour les points de Mana 
+	 * @return les points de mana  
 	 */
 	public int getMana() {
 		return mana;
 	}
-	/** a setter for the current mana
-	 * 
-	 * @param mana
+	/**
+	 * Un setter pour les points de mana  
+	 * @return les points de mana  
 	 */
 	public void setMana(int mana) {
 		
@@ -331,16 +308,16 @@ public abstract class PersonnageCombattant extends Personnage {
 				this.mana = maxMana ;
 			} else this.mana = mana;
 	}
-	/** a getter for the maximum mana
-	 * 
-	 * @return
+	/**
+	 * Un getter pour les points de mana MAX  
+	 * @return les points de mana MAX  
 	 */
 	public int getMaxMana() {
 		return maxMana;
 	}
-	/** a setter for the maximum mana
-	 * 
-	 * @param maxMana
+	/**
+	 * Un setter pour les points de mana MAX 
+	 * @return les points de mana MAX
 	 */
 	public void setMaxMana(int maxMana) {
 
@@ -349,64 +326,59 @@ public abstract class PersonnageCombattant extends Personnage {
 			}
 			this.maxMana = maxMana;
 			}
-	/** a getter for alive
-	 * 
-	 * @return
+	/**
+	 * Un getter pour si le personnage est en vie  
+	 * @return si le personnage est en vie  
 	 */
 	public boolean isAlive() {
 		return alive;
 	}
-	/** a setter for alive
-	 * 
-	 * @param alive
+	/**
+	 * Un setter pour si le personnage est en vie  
+	 * @return si le personnage est en vie  
 	 */
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
 	
-	/** a getter for resistances 
-	 * 
-	 * @return
+	/**
+	 * Un getter pour si les résistances 
+	 * @return si les résistances 
 	 */
 	public ArrayList<Eleme> getResistances() {
 		return resistances;
 	}
-	/** a setter for resistances
-	 * 
-	 * @param resistances
+	/**
+	 * Un setter pour si les résistances 
+	 * @return si les résistances 
 	 */
 	public void setResistances(ArrayList<Eleme> resistances) {
 		if (resistances==null){
 			resistances = new ArrayList<Eleme>() ;
 		} else this.resistances = resistances;
 	}
-	/** a getter for weaknesses
-	 * 
-	 * @return
+	/**
+	 * Un getter pour si les faiblesses 
+	 * @return si les faiblesses 
 	 */
 	public ArrayList<Eleme> getFaiblesses(){
 		return this.faiblesses ;
 	}
-	/** a setter for weaknesses
-	 * 
-	 * @param faiblesse
+	/**
+	 * Un setter pour si les faiblesses 
+	 * @return si les faiblesses 
 	 */
 	public void setFaiblesse(ArrayList<Eleme> faiblesses) {
 		if (faiblesses==null){
 			this.faiblesses = new ArrayList<Eleme>() ;
 		} else this.faiblesses = faiblesses;	}
-	/* 
-	public static void setGroupeJoueur(ArrayList<PersonnageCombattant> groupeJoueur) {
-		PersonnageCombattant.groupeJoueur = groupeJoueur;
-	}*/
 	
 	/** 
-	 * a method to test a character's statistic
-	 * @param valeurTest value to modulate the difficulty of the test
-	 * @param stat the stat being tested 
-	 * @return weather the character succeeded or not 
+	 * Une méthode pour testes les statistiques d'un personnage 
+	 * @param valeurTest valeur pour moduler la difficulté du test 
+	 * @param stat la stat qui va se faire test  
+	 * @return est ce que le personnage a réussi le test  
 	 */
-	
 	public boolean testStat(int valeurTest, Statistiques stat){
 	
 			if (valeurTest<0) {
@@ -454,12 +426,10 @@ public abstract class PersonnageCombattant extends Personnage {
 	}
 	
 	
-	/** a function meant to check if the character is alive or no
-	 * 
-	 * @return
+	/**
+	 * Une fonction pour vérifier si le personnage est en vie 
+	 * @return si le personnage est en vie ou pas 
 	 */
-	
-	// une fonction qui vérifie que le personnage est toujours en vie 
 	public boolean enVie() {
 		if (this.getLifePoints() <= 0) {
 			this.setAlive(false);
@@ -467,20 +437,20 @@ public abstract class PersonnageCombattant extends Personnage {
 		}
 		return this.alive ;
 	}
-	/** a method to prevent the character to overheal
-	 * 
+	/**
+	 * une méthode pour éviter que le personnage ne se soigne trop
 	 */
-	// une méthode pour s'assurer que le personnage n'overheal pas 
 	public void noOverHeal() {
 		if (this.getLifePoints() >= this.getMaxLifePoints()) {
 			this.setLifePoints(this.getMaxLifePoints()) ;
 		}
 	}
-	/** a function to measure if the character successfully avoided the attack 
+	/** 
+	 * Une fonction pour tester si le personnage a esquivé l'attaque 
 	 * 
-	 * @param competenceAccuracy
-	 * @param lanceur
-	 * @return
+	 * @param competenceAccuracy la précision de l'attaque 
+	 * @param lanceur le lanceur de la compétence 
+	 * @return si le personnage a esquivé 
 	 */
 	public boolean esquive(int competenceAccuracy, PersonnageCombattant lanceur) {
 		if (lanceur == null) {
@@ -502,13 +472,11 @@ public abstract class PersonnageCombattant extends Personnage {
 		return t;
 	}
 	
-	/** a method to deal dammage to characters
-	 * 
-	 * @param dammage
+	/** 
+	 * Une méthode pour infliger des dégâts aux personnages 
+	 * @param dammage les dégâts infligés 
 	 */
-	// une méthode pour faire subir des dégâts à nos personnages 
 	public void dammage(int dammage) {
-	
 			if (dammage<=0){
 				throw new IllegalArgumentException("dammage doit être supérieur à zéro") ;
 			}
@@ -522,11 +490,10 @@ public abstract class PersonnageCombattant extends Personnage {
 	
 		
 	}
-	/** a method to heal characters 
-	 * 
-	 * @param heal
+	/** 
+	 * Une méthode pour soigner les personnages 
+	 * @param heal le total de soin
 	 */
-	// une méthode pour soigner les personnages
 	public void heal(int heal) {
 			if (heal<=0){
 				throw new IllegalArgumentException("heal doit être supérieur à, zéro");
@@ -534,21 +501,40 @@ public abstract class PersonnageCombattant extends Personnage {
 		this.setLifePoints(this.getLifePoints() + heal) ;
 		
 	}
-	/** a function used to get the group of the characters
-	 * 
-	 * @return
+	
+	/**
+	 * Un getter pour le groupe  
+	 * @return le groupe  
 	 */
 	public abstract ArrayList<PersonnageCombattant> getGroupe() ;
+	/**
+	 * un setter pour le groupe 
+	 * @param newgroup le nouveau groupe 
+	 */
 	public abstract void setGroupe(ArrayList<PersonnageCombattant> newGroup) ;
+	/**
+	 * Un getter pour le groupe vivant 
+	 * @return le groupe Vivant 
+	 */
 	public abstract ArrayList<PersonnageCombattant> getGroupeVivant() ;
 	
-	 @Override
+
+	/**
+	 * Pour convertir le personnage en String 
+	 * @return La conversion en String 
+	 */
+	@Override
 	public String toString() {
 		return super.toString() + " [level=" + level + ", strength=" + strength + ", intelligence=" + intelligence
 				+ ", dexterity=" + dexterity + ", speed=" + speed + ", lifePoints=" + lifePoints + ", maxLifePoints="
 				+ maxLifePoints + ", alive=" + alive + ", endurance=" + endurance + ", mana=" + mana + ", maxMana="
 				+ maxMana + ", faiblesses=" + faiblesses + ", resistances=" + resistances + "]";
 	}
+	/**
+	 * La méthode equals pour vérifier si l'objet comparé est égal
+	 * @param obj l'objet comparé
+	 * @return si l'objet est le même ou pas 
+	 */
 	@Override
 	    public boolean equals(Object obj) {
 			if (this == obj) {

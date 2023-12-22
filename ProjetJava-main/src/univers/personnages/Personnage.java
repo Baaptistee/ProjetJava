@@ -1,37 +1,22 @@
 package univers.personnages;
-import java.awt.Image;
 import java.io.Serializable;
 import java.util.Objects;
 
-/** a class used to represents characters 
- * We might delete it later because for now all our characters will be fighting ones 
+/**
+ * une classe pour les personnages du jeu 
  */
 public class Personnage implements Serializable{
-    /** the name of the character 
-     * 
-     */
-	private String name;
-	/** the description of the character 
-	 * 
-	 */
-    private String description;
-    /** the image of the character 
-     * Not used yet 
-     */
+    
+    private String name;
+	private String description;
     private String imageLien;
-    /** a static variable representing the total of characters 
-     * 
-     */
     private static int totalPerso = 0 ;
-    /** the id of the chacacter 
-     * 
-     */
     private int persoId ;
     
-    /** the constructor of the class 
-     * 
-     * @param name
-     * @param description
+    /** 
+     * Le constructeur de la classe 
+     * @param name le nom du personnage 
+     * @param description sa description
      */
     public Personnage(String name, String description) {
             if (name==null){
@@ -46,7 +31,12 @@ public class Personnage implements Serializable{
             this.description=description;
     }
     
-    
+    /**
+     * Un autre constructeur 
+     * @param name le nom du personnage 
+     * @param description sa description 
+     * @param imageLien le path de son image
+     */
     public Personnage(String name, String description, String imageLien){
         this.name=name;
         this.description=description;
@@ -54,31 +44,33 @@ public class Personnage implements Serializable{
     }
     
 
-    //Getters Setters
-    /** a getter for the name
-     * 
-     * @return
+    /**
+     * Un getter pour le nom 
+     * @return le nom 
      */
     public String getName(){
         return name;
     }
-    /** a gette rfor the description 
-     * 
-     * @return
+    
+    /**
+     * Un getter pour la description
+     * @return la description
      */
     public String getDescription(){
         return description;
     }
-    /** a getter for the Image 
-     * 
-     * @return
+    
+    /**
+     * Un getter pour le path de l'image 
+     * @return le path de l'image
      */
     public String getImageLien(){
         return this.imageLien;
     }
-    /** a setter for the name
-     * 
-     * @param name
+    
+    /**
+     * Un setter pour le nom 
+     * @param name le nouveau nom 
      */
     public void setName(String name){
         if (name == null){
@@ -89,34 +81,46 @@ public class Personnage implements Serializable{
         }
         this.name=name;
     }
-    /** a getter for the PersoId
-     * 
-     * @return
+    
+    /**
+     * Un getter pour l'id unique du perso 
+     * @return l'id du perso 
      */
     public int getPersoId() {
     	return this.persoId ;
     }
-    /** a setter for the description 
-     * 
-     * @param description
+    
+    /**
+     * Un setter pour la description
+     * @param description la nouvelle description 
      */
     public void setDescription(String description){
         this.description=description;
     }
-    /** a setter for image 
-     * 
-     * @param img
+    
+    /**
+     * Un setter pour l'image Path 
+     * @param img l'image path 
      */
     public void setImage(String img){
         this.imageLien=img;
     }
     
+    /**
+	 * Pour convertir le personnage en String 
+	 * @return La conversion en String 
+	 */
     @Override
 	public String toString() {
 		return " [name=" + name + ", description=" + description + ", img=" + imageLien + ", persoId=" + persoId
 				+ "]";
 	}
 
+    /**
+	 * La méthode equals pour vérifier si l'objet comparé est égal
+	 * @param obj l'objet comparé
+	 * @return si l'objet est le même ou pas 
+	 */
 	@Override
     public boolean equals(Object obj) {
 		if (this == obj) {

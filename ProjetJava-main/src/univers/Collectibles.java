@@ -1,5 +1,7 @@
 package univers;
-
+/**
+ * Une interface pour tous les objets stockables dans l'inventaire
+ */
 public interface Collectibles {
 	
 	/**
