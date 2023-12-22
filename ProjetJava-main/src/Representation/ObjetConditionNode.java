@@ -23,6 +23,22 @@ public class ObjetConditionNode extends InnerNode{
         this.objetNecessaire=objetNecessaire;
     }
 
+
+    /**
+     * Un constructeur 
+     * @param nom le nom du node
+     * @param description la descritpion du node
+     * @param objetNecessaire l'objet nécessaire 
+     * @param imageName
+     */
+    public ObjetConditionNode(String nom, String description, String imageName, Collectibles objetNecessaire) {
+        super(nom, description);
+        if (objetNecessaire==null){
+            throw new IllegalArgumentException("L'Objet nécessaire ne peut être nul !");
+        }
+        this.objetNecessaire=objetNecessaire;
+    }
+
     /**
      * un getter pour l'objet nécessaire
      * @return l'objet nécessaire

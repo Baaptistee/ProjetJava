@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
+import univers.armes.Weapon;
 //import univers.armes.Weapon;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
@@ -41,14 +42,16 @@ public class Voleur extends PersoGroupe{
 	public static Voleur getVoleur() {
 		if (instance == null) {
 			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
-			CompetencesActives c1 = new CompetenceDammage("Attaque de base", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
-			CompetencesActives c2 = new CompetenceDammage("Attaque puissante", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c1 = new CompetenceDammage("Lancer de Dague", "Une attaque de base avec la dague", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c2 = new CompetenceDammage("Coups de Poignard", "Frappe de 3 coups de Poignard peu précis la cible", 15, 50, 10, 3, Eleme.NONE, false, true) ;
 			competence.add(c2) ;
 			competence.add(c1) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			instance = new Voleur("Voleur", "Description du voleur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
-			instance.setImage("image/MC_Mage.png");
+			instance.setImage("image/voleur.png");
+			Weapon petiteEpee = new Weapon(2, 100,"Petite Dague", "Une dague solide mais vétuste.", 2, 1, 3, 0, 4);
+			instance.setWeapon(petiteEpee);
 
 		}
 		return instance ;
@@ -88,7 +91,7 @@ public class Voleur extends PersoGroupe{
 	public String gainNiveau() {
 		Random random = new Random() ;
 		this.setLevel(getLevel()+1);
-		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
 		setIntelligence(getBaseIntelligence() + 1 + random.nextInt(3)) ;
@@ -99,7 +102,12 @@ public class Voleur extends PersoGroupe{
 		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance();
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
-		if (this.getLevel() == 2) {
+		if (this.getLevel()==2){
+			CompetenceDammage pluieDeFleches = new CompetenceDammage("Pluie de Flèche", "Lance une flèche sur chaque ennemi 2 fois, mais avec une précision réduite.", 10, 60, 8, 2, Eleme.NONE, false, true);
+			this.getCompetences().add(pluieDeFleches) ;
+			t += "/Il apprend la compétence active : Lancer de couteaux !" ;
+		}
+		if (this.getLevel() == 3) {
 			CompetenceDammage lancerDeCouteaux = new CompetenceDammage("Lancer de couteaux", "Lance un couteau sur un ennemi 3 fois, mais avec une précision réduite.", 5, 70, 4, 3, Eleme.NONE, false, true);
 			this.getCompetences().add(lancerDeCouteaux) ;
 			t += "/Il apprend la compétence active : Lancer de couteaux !" ;

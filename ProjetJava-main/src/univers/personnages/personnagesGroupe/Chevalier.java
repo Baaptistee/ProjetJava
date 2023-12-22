@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
+import univers.armes.Weapon;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
 
@@ -40,16 +41,17 @@ public class Chevalier extends PersoGroupe{
 	public static Chevalier getChevalier() {
 		if (instance == null) {
 			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
-			CompetencesActives c1 = new CompetenceDammage("Attaque de base", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
-			CompetencesActives c2 = new CompetenceDammage("Attaque puissante", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c1 = new CompetenceDammage("Coup d'épée faible", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c2 = new CompetenceDammage("Coup d'épée puissant", "une attaque puissante avec l'arme", 5, 100, 10, 1, Eleme.NONE, false, true) ;
 			competence.add(c2) ;
 			competence.add(c1) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
-			CompetenceDammage tailladeLarge = new CompetenceDammage("Taillade Large", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 10, 80, 3, 1, Eleme.NONE, true, true) ;
-			competence.add(tailladeLarge) ;
 			instance = new Chevalier("Chevalier", "Description du Chevalier", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
-			instance.setImage("image/MC_Mage.png");
+			instance.setImage("image/chevalier.png");
+			Weapon petiteEpee = new Weapon(2, 100,"Petite Épée", "Une épée solide mais vétuste.", 3, 0, 1, 1, 0);
+
+			instance.setWeapon(petiteEpee);
 		}
 		return instance ;
 	}
@@ -77,7 +79,7 @@ public class Chevalier extends PersoGroupe{
 	public String gainNiveau() {
 		Random random = new Random() ;
 		this.setLevel(this.getLevel() +1);
-		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
 		setIntelligence(getBaseIntelligence() + 1 + random.nextInt(3)) ;
@@ -89,24 +91,24 @@ public class Chevalier extends PersoGroupe{
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
 		if (this.getLevel() == 2) {
-			CompetenceDammage tailladeLarge = new CompetenceDammage("Taillade Large", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 10, 80, 3, 1, Eleme.NONE, true, true) ;
+			CompetenceDammage tailladeLarge = new CompetenceDammage("Taillade Large", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 10, 80, 5, 1, Eleme.NONE, true, true) ;
 			this.getCompetences().add(tailladeLarge) ;
 			t += "/Il apprend la compétence active : Taillade Large !" ;
 		}
 		if (this.getLevel() == 3) {
-			CompetenceDammage epeeFeu = new CompetenceDammage("Lame de feu", "Une attaque qui inflige de légers dégâts de feu à un ennemi", 3, 100, 5, 1, Eleme.FEU, false, true) ;
+			CompetenceDammage epeeFeu = new CompetenceDammage("Lame de feu", "Une attaque qui inflige de légers dégâts de feu à un ennemi", 3, 100, 7, 1, Eleme.FEU, false, true) ;
 			this.getCompetences().add(epeeFeu) ;
 			t += "/Il apprend la compétence active : Lame de feu !" ;
 		}
 		if (this.getLevel()==4){
-			CompetenceDammage acharnement = new CompetenceDammage("Acharnement", "Une attaque qui inflige de légers à un ennemi 3 fois !", 6, 90, 4, 3, Eleme.NONE, false, true) ;
+			CompetenceDammage acharnement = new CompetenceDammage("Acharnement", "Une attaque qui inflige de légers à un ennemi 3 fois !", 6, 80, 4, 3, Eleme.NONE, false, true) ;
 			this.getCompetences().add(acharnement) ;
-			t += "/Il apprend la compétence active : Lame de feu !" ;
+			t += "/Il apprend la compétence active : Acharnement !" ;
 		}
-		if (this.getLevel() == 7) {
-			CompetenceDammage AttaqueMort = new CompetenceDammage("Attaque de la mort", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 3, 80, 3, 1, Eleme.NONE, true, true) ;
+		if (this.getLevel() == 5) {
+			CompetenceDammage AttaqueMort = new CompetenceDammage("Épée ultime", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 15, 90, 15, 1, Eleme.NONE, true, true) ;
 			this.getCompetences().add(AttaqueMort) ;
-			t += "/Il apprend la compétence active : Attaque de la mort !" ;
+			t += "/Il apprend la compétence active : Épée ultime !" ;
 		}
 		return t ;
 	}

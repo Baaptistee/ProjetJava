@@ -26,7 +26,6 @@ public class Game implements Serializable {
 	
 	private ArrayList<PersonnageCombattant> groupeJoueur ;
 	private Node currentNode ;
-	private Node firstNode ;
 	private static Game instance;
 	private Map<Collectibles, Integer> inventaire = new HashMap<>();
 	private String nomJoueur = "Baptiste";
@@ -87,6 +86,7 @@ public class Game implements Serializable {
 		Mage.newMage();
 		Soigneur.newSoigneur();
 		Voleur.newVoleur();
+		getGame().getFirstNode().display();
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class Game implements Serializable {
 	 * @return le premier Node 
 	 */
 	public Node getFirstNode(){
-		return this.firstNode ;
+		return Node.getFirstNode();
 	}
 
 	/**
@@ -175,7 +175,7 @@ public class Game implements Serializable {
 	 * @param node le nouveau premier Node 
 	 */
 	public void setFirstNode(Node node){
-		this.firstNode=node ;
+		Node.setFirstNode(node);
 	}
 
 	/**

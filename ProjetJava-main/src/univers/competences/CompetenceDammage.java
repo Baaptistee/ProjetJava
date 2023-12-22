@@ -1,5 +1,6 @@
 package univers.competences;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
@@ -194,7 +195,7 @@ public class CompetenceDammage extends CompetencesActives{
 			cible = cible.getGroupeVivant().get(0) ;
 		}
 		if (utilisateur.getMana()<this.getCoutMana()) {
-			d = "Pas assez de mana, rien ne se passe" ;
+			d = utilisateur.getName()+" essaie d'utiliser "+ this.getName()+"/Pas assez de mana, rien ne se passe !/" ;
 		} else {
 			d = utilisateur.getName() + " utilise " + this.getName() + "./";
 			utilisateur.setMana(utilisateur.getMana()-this.getCoutMana());
@@ -202,11 +203,11 @@ public class CompetenceDammage extends CompetencesActives{
 			for (int x=0 ; x<this.getNbHits() ; x++) {
 				// on parcoure le groupe en cas de dommages de groupe
 				if (this.isGroup()) {
-					
-					for(int i = 0 ; i < cible.getGroupe().size() ; i++) {
+					ArrayList<PersonnageCombattant> groupeCible = cible.getGroupeVivant();
+					for(PersonnageCombattant persoCible : groupeCible) {
 						//on appelle la méthode esquive qui permet de savoir si le personnage a esquivé l'attaque 
-						if (cible.getGroupeVivant().get(i).esquive(this.getAccuracy(), utilisateur)) {
-							d += cible.getGroupeVivant().get(i).getName() + " equive l'attaque et s'en tire sans dommage./" ;
+						if (persoCible.esquive(this.getAccuracy(), utilisateur)) {
+							d += persoCible.getName() + " equive l'attaque et s'en tire sans dommage./" ;
 						} else {
 							// en cas de dommages physiques on se base sur la force et en cas de dégats magiques sur l'intelligence 
 							if (this.isPhysical()) {
@@ -215,16 +216,16 @@ public class CompetenceDammage extends CompetencesActives{
 								b = this.getPower() + utilisateur.getIntelligence()/2 + random.nextInt(this.getPower()/2);
 							}
 							// en cas de faiblesse élémentaire la cible subit 2 fois plus de dégâts 
-							if (cible.getGroupeVivant().get(i).getFaiblesses().contains(this.getElement())) {
+							if (persoCible.getFaiblesses().contains(this.getElement())) {
 								b *=2 ;
 								d += "L'attaque est super efficace ! /" ;
-							} else if (cible.getGroupeVivant().get(i).getResistances().contains(this.getElement())) {
+							} else if (persoCible.getResistances().contains(this.getElement())) {
 								b /=2 ;
 								d += "L'attaque n'est pas très efficace ... /" ;
 							}
-							cible.getGroupeVivant().get(i).dammage(b);
-							d += cible.getGroupeVivant().get(i).getName() + " subit " + b + " points de dégats./" ;
-							if (!cible.getGroupeVivant().get(i).enVie()){
+							persoCible.dammage(b);
+							d += persoCible.getName() + " subit " + b + " points de dégats./" ;
+							if (!persoCible.enVie()){
 								cible.setAlive(false);
 								
 								d += cible.getName() + " est vaincu(e) !/" ;

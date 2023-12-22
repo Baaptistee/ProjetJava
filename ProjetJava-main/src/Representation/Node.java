@@ -22,6 +22,7 @@ public abstract class Node extends Object implements Event, Serializable {
 	private String imageName;
 	private String soundName;
 	private ArrayList <String> imagepersoPath = new ArrayList<String>();
+	private static Node firstNode;
 
 
 	/**
@@ -171,6 +172,22 @@ public String getImageName() {
 	 */
 	public String getDescription() {
 		return this.description ;
+	}
+	
+	/**
+	 * Un getter pour le firstNode
+	 * @return le first Node 
+	 */
+	public static Node getFirstNode() {
+		return firstNode;
+	}
+
+	/**
+	 * Un setter pour le firstNode
+	 * @param newFirstNode le nouveau FirstNode 
+	 */
+	public static void setFirstNode(Node newFirstNode){
+		firstNode= newFirstNode ;
 	}
 
 	/**

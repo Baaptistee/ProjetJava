@@ -126,7 +126,7 @@ public class CompetenceSoin extends CompetencesActives {
 		Random random = new Random() ;
 		String d ;
 		if (utilisateur.getMana()<this.getCoutMana()) {
-			d = "Pas assez de mana, rien ne se passe" ;
+			d = utilisateur.getName()+" essaie d'utiliser "+ this.getName()+"Pas assez de mana, rien ne se passe !/" ;
 		} else {
 			utilisateur.setMana(utilisateur.getMana()-this.getCoutMana());
 			d = utilisateur.getName() + " utilise " + this.getName() + ".";

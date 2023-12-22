@@ -10,6 +10,8 @@ import univers.personnages.PersonnageAdversaire;
 import univers.personnages.PersonnageCombattant;
 import univers.Collectibles;
 import univers.Utilisable;
+import univers.Objets.ObjetsDeSoin;
+import univers.armes.Weapon;
 import univers.competences.CompetenceDammage;
 import univers.competences.CompetenceSoin;
 import java.util.HashMap;
@@ -488,7 +490,7 @@ public class InterfaceJeu {
      */
     public static void utilisation(String text){
         JPanel panel = new JPanel();
-        panel.setBounds(50, 450, 400, 250);
+        panel.setBounds(50, 505, 400, 250);
         panel.setOpaque(false);
         panel.setBackground(Color.CYAN);
         panel.setVisible(true);
@@ -533,10 +535,30 @@ public class InterfaceJeu {
         editorPane.setEditable(false);
         editorPane.setContentType("text/html");
         editorPane.setFont(new Font("Courier new", Font.PLAIN, 20));
-        editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
-        + "Nom : " + objet.getName() + "<br>"
-        + "Description : "+ objet.getName()+"<br>"
-        + "</div>");
+        if(objet instanceof ObjetsDeSoin){
+            editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+            + "Nom : " + objet.getName() + "<br>"
+            + "Description : "+ objet.getDescription()+"<br>"
+            + "PV Rendu : "+ ((ObjetsDeSoin)objet).getPVRendu() + "<br>"
+            + "Mana rendu : "+((ObjetsDeSoin)objet).getManaRendu()
+            + "</div>");
+        } else if (objet instanceof Weapon){
+            Weapon arme = (Weapon) objet ;
+            editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+            + "Nom : " + objet.getName() + "<br>"
+            + "Description : "+ objet.getDescription()+"<br>"
+            + "Bonus de Force : " + arme.getBonusStrength() + "<br>"
+            + "Bonus de Vitesse : "+arme.getBonusSpeed() + "<br>"
+            + "Bonus d'Intelligence : "+arme.getBonusIntelligence()+ "<br>"
+            + "Bonus d'Endurance : "+arme.getBonusEndurance()+"<br>"
+            + "Bonus de Dextérité : "+arme.getBonusDexterity()
+            + "</div>");
+        } else {
+            editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
+            + "Nom : " + objet.getName() + "<br>"
+            + "Description : "+ objet.getDescription()+"<br>"
+            + "</div>");
+        }
     
         // editorPane.setText("<div style=\"background-color: #000000; padding: 10px; display: inline-block; color: #ffffff; font-size: 13px; font-family: Courier New; letter-spacing: -1px;\">"
         // + "</div>");
@@ -576,7 +598,7 @@ public class InterfaceJeu {
     
             addPanelWithImage(imagePathGroupList.get(1), 500, 400);
             addPanelWithImage(imagePathGroupList.get(2), 500, 100);
-            addPanelWithImage(imagePathGroupList.get(2), 50, 400);
+            addPanelWithImage(imagePathGroupList.get(3), 50, 400);
             ButtonFermer();
     
             getFenetre().add(layeredPane);
@@ -827,10 +849,10 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
  */
     private static void addPanelWithImage(String imagePath, int x, int y) {
         JPanel panel = new JPanel();
-        panel.setBounds(x, y, 200, 200);
+        panel.setBounds(x, y, 200, 220);
         panel.setOpaque(false);
         ImageIcon imageIcon = new ImageIcon(imagePath);
-        java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(190, 190, java.awt.Image.SCALE_SMOOTH);
+        java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(190, 210, java.awt.Image.SCALE_SMOOTH);
         ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
         JLabel label = new JLabel(imageRedimensionneeIcon);
         panel.add(label);
@@ -975,7 +997,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
                     layeredPane.removeAll();
                     layeredPane.revalidate();
                     layeredPane.repaint();
-                    Game.getGame().getFirstNode().display() ; 
+                    Game.newGame();
                          
                 }
             });
@@ -1235,6 +1257,56 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
         }
     }
 
+
+     /**
+      * Pour afficher les persos d'un TerminalNode 
+      * @param node
+      */
+    public static void afficherpersoTerminal(Node node){
+        if (node==null){
+            throw new IllegalArgumentException("Node ne peut être null");
+        }
+        if (node.getImagePersoList().size()>5){
+            throw new IllegalArgumentException("Le jeu ne peut afficher que 5 persos à la fois ! Node concerné : "+node.getNom());
+        }
+        ArrayList<String> imageperso = node.getImagePersoList();
+        if (imageperso!=null){
+            
+            JPanel panel= new JPanel(new FlowLayout());
+            panel.setBounds(60, 500, 650, 270);
+            panel.setOpaque(false);
+            for (String  element : imageperso) {
+                try {
+                configPanel();
+                ImageIcon imageIcon = new ImageIcon(element);
+                
+                // Vérifier le statut du chargement de l'image
+                int loadStatus = imageIcon.getImageLoadStatus();
+                if (loadStatus == MediaTracker.COMPLETE) {
+                    // Redimensionnement de l'image
+                    // On redimentionne en width 130 pour pouvoir faire rentrer 5 personnages
+                    java.awt.Image imageRedimensionnee = imageIcon.getImage().getScaledInstance(125, 125, java.awt.Image.SCALE_SMOOTH);
+                    ImageIcon imageRedimensionneeIcon = new ImageIcon(imageRedimensionnee);
+                    JLabel label = new JLabel(imageRedimensionneeIcon);
+                    panel.add(label);
+                } else {
+                    throw new Exception("Échec du chargement de l'image "+element);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            }
+                
+            }
+            getFenetre().add(layeredPane);
+            getFenetre().setVisible(true);
+            layeredPane.add(panel, JLayeredPane.POPUP_LAYER);
+            
+            getFenetre().revalidate();
+            getFenetre().repaint();
+        }
+    }
+
 /**
  * Pour afficher nos nodes
  * @param node
@@ -1247,7 +1319,9 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
 
 	    getFenetre().getContentPane().setLayout(null);
 
-        afficherperso(node) ;
+        if (node instanceof TerminalNode){
+            afficherpersoTerminal(node);
+        } else afficherperso(node) ;
         
         JPanel panelText= new JPanel();// Create a panel for the text content of the node
         JEditorPane editorPane = new JEditorPane();
@@ -1341,7 +1415,7 @@ private static void afficherDetailCompetence(CompetencesActives competence, JPan
     timer.start();
     if(node instanceof FightNode){
         playFightNode(node);
-    } if(node instanceof TerminalNode){
+    } else if(node instanceof TerminalNode){
         ecranTerminal();
     }else InnerNodeButton(node, clip);
 
@@ -1406,6 +1480,7 @@ public static void ecranTerminal(){
     */
 
     public static void InnerNodeButton(Node node, Clip clip){
+        System.out.println("test???");
         configPanel();
         InnerNode chooseNode;// Cast the node to a ChooseNode
         
@@ -1897,8 +1972,6 @@ public static void ecranTerminal(){
         JButton validateButton = new JButton("Valider");
         validateButton.setFont(maFont);
         contentPanel.add(validateButton);
-
-        
         getFenetre().revalidate();
         getFenetre().repaint();
 
@@ -1928,9 +2001,10 @@ public static void ecranTerminal(){
                 if (perso + 1 < Game.getGame().getGroupeJoueurVivant().size()) {
                     // i use getFenetre() and note layeredpane because it doesn't delet panelfight
                         selectionAction(node, perso +1 );
+                        
                 } else {
-                    // i use getFenetre() and note layeredpane because it doesn't delet panelfight
-                        selectionAdverse(node);      
+
+                    selectionAdverse(node);      
                 } 
             }  }
         });
@@ -1946,7 +2020,7 @@ public static void ecranTerminal(){
      * @param node
      */
     public static void selectionAdverse(FightNode node) {
-        // pour chaque opponent on lui attribue une action
+        if (node.getAction().size()==Game.getGame().getGroupeJoueurVivant().size()){
         if (node.getOpponentsVivant().size()==0){
             throw new IllegalStateException("Si il n'y a plus d'opponents vivant cette fonction n'aurait pas du être lancée");
         }
@@ -1955,7 +2029,9 @@ public static void ecranTerminal(){
             Object[] competenceCible = {competence, ((PersonnageAdversaire)node.getOpponentsVivant().get(i)).selectionCible(competence)} ;
             node.putAction(node.getOpponentsVivant().get(i), competenceCible);
         }
+        System.out.println("selectionAdverse finie");
         faireActions(node);
+    }
     }
     
     /**
@@ -1969,7 +2045,7 @@ public static void ecranTerminal(){
         // on transforme la map d'action en une arraylist
         Set<PersonnageCombattant> a = node.getAction().keySet();
         ArrayList<PersonnageCombattant> ordreDAction = new ArrayList<PersonnageCombattant>(a);
-    // on trie la liste en fonction de la vitesse des personnages 
+        // on trie la liste en fonction de la vitesse des personnages 
         Collections.sort(ordreDAction, Comparator.comparingInt(PersonnageCombattant::getSpeed).reversed());
 
         String txt = "" ;
@@ -2010,8 +2086,9 @@ public static void ecranTerminal(){
         }
 
         // puis on lance la fonction afficher action qui permet d'afficher les actions 
-        //System.out.println(texteAction);
+        System.out.println(texteAction);
         afficherAction(node, texteAction, nombreAction, 0, 0, imagePathGroupList, imagePathAdversaireList);
+        
     }
 
     /**

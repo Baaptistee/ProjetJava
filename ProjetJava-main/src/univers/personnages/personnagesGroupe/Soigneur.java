@@ -47,28 +47,8 @@ public class Soigneur extends PersoGroupe{
 			CompetencesActives c2 = new CompetenceDammage("Attaque puissante", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
 			competence.add(c2) ;
 			competence.add(c1) ;
-			CompetencesActives c3 = new CompetenceDammage("Attaque de odios", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
-			CompetencesActives c4 = new CompetenceDammage("Attaque tata", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
-			competence.add(c3) ;
-			competence.add(c4) ;
-			CompetencesActives c5 = new CompetenceDammage("Attaque de lol", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
-			CompetencesActives c6 = new CompetenceDammage("Attaque dhdd", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
-			competence.add(c5) ;
-			competence.add(c6) ;
-			CompetencesActives c7 = new CompetenceDammage("Attaque de sskjdios", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
-			CompetencesActives c8 = new CompetenceDammage("Attaque dsjncx", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
-			competence.add(c7) ;
-			competence.add(c8) ;
-			competence.add(c7) ;
-			competence.add(c8) ;
-			competence.add(c7) ;
-			competence.add(c8) ;
-			competence.add(c7) ;
-			competence.add(c8) ;
-			competence.add(c7) ;
-			competence.add(c8) ;
-			competence.add(c7) ;
-			competence.add(c8) ;
+			CompetenceDammage tailladeLarge = new CompetenceDammage("Taillade Large", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 10, 100, 5, 1, Eleme.NONE, true, true) ;
+			competence.add(tailladeLarge) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
 			Weapon arc = new Weapon(7, 100,"Apparaitra tu", "Un arc solide mais vetuste.", 1, 2, 2, 2, 4);
@@ -114,7 +94,7 @@ public class Soigneur extends PersoGroupe{
 	public String gainNiveau() {
 		Random random = new Random() ;
 		this.setLevel(getLevel()+1);
-		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getSpeed(), e = this.getBaseEndurance() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
 		setIntelligence(getBaseIntelligence() + 1 + random.nextInt(3)) ;

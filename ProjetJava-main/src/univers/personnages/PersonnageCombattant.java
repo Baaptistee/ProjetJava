@@ -390,7 +390,7 @@ public abstract class PersonnageCombattant extends Personnage {
 			Random random = new Random() ;
 			switch(stat) {
 			case STRENGTH:
-				if (valeurTest <= this.getStrength() + random.nextInt(19) + 1) {
+				if (valeurTest <= this.getStrength() + random.nextInt(9) + 1) {
 					return true ;
 				} else {
 					return false ;

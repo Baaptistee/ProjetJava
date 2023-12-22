@@ -24,6 +24,33 @@ public class ObjetsDeSoin extends Objets implements Utilisable{
         this.manaRendu=manaRendu;
     }
 
+    /**
+     * Le constructeur de la classe 
+     * @param name le nom
+     * @param pvRendu le nombre de pv rendu 
+     * @param manaRendu le nombre de points de mana rendu 
+     */
+    public ObjetsDeSoin(String name, String description, int pvRendu, int manaRendu) {
+        super(name, description);
+        this.pvRendu=pvRendu;
+        this.manaRendu=manaRendu;
+    }
+
+    /**
+     * Un getter pour les pv rendus 
+     * @return les pv rendus 
+     */
+    public int getPVRendu(){
+        return this.pvRendu;
+    }
+
+    /**
+     * un getter pour le mana rendu
+     * @return le mana rendu 
+     */
+    public int getManaRendu(){
+        return this.manaRendu;
+    }
 
     @Override
     /**
