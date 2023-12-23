@@ -32,7 +32,7 @@ public class ObjetConditionNode extends InnerNode{
      * @param imageName
      */
     public ObjetConditionNode(String nom, String description, String imageName, Collectibles objetNecessaire) {
-        super(nom, description);
+        super(nom, description, imageName);
         if (objetNecessaire==null){
             throw new IllegalArgumentException("L'Objet nécessaire ne peut être nul !");
         }
