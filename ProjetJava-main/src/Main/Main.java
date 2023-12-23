@@ -67,18 +67,26 @@ public class Main {
 		Map<Collectibles, Integer> bytin8= new HashMap<>() ;
 		Collectibles potion1 = new ObjetsDeSoin("Potion de Vie Mineure", 20, 0) ;
 		Collectibles banane1 = new ObjetsDeSoin("Potion de Mana Mineure", 0, 20) ;
+		Collectibles arme1 = new Weapon(0, 0, "Épée de fer", "Une épée tranchante en fer", 5, 2, 4, 5, 4);
+		Collectibles arme2 = new Weapon(0, 0, "Bâton serti de rubis", "Un bâton magique très puissant", 2, 10, 4, 5, 4);
+
+		int[] proba1 = {2,3,1};
+
 		bytin8.put(banane1, 4) ;
+		bytin8.put(arme1,2);
 		bytin8.put(potion1, 2) ;
+		bytin8.put(arme2, 2);
 		n23C.setButin(bytin8);
 		ArrayList <Eleme> resistances=new ArrayList<>();
 		resistances.add(Eleme.FEU);
 		resistances.add(Eleme.LUMIERE);
-		int [] probaCompetences8={7,3};
 		ArrayList <CompetencesActives> jeanJacquesCtest= new ArrayList<>();
-		jeanJacquesCtest.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
-		jeanJacquesCtest.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-		PersonnageAdversaire jeanJacques = new PersonnageAdversaire("Jean Jacques", "Bras droit du roi", 5, 4, 2, 3, 3, 20, 10,resistances,resistances, jeanJacquesCtest,probaCompetences8);
-		PersonnageAdversaire jeanPaul = new PersonnageAdversaire("Jean Paul", "Fidèle compagnon du roi", 2, 8, 1, 3, 1, 20, 10,resistances ,resistances, jeanJacquesCtest, probaCompetences8);
+		jeanJacquesCtest.add(new CompetenceDammage("Attaque à la lance", "rttt", 5, 100,10,1, Eleme.NONE, false, true));
+		jeanJacquesCtest.add(new CompetenceDammage("Coup d'épée", "2rttt", 0, 80,5,1, Eleme.NONE, false, true));
+		jeanJacquesCtest.add(new CompetenceDammage("Ruée", "2rttt", 3, 80,8,1, Eleme.NONE, true, true));
+			
+		PersonnageAdversaire jeanJacques = new PersonnageAdversaire("Garde 1", "Bras droit du roi", 5, 4, 2, 3, 3, 30, 10,new ArrayList<>(),new ArrayList<>(), jeanJacquesCtest,proba1);
+		PersonnageAdversaire jeanPaul = new PersonnageAdversaire("Garde 2", "Fidèle compagnon du roi", 2, 8, 1, 3, 1, 30, 10,new ArrayList<>() ,new ArrayList<>(), jeanJacquesCtest, proba1);
 		jeanJacques.setImage("image/Gardes.png");
 		jeanPaul.setImage("image/Gardes.png");
 		opponent.add(jeanJacques);
@@ -95,8 +103,9 @@ public class Main {
 		InnerNode n31C = new TextNode("Bouillie de grenouille", "Au fur et à mesure que la soirée avance, la conversation dérive vers des sujets plus sérieux. \"Parlez-moi de votre duc,\" demande le prince d'un ton circonspect. \"Nous devons nous rendre chez lui, mais la forêt nous a égarés.La sorcière, sirotant une infusion, révèle avec prudence, \"Le duc est venu me rendre visite récemment. Il cherchait une plante rare, le Valavumdum. Une herbe toxique aux propriétés intrigantes.\"","image/haunted-house-151506_1280.png");
 		InnerNode n32C = new TextNode("Eau", "Au fur et à mesure que la soirée avance, la conversation dérive vers des sujets plus sérieux. \"Parlez-moi de votre duc,\" demande le prince d'un ton circonspect. \"Nous devons nous rendre chez lui, mais la forêt nous a égarés.La sorcière, sirotant une infusion, révèle avec prudence, \"Le duc est venu me rendre visite récemment. Il cherchait une plante rare, le Valavumdum. Une herbe toxique aux propriétés intrigantes.\"","image/haunted-house-151506_1280.png");
 		InnerNode n33C=new TextNode("", "Le mage, intrigué, demande, \"Où pourrait-il trouver cette plante ?\"/La sorcière, les yeux pétillants de malice, donne quelques indications vagues. /\"Suivez le sentier à l\'Est, mais méfiez-vous des illusions. Le duc est un homme rusé, et ses intentions peuvent être aussi sombres que la nuit.\"/Sans se douter de la double nature de leur hôtesse, l'équipe, guidée par ces indices, se prépare à quitter la mystérieuse demeure et à reprendre leur quête à travers la forêt nocturne.", "image/haunted-house-151506_1280.png");
-		InnerNode n27C = new TextNode("Pas confiance", " Les ombres des arbres les enveloppent rapidement alors qu'ils courent, espérant échapper à la sorcière mystérieuse. La forêt dense devient leur alliée, dissimulant leur fuite tandis qu'ils s'éloignent de la clairière où la confrontation a eu lieu. ","image/ForetPeur.jpg");		FightNode n34C= new FightNode("Soudain, la sorcière dévoile son crapaud géant magique,sifle sa chauve souris,et libere sa plante carnivor. Les yeux de la sorcière brillent d'une lueur maléfique alors qu'elle annonce : \"Il y a une prime pour ceux qui ramènent le prince au château.\"/Le chevalier, réagissant rapidement, dégaine son épée. \"Préparez-vous, elle n'est pas ce qu'elle semble être !\" crie-t-il à ses compagnons.", "image/ForetPeur.jpg");
-		n34C.setXp(250);
+		InnerNode n27C = new TextNode("Pas confiance", " Les ombres des arbres les enveloppent rapidement alors qu'ils courent, espérant échapper à la sorcière mystérieuse. La forêt dense devient leur alliée, dissimulant leur fuite tandis qu'ils s'éloignent de la clairière où la confrontation a eu lieu. ","image/ForetPeur.jpg");		
+		FightNode n34C= new FightNode("Soudain, la sorcière dévoile son crapaud géant magique,sifle sa chauve souris,et libere sa plante carnivor. Les yeux de la sorcière brillent d'une lueur maléfique alors qu'elle annonce : \"Il y a une prime pour ceux qui ramènent le prince au château.\"/Le chevalier, réagissant rapidement, dégaine son épée. \"Préparez-vous, elle n'est pas ce qu'elle semble être !\" crie-t-il à ses compagnons.", "image/ForetPeur.jpg");
+		n34C.setXp(125);
 		ArrayList<PersonnageCombattant> opponent2= new ArrayList<PersonnageCombattant>();
 		Map<Collectibles, Integer> bytin9= new HashMap<>() ;
 		Collectibles potion2 = new ObjetsDeSoin("Potion de Vie Mineure", "Une petite potion de soin qui rend 20 points de Mie", 20, 0) ;
@@ -107,25 +116,24 @@ public class Main {
 		ArrayList <Eleme> resistances1=new ArrayList<>();
 		resistances1.add(Eleme.FEU);
 		resistances1.add(Eleme.LUMIERE);
-		int [] probaCompetences9={4,6};
-		ArrayList <CompetencesActives> competence3= new ArrayList<>();
+		//ArrayList <CompetencesActives> competence3= new ArrayList<>();
 		ArrayList <CompetencesActives> competence2= new ArrayList<>();
 		ArrayList <CompetencesActives> competence1= new ArrayList<>();
 
 		competence1.add(new CompetenceDammage("Miasmes Toxiques", "rttt", 5, 90,10,1, Eleme.TENEBRE, false, true));
 		competence1.add(new CompetenceDammage("Attaque de Magie noire", "2rttt", 10, 90,10,1, Eleme.TENEBRE, true, false));
 		competence1.add(new CompetenceDammage("Coup de Griffe", "rttt", 0, 90,8,1, Eleme.NONE, false, true));
+		
 		competence2.add(new CompetenceDammage("Coup de Griffe", "rttt", 0, 90,8,1, Eleme.NONE, false, true));
+		competence2.add(new CompetenceDammage("Ruée", "2rttt", 10, 90,8,1, Eleme.NONE, true, true));
+		competence2.add(new CompetenceDammage("Crachat Toxique", "2rttt", 5, 90,10,1, Eleme.NONE, false, true));
 		
-		competence2.add(new CompetenceDammage("Crachat Toxique", "2rttt", 5, 90,150,1, Eleme.FOUDRE, false, true));
-		
-		int[] proba1 = {2,3,1};
 
 		PersonnageAdversaire sorciere = new PersonnageAdversaire("Sorcière", "fesf", 5, 5, 5, 10, 5, 50, 20,new ArrayList<>(),new ArrayList<>(), competence1,proba1);
 		
-		PersonnageAdversaire crapeau = new PersonnageAdversaire("Crapadudus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,resistances1 ,resistances1, jeanJacquesCtest, probaCompetences9);
-		PersonnageAdversaire chauveSouris = new PersonnageAdversaire("Chasouradus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,resistances1 ,resistances1, jeanJacquesCtest, probaCompetences9);
-		PersonnageAdversaire carnivor= new PersonnageAdversaire("Carnivodus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,resistances1 ,resistances1, jeanJacquesCtest, probaCompetences9);
+		PersonnageAdversaire crapeau = new PersonnageAdversaire("Crapadudus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,new ArrayList<>() ,new ArrayList<>(), competence2, proba1);
+		PersonnageAdversaire chauveSouris = new PersonnageAdversaire("Chasouradus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,new ArrayList<>() ,new ArrayList<>(), competence2, proba1);
+		PersonnageAdversaire carnivor= new PersonnageAdversaire("Carnivodus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,new ArrayList<>() ,new ArrayList<>(), competence2, proba1);
 		sorciere.setImage("image/Sorciereforet.png");
 		crapeau.setImage("image/Grenouille.png");
 		chauveSouris.setImage("image/ChauveSouris.png");
@@ -167,7 +175,8 @@ public class Main {
 		probabilite2.add(3);
 		InnerNode n24B = new ChanceNode("","Le groupe, fuyant précipitamment la sorcière, est pris de terreur. Leurs pas résonnent dans la forêt obscurcie par la nuit, chaque bruissement de feuilles et chaque ombre mouvante accentuant leur angoisse. ", "image/ForetPeur.jpg",probabilite2);
 		InnerNode n25B = new TextNode("","Le groupe réussit à semer la sorcière et à s'échapper de la forêt. Une lueur de soulagement traverse leurs visages tandis qu'ils quittent rapidement l'obscurité des bois, laissant la menace mystique derrière eux.","image/ForetPeur.jpg");
-		InnerNode n27B = new TextNode("","Le groupe tente de s'enfuir, mais la sorcière les surprend par hasard. Un frisson d'effroi parcourt le groupe alors qu'ils se rendent compte qu'ils n'ont pas réussi à échapper à l'attention de la sorcière. La course désespérée se transforme en une confrontation soudaine, la sorcière apparaissant à un moment inopportun, prête à les affronter","image/ForetPeur.jpg");		FightNode n31 = new FightNode("La sorcière vous attaque","image/ForetPeur.jpg");
+		InnerNode n27B = new TextNode("","Le groupe tente de s'enfuir, mais la sorcière les surprend par hasard. Un frisson d'effroi parcourt le groupe alors qu'ils se rendent compte qu'ils n'ont pas réussi à échapper à l'attention de la sorcière. La course désespérée se transforme en une confrontation soudaine, la sorcière apparaissant à un moment inopportun, prête à les affronter","image/ForetPeur.jpg");		
+		
 
 		//Introduction
 		n1.addOption(n2);
@@ -217,7 +226,6 @@ public class Main {
 		n24B.addOption(n25B);
 		n25B.addOption(n35C);
 		n24B.addOption(n27B);
-		n31.addOption(n35C);
 		n38C.addOption(n39C);
 		n39C.addOption(n40C);
 		n40C.addOption(n41C);
@@ -275,7 +283,7 @@ public class Main {
 		n15C.setImagePersoList(n15CI);
 		ArrayList<String> n16CI= new ArrayList<>();
 		n16CI.add("image/SideCharacter.png");
-		n16C.setImagePersoList(n16CI);
+		n16B.setImagePersoList(n16CI);
 
 		ArrayList<String> n45CI= new ArrayList<>();
 		n45CI.add("image/Duc.png");
@@ -302,22 +310,7 @@ public class Main {
 		objetNode.setImagePersoList(n29CI);
 
 
-		Map<Collectibles, Integer> taGueule = new HashMap<Collectibles, Integer>();
-
-		Weapon arc = new Weapon(7, 100,"ARME TEST", "Un arc solide mais vetuste.", 1, 2, 2, 2, 4);
-
-		// Game.getGame().getInventaire().put(potion8, 2);
-		ObjetsDeSoin potionDeSointest = new ObjetsDeSoin("Potion de soin TEST", 6, 8);
-		taGueule.put(potionDeSointest, 4);
-		// Game.getGame().getInventaire().put(potion2, 9);
-		// Game.getGame().getInventaire().put(potion, 3);
-		taGueule.put(arc, 5);
-
-		ObjetNode taBouche = new ObjetNode("Tagueule", "J'en ai marre de java ", "image/ForetJolie.png", taGueule);
-
 		
-
-
 		Game.getGame().setFirstNode(n0) ;
 		InterfaceJeu.ecranTitre();
 
