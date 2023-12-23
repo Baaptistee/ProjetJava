@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import univers.Eleme;
+import univers.armes.Weapon;
 //import univers.armes.Weapon;
 import univers.competences.*;
 import univers.personnages.PersoGroupe;
@@ -40,14 +41,18 @@ public class Mage extends PersoGroupe {
 	public static Mage getMage() {
 		if (instance == null) {
 			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
-			CompetencesActives c1 = new CompetenceDammage("Attaque de base", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
-			CompetencesActives c2 = new CompetenceDammage("Attaque puissante", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
-			competence.add(c2) ;
+			CompetencesActives c1 = new CompetenceDammage("Coup de grimoire", "Une attaque de base avec la tranche de son grimoire de magie infligeant peu de dégâts", 0, 100, 3, 1, Eleme.NONE, false, true) ;
+			CompetenceDammage bouleDeFeu = new CompetenceDammage("Boule de feu", "Une petite boule de feu infligeant quelques dégâts", 7, 95, 12, 1, Eleme.FEU, false, false);
+			competence.add(bouleDeFeu) ;
 			competence.add(c1) ;
+			Weapon grimoire = new Weapon(7, 100,"Vieux Grimoire", "Un vieux grimoire de magie ancienne", 0, 4, 1, 2, 4);
+
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
-			instance = new Mage("Mage", "Description du Chevalier", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
+			instance = new Mage("Mage", "Description du Mage", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
 			instance.setImage("image/MC_Mage.png");
+			instance.setWeapon(grimoire);
+
 		}
 		return instance ;
 	}
@@ -87,21 +92,35 @@ public class Mage extends PersoGroupe {
 	public String gainNiveau() {
 		Random random = new Random() ;
 		this.setLevel(this.getLevel()+1);
-		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance(), f = this.getMaxLifePoints(), g = this.getMaxMana() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
 		setIntelligence(getBaseIntelligence() + 1 + random.nextInt(3)) ;
 		setDexterity(getBaseDexterity() + 1 + random.nextInt(1)) ;
 		setSpeed(getBaseSpeed() + 1 + random.nextInt(1)) ; 
 		setEndurance(getBaseEndurance() + 1 + random.nextInt(1)) ;
+		setMaxLifePoints((f)+3+random.nextInt(5));
+		setMaxMana(g+3+random.nextInt(8));
 		
-		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance();
+		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance()+ "/PV Max : "+f+" -> "+this.getMaxLifePoints()+"/PM Max : "+g+" -> "+this.getMaxMana();
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
 		if (this.getLevel() == 2) {
-			CompetenceDammage bouleDeFeu = new CompetenceDammage("Boule de feu", "Une petite boule de feu infligeant quelques dégâts", 5, 95, 8, 1, Eleme.FEU, false, false);
+			CompetenceDammage bouleDeFeu = new CompetenceDammage("Chaîne d'Éclairs", "Une petite chaîne d'éclair qui frappe tous les ennemis", 10, 95, 10, 1, Eleme.FOUDRE, true, false);
 			this.getCompetences().add(bouleDeFeu) ;
-			t += "/Il apprend la compétence active : Boule de feu !" ;
+			t += "/Il apprend la compétence active : Chaîne d'Éclairs !" ;
+		}if (this.getLevel() == 3) {
+			CompetenceDammage bouleDeFeu = new CompetenceDammage("Rafale de Feu", "Une rafale de plusieurs boule de feu qui cible un ennemi", 15, 95, 8, 3, Eleme.FEU, false, false);
+			this.getCompetences().add(bouleDeFeu) ;
+			t += "/Il apprend la compétence active : Rafale de feu !" ;
+		}if (this.getLevel() == 4) {
+			CompetenceDammage bouleDeFeu = new CompetenceDammage("Déflagration", "Une énorme boule de feu infligeant beaucoup de dégâts à un ennemi", 20, 95, 20, 1, Eleme.FEU, false, false);
+			this.getCompetences().add(bouleDeFeu) ;
+			t += "/Il apprend la compétence active : Déflagration !" ;
+		}if (this.getLevel() == 5) {
+			CompetenceDammage bouleDeFeu = new CompetenceDammage("Tonnerre Fracassant", "Un énorme éclair frappe tous les ennemis leur infligeant beaucoup de dégâts", 25, 95, 15, 1, Eleme.FEU, true, false);
+			this.getCompetences().add(bouleDeFeu) ;
+			t += "/Il apprend la compétence active : Tonerre Fracassant !" ;
 		}
 		
 		return t ;

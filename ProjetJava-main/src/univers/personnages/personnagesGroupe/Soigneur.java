@@ -43,18 +43,16 @@ public class Soigneur extends PersoGroupe{
 	public static Soigneur getSoigneur() {
 		if (instance == null) {
 			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
-			CompetencesActives c1 = new CompetenceSoin("Attaque de base", "Une attaque de base avec l'arme", 0, 100,false) ;
-			CompetencesActives c2 = new CompetenceDammage("Attaque puissante", "une attaque puissante", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c1 = new CompetenceSoin("Soin Mineur", "Soigne légèrement un allié", 5, 10,false) ;
+			CompetencesActives c2 = new CompetenceDammage("Coup de Baton", "Un coup de baton peu puissant", 0, 100, 4, 1, Eleme.NONE, false, true) ;
 			competence.add(c2) ;
 			competence.add(c1) ;
-			CompetenceDammage tailladeLarge = new CompetenceDammage("Taillade Large", "Une grande taillade qui inflige de légers dégâts à tous les ennemis. ", 10, 100, 5, 1, Eleme.NONE, true, true) ;
-			competence.add(tailladeLarge) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;
 			ArrayList<Eleme> resistances = new ArrayList<Eleme>() ;
-			Weapon arc = new Weapon(7, 100,"Apparaitra tu", "Un arc solide mais vetuste.", 1, 2, 2, 2, 4);
+			Weapon baton = new Weapon(7, 100,"Baton Solide", "Un Baton solide mais vétuste", 1, 2, 2, 2, 4);
 			instance = new Soigneur("Soigneur", "Description du soigneur", 5, 5, 5, 5, 5, 30, 40, competence, faiblesses, resistances) ;
 			instance.setImage("image/Soigneur.png");
-			instance.setWeapon(arc);
+			instance.setWeapon(baton);
 
 		}
 		return instance ;
@@ -94,21 +92,35 @@ public class Soigneur extends PersoGroupe{
 	public String gainNiveau() {
 		Random random = new Random() ;
 		this.setLevel(getLevel()+1);
-		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance() , f = this.getMaxLifePoints(), g=this.getMaxMana();
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
 		setIntelligence(getBaseIntelligence() + 1 + random.nextInt(3)) ;
 		setDexterity(getBaseDexterity() + 1 + random.nextInt(1)) ;
 		setSpeed(getBaseSpeed() + 1 + random.nextInt(1)) ; 
 		setEndurance(getBaseEndurance() + 1 + random.nextInt(1)) ;
+		setMaxLifePoints((f)+3+random.nextInt(5));
+		setMaxMana(g+2+random.nextInt(3));
 		
-		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance();
+		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance()+ "/PV Max : "+f+" -> "+this.getMaxLifePoints()+"/PM Max : "+g+" -> "+this.getMaxMana();
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
 		if (this.getLevel() == 2) {
-			CompetenceSoin soinRapide = new CompetenceSoin("Soin Rapide", "Un soin mineur peu coûteux en mana", 2, 3, false) ;
+			CompetenceDammage soinRapide = new CompetenceDammage("Lumière sacrée", "Une attaque magique de lumière sur tous les ennemis", 10, 100, 8, 1, Eleme.LUMIERE, false, false) ;
 			this.getCompetences().add(soinRapide) ;
-			t += "/Il apprend la compétence active : Soin Rapide !" ;
+			t += "/Il apprend la compétence active : Lumière Sacrée !" ;
+		}if (this.getLevel() == 3) {
+			CompetenceSoin soinRapide = new CompetenceSoin("Aura de soin ", "Restaure la santé de tous les membres du groupe", 20, 20, true) ;
+			this.getCompetences().add(soinRapide) ;
+			t += "/Il apprend la compétence active : Aura de soin !" ;
+		}if (this.getLevel() == 4) {
+			CompetenceSoin soinRapide = new CompetenceSoin("Restauration", "Soigne toutes les blessures d'un allié", 10, 100, false) ;
+			this.getCompetences().add(soinRapide) ;
+			t += "/Il apprend la compétence active : Restauration" ;
+		}if (this.getLevel() == 5) {
+			CompetenceDammage soinRapide = new CompetenceDammage("Châtiment divin", "Une puissante attaque magique de lumière sur un seul ennemi", 20, 100, 20, 1, Eleme.LUMIERE, false, false) ;
+			this.getCompetences().add(soinRapide) ;
+			t += "/Il apprend la compétence active : Châtiment divin !" ;
 		}
 		return t ;
 	}

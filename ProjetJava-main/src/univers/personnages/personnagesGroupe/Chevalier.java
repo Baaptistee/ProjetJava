@@ -79,15 +79,17 @@ public class Chevalier extends PersoGroupe{
 	public String gainNiveau() {
 		Random random = new Random() ;
 		this.setLevel(this.getLevel() +1);
-		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance(), f = this.getMaxLifePoints(), g= this.getMaxMana() ;
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
 		setIntelligence(getBaseIntelligence() + 1 + random.nextInt(3)) ;
 		setDexterity(getBaseDexterity() + 1 + random.nextInt(1)) ;
 		setSpeed(getBaseSpeed() + 1 + random.nextInt(1)) ; 
 		setEndurance(getBaseEndurance() + 1 + random.nextInt(1)) ;
-
-		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance();
+		setMaxLifePoints((f)+3+random.nextInt(5));
+		setMaxMana(g+2+random.nextInt(3));
+		
+		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance()+ "/PV Max : "+f+" -> "+this.getMaxLifePoints()+"/PM Max : "+g+" -> "+this.getMaxMana();
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
 		if (this.getLevel() == 2) {

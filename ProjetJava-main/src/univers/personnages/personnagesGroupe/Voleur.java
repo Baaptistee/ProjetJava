@@ -91,26 +91,38 @@ public class Voleur extends PersoGroupe{
 	public String gainNiveau() {
 		Random random = new Random() ;
 		this.setLevel(getLevel()+1);
-		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance() ;
+		int a = this.getBaseStrength(), b = this.getBaseIntelligence(), c = this.getBaseDexterity(), d = this.getBaseSpeed(), e = this.getBaseEndurance(), f = this.getMaxLifePoints(),  g = this.getMaxMana();
 		// le gain de statistique se fait aléatoirement 
 		this.setStrength(getBaseStrength() + 1 + random.nextInt(2)) ;
 		setIntelligence(getBaseIntelligence() + 1 + random.nextInt(3)) ;
 		setDexterity(getBaseDexterity() + 1 + random.nextInt(1)) ;
 		setSpeed(getBaseSpeed() + 1 + random.nextInt(1)) ; 
 		setEndurance(getBaseEndurance() + 1 + random.nextInt(1)) ;
+		setMaxLifePoints((f)+3+random.nextInt(5));
+		setMaxMana(g+2+random.nextInt(3));
 		
-		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance();
+		String t = this.getName() + " passe niveau " + this.getLevel() + "! / Force : " + a + " -> " + this.getBaseStrength() + "/Intelligence : " + b + " -> " + this.getBaseIntelligence() + "/Dexterite : " + c + " -> " + this.getBaseDexterity() + "/Vitesse : " + d + " -> " + this.getBaseSpeed() + "/Endurance : " + e + " -> " + this.getBaseEndurance()+ "/PV Max : "+f+" -> "+this.getMaxLifePoints()+"/PM Max : "+g+" -> "+this.getMaxMana();
 		
 		// apprentissage de nouvelles compétences régulièrement en cas de gain de niveau 
 		if (this.getLevel()==2){
 			CompetenceDammage pluieDeFleches = new CompetenceDammage("Pluie de Flèche", "Lance une flèche sur chaque ennemi 2 fois, mais avec une précision réduite.", 10, 60, 8, 2, Eleme.NONE, false, true);
 			this.getCompetences().add(pluieDeFleches) ;
-			t += "/Il apprend la compétence active : Lancer de couteaux !" ;
+			t += "/Il apprend la compétence active : Pluie de Flèches ! /" ;
 		}
 		if (this.getLevel() == 3) {
 			CompetenceDammage lancerDeCouteaux = new CompetenceDammage("Lancer de couteaux", "Lance un couteau sur un ennemi 3 fois, mais avec une précision réduite.", 5, 70, 4, 3, Eleme.NONE, false, true);
 			this.getCompetences().add(lancerDeCouteaux) ;
-			t += "/Il apprend la compétence active : Lancer de couteaux !" ;
+			t += "/Il apprend la compétence active : Lancer de couteaux !/" ;
+		}
+		if (this.getLevel() == 4) {
+			CompetenceSoin Tchatcheur = new CompetenceSoin("Premiers Secours", "Soigne moyennement un allié.", 8, 10, false);
+			this.getCompetences().add(Tchatcheur) ;
+			t += "/Il apprend la compétence active : Premiers Secours !/" ;
+		}
+		if (this.getLevel() == 5) {
+			CompetenceDammage lancerDeCouteaux = new CompetenceDammage("Déchaînement de dagues", "Lance une dague sur chaque ennemi 3 fois avec une précision réduite", 25, 60, 10, 3, Eleme.NONE, false, true);
+			this.getCompetences().add(lancerDeCouteaux) ;
+			t += "/Il apprend la compétence active : Déchaînement de dagues !/" ;
 		}
 		
 		return t ;

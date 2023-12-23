@@ -1480,7 +1480,6 @@ public static void ecranTerminal(){
     */
 
     public static void InnerNodeButton(Node node, Clip clip){
-        System.out.println("test???");
         configPanel();
         InnerNode chooseNode;// Cast the node to a ChooseNode
         

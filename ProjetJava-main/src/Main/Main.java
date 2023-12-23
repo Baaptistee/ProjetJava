@@ -1,17 +1,8 @@
 package Main;
-//import Event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-//import javax.swing.ImageIcon;
-
-
-//import javax.print.attribute.TextSyntax;
-//import javax.swing.JOptionPane;
-
 import Interface.InterfaceJeu;
-
 import Representation.*;
 import univers.Collectibles;
 import univers.Eleme;
@@ -36,7 +27,6 @@ public class Main {
 		}
 
 		// Tutoriel : 
-		String joueur = Game.getGame().getNomJoueur() ;
 		ArrayList <String> optionn= new ArrayList<>();
 		optionn.add("image/MC Mage.png");
 		optionn.add("image/Soigneur.png");
@@ -67,9 +57,9 @@ public class Main {
 		ArrayList<Integer> probabilite = new ArrayList<Integer>();
 		probabilite.add(7);
 		probabilite.add(3);
-		InnerNode n20C = new ChanceNode("Gauche", "Go Go Go on trace","image/corridor-6326724_1280.jpg",probabilite);
+		InnerNode n20C = new ChanceNode("Gauche", "Les échos de leurs pas résonnent dans les couloirs déserts, et ils espèrent échapper à l'attention des gardes qui patrouillent. La fuite, leur seule option, devient une course contre le temps et le destin.","image/corridor-6326724_1280.jpg",probabilite);		
 		InnerNode n21C = new TextNode("","Impasse, c'est là où on fait demi-tour et on prend le chemin de droite","image/corridor-6326724_1280.jpg");
-	
+		
 		FightNode n23C = new FightNode("Attention, Deux gardes se précipitent vers vous","image/corridor-6326724_1280.jpg");
 		n23C.setXp(150);
 		ArrayList<PersonnageCombattant> opponent= new ArrayList<PersonnageCombattant>();
@@ -104,8 +94,7 @@ public class Main {
 		InnerNode n31C = new TextNode("Bouillie de grenouille", "Au fur et à mesure que la soirée avance, la conversation dérive vers des sujets plus sérieux. \"Parlez-moi de votre duc,\" demande le prince d'un ton circonspect. \"Nous devons nous rendre chez lui, mais la forêt nous a égarés.La sorcière, sirotant une infusion, révèle avec prudence, \"Le duc est venu me rendre visite récemment. Il cherchait une plante rare, le Valavumdum. Une herbe toxique aux propriétés intrigantes.\"","image/haunted-house-151506_1280.png");
 		InnerNode n32C = new TextNode("Eau", "Au fur et à mesure que la soirée avance, la conversation dérive vers des sujets plus sérieux. \"Parlez-moi de votre duc,\" demande le prince d'un ton circonspect. \"Nous devons nous rendre chez lui, mais la forêt nous a égarés.La sorcière, sirotant une infusion, révèle avec prudence, \"Le duc est venu me rendre visite récemment. Il cherchait une plante rare, le Valavumdum. Une herbe toxique aux propriétés intrigantes.\"","image/haunted-house-151506_1280.png");
 		InnerNode n33C=new TextNode("", "Le mage, intrigué, demande, \"Où pourrait-il trouver cette plante ?\"/La sorcière, les yeux pétillants de malice, donne quelques indications vagues. /\"Suivez le sentier à l\'Est, mais méfiez-vous des illusions. Le duc est un homme rusé, et ses intentions peuvent être aussi sombres que la nuit.\"/Sans se douter de la double nature de leur hôtesse, l'équipe, guidée par ces indices, se prépare à quitter la mystérieuse demeure et à reprendre leur quête à travers la forêt nocturne.", "image/haunted-house-151506_1280.png");
-		InnerNode n27C = new TextNode("Pas confiance", "Continue à courir","image/ForetPeur.jpg");
-		FightNode n34C= new FightNode("Soudain, la sorcière dévoile son crapaud géant magique,sifle sa chauve souris,et libere sa plante carnivor. Les yeux de la sorcière brillent d'une lueur maléfique alors qu'elle annonce : \"Il y a une prime pour ceux qui ramènent le prince au château.\"/Le chevalier, réagissant rapidement, dégaine son épée. \"Préparez-vous, elle n'est pas ce qu'elle semble être !\" crie-t-il à ses compagnons.", "image/ForetPeur.jpg");
+		InnerNode n27C = new TextNode("Pas confiance", " Les ombres des arbres les enveloppent rapidement alors qu'ils courent, espérant échapper à la sorcière mystérieuse. La forêt dense devient leur alliée, dissimulant leur fuite tandis qu'ils s'éloignent de la clairière où la confrontation a eu lieu. ","image/ForetPeur.jpg");		FightNode n34C= new FightNode("Soudain, la sorcière dévoile son crapaud géant magique,sifle sa chauve souris,et libere sa plante carnivor. Les yeux de la sorcière brillent d'une lueur maléfique alors qu'elle annonce : \"Il y a une prime pour ceux qui ramènent le prince au château.\"/Le chevalier, réagissant rapidement, dégaine son épée. \"Préparez-vous, elle n'est pas ce qu'elle semble être !\" crie-t-il à ses compagnons.", "image/ForetPeur.jpg");
 		n34C.setXp(250);
 		ArrayList<PersonnageCombattant> opponent2= new ArrayList<PersonnageCombattant>();
 		Map<Collectibles, Integer> bytin9= new HashMap<>() ;
@@ -138,18 +127,17 @@ public class Main {
 		n34C.setOpponents(opponent2);
 		InnerNode n35C= new TextNode("","Le jour se lève, dissipant les ombres de la nuit et révélant peu à peu le paysage qui les entoure. L'équipe, encore marquée par le combat avec la sorcière, s'émerge de la forêt. À l'horizon, se dresse majestueusement le château du duc, ses tours imposantes se découpant contre le ciel qui prend des teintes douces","image/ExterieurchateauForet.jpg");
 		InnerNode n36C = new TestNode("","L'équipe arrive devant l'entrée massive du château, mais une étrange quiétude règne. Aucun signe de vie, aucun murmure de serviteurs ni de bruit de pas dans les couloirs.Le chevalier, pressentant quelque chose d'inhabituel, murmure, \"/Le château semble désert. Restez sur vos gardes, mes amis.\"/La porte massive du château résiste à leurs premières tentatives pour l'ouvrir. Le chevalier,le voleur, le soigneur avec le mage et le prince, se prépare à un test de force.","image/ExterieurchateauForet.jpg", Statistiques.STRENGTH, 12, 3);
-		InnerNode n37C= new TextNode("", "Ils ont réussi le test force.", "image/ExterieurchateauForet.jpg");
-		ArrayList<Integer>probabilité=new ArrayList<>();
+		InnerNode n37C= new TextNode("", "Le groupe a réussi le test force.", "image/ExterieurchateauForet.jpg");		ArrayList<Integer>probabilité=new ArrayList<>();
 		probabilité.add(8);
 		probabilité.add(2);
-		InnerNode n37B= new ChanceNode("","Ils échouent le test de force","",probabilité);
-		Node n38B = new TerminalNode("", "les gardent qui venaient interroger le duc pour l'enquete surprennent le prince GAMEOVER", "");
-		InnerNode n39B= new TextNode("", "CONTOUR DU CHATEAU", "");
-		InnerNode n38C= new SoinNode("", "Le soigneur, conscient de l'épuisement après le combat et les efforts pour ouvrir la porte, propose de prendre un moment pour se ressourcer. \"Nous devrions recharger nos batteries avant d'explorer davantage le château. Asseyons-nous un moment, mes amis.\"","image/ai-generated-7819202_1280.jpg");
+		InnerNode n37B= new ChanceNode("","Le groupe a échoué au test de force","image/ExterieurchateauForet.jpg",probabilité);		
+		Node n38B = new TerminalNode("", "Les gardes, arrivant pour interroger le duc dans le cadre de l'enquête, surprennent le prince devant la porte de la demeure du Duc. C'est un tournant tragique, marquant la fin du jeu pour le prince qui est finalement capturé. Le destin semble scellé alors que le prince doit faire face à une condamnation à mort par pendaison, prévue pour le lendemain. La tension et la désolation s'installent parmi le groupe, mettant en évidence l'ampleur de l'injustice qui plane sur eux. ", "image/ExterieurchateauForet.jpg");
+		InnerNode n39B= new TextNode("", "Devant cet échec, ils décident de contourner la maison pour accéder au jardin. Les regards inquiets s'échangent parmi le groupe alors qu'ils se dirigent vers une autre entrée, espérant trouver une issue à travers le jardin du duc.", "image/ai-generated-7819202_1280.jpg");		InnerNode n38C= new SoinNode("", "Le soigneur, conscient de l'épuisement après le combat et les efforts pour ouvrir la porte, propose de prendre un moment pour se ressourcer. \"Nous devrions recharger nos batteries avant d'explorer davantage le château. Asseyons-nous un moment, mes amis.\"","image/ai-generated-7819202_1280.jpg");
 		InnerNode n39C= new TextNode("", "Le prince et son équipe explorent le château, cherchant des indices pour résoudre le mystère qui les entoure. Chacun examine différents éléments, des portraits aux documents, à la recherche d'informations cruciales. Le soigneur repère des empreintes fraîches, suggérant une présence récente. Ensemble, ils espèrent trouver des réponses qui les guideront vers la vérité et l'innocence du prince.","image/ai-generated-7819202_1280.jpg");
 		InnerNode n40C= new TestNode("", "En fouillant le jardin près de la forêt, l'équipe découvre une plante qui ressemble étrangement au Valavumdum. Le Mage va faire un test d'intelligence", "image/ai-generated-7848726_1280.jpg", Statistiques.INTELLIGENCE, 40, 2);
-		InnerNode n41C= new TextNode("","Le Maje ayant réussit son test, s'exclame haut et fort, \"C'est le Valavuldum ! Le duc a menti sur la nature de sa quête.\"./L'équipe, soulagée d'avoir enfin mis la main sur l'objet de la quête du duc, se prépare à confronter celui-ci avec cette découverte inattendue. Ils redoublent d'efforts pour rassembler toutes les pièces du puzzle et élucider le mystère qui les a entraînés dans cette aventure complexe.","image/ai-generated-7848726_1280.jpg");
-		InnerNode n42B= new TextNode("", "echec reconnaissanceplante", "image/ExterieurchateauForet.jpg");
+		
+		InnerNode n41C= new TextNode("","Le Mage ayant réussit son test, s'exclame haut et fort, \"C'est le Valavuldum ! Le duc a menti sur la nature de sa quête.\"./L'équipe, soulagée d'avoir enfin mis la main sur l'objet de la quête du duc, se prépare à confronter celui-ci avec cette découverte inattendue. Ils redoublent d'efforts pour rassembler toutes les pièces du puzzle et élucider le mystère qui les a entraînés dans cette aventure complexe.","image/ai-generated-7848726_1280.jpg");		
+		InnerNode n42B= new TextNode("", "Le groupe n'a pas réussi le test d'intelligence. Cette plante n'est pas celle recherchée", "image/ExterieurchateauForet.jpg");
 		Node n42C= new TerminalNode("", "Le Prince, avec la preuve du Valavuldum en main, décide de se rendre au chateau. La vérité éclate, le duc avoue ses mensonges et sa machination. Face à ses actes, la justice est rendue. Le prince, désormais libre de toute accusation, voit la vérité triompher. Cependant, la sentence pour le duc est sévère, la justice imposant la pendaison pour ses actions malveillantes. La lumière de la vérité a dissipé les ombres de l'injustice, mais elle a également révélé la noirceur cachée derrière les murs du château. La quête du prince se termine par sa rédemption et la justice impartiale.", "image/ExterieurchateauForet.jpg");
 		InnerNode n43C= new TextNode("","Soudain, la cuisinière qui revenait du marché les surprend en train de fouiller dans le jardin du duc. Son visage s'illumine de surprise et d'incompréhension. Elle décide simplement de prévenir les gardes et le duc de la situation." , "image/ExterieurchateauForet.jpg");
 		InnerNode n44C= new TextNode("", "Le groupe se hâte discrètement à travers les allées, cherchant un chemin qui les ramènera à la sécurité de la forêt. Le suspense monte alors qu'ils évitent les regards curieux des gardes et des autres employés.", "image/ExterieurchateauForet.jpg");
@@ -159,7 +147,7 @@ public class Main {
 		Collectibles valavumdum = new Objets("Valavumdum", "La plante empoisonnée qui a tué le Roi !") ;
 		preuve.put(valavumdum, 1);
 		objetNode.setObjets(preuve);
-		ObjetConditionNode conditionNode = new ObjetConditionNode("Node test", "Le prochain node sera déterminé à partir de vos objets hihi","image/ExterieurchateauForet.jpg", valavumdum);
+		ObjetConditionNode conditionNode = new ObjetConditionNode("Node test", "Elles se retrouent stockées dans l'inventaire pour être préservées.","image/ExterieurchateauForet.jpg", valavumdum);		
 		conditionNode.addOption(n42C);
 		conditionNode.addOption(n43C);
 		objetNode.addOption(conditionNode);
@@ -167,10 +155,9 @@ public class Main {
 		ArrayList <Integer> probabilite2 = new ArrayList<Integer>();
 		probabilite2.add(7);
 		probabilite2.add(3);
-		InnerNode n24B = new ChanceNode("","C'est la détresse", "image/ForetPeur.jpg",probabilite2);
-		InnerNode n25B = new TextNode("","Je m'enfuis dans la forêt","image/ForetPeur.jpg");
-		InnerNode n27B = new TextNode("","Elle nous a vus, go fight avec elle","image/ForetPeur.jpg");
-		FightNode n31 = new FightNode("La sorcière vous attaque","image/ForetPeur.jpg");
+		InnerNode n24B = new ChanceNode("","Le groupe, fuyant précipitamment la sorcière, est pris de terreur. Leurs pas résonnent dans la forêt obscurcie par la nuit, chaque bruissement de feuilles et chaque ombre mouvante accentuant leur angoisse. ", "image/ForetPeur.jpg",probabilite2);
+		InnerNode n25B = new TextNode("","Le groupe réussit à semer la sorcière et à s'échapper de la forêt. Une lueur de soulagement traverse leurs visages tandis qu'ils quittent rapidement l'obscurité des bois, laissant la menace mystique derrière eux.","image/ForetPeur.jpg");
+		InnerNode n27B = new TextNode("","Le groupe tente de s'enfuir, mais la sorcière les surprend par hasard. Un frisson d'effroi parcourt le groupe alors qu'ils se rendent compte qu'ils n'ont pas réussi à échapper à l'attention de la sorcière. La course désespérée se transforme en une confrontation soudaine, la sorcière apparaissant à un moment inopportun, prête à les affronter","image/ForetPeur.jpg");		FightNode n31 = new FightNode("La sorcière vous attaque","image/ForetPeur.jpg");
 
 		//Introduction
 		n1.addOption(n2);
@@ -221,7 +208,6 @@ public class Main {
 		n24B.addOption(n25B);
 		n25B.addOption(n35C);
 		n24B.addOption(n27B);
-		n27B.addOption(n31);
 		n31.addOption(n35C);
 		n38C.addOption(n39C);
 		n39C.addOption(n40C);
@@ -237,6 +223,9 @@ public class Main {
 		n37B.addOption(n38B);
 		n37B.addOption(n39B);
 		n39B.addOption(n40C); //Terminal Node
+		n27B.addOption(n34C);
+		
+
 
 
 		// Listes image Personnages
@@ -277,7 +266,7 @@ public class Main {
 		n15C.setImagePersoList(n15CI);
 		ArrayList<String> n16CI= new ArrayList<>();
 		n16CI.add("image/SideCharacter.png");
-		n17C.setImagePersoList(n16CI);
+		n16C.setImagePersoList(n16CI);
 
 		ArrayList<String> n45CI= new ArrayList<>();
 		n45CI.add("image/Duc.png");
@@ -320,7 +309,7 @@ public class Main {
 		
 
 
-		Game.getGame().setFirstNode(taBouche) ;
+		Game.getGame().setFirstNode(n1) ;
 		InterfaceJeu.ecranTitre();
 
 	}
