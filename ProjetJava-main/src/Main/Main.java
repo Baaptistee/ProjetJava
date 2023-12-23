@@ -31,7 +31,9 @@ public class Main {
 		optionn.add("image/MC Mage.png");
 		optionn.add("image/Soigneur.png");
 /********************************************************** INTRODUCTION ***************************************************************/
+		InnerNode n0 = new TextNode("Bienvenue dans notre jeu", "Bienvenue dans Enquêtes et Trahisons !/Ce jeu a été réalisé par Shyrel Touil et Baptiste Matrat dans le cadre d'un projet d'étude pour le Premier Semestre de notre L3 MIDO à l'Université Paris Dauphine PSL/Nous espérons que vous passerez un bon moment !//C'est un jeu dont vous êtes le héros donc il vous suffit de cliquer sur les boutons pour découvrir l'histoire !/N'hésitez également pas à explorer notre Menu et ses sous-options !/Pensez également à sauvegarder assez régulièrement ;)", "image/ForetJolie.png");
 		InnerNode n1 = new TextNode("","Dans le royaume enchanté de FantaisieLalalande, le château majestueux se dressait, dominant la paisible contrée. Au sommet de la hiérarchie royale régnait le roi bien-aimé et son épouse, la princesse adorée de tous. Le prince, jeune et ambitieux, partageait avec sa femme des jours heureux au sein de ce lieu empreint de magie et de splendeur.","image/Chatea.jpg");
+		n0.addOption(n1);
 		InnerNode n2 = new TextNode("","Cependant, une ombre sombre s'abattit soudainement sur cette félicité. Un matin, le château fut secoué par la terrible nouvelle : le roi gisait sans vie sur son divan. Le choc ébranla la cour et plongea FantaisieLalalande dans une atmosphère de mystère et de suspicion.","image/Chatea.jpg");
 		InnerNode n3 = new TextNode("","La nouvelle se répandit comme une traînée de poudre, et rapidement, les regards accusateurs se tournèrent vers le prince. Les murmures des courtisans et des citoyens circulaient dans les couloirs du château comme une sinistre mélodie.	Le prince, accablé par le deuil et la calomnie, se retrouva confronté à des soupçons persistants. Alors même qu'il pleurait la perte de son père, des murmures s'élevaient, jetant une ombre sur son innocence. Les récents désaccords entre le prince et le roi étaient amplifiés, jetant une lumière sinistre sur leur relation.","image/Chatea.jpg") ;
 		InnerNode n4 = new TextNode("","Un jour, alors que le prince errait dans les jardins du château, il entendit des murmures sournois provenant des courtisans :/"+"\"Le prince doit être le coupable. Pourquoi d'autre aurait-il tant de querelles avec le roi ?\"/ \"Le pouvoir l'a corrompu, c'est évident. Il était prêt à tout pour monter sur le trône." + "\"Le roi n'aurait jamais été retrouvé mort si le prince ne l'avait pas tué. C'est une évidence !\"","image/Chatea.jpg");
@@ -45,7 +47,6 @@ public class Main {
 		
 		InnerNode n11 = new ChooseNode("Le prince et ses compagnons fuyaient le château en quête de réponses. Ils atteignirent une clairière éclairée par la lueur de la lune. Là, le groupe se figea, cherchant une solution."+ "Le voleur brisa le silence.\"Cher compagnons, il nous faut des forces. Les Chevaliers et les Soigneurs sont les plus proches. \"Faites un choix pour l'quipe?\"","image/Chatea.jpg");
 		InnerNode n12 = new TextNode("Chez Chevalier", "Le groupe, ayant choisi de se diriger vers le Chevalier, se rendit dans le domaine derrière le château royal. Les arbres formaient une allée menant à la demeure du Chevalier.Devant les grandes portes du domaine, le prince s'adressa au chevalier : \"Convainquons ton père de notre innocence. Son influence pourrait être cruciale\"./Le groupe pénétra dans le domaine, prêt à confronter le père du Chevalier pour obtenir son soutien dans leur quête pour rétablir la vérité.","image/DansVille.png");
-		InnerNode n13 = new TextNode("Chez Soigneur", "C'est à plusieurs lieues d'ici ? Il y a des cheveux YAHHH, direction le désert arabica.","image/mystery-2169794_1280.jpg");
 
 /******************************************************** CHEVALIER ***********************************************************/
 		InnerNode n15C = new TextNode("","Le père du Chevalier expliqua tristement la situation. \"Le roi avait des dettes de jeu, causant des conflits à la cour, surtout avec le duc, son meilleur ami./\"Des rumeurs couraient, affirmant que le roi pillait le royaume et que le château était condamné à la ruine.\" ","image/DansVille.png");
@@ -107,12 +108,21 @@ public class Main {
 		resistances1.add(Eleme.FEU);
 		resistances1.add(Eleme.LUMIERE);
 		int [] probaCompetences9={4,6};
-		ArrayList <CompetencesActives> jeanJacquesCtestt= new ArrayList<>();
-		jeanJacquesCtestt.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
-		jeanJacquesCtestt.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-		jeanJacquesCtestt.add(new CompetenceDammage("la mort", "rttt", 1, 1,150,1, Eleme.FOUDRE, false, true));
-		jeanJacquesCtestt.add(new CompetenceDammage("la mort 2", "2rttt", 0, 1,150,1, Eleme.FOUDRE, false, true));
-		PersonnageAdversaire sorciere = new PersonnageAdversaire("Sorcière", "fesf", 5, 4, 2, 3, 3, 20, 10,resistances1,resistances1, jeanJacquesCtest,probaCompetences9);
+		ArrayList <CompetencesActives> competence3= new ArrayList<>();
+		ArrayList <CompetencesActives> competence2= new ArrayList<>();
+		ArrayList <CompetencesActives> competence1= new ArrayList<>();
+
+		competence1.add(new CompetenceDammage("Miasmes Toxiques", "rttt", 5, 90,10,1, Eleme.TENEBRE, false, true));
+		competence1.add(new CompetenceDammage("Attaque de Magie noire", "2rttt", 10, 90,10,1, Eleme.TENEBRE, true, false));
+		competence1.add(new CompetenceDammage("Coup de Griffe", "rttt", 0, 90,8,1, Eleme.NONE, false, true));
+		competence2.add(new CompetenceDammage("Coup de Griffe", "rttt", 0, 90,8,1, Eleme.NONE, false, true));
+		
+		competence2.add(new CompetenceDammage("Crachat Toxique", "2rttt", 5, 90,150,1, Eleme.FOUDRE, false, true));
+		
+		int[] proba1 = {2,3,1};
+
+		PersonnageAdversaire sorciere = new PersonnageAdversaire("Sorcière", "fesf", 5, 5, 5, 10, 5, 50, 20,new ArrayList<>(),new ArrayList<>(), competence1,proba1);
+		
 		PersonnageAdversaire crapeau = new PersonnageAdversaire("Crapadudus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,resistances1 ,resistances1, jeanJacquesCtest, probaCompetences9);
 		PersonnageAdversaire chauveSouris = new PersonnageAdversaire("Chasouradus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,resistances1 ,resistances1, jeanJacquesCtest, probaCompetences9);
 		PersonnageAdversaire carnivor= new PersonnageAdversaire("Carnivodus", "fecdfsf", 2, 4, 3, 3, 3, 20, 10,resistances1 ,resistances1, jeanJacquesCtest, probaCompetences9);
@@ -134,15 +144,15 @@ public class Main {
 		Node n38B = new TerminalNode("", "Les gardes, arrivant pour interroger le duc dans le cadre de l'enquête, surprennent le prince devant la porte de la demeure du Duc. C'est un tournant tragique, marquant la fin du jeu pour le prince qui est finalement capturé. Le destin semble scellé alors que le prince doit faire face à une condamnation à mort par pendaison, prévue pour le lendemain. La tension et la désolation s'installent parmi le groupe, mettant en évidence l'ampleur de l'injustice qui plane sur eux. ", "image/ExterieurchateauForet.jpg");
 		InnerNode n39B= new TextNode("", "Devant cet échec, ils décident de contourner la maison pour accéder au jardin. Les regards inquiets s'échangent parmi le groupe alors qu'ils se dirigent vers une autre entrée, espérant trouver une issue à travers le jardin du duc.", "image/ai-generated-7819202_1280.jpg");		InnerNode n38C= new SoinNode("", "Le soigneur, conscient de l'épuisement après le combat et les efforts pour ouvrir la porte, propose de prendre un moment pour se ressourcer. \"Nous devrions recharger nos batteries avant d'explorer davantage le château. Asseyons-nous un moment, mes amis.\"","image/ai-generated-7819202_1280.jpg");
 		InnerNode n39C= new TextNode("", "Le prince et son équipe explorent le château, cherchant des indices pour résoudre le mystère qui les entoure. Chacun examine différents éléments, des portraits aux documents, à la recherche d'informations cruciales. Le soigneur repère des empreintes fraîches, suggérant une présence récente. Ensemble, ils espèrent trouver des réponses qui les guideront vers la vérité et l'innocence du prince.","image/ai-generated-7819202_1280.jpg");
-		InnerNode n40C= new TestNode("", "En fouillant le jardin près de la forêt, l'équipe découvre une plante qui ressemble étrangement au Valavumdum. Le Mage va faire un test d'intelligence", "image/ai-generated-7848726_1280.jpg", Statistiques.INTELLIGENCE, 40, 2);
+		InnerNode n40C= new TestNode("", "En fouillant le jardin près de la forêt, l'équipe découvre une plante qui ressemble étrangement au Valavumdum. Le Mage va faire un test d'intelligence", "image/ExterieurchateauForet.jpg", Statistiques.INTELLIGENCE, 40, 2);
 		
-		InnerNode n41C= new TextNode("","Le Mage ayant réussit son test, s'exclame haut et fort, \"C'est le Valavuldum ! Le duc a menti sur la nature de sa quête.\"./L'équipe, soulagée d'avoir enfin mis la main sur l'objet de la quête du duc, se prépare à confronter celui-ci avec cette découverte inattendue. Ils redoublent d'efforts pour rassembler toutes les pièces du puzzle et élucider le mystère qui les a entraînés dans cette aventure complexe.","image/ai-generated-7848726_1280.jpg");		
+		InnerNode n41C= new TextNode("","Le Mage ayant réussit son test, s'exclame haut et fort, \"C'est le Valavuldum ! Le duc a menti sur la nature de sa quête.\"./L'équipe, soulagée d'avoir enfin mis la main sur l'objet de la quête du duc, se prépare à confronter celui-ci avec cette découverte inattendue. Ils redoublent d'efforts pour rassembler toutes les pièces du puzzle et élucider le mystère qui les a entraînés dans cette aventure complexe.","image/ExterieurchateauForet.jpg");		
 		InnerNode n42B= new TextNode("", "Le groupe n'a pas réussi le test d'intelligence. Cette plante n'est pas celle recherchée", "image/ExterieurchateauForet.jpg");
 		Node n42C= new TerminalNode("", "Le Prince, avec la preuve du Valavuldum en main, décide de se rendre au chateau. La vérité éclate, le duc avoue ses mensonges et sa machination. Face à ses actes, la justice est rendue. Le prince, désormais libre de toute accusation, voit la vérité triompher. Cependant, la sentence pour le duc est sévère, la justice imposant la pendaison pour ses actions malveillantes. La lumière de la vérité a dissipé les ombres de l'injustice, mais elle a également révélé la noirceur cachée derrière les murs du château. La quête du prince se termine par sa rédemption et la justice impartiale.", "image/ExterieurchateauForet.jpg");
 		InnerNode n43C= new TextNode("","Soudain, la cuisinière qui revenait du marché les surprend en train de fouiller dans le jardin du duc. Son visage s'illumine de surprise et d'incompréhension. Elle décide simplement de prévenir les gardes et le duc de la situation." , "image/ExterieurchateauForet.jpg");
 		InnerNode n44C= new TextNode("", "Le groupe se hâte discrètement à travers les allées, cherchant un chemin qui les ramènera à la sécurité de la forêt. Le suspense monte alors qu'ils évitent les regards curieux des gardes et des autres employés.", "image/ExterieurchateauForet.jpg");
 		Node n45C= new TerminalNode("", "Le groupe réalise avec horreur que leur tentative d'évasion a été trop tardive. Le duc, accompagné des gardes, les surprend avant qu'ils n'aient pu atteindre la sécurité. Le prince est capturé, et un verdict hâtif est prononcé : il sera pendu le lendemain pour trahison.Le désespoir s'empare du prince et de ses compagnons. Ils comprennent que le duc est prêt à tout pour maintenir son mensonge et dissimuler la vérité. La nuit qui s'ensuit est sombre et chargée d'incertitudes, laissant le destin du prince suspendu à un file.", "image/ExterieurchateauForet.jpg");
-		ObjetNode objetNode = new ObjetNode("Node test", "Le soigneur récupere quelques branches en tant que preuve","image/ai-generated-7848726_1280.jpg");
+		ObjetNode objetNode = new ObjetNode("Node test", "Le soigneur récupere quelques branches en tant que preuve","image/ExterieurchateauForet.jpg");
 		Map<Collectibles, Integer> preuve = new HashMap<Collectibles, Integer>();
 		Collectibles valavumdum = new Objets("Valavumdum", "La plante empoisonnée qui a tué le Roi !") ;
 		preuve.put(valavumdum, 1);
@@ -172,7 +182,6 @@ public class Main {
 		//Debut
 		n8.addOption(n11);
 		n11.addOption(n12);
-		n11.addOption(n13);
 
 		//chevalier
 		n12.addOption(n15C);
@@ -309,7 +318,7 @@ public class Main {
 		
 
 
-		Game.getGame().setFirstNode(n1) ;
+		Game.getGame().setFirstNode(n0) ;
 		InterfaceJeu.ecranTitre();
 
 	}
