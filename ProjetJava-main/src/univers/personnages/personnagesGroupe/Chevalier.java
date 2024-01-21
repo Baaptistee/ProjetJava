@@ -42,7 +42,7 @@ public class Chevalier extends PersoGroupe{
 		if (instance == null) {
 			ArrayList<CompetencesActives> competence = new ArrayList<CompetencesActives>() ;
 			CompetencesActives c1 = new CompetenceDammage("Coup d'épée faible", "Une attaque de base avec l'arme", 0, 100, 5, 1, Eleme.NONE, false, true) ;
-			CompetencesActives c2 = new CompetenceDammage("Coup d'épée puissant", "une attaque puissante avec l'arme", 5, 100, 10, 1, Eleme.NONE, false, true) ;
+			CompetencesActives c2 = new CompetenceDammage("Coup puissant", "une attaque puissante avec l'arme", 5, 100, 10, 1, Eleme.NONE, false, true) ;
 			competence.add(c2) ;
 			competence.add(c1) ;
 			ArrayList<Eleme> faiblesses = new ArrayList<Eleme>() ;

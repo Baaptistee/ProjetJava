@@ -45,7 +45,7 @@ public class Main {
 
 /********************************************************** DEBUT **************************************************************/
 		
-		InnerNode n11 = new ChooseNode("Le prince et ses compagnons fuyaient le château en quête de réponses. Ils atteignirent une clairière éclairée par la lueur de la lune. Là, le groupe se figea, cherchant une solution."+ "Le voleur brisa le silence.\"Cher compagnons, il nous faut des forces. Les Chevaliers et les Soigneurs sont les plus proches. \"Faites un choix pour l'quipe?\"","image/Chatea.jpg");
+		InnerNode n11 = new ChooseNode("Le prince et ses compagnons fuyaient le château en quête de réponses. Ils atteignirent une clairière éclairée par la lueur de la lune. Là, le groupe se figea, cherchant une solution."+ "Le voleur brisa le silence.\"Cher compagnons, il nous faut des forces. Les terres du chevalier sont les plus proches. \"Je propose de nous y diriger.\"","image/Chatea.jpg");
 		InnerNode n12 = new TextNode("Chez Chevalier", "Le groupe, ayant choisi de se diriger vers le Chevalier, se rendit dans le domaine derrière le château royal. Les arbres formaient une allée menant à la demeure du Chevalier.Devant les grandes portes du domaine, le prince s'adressa au chevalier : \"Convainquons ton père de notre innocence. Son influence pourrait être cruciale\"./Le groupe pénétra dans le domaine, prêt à confronter le père du Chevalier pour obtenir son soutien dans leur quête pour rétablir la vérité.","image/DansVille.png");
 
 /******************************************************** CHEVALIER ***********************************************************/
@@ -160,6 +160,8 @@ public class Main {
 		InnerNode n43C= new TextNode("","Soudain, la cuisinière qui revenait du marché les surprend en train de fouiller dans le jardin du duc. Son visage s'illumine de surprise et d'incompréhension. Elle décide simplement de prévenir les gardes et le duc de la situation." , "image/ExterieurchateauForet.jpg");
 		InnerNode n44C= new TextNode("", "Le groupe se hâte discrètement à travers les allées, cherchant un chemin qui les ramènera à la sécurité de la forêt. Le suspense monte alors qu'ils évitent les regards curieux des gardes et des autres employés.", "image/ExterieurchateauForet.jpg");
 		Node n45C= new TerminalNode("", "Le groupe réalise avec horreur que leur tentative d'évasion a été trop tardive. Le duc, accompagné des gardes, les surprend avant qu'ils n'aient pu atteindre la sécurité. Le prince est capturé, et un verdict hâtif est prononcé : il sera pendu le lendemain pour trahison.Le désespoir s'empare du prince et de ses compagnons. Ils comprennent que le duc est prêt à tout pour maintenir son mensonge et dissimuler la vérité. La nuit qui s'ensuit est sombre et chargée d'incertitudes, laissant le destin du prince suspendu à un file.", "image/ExterieurchateauForet.jpg");
+		Node n45C2= new TerminalNode("", "Désolé, vous avez perdu !", "image/ExterieurchateauForet.jpg");
+
 		ObjetNode objetNode = new ObjetNode("Node test", "Le soigneur récupere quelques branches en tant que preuve","image/ExterieurchateauForet.jpg");
 		Map<Collectibles, Integer> preuve = new HashMap<Collectibles, Integer>();
 		Collectibles valavumdum = new Objets("Valavumdum", "La plante empoisonnée qui a tué le Roi !") ;
@@ -204,6 +206,8 @@ public class Main {
 		n20C.addOption(n24C);
 		n19C.addOption(n23C);
 		n23C.addOption(n24C);
+		n23C.addOption(n45C2);
+
 		n21C.addOption(n23C);
 		n24C.addOption(n25C);
 		n25C.addOption(n26C);
@@ -219,6 +223,7 @@ public class Main {
 		n32C.addOption(n33C);
 		n33C.addOption(n34C);
 		n34C.addOption(n35C);
+		n34C.addOption(n45C2);
 		n35C.addOption(n36C);
 		n36C.addOption(n37C);
 		n37C.addOption(n38C);
